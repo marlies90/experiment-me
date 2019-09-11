@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Experiments</h1>
+
+<div>
+  <% @experiments.each do |experiment| %>
+  <span><%= experiment.name %></span>
+  <span><%= experiment.description %></span>
+  <%= image_tag experiment.image %>
+  <span><%= link_to 'Show', experiment %></span>
+  <span><%= link_to 'Edit', edit_experiment_path(experiment) %></span>
+  <span><%= link_to 'Destroy', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+  <br>
+  <% end %>
+</div>
+
+
+<br>
+
+<%= link_to 'New Experiment', new_experiment_path %>
