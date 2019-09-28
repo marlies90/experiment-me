@@ -1,2 +1,67 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<main role="main">
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Experiment.rocks</h1>
+      <p class="lead text-muted">Optimize your life - one experiment at a time</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2">View experiments</a>
+        <a href="#" class="btn btn-secondary my-2">Register</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="container marketing">
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">1. Choose an experiment</h2>
+        <p class="lead">
+          Check out which benefits you can expect to gain and see how others rate this experiment.
+        </p>
+      </div>
+      <div class="col-md-5">
+        {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %}
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading">2. Track the impact it has on your life</h2>
+        <p class="lead">Fill in a baseline survey before you start, and track your progress on a day to day basis. </p>
+      </div>
+      <div class="col-md-5 order-md-1">
+        {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %}
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">3. Evaluate the results after 3 weeks</h2>
+        <p class="lead">See the results in your charts and decide on whether to integrate this into your life. </p>
+      </div>
+      <div class="col-md-5">
+        {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %}
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading">4. Repeat</h2>
+        <p class="lead">Congratulations! You tried something new and found out whether it improved your life. Get ready for the next experiment! </p>
+      </div>
+      <div class="col-md-5 order-md-1">
+        {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %}
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+  </div>
+</main>
