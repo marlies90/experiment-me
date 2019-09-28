@@ -41,7 +41,7 @@ class ExperimentsController < ApplicationController
   private
 
     def set_experiment
-      @experiment = Experiment.find(params[:id])
+      @experiment = Experiment.friendly.find(params[:id])
     end
 
     def experiment_params
