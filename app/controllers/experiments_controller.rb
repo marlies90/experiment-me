@@ -2,7 +2,7 @@ class ExperimentsController < ApplicationController
   before_action :set_experiment, only: [:show, :edit, :update, :destroy]
 
   def index
-    @experiments = Experiment.all
+    @experiments = Experiment.find(params[:category])
   end
 
   def show
