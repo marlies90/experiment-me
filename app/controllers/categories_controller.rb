@@ -6,6 +6,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    @experiments = @category.experiments
   end
 
   def new

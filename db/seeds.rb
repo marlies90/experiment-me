@@ -1,4 +1,4 @@
-6.times do |category|
+4.times do |category|
   Category.create!(
     name: "Category #{category}",
     description: "This is the description of category #{category}",
@@ -6,7 +6,7 @@
   )
 end
 
-puts "*** 6 categories created ***"
+puts "*** 4 categories created ***"
 
 6.times do |topic|
   Experiment.create!(

@@ -16,9 +16,34 @@
 </p>
 
 <p>
-  <strong>Related experiment IDs:</strong>
-  <%= @category.experiments.map(&:id) %>
+  <strong>Related experiment names:</strong>
+  <%= @experiments.map(&:name) %>
 </p>
 
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>
+
+<main role="main">
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <% @experiments.each do |experiment| %>
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <%= image_tag experiment.image %>
+              <div class="card-body">
+                <h3><%= experiment.name %></h3>
+                <p class="card-text"><%= experiment.description %><% link_to "View", experiment_path(id: experiment.id) %></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <%= link_to "View", experiment_path(id: experiment.id), class: "btn btn-sm btn-outline-secondary" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>
