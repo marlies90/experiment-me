@@ -1,19 +1,9 @@
-<p id="notice"><%= notice %></p>
+<main>
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading"><%= @experiment.name %></h1>
+      <p class="lead text-muted"><%= @experiment.description %></p>
+    </div>
+  </section>
 
-<p>
-  <strong>Name:</strong>
-  <%= @experiment.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @experiment.description %>
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%= @experiment.image %>
-</p>
-
-<%= link_to 'Edit', edit_experiment_path(@experiment) %> |
-<%= link_to 'Back', experiments_path %>
+</main>
