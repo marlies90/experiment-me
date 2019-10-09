@@ -18,3 +18,13 @@ puts "*** 4 categories created ***"
 end
 
 puts "*** 6 experiments created ***"
+
+3.times do |resource|
+  Resource.create!(
+    name: "Resource #{resource}",
+    source: "https://www.google.com",
+    experiment_id: Experiment.find(resource + 1)
+  )
+end
+
+puts "*** 3 resources created ***"

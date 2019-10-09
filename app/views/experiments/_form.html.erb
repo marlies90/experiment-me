@@ -26,6 +26,15 @@
     <%= form.text_area :image %>
   </div>
 
+  <%= form.fields_for :resources do |resource| %>
+    <div class="field">
+      <%= resource.label :name %>
+      <%= resource.text_area :name %>
+      <%= resource.label :source %>
+      <%= resource.text_area :source %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

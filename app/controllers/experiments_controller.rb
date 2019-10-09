@@ -9,9 +9,11 @@ class ExperimentsController < ApplicationController
 
   def new
     @experiment = Experiment.new
+    3.times { @experiment.resources.build }
   end
 
   def edit
+    3.times { @experiment.resources.build }
   end
 
   def create
@@ -44,6 +46,6 @@ class ExperimentsController < ApplicationController
     end
 
     def experiment_params
-      params.fetch(:experiment).permit(:name, :description, :image)
+      params.fetch(:experiment).permit(:name, :description, :image, resources_attributes: [:id, :name, :source])
     end
 end
