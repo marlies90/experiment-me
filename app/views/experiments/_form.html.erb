@@ -26,6 +26,7 @@
     <%= form.text_area :image %>
   </div>
 
+  <h3>Resources</h3>
   <%= form.fields_for :resources do |resource| %>
     <div class="field">
       <%= resource.label :name %>
@@ -35,10 +36,19 @@
     </div>
   <% end %>
 
+  <h3>Objective</h3>
   <div class="field">
     <%= form.label :objective %>
     <%= form.text_area :objective %>
   </div>
+
+  <h3>Benefits</h3>
+  <%= form.fields_for :benefits do |benefit| %>
+    <div class="field">
+      <%= benefit.label :name %>
+      <%= benefit.text_area :name %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>
