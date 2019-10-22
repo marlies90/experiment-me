@@ -7,5 +7,18 @@
       <p class="lead text-muted"><%= @experiment.description %></p>
     </div>
   </section>
+  <div>
+    <p>Resources</p>
+    <ul>
+      <% @experiment.resources.each do |resource| %>
+      <li><%= link_to "#{resource.name}", "#{resource.source}", target: "_blank" %></li>
+      <% end %>
+    </ul>
+
+    <h3>Objective</h3>
+    <p>
+      <%= @experiment.objective %>
+    </p>
+  </div>
 
 </main>

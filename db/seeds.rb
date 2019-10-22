@@ -8,12 +8,13 @@ end
 
 puts "*** 4 categories created ***"
 
-6.times do |topic|
+6.times do |experiment|
   Experiment.create!(
-    name: "Experiment #{topic}",
-    description: "This is the description of experiment #{topic}",
+    name: "Experiment #{experiment}",
+    description: "This is the description of experiment #{experiment}",
     image: "https://via.placeholder.com/350",
-    category: Category.find(topic + 1)
+    category: Category.find(experiment + 1),
+    objective: "This is the objective of experiment #{experiment}"
   )
 end
 

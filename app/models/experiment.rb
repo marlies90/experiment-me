@@ -6,5 +6,5 @@ class Experiment < ApplicationRecord
   has_many :resources
   accepts_nested_attributes_for :resources, reject_if: lambda { |attrs| attrs['name'].blank? }
 
-  validates_presence_of :name, :description, :image
+  validates_presence_of :name, :description, :image, :objective
 end
