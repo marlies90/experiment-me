@@ -15,7 +15,7 @@ experiments = [
   "Optimize schedule for sleep"
 ]
 
-experiments.map do |experiment|
+experiments.map! do |experiment|
   Experiment.create!(
     name: "#{experiment}",
     description: "This is the description of experiment #{experiment}. Doggo ipsum noodle horse borkf big ol pupper, the neighborhood pupper. Borking doggo super chub long water shoob extremely cuuuuuute dat tungg tho h*ck, heck thicc pats. Pupperino pats you are doing me the shock aqua doggo heckin angery woofer, what a nice floof most angery pupper I have ever seen mlem. aqua doggo. extremely cuuuuuute. Length boy shoob vvv clouds aqua doggo, wow such tempt many pats fluffer. Floofs the neighborhood pupper long woofer porgo noodle horse doing me a frighten, thicc puggorino blep. Big ol doge heckin the neighborhood pupper boofers super chub sub woofer, adorable doggo blep fat boi sub woofer pupperino. Long woofer heckin good boys and girls shibe very hand that feed shibe thicc, fat boi very taste wow lotsa pats. heckin angery woofer long bois puggorino. Blep shoob long water shoob, puggorino.
@@ -32,16 +32,28 @@ puts "*** experiments created ***"
   Resource.create!(
     name: "Resource #{resource}",
     source: "https://www.google.com",
-    experiment_id: Experiment.where(name: "Embrace the darkness")
+    experiment_id: Experiment.where(name: "Embrace the darkness").first.id
   )
 end
 
 puts "*** resources created ***"
 
-3.times do |benefit|
+benefits = [
+  "Better sleep",
+  "Feeling more rested",
+  "More energy during the day"
+]
+
+benefits.map! do |benefit|
   Benefit.create!(
-    name: "Better sleep #{benefit}"
+    name: "#{benefit}"
   )
 end
 
 puts "*** benefits created ***"
+
+experiments.each do |experiment|
+  experiment.benefits << benefits
+end
+
+puts "*** linked benefits to experiments ***"

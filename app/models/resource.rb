@@ -1,3 +1,3 @@
 class Resource < ApplicationRecord
-  belongs_to :experiment, optional: true
+  belongs_to :experiment
 end
