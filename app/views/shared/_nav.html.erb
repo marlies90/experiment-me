@@ -9,11 +9,9 @@
         <a class="nav-link" href="<%= home_path %>">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <%= link_to "Start experiment", categories_path, class: "nav-link" %>
+        <a class="nav-link" href="<%= categories_path %>">Experiments</a>
       </li>
-      <li class="nav-item">
-        <%= link_to "Register", categories_path, class: "nav-link" %>
-      </li>
+      <%= login_helper %>
     </ul>
   </div>
 </nav>
