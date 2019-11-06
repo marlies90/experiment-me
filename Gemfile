@@ -20,6 +20,8 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 gem 'friendly_id', '~> 5.3'
 gem 'devise', '~> 4.7', '>= 4.7.1'
+gem 'pundit', '~> 2.1'
+gem 'pundit-matchers', '~> 1.6'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

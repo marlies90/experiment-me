@@ -9,6 +9,7 @@ class ExperimentsController < ApplicationController
 
   def new
     @experiment = Experiment.new
+    authorize @experiment
     3.times { @experiment.benefits.build }
   end
 
@@ -18,6 +19,7 @@ class ExperimentsController < ApplicationController
 
   def create
     @experiment = Experiment.new(experiment_params)
+    authorize @experiment
 
     if @experiment.save
       redirect_to @experiment, notice: 'Experiment was successfully created.'
@@ -43,6 +45,7 @@ class ExperimentsController < ApplicationController
 
     def set_experiment
       @experiment = Experiment.friendly.find(params[:id])
+      authorize @experiment
     end
 
     def experiment_params
