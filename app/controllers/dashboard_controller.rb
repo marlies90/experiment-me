@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_action :authorize_user
+  before_action :set_user
 
   def overview
   end
@@ -15,7 +15,8 @@ class DashboardController < ApplicationController
 
   private
 
-  def authorize_user
+  def set_user
+    @user = current_user
     authorize self
   end
 end
