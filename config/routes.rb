@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'dashboard/overview'
+  get 'dashboard/settings'
+  get 'dashboard/progress'
+  get 'dashboard/admin'
+  
   devise_for :users
   get "/:category/experiments", to: "categories#show", as: "category"
   resources :categories, except: [:show]
