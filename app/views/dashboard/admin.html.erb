@@ -6,6 +6,54 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Admin</h1>
       </div>
+      <div>
+        <h4>Experiments</h4>
+        <table class="table">
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+          <% @experiments.each do |experiment| %>
+            <tr>
+              <td><%= experiment.name %></td>
+              <td><%= experiment.category.name %></td>
+              <td>
+                <span><%= link_to "Show", experiment_path(id: experiment.slug, category: experiment.category) %></span>
+                <span><%= link_to "Edit", edit_experiment_path(id: experiment.slug, category: experiment.category) %></span>
+                <span><%= link_to "Destroy", experiment_path(id: experiment.slug, category: experiment.category), method: :delete, data: { confirm: "Are you sure?" } %></span>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+
+        <h4>Categories</h4>
+        <table class="table">
+          <tr>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+
+        </table>
+
+
+        <h4>Users</h4>
+        <table class="table">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+          <% @users.each do |user| %>
+          <tr>
+            <td><%= user.first_name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
     </main>
   </div>
 </div>

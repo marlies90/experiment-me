@@ -3,6 +3,10 @@ class DashboardControllerPolicy < ApplicationPolicy
     user.present?
   end
 
+  def journal?
+    overview?
+  end
+
   def settings?
     overview?
   end

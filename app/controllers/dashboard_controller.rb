@@ -7,10 +7,16 @@ class DashboardController < ApplicationController
   def settings
   end
 
+  def journal
+  end
+
   def progress
   end
 
   def admin
+    @categories = Category.all
+    @experiments = Experiment.all
+    @users = User.all
   end
 
   private
