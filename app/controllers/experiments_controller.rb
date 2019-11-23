@@ -22,7 +22,7 @@ class ExperimentsController < ApplicationController
     authorize @experiment
 
     if @experiment.save
-      redirect_to @experiment, notice: 'Experiment was successfully created.'
+      redirect_to dashboard_admin_path, notice: 'Experiment was successfully created.'
     else
       render :new
     end
@@ -30,7 +30,7 @@ class ExperimentsController < ApplicationController
 
   def update
     if @experiment.update(experiment_params)
-      redirect_to @experiment, notice: 'Experiment was successfully updated.'
+      redirect_to dashboard_admin_path, notice: 'Experiment was successfully updated.'
     else
       render :edit
     end
@@ -38,7 +38,7 @@ class ExperimentsController < ApplicationController
 
   def destroy
     @experiment.destroy
-    redirect_to experiments_url, notice: 'Experiment was successfully destroyed.'
+    redirect_to dashboard_admin_path, notice: 'Experiment was successfully destroyed.'
   end
 
   private
@@ -50,7 +50,7 @@ class ExperimentsController < ApplicationController
 
     def experiment_params
       params.fetch(:experiment).permit(
-        :name, :description, :image, :objective,
+        :name, :description, :image, :objective, :category_id,
         resources_attributes: [:id, :name, :source, :_destroy],
         benefits_attributes: [:name]
       )
