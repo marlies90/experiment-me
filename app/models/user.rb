@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
 
   enum role: [:standard, :admin]
+
+  has_many :journal_entries
 end
