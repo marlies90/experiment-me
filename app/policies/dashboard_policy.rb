@@ -1,4 +1,4 @@
-class DashboardControllerPolicy < ApplicationPolicy
+class DashboardPolicy < ApplicationPolicy
   def overview?
     user.present?
   end

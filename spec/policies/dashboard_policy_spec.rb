@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DashboardControllerPolicy do
+RSpec.describe DashboardPolicy do
   subject { DashboardPolicy.new(user, self) }
 
   context "When not logged in" do
