@@ -63,7 +63,7 @@ end
 
 puts "*** linked benefits to experiments ***"
 
-journal_entry_dates = [ Time.zone.now, Time.zone.yesterday ]
+journal_entry_dates = [ DateTime.current, DateTime.yesterday ]
 
 journal_entry_dates.map do |date|
   JournalEntry.create!(

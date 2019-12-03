@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_091937) do
   end
 
   create_table "journal_entries", force: :cascade do |t|
-    t.time "date"
+    t.datetime "date"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
