@@ -1,0 +1,41 @@
+<%= form_with(model: journal_entry, local: true) do |form| %>
+  <% if journal_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(journal_entry.errors.count, "error") %> prohibited this journal entry from being saved:</h2>
+
+      <ul>
+      <% journal_entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col">
+      <h3><%= Time.zone.today %></h3>
+
+      <input type="hidden" id="journal_entry_date" name="journal_entry[date]" value="<%= Time.zone.today.beginning_of_day %>">
+
+      <%= form.fields_for :journal_rating do |journal_rating| %>
+        <div class="form-group nested-fields">
+          <div class="row">
+            <div class="col">
+              <% JournalStatement.all.each_with_index do |statement, index| %>
+              <fieldset>
+                <label for="journal_ratings"><%= statement.name %></label>
+                <input type="hidden" name="journal_entry[journal_ratings_attributes][<%= index %>][journal_statement_id]" value="<%= statement.id %>"></input>
+                <%= 10.times do |value| %>
+                  <input type="radio" id="<%= statement.id %>" name="journal_entry[journal_ratings_attributes][<%= index %>][score]" value="<%= value + 1 %>"></input>
+                <% end %>
+              </fieldset>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.submit "Save journal entry", class: "btn btn-primary" %>
+      </div>
+    <% end %>
