@@ -11,15 +11,20 @@ class JournalEntriesController < ApplicationController
 
   def new
     @journal_entry = JournalEntry.new
+    journal_ratings = JournalStatement.all.map do |statement|
+      JournalRating.new(journal_statement_id: statement.id)
+    end
+
+    @journal_entry.journal_ratings = journal_ratings
   end
 
   def edit
+
   end
 
   def create
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.user_id = current_user.id
-    binding.pry
 
     if @journal_entry.save
       redirect_to dashboard_journal_path, notice: 'Journal entry was successfully created.'
@@ -51,7 +56,7 @@ class JournalEntriesController < ApplicationController
   def journal_entry_params
     params.fetch(:journal_entry).permit(
       :date, :user_id,
-      journal_ratings_attributes: [:journal_statement_id, :score]
+      journal_ratings_attributes: [:id, :journal_statement_id, :score]
     )
   end
 end

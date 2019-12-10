@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h2><%= @journal_entry.date %></h2>
+
+      <table class="table">
+        <tr>
+          <th>Statement</th>
+          <th>Score</th>
+        </tr>
+        
+        <% @journal_entry.journal_ratings.each do |rating| %>
+        <tr>
+          <td><%= JournalStatement.find_by(id: rating.journal_statement_id).name %></td>
+          <td><%= rating.score %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

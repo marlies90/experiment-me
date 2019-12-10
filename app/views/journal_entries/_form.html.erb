@@ -1,10 +1,10 @@
-<%= form_with(model: journal_entry, local: true) do |form| %>
-  <% if journal_entry.errors.any? %>
+<%= simple_form_for @journal_entry do |f| %>
+  <% if @journal_entry.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(journal_entry.errors.count, "error") %> prohibited this journal entry from being saved:</h2>
 
       <ul>
-      <% journal_entry.errors.full_messages.each do |message| %>
+      <% @journal_entry.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -13,29 +13,15 @@
 
   <div class="row">
     <div class="col">
-      <h3><%= Time.zone.today %></h3>
+      <%= f.select(:date, [DateTime.current.beginning_of_day, DateTime.yesterday.beginning_of_day], class: "required") %>
 
-      <input type="hidden" id="journal_entry_date" name="journal_entry[date]" value="<%= Time.zone.today.beginning_of_day %>">
-
-      <%= form.fields_for :journal_rating do |journal_rating| %>
-        <div class="form-group nested-fields">
-          <div class="row">
-            <div class="col">
-              <% JournalStatement.all.each_with_index do |statement, index| %>
-              <fieldset>
-                <label for="journal_ratings"><%= statement.name %></label>
-                <input type="hidden" name="journal_entry[journal_ratings_attributes][<%= index %>][journal_statement_id]" value="<%= statement.id %>"></input>
-                <%= 10.times do |value| %>
-                  <input type="radio" id="<%= statement.id %>" name="journal_entry[journal_ratings_attributes][<%= index %>][score]" value="<%= value + 1 %>"></input>
-                <% end %>
-              </fieldset>
-              <% end %>
-            </div>
-          </div>
-        </div>
+      <%= f.simple_fields_for :journal_ratings do |journal_rating| %>
+        <%= journal_rating.hidden_field :id %>
+        <%= journal_rating.hidden_field :journal_statement_id %>
+        <%= journal_rating.input :score, collection: 1..10, as: :radio_buttons %>
       <% end %>
 
       <div class="form-group">
-        <%= form.submit "Save journal entry", class: "btn btn-primary" %>
+        <%= f.submit "Save journal entry", class: "btn btn-primary" %>
       </div>
     <% end %>
