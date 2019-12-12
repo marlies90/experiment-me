@@ -12,7 +12,7 @@ class JournalEntriesController < ApplicationController
   def new
     @journal_entry = JournalEntry.new
     journal_ratings = JournalStatement.all.map do |statement|
-      JournalRating.new(journal_statement_id: statement.id)
+      JournalRating.new(journal_statement: statement)
     end
 
     @journal_entry.journal_ratings = journal_ratings

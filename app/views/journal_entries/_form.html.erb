@@ -13,12 +13,17 @@
 
   <div class="row">
     <div class="col">
-      <%= f.select(:date, [DateTime.current.beginning_of_day, DateTime.yesterday.beginning_of_day], class: "required") %>
+      <div>
+        <%= f.select(:date, [DateTime.current.beginning_of_day, DateTime.yesterday.beginning_of_day]) %>
+      </div>
 
       <%= f.simple_fields_for :journal_ratings do |journal_rating| %>
         <%= journal_rating.hidden_field :id %>
         <%= journal_rating.hidden_field :journal_statement_id %>
-        <%= journal_rating.input :score, collection: 1..10, as: :radio_buttons %>
+        <%= journal_rating.label :journal_statement do |journal_statement| %>
+          <%= journal_statement.object.journal_statement.name %>
+        <% end %>
+        <%= journal_rating.input :score, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
       <% end %>
 
       <div class="form-group">
