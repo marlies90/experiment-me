@@ -14,8 +14,12 @@
   <div class="row">
     <div class="col">
       <div>
-        <%= f.select(:date, [DateTime.current.beginning_of_day, DateTime.yesterday.beginning_of_day]) %>
-      </div>
+      <% if @journal_entry.date.present? %>
+        <%= @journal_entry.date %>
+      <% else %>
+        <%= f.select(:date, @dates) %>
+      <% end %>
+    </div>
 
       <%= f.simple_fields_for :journal_ratings do |journal_rating| %>
         <%= journal_rating.hidden_field :id %>

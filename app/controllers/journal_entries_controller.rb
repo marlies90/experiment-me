@@ -16,6 +16,11 @@ class JournalEntriesController < ApplicationController
     end
 
     @journal_entry.journal_ratings = journal_ratings
+
+    @dates = []
+    14.times do |index|
+      @dates << DateTime.current.beginning_of_day - index
+    end
   end
 
   def edit
@@ -35,6 +40,7 @@ class JournalEntriesController < ApplicationController
 
   def update
     @journal_entry.user_id = current_user.id
+
     if @journal_entry.update(journal_entry_params)
       redirect_to dashboard_journal_path, notice: 'Journal entry was successfully updated.'
     else
