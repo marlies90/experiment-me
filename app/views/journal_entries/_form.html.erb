@@ -17,7 +17,11 @@
       <% if @journal_entry.date.present? %>
         <%= @journal_entry.date %>
       <% else %>
-        <%= f.select(:date, @dates) %>
+        <%= f.select(
+          :date, @dates,
+          disabled: @user.journal_entries.limit(14).map(&:date).difference(@dates).map(&:to_datetime)
+        )
+        %>
       <% end %>
     </div>
 

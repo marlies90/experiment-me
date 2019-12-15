@@ -31,6 +31,11 @@ class JournalEntriesController < ApplicationController
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.user_id = current_user.id
 
+    @dates = []
+    14.times do |index|
+      @dates << DateTime.current.beginning_of_day - index
+    end
+
     if @journal_entry.save
       redirect_to dashboard_journal_path, notice: 'Journal entry was successfully created.'
     else
