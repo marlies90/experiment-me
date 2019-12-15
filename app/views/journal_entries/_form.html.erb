@@ -18,7 +18,7 @@
         <%= @journal_entry.date %>
       <% else %>
         <%= f.select(
-          :date, @dates,
+          :date, @dates.collect{ |d| [ journal_date(d), d ] },
           disabled: @user.journal_entries.limit(14).map(&:date).difference(@dates).map(&:to_datetime)
         )
         %>
