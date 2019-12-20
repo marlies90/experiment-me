@@ -18,7 +18,7 @@
         </tr>
         <% @journal_entries.newest.limit(10).each do |entry| %>
           <tr>
-            <td><%= link_to(entry.date, entry) %></td>
+            <td><%= link_to(to_journal_date(entry.date), entry) %></td>
           </tr>
         <% end %>
       </table>

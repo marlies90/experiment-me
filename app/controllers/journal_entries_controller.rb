@@ -14,13 +14,15 @@ class JournalEntriesController < ApplicationController
     journal_ratings = JournalStatement.all.map do |statement|
       JournalRating.new(journal_statement: statement)
     end
-
     @journal_entry.journal_ratings = journal_ratings
 
     @dates = []
     14.times do |index|
       @dates << DateTime.current.beginning_of_day - index
     end
+
+    @entry_dates = @user.journal_entries.limit(14).map(&:date).difference(@dates).map(&:to_datetime)
+    @available_dates = (@dates - @entry_dates) | (@entry_dates - @dates)
   end
 
   def edit
