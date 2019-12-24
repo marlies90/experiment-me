@@ -63,7 +63,7 @@ class JournalEntriesController < ApplicationController
   end
 
   def set_journal_entry
-    @journal_entry = JournalEntry.find(params[:id])
+    @journal_entry = JournalEntry.where(user_id: current_user.id).friendly.find(params[:id])
   end
 
   def journal_entry_params

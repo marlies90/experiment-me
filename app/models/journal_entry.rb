@@ -1,4 +1,8 @@
 class JournalEntry < ApplicationRecord
+  extend FriendlyId
+  friendly_id :date_slug, :use => :scoped, :scope => :user
+  include DateConcern
+
   belongs_to :user
   has_many :journal_ratings
 
