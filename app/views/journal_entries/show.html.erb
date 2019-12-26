@@ -1,5 +1,7 @@
 <div class="container-fluid">
   <div class="row">
+    <%= render "dashboard/sidebar_nav" %>
+
     <div class="col">
       <h2><%= to_journal_date(@journal_entry.date) %></h2>
 
@@ -16,6 +18,8 @@
         </tr>
         <% end %>
       </table>
+
+      <a class="btn btn-primary" href="<%= edit_journal_entry_path %>">Edit journal entry</a>
     </div>
   </div>
 </div>
