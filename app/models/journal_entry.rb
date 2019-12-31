@@ -1,6 +1,6 @@
 class JournalEntry < ApplicationRecord
   extend FriendlyId
-  friendly_id :date_slug, :use => :scoped, :scope => :user
+  friendly_id :date_slug, use: :slugged
   include DateConcern
 
   belongs_to :user

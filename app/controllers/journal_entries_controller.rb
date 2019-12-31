@@ -2,7 +2,6 @@ class JournalEntriesController < ApplicationController
   before_action :set_user
   before_action :set_journal_entry, only: [:show, :edit, :update, :destroy]
 
-
   def index
   end
 
@@ -63,7 +62,7 @@ class JournalEntriesController < ApplicationController
   end
 
   def set_journal_entry
-    @journal_entry = JournalEntry.where(user_id: current_user.id).friendly.find(params[:id])
+    @journal_entry = JournalEntry.find_by(user_id: current_user.id, slug: params[:id])
   end
 
   def journal_entry_params
