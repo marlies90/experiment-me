@@ -1,0 +1,50 @@
+<%= simple_form_for @journal_entry do |f| %>
+  <% if @journal_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(journal_entry.errors.count, "error") %> prohibited this journal entry from being saved:</h2>
+
+      <ul>
+      <% @journal_entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col">
+      <div class="mt-3 mb-3">
+        <div class="row">
+          <div class="col-3">
+            <% if @journal_entry.date.present? %>
+              <%= to_journal_date(@journal_entry.date) %>
+            <% else %>
+              <%= f.input(
+              :date,
+              collection: @dates.collect{ |d| [ to_journal_date(d), d ] },
+              selected: @available_dates.first,
+              disabled: @entry_dates,
+              class: "form-control"
+              )
+              %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <%= f.simple_fields_for :journal_ratings do |journal_rating| %>
+        <%= journal_rating.hidden_field :id %>
+        <%= journal_rating.hidden_field :journal_statement_id %>
+        <%= journal_rating.label :journal_statement do |journal_statement| %>
+          <%= journal_statement.object.journal_statement.name %>
+          <abbr title="required">*</abbr>
+        <% end %>
+        <%= journal_rating.input :score, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.submit "Save journal entry", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

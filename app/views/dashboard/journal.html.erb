@@ -6,6 +6,24 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Journal</h1>
       </div>
+
+      <div>
+        <a class="btn btn-primary" href="<%= new_journal_entry_path %>"><i class="fas fa-plus"></i>New journal entry</a>
+      </div>
+
+      <div class="mt-4">
+        <h2 class="h5">Your last 10 entries</h2>
+        <table class="table">
+          <tr>
+            <th>Date</th>
+          </tr>
+          <% @journal_entries.newest.limit(10).each do |entry| %>
+          <tr>
+            <td><%= link_to(to_journal_date(entry.date), entry) %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
     </main>
   </div>
 </div>

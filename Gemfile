@@ -14,6 +14,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'bootstrap', '~> 4.3', '>= 4.3.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
 gem 'cocoon', '~> 1.2', '>= 1.2.14'
+gem 'simple_form', '~> 5.0', '>= 5.0.1'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes

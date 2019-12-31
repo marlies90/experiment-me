@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  get "dashboard/overview"
-  get "dashboard/settings"
-  get "dashboard/progress"
-  get "dashboard/journal"
-  get "dashboard/admin"
+  namespace :dashboard do
+    get "overview"
+    get "settings"
+    get "progress"
+    get "journal"
+    get "admin"
+  end
+
+  resources :journal_entries, path: "/dashboard/journal"
 
   devise_for :users
 

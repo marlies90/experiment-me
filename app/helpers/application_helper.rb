@@ -8,4 +8,8 @@ module ApplicationHelper
       content_tag(:li, link_to("Log in", new_user_session_path, class: "nav-link"), class: "nav-item")
     end
   end
+
+  def to_journal_date(date)
+    date.strftime("%e %b %C%y (%a)")
+  end
 end
