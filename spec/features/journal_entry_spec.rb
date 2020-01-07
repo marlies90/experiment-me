@@ -1,0 +1,38 @@
+require 'rails_helper'
+
+RSpec.describe JournalEntry, type: :feature do
+  let(:user) { create(:user) }
+  let!(:journal_statement) { create_list(:journal_statement, 6)}
+
+  before do
+    login_as(user)
+  end
+
+  context "When creating a new journal entry" do
+    before do
+      visit journal_entries_path
+      click_link(class: "btn-primary")
+    end
+
+    it "Allows a valid journal_entry to be created succesfully" do
+      all(class: "journal_entry_journal_ratings_score").each do |rating|
+        rating.choose(class: "radio_buttons", option: "8")
+      end
+      click_button "Save journal entry"
+      expect(page).to have_content "Journal entry was successfully created."
+    end
+
+    it "Does not allow a journal_entry to be created without filling in all ratings" do
+      all(class: "journal_entry_journal_ratings_score").first do |rating|
+        rating.choose(class: "radio_buttons", option: "8")
+      end
+      click_button "Save journal entry"
+      expect(page).to have_content "errors prohibited this journal entry from being saved"
+    end
+
+    it "Does not allow a journal_entry to be created when 0 ratings have been filled in" do
+      click_button "Save journal entry"
+      expect(page).to have_content "errors prohibited this journal entry from being saved"
+    end
+  end
+end
