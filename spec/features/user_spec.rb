@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "users", type: :feature do
+RSpec.describe User, type: :feature do
   context "When signing up" do
     it "Allows for succesful creation of a new user profile" do
       visit new_user_registration_path
