@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe JournalEntry, type: :model do
-  subject { build(:journal_entry_with_ratings) }
+  subject { build(:journal_entry) }
 
   describe "associations" do
     it { is_expected.to respond_to(:user) }
