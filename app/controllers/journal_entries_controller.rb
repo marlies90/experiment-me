@@ -33,7 +33,7 @@ class JournalEntriesController < ApplicationController
     create_date_list
 
     if @journal_entry.save
-      redirect_to dashboard_journal_path, notice: 'Journal entry was successfully created.'
+      redirect_to journal_entries_path, notice: 'Journal entry was successfully created.'
     else
       render :new
     end
@@ -43,7 +43,7 @@ class JournalEntriesController < ApplicationController
     @journal_entry.user_id = current_user.id
 
     if @journal_entry.update(journal_entry_params)
-      redirect_to dashboard_journal_path, notice: 'Journal entry was successfully updated.'
+      redirect_to journal_entries_path, notice: 'Journal entry was successfully updated.'
     else
       render :edit
     end
