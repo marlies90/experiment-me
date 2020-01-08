@@ -3,6 +3,7 @@ class JournalEntriesController < ApplicationController
   before_action :set_journal_entry, only: [:show, :edit, :update, :destroy]
 
   def index
+     @journal_entries = JournalEntry.where(user_id: current_user.id)
   end
 
   def show
@@ -15,10 +16,7 @@ class JournalEntriesController < ApplicationController
     end
     @journal_entry.journal_ratings = journal_ratings
 
-    @dates = []
-    14.times do |index|
-      @dates << DateTime.current.beginning_of_day - index
-    end
+    create_date_list
 
     @entry_dates = @user.journal_entries.limit(14).map(&:date).difference(@dates).map(&:to_datetime)
     @available_dates = (@dates - @entry_dates) | (@entry_dates - @dates)
@@ -32,10 +30,7 @@ class JournalEntriesController < ApplicationController
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.user_id = current_user.id
 
-    @dates = []
-    14.times do |index|
-      @dates << DateTime.current.beginning_of_day - index
-    end
+    create_date_list
 
     if @journal_entry.save
       redirect_to dashboard_journal_path, notice: 'Journal entry was successfully created.'
@@ -55,6 +50,13 @@ class JournalEntriesController < ApplicationController
   end
 
   private
+
+  def create_date_list
+    @dates = []
+    14.times do |index|
+      @dates << DateTime.current.beginning_of_day - index
+    end
+  end
 
   def set_user
     @user = current_user

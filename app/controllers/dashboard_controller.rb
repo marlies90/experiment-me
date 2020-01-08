@@ -7,10 +7,6 @@ class DashboardController < ApplicationController
   def settings
   end
 
-  def journal
-    @journal_entries = current_user.journal_entries
-  end
-
   def progress
   end
 

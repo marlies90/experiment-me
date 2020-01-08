@@ -3,7 +3,6 @@ Rails.application.routes.draw do
     get "overview"
     get "settings"
     get "progress"
-    get "journal"
     get "admin"
   end
 
