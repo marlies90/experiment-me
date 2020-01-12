@@ -34,6 +34,10 @@ RSpec.describe JournalEntry, type: :feature do
       click_button "Save journal entry"
       expect(page).to have_content "errors prohibited this journal entry from being saved"
     end
+
+    it "Auto-selects today in the date picker" do
+      expect(page).to have_select("journal_entry_date", selected: DateTime.current.beginning_of_day)
+    end
   end
 
   context "When a journal entry has been created" do
@@ -60,6 +64,16 @@ RSpec.describe JournalEntry, type: :feature do
       end
       click_button("Save journal entry")
       expect(page).to have_content "Journal entry was successfully updated."
+    end
+
+    it "Does not allow the user to update the date" do
+      expect(page).to_not have_select "journal_entry_date"
+    end
+
+    it "Auto-selects yesterday when the entry for today has already been created" do
+      visit journal_entries_path
+      click_link(class: "btn-primary")
+      expect(page).to have_select("journal_entry_date", selected: DateTime.current.beginning_of_day - 1)
     end
   end
 end

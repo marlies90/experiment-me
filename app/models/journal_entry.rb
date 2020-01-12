@@ -13,4 +13,5 @@ class JournalEntry < ApplicationRecord
   validates_associated :journal_ratings
 
   scope :newest, -> { order("date DESC") }
+  scope :per_user, lambda { |user| where(user_id: user.id) }
 end
