@@ -4,8 +4,8 @@ RSpec.describe User, type: :feature do
   context "When signing up" do
     it "Allows for succesful creation of a new user profile" do
       visit new_user_registration_path
-      fill_in "First name", with: "test"
-      fill_in "Email", with: "test@test.com"
+      fill_in "First name", with: Faker::Name.first_name
+      fill_in "Email", with: Faker::Internet.email
       fill_in "Password", with: "000000"
       fill_in "Password confirmation", with: "000000"
       click_button "Sign up"
