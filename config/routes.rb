@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :journal_entries, path: "/dashboard/journal"
+  resources :journal_statements
 
   devise_for :users
 

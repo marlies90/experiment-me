@@ -60,6 +60,30 @@
           <% end %>
         </table>
 
+        <div class="row mb-1">
+          <div class="col-md-6">
+            <h4>Journal Statements</h4>
+          </div>
+          <div class="col-md-6 text-right">
+            <a class="btn btn-secondary" href="<%= new_journal_statement_path %>"><i class="fas fa-plus"></i>New journal statement</a>
+          </div>
+        </div>
+
+        <table class="table">
+          <tr>
+            <th>Journal Statements</th>
+            <th>Actions</th>
+          </tr>
+          <% @journal_statements.each do |journal_statement| %>
+            <tr>
+              <td><%= journal_statement.name %></td>
+              <td>
+                <span><%= link_to "Edit", edit_journal_statement_path(journal_statement) %></span>
+                <span><%= link_to "Destroy", journal_statement_path(journal_statement), method: :delete, data: { confirm: "Are you sure?" } %></span>
+              </td>
+            </tr>
+          <% end %>
+        </table>
 
         <h4>Users</h4>
         <table class="table">

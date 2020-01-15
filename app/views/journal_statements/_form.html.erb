@@ -1,0 +1,24 @@
+<%= form_with(model: journal_statement, local: true) do |form| %>
+  <% if journal_statement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(journal_statement.errors.count, "error") %> prohibited this journal_statement from being saved:</h2>
+
+      <ul>
+      <% journal_statement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= form.label :name %>
+        <%= form.text_field :name, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.submit "Save category", class: "btn btn-primary" %>
+      </div>
+    <% end %>
