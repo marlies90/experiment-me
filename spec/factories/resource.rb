@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :resource do
-    name { "The best resource" }
-    source { "https://www.google.com" }
+    name { Faker::Games::Zelda.item }
+    source { Faker::Internet.url }
+    
+    experiment { FactoryBot.build_stubbed(:experiment) }
   end
 end

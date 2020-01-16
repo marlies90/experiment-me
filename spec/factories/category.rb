@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :category do
-    name { "Test Category" }
-    description { "This is the description" }
-    image { "image.jpg" }
+    name { Faker::Educator.subject }
+    description { Faker::Lorem.paragraph }
+    image { Faker::Avatar.image }
   end
 end

@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :benefit do
-    name { "MyString" }
+    name { Faker::Games::Zelda.item }
   end
 end
