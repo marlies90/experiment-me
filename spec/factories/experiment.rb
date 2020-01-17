@@ -6,6 +6,6 @@ FactoryBot.define do
     objective { Faker::Lorem.sentence }
 
     category { FactoryBot.build(:category) }
-    benefits { FactoryBot.build_stubbed_list(:benefit, 2) }
+    benefits { FactoryBot.build_list(:benefit, 2) }
   end
 end
