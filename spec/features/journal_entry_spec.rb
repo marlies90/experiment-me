@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe JournalEntry, type: :feature do
-  let(:user) { create(:user) }
-  let!(:journal_statement) { create_list(:journal_statement, 6)}
+  let(:user) { FactoryBot.create(:user) }
+  let!(:journal_statement) { FactoryBot.create_list(:journal_statement, 6)}
 
   before do
     login_as(user)
@@ -18,6 +18,7 @@ RSpec.describe JournalEntry, type: :feature do
       all(class: "journal_entry_journal_ratings_score").each do |rating|
         rating.choose(class: "radio_buttons", option: "8")
       end
+      
       click_button "Save journal entry"
       expect(page).to have_content "Journal entry was successfully created."
     end
@@ -41,7 +42,7 @@ RSpec.describe JournalEntry, type: :feature do
   end
 
   context "When a journal entry has been created" do
-    let(:journal_entry) { create(:journal_entry, user: user) }
+    let(:journal_entry) { FactoryBot.create(:journal_entry, user: user) }
 
     before do
       visit journal_entry_path(journal_entry)

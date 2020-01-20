@@ -10,7 +10,7 @@ RSpec.describe "Pages", type: :request do
   end
 
   describe "Categories and experiments" do
-    let(:category) { create(:category) }
+    let(:category) { FactoryBot.create(:category) }
 
     describe "GET /categories" do
       it "returns the page successfully" do
@@ -27,7 +27,7 @@ RSpec.describe "Pages", type: :request do
     end
 
     describe "GET /:category/experiments/:id" do
-      let(:experiment) { create(:experiment, category: category) }
+      let(:experiment) { FactoryBot.create(:experiment, category: category) }
 
       it "returns the page successfully" do
         get experiment_path(id: experiment.slug, category: category)

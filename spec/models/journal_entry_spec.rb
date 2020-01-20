@@ -31,8 +31,8 @@ RSpec.describe JournalEntry, type: :model do
   end
 
   describe ".per_user" do
-    user = FactoryBot.create(:user)
-    journal_entry_by_user = FactoryBot.create(:journal_entry, user: user)
+    let(:user) { FactoryBot.create(:user) }
+    let(:journal_entry_by_user) { FactoryBot.create(:journal_entry, user: user) }
 
     it "includes journal_entries created by a user" do
       expect(JournalEntry.per_user(user)).to include journal_entry_by_user
