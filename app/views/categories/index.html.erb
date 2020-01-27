@@ -13,7 +13,7 @@
         <% @categories.each do |category| %>
           <div class="col-md-6">
             <div class="card mb-4 shadow-sm">
-              <%= image_tag category.image %>
+              <%= image_tag category.image if category.image.attached? %>
               <div class="card-body">
                 <h3><%= category.name %></h3>
                 <p class="card-text"><%= category.description %></p>

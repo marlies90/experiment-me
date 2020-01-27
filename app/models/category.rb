@@ -5,4 +5,5 @@ class Category < ApplicationRecord
   validates_presence_of :name, :description, :image
 
   has_many :experiments
+  has_one_attached :image
 end
