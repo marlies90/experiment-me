@@ -7,7 +7,7 @@ RSpec.describe Category, type: :model do
     it { is_expected.to respond_to(:experiments) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:description) }
-    it { is_expected.to validate_presence_of(:image) }
+    # it { is_expected.to validate_presence_of(:image) }
   end
 
   it "is valid with valid attributes" do
@@ -23,9 +23,9 @@ RSpec.describe Category, type: :model do
     subject.description = nil
     expect(subject).to_not be_valid
   end
-  
-  it "is not valid without an image" do
-    subject.image = nil
-    expect(subject).to_not be_valid
-  end
+
+  # it "is not valid without an image" do
+  #   subject.image = nil
+  #   expect(subject).to_not be_valid
+  # end
 end

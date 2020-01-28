@@ -13,7 +13,7 @@
         <% @experiments.each do |experiment| %>
           <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
-              <%= image_tag experiment.image %>
+              <%= image_tag experiment.image if experiment.image.attached? %>
               <div class="card-body">
                 <h3><%= experiment.name %></h3>
                 <p class="card-text"><%= experiment.description %></p>

@@ -8,15 +8,15 @@ RSpec.describe Experiment, type: :feature do
     login_as(admin)
   end
 
-  context "When creating a new journal entry" do
+  context "When creating a new experiment" do
     before do
       visit new_experiment_path
     end
 
-    it "Allows a valid journal_entry to be created succesfully" do
+    it "Allows a valid experiment to be created succesfully" do
       fill_in "experiment_name", with: Faker::Superhero.name
       fill_in "Description", with: Faker::Lorem.paragraph
-      fill_in "Image", with: Faker::Avatar.image
+      # fill_in "Image", with: Faker::Avatar.image
       fill_in "Objective", with: Faker::Lorem.sentence
       fill_in class: "benefit_name", match: :first, with: Faker::Games::Zelda.item
 
@@ -53,7 +53,7 @@ RSpec.describe Experiment, type: :feature do
         click_link "Edit"
       end
 
-      fill_in "Image", with: Faker::Avatar.image
+      # fill_in "Image", with: Faker::Avatar.image
       click_button("Save experiment")
       expect(page).to have_content "Experiment was successfully updated."
     end
