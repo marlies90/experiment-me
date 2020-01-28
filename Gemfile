@@ -23,6 +23,7 @@ gem 'friendly_id', '~> 5.3'
 gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'pundit', '~> 2.1'
 gem 'pundit-matchers', '~> 1.6'
+gem 'aws-sdk-s3', require: false
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
