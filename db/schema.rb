@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_27_095953) do
+ActiveRecord::Schema.define(version: 2020_01_29_100426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,16 @@ ActiveRecord::Schema.define(version: 2020_01_27_095953) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.index ["slug"], name: "index_categories_on_slug", unique: true
+  end
+
+  create_table "experiment_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "experiment_id", null: false
+    t.integer "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["experiment_id"], name: "index_experiment_users_on_experiment_id"
+    t.index ["user_id"], name: "index_experiment_users_on_user_id"
   end
 
   create_table "experiments", force: :cascade do |t|
@@ -138,6 +148,8 @@ ActiveRecord::Schema.define(version: 2020_01_27_095953) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "experiment_users", "experiments"
+  add_foreign_key "experiment_users", "users"
   add_foreign_key "experiments", "categories"
   add_foreign_key "journal_entries", "users"
   add_foreign_key "journal_ratings", "journal_entries"
