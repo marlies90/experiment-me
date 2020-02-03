@@ -2,6 +2,7 @@ class DashboardController < ApplicationController
   before_action :set_user
 
   def overview
+    @active_experiment_for_user = Experiment.find(@user.experiment_users.active.first.experiment_id)
   end
 
   def settings

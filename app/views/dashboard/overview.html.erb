@@ -26,15 +26,27 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><i class="fas fa-plus"></i>Start a new experiment</h5>
-              <p class="card-text">View available experiments and pick your favorite.</p>
-              <a href="<%= categories_path %>" class="btn btn-primary">Find your new experiment</a>
+        <% if @user.experiment_users.active %>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Your current experiment</h5>
+                <p class="card-text">You're doing the experiment "<%= @active_experiment_for_user.name %>"</p>
+                <a href="<%= experiment_path(id: @active_experiment_for_user.slug, category: @active_experiment_for_user.category) %>" class="btn btn-primary">Experiment details</a>
+              </div>
             </div>
           </div>
-        </div>
+        <% else %>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-plus"></i>Start a new experiment</h5>
+                <p class="card-text">View available experiments and pick your favorite.</p>
+                <a href="<%= categories_path %>" class="btn btn-primary">Find your new experiment</a>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </main>
   </div>
