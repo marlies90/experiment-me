@@ -7,6 +7,10 @@ class DashboardControllerPolicy < ApplicationPolicy
     overview?
   end
 
+  def experiments?
+    overview?
+  end
+
   def settings?
     overview?
   end

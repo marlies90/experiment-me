@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     get "overview"
     get "settings"
     get "progress"
+    get "experiments"
     get "admin"
   end
 
@@ -16,7 +17,8 @@ Rails.application.routes.draw do
 
   resources :experiments, only: [:new, :create]
   resources :experiments, path: "/:category/experiments", except: [:new, :create]
-  resources :experiment_users, path: "/experiment/:id", only: [:new, :create, :update]
+
+  resources :experiment_users, path: "/my-experiments", only: [:new, :create, :update]
 
   root "pages#home", as: "home"
 end

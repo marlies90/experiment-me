@@ -24,12 +24,18 @@ class ExperimentUsersController < ApplicationController
   end
 
   def update
-    @experiment_user.user_id = current_user.id
-
-    if @journal_entry.update(experiment_user_params)
-      redirect_to dashboard_overview_path, notice: "You have cancelled the experiment"
+    if @experiment_user.update(experiment_user_params)
+      if params[:experiment_user][:status] == "cancelled"
+        redirect_to dashboard_experiments_path, notice: "You have cancelled the experiment"
+      else
+        redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
+      end
     else
-      render :edit
+      if params[:experiment_user][:status] == "cancelled"
+        redirect_to dashboard_experiments_path, notice: "Something went wrong when cancelling the experiment"
+      else
+        redirect_to dashboard_experiments_path, notice: "Something went wrong when reactivating the experiment"
+      end
     end
   end
 
@@ -40,7 +46,7 @@ class ExperimentUsersController < ApplicationController
   end
 
   def set_experiment_user
-    @experiment_user = ExperimentUser.friendly.find(params[:id])
+    @experiment_user = ExperimentUser.where(experiment_id: @experiment.id).where(user_id: current_user.id)
     authorize @experiment_user
   end
 

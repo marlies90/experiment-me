@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <div class="row">
+    <%= render 'sidebar_nav' %>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Your experiments</h1>
+      </div>
+
+      <div class="row">
+        <div>
+          <h3>Your current experiment</h3>
+          <% if @active_experiment.present? %>
+          <table class="table">
+            <tr>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+            <tr>
+              <td><%= @active_experiment.name %></td>
+              <td>
+                <span><%= link_to "View details", experiment_path(id: @active_experiment.slug, category: @active_experiment.category) %></span>
+                <span>
+                  <%= link_to "Stop this experiment",
+                  experiment_user_path(@active_experiment, experiment_user: { status: "cancelled" }),
+                  method: :put,
+                  data: { confirm: "You sure?" },
+                  class: "btn btn-danger" %>
+                </span>
+              </td>
+            </tr>
+          </table>
+          <% end %>
+        </div>
+      </div>
+      <% if @cancelled_experiments.present? %>
+      <div class="row">
+        <h3>Your cancelled experiments</h3>
+        <table class="table">
+          <tr>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+          <% @cancelled_experiments.each do |experiment| %>
+          <tr>
+            <td><%= experiment.name %></td>
+            <td><%= link_to "Retry this experiment",
+            experiment_user_path(experiment, experiment_user: { status: "active" }),
+            method: :put,
+            data: { confirm: "You sure?" },
+            class: "btn btn-success" %></td>
+            <% end %>
+          </tr>
+        </table>
+      </div>
+      <% end %>
+    </main>
+  </div>
+</div>
