@@ -1,5 +1,5 @@
 class ExperimentUsersController < ApplicationController
-  before_action :set_experiment, only: [:new, :create, :update]
+  before_action :set_experiment, only: [:new, :update]
   before_action :set_experiment_user, only: [:update]
 
   def new

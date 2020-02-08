@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :experiment_user do
-    experiment { FactoryBot.build_stubbed(:experiment) }
-    user { FactoryBot.build_stubbed(:user) }
+    experiment { FactoryBot.build(:experiment) }
+    user { FactoryBot.build(:user) }
 
     trait :active do
       status { 0 }

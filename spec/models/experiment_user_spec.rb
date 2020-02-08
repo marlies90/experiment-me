@@ -16,12 +16,12 @@ RSpec.describe ExperimentUser, type: :model do
   end
 
   it "is not valid without an experiment" do
-    subject.experiment_id = nil
+    subject.experiment = nil
     expect(subject).to_not be_valid
   end
 
   it "is not valid without a user" do
-    subject.user_id = nil
+    subject.user = nil
     expect(subject).to_not be_valid
   end
 
