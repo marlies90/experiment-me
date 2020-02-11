@@ -29,12 +29,16 @@ RSpec.describe ExperimentUser, type: :feature do
     end
 
     it "Allows the user to stop that experiment" do
-      expect(page).to have_content experiment.name
-      expect(page).to have_content "Stop this experiment"
-      # page.accept_confirm do
-      #   click_link("Stop this experiment")
-      # end
-      # expect(experiment.status).to equal("cancelled")
+      within ".current_experiment" do
+        expect(page).to have_content experiment.name
+      end
+
+      click_link("Stop this experiment")
+      click_button("Stop this experiment")
+
+      within ".cancelled_experiments" do
+        expect(page).to have_content experiment.name
+      end
     end
   end
 
@@ -46,12 +50,16 @@ RSpec.describe ExperimentUser, type: :feature do
     end
 
     it "Allows the user to reactivate that experiment" do
-      expect(page).to have_content experiment.name
-      expect(page).to have_content "Retry this experiment"
-      # page.accept_confirm do
-      #   click_link("Retry this experiment")
-      # end
-      # expect(experiment.status).to equal("active")
+      within ".cancelled_experiments" do
+        expect(page).to have_content experiment.name
+      end
+
+      click_link("Retry this experiment")
+      click_button("Start this experiment")
+
+      within ".current_experiment" do
+        expect(page).to have_content experiment.name
+      end
     end
   end
 end

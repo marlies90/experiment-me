@@ -1,6 +1,5 @@
 class ExperimentUsersController < ApplicationController
-  before_action :set_experiment, only: [:new, :update]
-  before_action :set_experiment_user, only: [:update]
+  before_action :set_experiment, only: [:new, :edit]
 
   def new
     if current_user
@@ -23,15 +22,24 @@ class ExperimentUsersController < ApplicationController
     end
   end
 
+  def edit
+    @experiment_user = ExperimentUser.find_by(experiment_id: @experiment.id, user_id: current_user.id)
+    authorize @experiment_user
+  end
+
   def update
+    @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
+    @experiment_user = ExperimentUser.find_by(experiment_id: @experiment.id, user_id: current_user.id)
+    authorize @experiment_user
+
     if @experiment_user.update(experiment_user_params)
-      if params[:experiment_user][:status] == "cancelled"
+      if params[:status] == "cancelled"
         redirect_to dashboard_experiments_path, notice: "You have cancelled the experiment"
       else
         redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
       end
     else
-      if params[:experiment_user][:status] == "cancelled"
+      if params[:status] == "cancelled"
         redirect_to dashboard_experiments_path, notice: "Something went wrong when cancelling the experiment"
       else
         redirect_to dashboard_experiments_path, notice: "Something went wrong when reactivating the experiment"
@@ -42,12 +50,7 @@ class ExperimentUsersController < ApplicationController
   private
 
   def set_experiment
-    @experiment = Experiment.friendly.find(params[:id])
-  end
-
-  def set_experiment_user
-    @experiment_user = ExperimentUser.where(experiment_id: @experiment.id).where(user_id: current_user.id)
-    authorize @experiment_user
+    @experiment = Experiment.friendly.find(params[:experiment_id])
   end
 
   def experiment_user_params
