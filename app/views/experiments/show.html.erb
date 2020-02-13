@@ -45,8 +45,18 @@
     </div>
   </section>
   <section>
+    <div class="start_experiment text-center">
+      <%= link_to(
+        "Start this experiment",
+        new_experiment_user_path(experiment_id: params[:id]),
+        class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success")
+      %>
+    </div>
     <div class="text-center">
-      <a href="<%= new_experiment_user_path(experiment_id: params[:id]) %>" class="btn btn-success">Start this experiment</a>
+      <% if already_doing_an_experiment %>
+      <span>You can run only one experiment at a time. If you want to cancel your current experiment,
+        go to the <%= link_to("experiment overview page", dashboard_experiments_path) %>.</span>
+      <% end %>
     </div>
   </section>
 </main>

@@ -12,4 +12,8 @@ module ApplicationHelper
   def to_journal_date(date)
     date.strftime("%e %b %C%y (%a)")
   end
+
+  def already_doing_an_experiment
+    ExperimentUser.find_by(user_id: current_user, status: "active").present?
+  end
 end
