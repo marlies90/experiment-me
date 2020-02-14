@@ -41,6 +41,7 @@
           <tr>
             <th>Name</th>
             <th>Actions</th>
+            <th>Notes</th>
           </tr>
           <% @cancelled_experiments.each do |experiment| %>
           <tr>
@@ -50,7 +51,10 @@
               id: ExperimentUser.find_by(experiment_id: experiment.id, user_id: current_user.id)&.id,
               experiment_id: experiment.id,
               status: "active"),
-              class: "btn btn-success" %></td>
+              class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success" %></td>
+            <% end %>
+            <% if already_doing_an_experiment %>
+            <td>You can run only one experiment at a time. If you want to retry a cancelled experiment, first cancel your current experiment.</td>
             <% end %>
           </tr>
         </table>

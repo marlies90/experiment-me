@@ -33,13 +33,13 @@ class ExperimentUsersController < ApplicationController
     authorize @experiment_user
 
     if @experiment_user.update(experiment_user_params)
-      if params[:status] == "cancelled"
+      if params[:experiment_user][:status] == "cancelled"
         redirect_to dashboard_experiments_path, notice: "You have cancelled the experiment"
       else
         redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
       end
     else
-      if params[:status] == "cancelled"
+      if params[:experiment_user][:status] == "cancelled"
         redirect_to dashboard_experiments_path, notice: "Something went wrong when cancelling the experiment"
       else
         redirect_to dashboard_experiments_path, notice: "Something went wrong when reactivating the experiment"
