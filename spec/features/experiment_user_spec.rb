@@ -52,7 +52,13 @@ RSpec.describe ExperimentUser, type: :feature do
     end
 
     context "when no experiments are active or cancelled" do
-      # BUILD THIS
+      let!(:experiment_user) { nil }
+
+      it "shows a link that lets the user start a new experiment" do
+        within ".current_experiment" do
+          expect(page).to have_link "Choose experiment"
+        end
+      end
     end
 
     context "when an experiment is active" do

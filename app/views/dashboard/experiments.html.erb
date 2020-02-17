@@ -31,9 +31,18 @@
               </td>
             </tr>
           </table>
+          <% else %>
+          <div>
+            You're not doing an experiment at the moment. Want to start one?
+            <div>
+              <%= link_to "Choose experiment", categories_path, class: "btn btn-primary" %>
+            </div>
+          </div>
+
           <% end %>
         </div>
       </div>
+
       <% if @cancelled_experiments.present? %>
       <div class="row cancelled_experiments">
         <h3>Your cancelled experiments</h3>
