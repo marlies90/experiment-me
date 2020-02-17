@@ -46,11 +46,19 @@
   </section>
   <section>
     <div class="start_experiment text-center">
-      <%= link_to(
-        "Start this experiment",
-        new_experiment_user_path(experiment_id: params[:id]),
-        class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success")
-      %>
+      <% if @existing_experiment_user.present? %>
+        <%= link_to(
+          "Retry this experiment",
+          edit_experiment_user_path(experiment_id: params[:id]),
+          class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success")
+        %>
+      <% else %>
+        <%= link_to(
+          "Start this experiment",
+          new_experiment_user_path(experiment_id: params[:id]),
+          class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success")
+        %>
+      <% end %>
     </div>
     <div class="text-center">
       <% if already_doing_an_experiment %>

@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2020_01_29_100426) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["experiment_id"], name: "index_experiment_users_on_experiment_id"
+    t.index ["user_id", "experiment_id"], name: "index_experiment_users_on_user_id_and_experiment_id", unique: true
     t.index ["user_id"], name: "index_experiment_users_on_user_id"
   end
 

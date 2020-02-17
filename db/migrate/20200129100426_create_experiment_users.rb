@@ -7,5 +7,7 @@ class CreateExperimentUsers < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    add_index :experiment_users, [:user_id, :experiment_id], unique: true
   end
 end
