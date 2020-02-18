@@ -69,7 +69,7 @@ class JournalEntriesController < ApplicationController
 
   def journal_entry_params
     params.fetch(:journal_entry).permit(
-      :date, :user_id,
+      :date, :user_id, :experiment_id, :experiment_success,
       journal_ratings_attributes: [:id, :journal_statement_id, :score]
     )
   end

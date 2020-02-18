@@ -32,6 +32,14 @@
         </div>
       </div>
 
+      <% if already_doing_an_experiment %>
+        <div>
+          You're currently doing the experiment "<strong><%= current_experiment&.name %></strong>". Did you stick to the experiment today?
+          <%= f.input(:experiment_success, as: :radio_buttons) %>
+          <%= f.hidden_field :experiment_id, value: current_experiment.id %>
+        </div>
+      <% end %>
+
       <%= f.simple_fields_for :journal_ratings do |journal_rating| %>
         <%= journal_rating.hidden_field :id %>
         <%= journal_rating.hidden_field :journal_statement_id %>

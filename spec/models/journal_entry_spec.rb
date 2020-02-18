@@ -15,6 +15,14 @@ RSpec.describe JournalEntry, type: :model do
     expect(subject).to be_valid
   end
 
+  it "is valid without experiment_id and experiment_success when there is no current experiment" do
+    #TODO
+  end
+
+  it "is not valid without experiment_id and experiment_success when there is a current experiment" do
+    #TODO
+  end
+
   it "is not valid without a date" do
     subject.date = nil
     expect(subject).to_not be_valid
