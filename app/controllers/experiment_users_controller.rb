@@ -13,6 +13,8 @@ class ExperimentUsersController < ApplicationController
   def create
     @experiment_user = ExperimentUser.new(experiment_user_params)
     @experiment_user.user_id = current_user.id
+    @experiment_user.starting_date = DateTime.current
+    @experiment_user.ending_date = (DateTime.current + 21).end_of_day
     @experiment_user.active!
 
     if @experiment_user.save
@@ -30,6 +32,7 @@ class ExperimentUsersController < ApplicationController
   def update
     @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
     @experiment_user = ExperimentUser.find_by(experiment_id: @experiment.id, user_id: current_user.id)
+    @experiment_user.ending_date = DateTime.current
     authorize @experiment_user
 
     if @experiment_user.update(experiment_user_params)
