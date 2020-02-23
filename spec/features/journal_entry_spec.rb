@@ -10,20 +10,22 @@ RSpec.describe JournalEntry, type: :feature do
   end
 
   context "When creating a new journal entry" do
-    before do
-      click_link(class: "btn-primary")
+    it "Auto-selects today in the date picker" do
+      expect(page).to have_select("date", selected: DateTime.current.beginning_of_day)
     end
 
     it "Allows a valid journal_entry to be created succesfully" do
+      click_button("New journal entry")
       all(class: "journal_entry_journal_ratings_score").each do |rating|
         rating.choose(class: "radio_buttons", option: "8")
       end
-      
+
       click_button "Save journal entry"
       expect(page).to have_content "Journal entry was successfully created."
     end
 
     it "Does not allow a journal_entry to be created without filling in all ratings" do
+      click_button("New journal entry")
       all(class: "journal_entry_journal_ratings_score").first do |rating|
         rating.choose(class: "radio_buttons", option: "8")
       end
@@ -32,12 +34,9 @@ RSpec.describe JournalEntry, type: :feature do
     end
 
     it "Does not allow a journal_entry to be created when 0 ratings have been filled in" do
+      click_button("New journal entry")
       click_button "Save journal entry"
       expect(page).to have_content "errors prohibited this journal entry from being saved"
-    end
-
-    it "Auto-selects today in the date picker" do
-      expect(page).to have_select("journal_entry_date", selected: DateTime.current.beginning_of_day)
     end
   end
 
@@ -67,14 +66,9 @@ RSpec.describe JournalEntry, type: :feature do
       expect(page).to have_content "Journal entry was successfully updated."
     end
 
-    it "Does not allow the user to update the date" do
-      expect(page).to_not have_select "journal_entry_date"
-    end
-
     it "Auto-selects yesterday when the entry for today has already been created" do
       visit journal_entries_path
-      click_link(class: "btn-primary")
-      expect(page).to have_select("journal_entry_date", selected: DateTime.current.beginning_of_day - 1)
+      expect(page).to have_select("date", selected: DateTime.current.beginning_of_day - 1)
     end
   end
 end

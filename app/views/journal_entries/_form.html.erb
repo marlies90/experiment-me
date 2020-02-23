@@ -16,29 +16,23 @@
       <div class="mt-3 mb-3">
         <div class="row">
           <div class="col-3">
-            <% if @journal_entry.date.present? %>
-              <%= to_journal_date(@journal_entry.date) %>
-            <% else %>
-              <%= f.input(
-              :date,
-              collection: @dates.collect{ |d| [ to_journal_date(d), d ] },
-              selected: @available_dates.first,
-              disabled: @entry_dates,
-              class: "form-control"
-              )
-              %>
-            <% end %>
+            <%= to_journal_date(date) %>
           </div>
         </div>
       </div>
 
-      <% if already_doing_an_experiment %>
+      <% if active_experiment_on_date(date) %>
         <div>
-          You're currently doing the experiment "<strong><%= current_experiment&.name %></strong>". Did you stick to the experiment today?
+          <%= @active_experiment_on_date&.name %>
+          <%= @active_experiment_on_date&.experiment_users.first.starting_date %>
+          <%= @active_experiment_on_date&.experiment_users.first.ending_date %>
+          You're currently doing the experiment "<strong><%= @active_experiment_on_date&.name %></strong>". Did you stick to the experiment today?
           <%= f.input(:experiment_success, as: :radio_buttons) %>
-          <%= f.hidden_field :experiment_id, value: current_experiment.id %>
+          <%= f.hidden_field :experiment_id, value: @active_experiment_on_date&.id %>
         </div>
       <% end %>
+
+      <%= f.hidden_field :date, value: date %>
 
       <%= f.simple_fields_for :journal_ratings do |journal_rating| %>
         <%= journal_rating.hidden_field :id %>

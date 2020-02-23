@@ -1,9 +1,13 @@
 class JournalEntriesController < ApplicationController
   before_action :set_user
   before_action :set_journal_entry, only: [:show, :edit, :update, :destroy]
+  helper_method :date
 
   def index
-     @journal_entries = JournalEntry.per_user(current_user)
+    @journal_entries = JournalEntry.per_user(current_user)
+    create_date_list
+    @entry_dates = @user.journal_entries.newest.limit(14).map(&:date).difference(@dates).map(&:to_datetime)
+    @available_dates = (@dates - @entry_dates) | (@entry_dates - @dates)
   end
 
   def show
@@ -15,15 +19,9 @@ class JournalEntriesController < ApplicationController
       JournalRating.new(journal_statement: statement)
     end
     @journal_entry.journal_ratings = journal_ratings
-
-    create_date_list
-
-    @entry_dates = @user.journal_entries.newest.limit(14).map(&:date).difference(@dates).map(&:to_datetime)
-    @available_dates = (@dates - @entry_dates) | (@entry_dates - @dates)
   end
 
   def edit
-
   end
 
   def create
@@ -40,6 +38,7 @@ class JournalEntriesController < ApplicationController
   end
 
   def update
+    @date = params[:journal_entry][:date].to_datetime
     @journal_entry.user_id = current_user.id
 
     if @journal_entry.update(journal_entry_params)
@@ -65,6 +64,16 @@ class JournalEntriesController < ApplicationController
 
   def set_journal_entry
     @journal_entry = JournalEntry.per_user(current_user).find_by(slug: params[:id])
+  end
+
+  def date
+    if @journal_entry.date.present?
+      @journal_entry.date
+    elsif params[:date].present?
+      params[:date].to_datetime
+    elsif params[:journal_entry][:date].present?
+      params[:journal_entry][:date].to_datetime
+    end
   end
 
   def journal_entry_params
