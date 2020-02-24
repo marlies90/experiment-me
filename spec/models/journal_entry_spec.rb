@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe JournalEntry, type: :model do
   subject { build(:journal_entry) }
+  let(:experiment) { build_stubbed(:experiment) }
 
   describe "associations" do
     it { is_expected.to respond_to(:user) }
@@ -16,11 +17,16 @@ RSpec.describe JournalEntry, type: :model do
   end
 
   it "is valid without experiment_id and experiment_success when there is no current experiment" do
-    #TODO
+    subject.experiment_id = nil
+    subject.experiment_success = nil
+    expect(subject).to be_valid
   end
 
-  it "is not valid without experiment_id and experiment_success when there is a current experiment" do
-    #TODO
+  it "is not valid without experiment_success when there is a current experiment" do
+    subject.experiment_id = experiment.id
+    subject.experiment_success = nil
+
+    expect(subject).to_not be_valid
   end
 
   it "is not valid without a date" do
@@ -49,7 +55,7 @@ RSpec.describe JournalEntry, type: :model do
     it "excludes journal_entries created by a different user" do
       another_user = FactoryBot.create(:user)
       journal_entry_by_another_user = FactoryBot.create(:journal_entry, user: another_user)
-      
+
       expect(JournalEntry.per_user(user)).to_not include journal_entry_by_another_user
     end
   end
