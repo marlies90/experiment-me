@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :experiment_user do
     experiment { FactoryBot.build(:experiment) }
     user { FactoryBot.build(:user) }
-    starting_date { DateTime.current }
-    ending_date { (DateTime.current + 21).end_of_day }
+    starting_date { (DateTime.current - 1).beginning_of_day }
+    ending_date { (DateTime.current + 20).end_of_day }
 
     trait :active do
       status { 0 }
