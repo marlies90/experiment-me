@@ -19,7 +19,6 @@ module ExperimentHelper
   def active_experiment_on_date(date)
     return unless ExperimentUser.where(user_id: current_user)
 
-
     if @journal_entry.experiment_id.present?
       @active_experiment_on_date = Experiment.find_by(id: @journal_entry.experiment_id)
     else
