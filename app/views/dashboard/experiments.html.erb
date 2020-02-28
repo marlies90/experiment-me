@@ -14,12 +14,18 @@
           <table class="table">
             <tr>
               <th>Name</th>
+              <th>Started on</th>
+              <th>Ending on</th>
               <th>Actions</th>
             </tr>
             <tr>
               <td><%= @active_experiment.name %></td>
+              <td class="starting_date"><%= @active_experiment_user.starting_date %></td>
+              <td class="ending_date"><%= @active_experiment_user.ending_date %></td>
               <td>
                 <span><%= link_to "View details", experiment_path(id: @active_experiment.slug, category: @active_experiment.category) %></span>
+              </td>
+              <td>
                 <span>
                   <%= link_to "Stop this experiment",
                   edit_experiment_user_path(
@@ -49,12 +55,16 @@
         <table class="table">
           <tr>
             <th>Name</th>
+            <th>Started on</th>
+            <th>Ended on</th>
             <th>Actions</th>
             <th>Notes</th>
           </tr>
           <% @cancelled_experiments.each do |experiment| %>
           <tr>
             <td><%= experiment.name %></td>
+            <td class="starting_date"><%= ExperimentUser.find_by(user: @user, experiment: experiment).starting_date %></td>
+            <td class="ending_date"><%= ExperimentUser.find_by(user: @user, experiment: experiment).ending_date %></td>
             <td><%= link_to "Retry this experiment",
               edit_experiment_user_path(
               id: ExperimentUser.find_by(experiment_id: experiment.id, user_id: current_user.id)&.id,

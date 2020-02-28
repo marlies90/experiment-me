@@ -31,18 +31,22 @@ class ExperimentUsersController < ApplicationController
   def update
     @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
     @experiment_user = ExperimentUser.find_by(experiment_id: @experiment.id, user_id: current_user.id)
-    @experiment_user.ending_date = DateTime.current
     authorize @experiment_user
 
-    if @experiment_user.update(experiment_user_params)
-      if params[:experiment_user][:status] == "cancelled"
+    if params[:experiment_user][:status] == "cancelled"
+      @experiment_user.ending_date = DateTime.current
+
+      if @experiment_user.update(experiment_user_params)
         redirect_to dashboard_experiments_path, notice: "You have cancelled the experiment"
       else
-        redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
+        redirect_to dashboard_experiments_path, notice: "Something went wrong when cancelling the experiment"
       end
     else
-      if params[:experiment_user][:status] == "cancelled"
-        redirect_to dashboard_experiments_path, notice: "Something went wrong when cancelling the experiment"
+      @experiment_user.starting_date = DateTime.current
+      @experiment_user.ending_date = (DateTime.current + 21).end_of_day
+
+      if @experiment_user.update(experiment_user_params)
+        redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
       else
         redirect_to dashboard_experiments_path, notice: "Something went wrong when reactivating the experiment"
       end

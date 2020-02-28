@@ -65,6 +65,8 @@ RSpec.describe ExperimentUser, type: :feature do
       it "Allows the user to stop that experiment" do
         within ".current_experiment" do
           expect(page).to have_content experiment.name
+          expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current - 1).beginning_of_day)
+          expect(find(".ending_date").text.to_datetime).to be_within(1.second).of((DateTime.current + 20).end_of_day)
         end
 
         click_link("Stop this experiment")
@@ -72,6 +74,8 @@ RSpec.describe ExperimentUser, type: :feature do
 
         within ".cancelled_experiments" do
           expect(page).to have_content experiment.name
+          expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current - 1).beginning_of_day)
+          expect(find(".ending_date").text.to_datetime).to be_within(1.second).of(DateTime.current)
         end
       end
     end
@@ -94,6 +98,8 @@ RSpec.describe ExperimentUser, type: :feature do
 
           within ".current_experiment" do
             expect(page).to have_content experiment.name
+            expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current).beginning_of_day)
+            expect(find(".ending_date").text.to_datetime).to be_within(1.second).of((DateTime.current + 21).end_of_day)
           end
         end
       end
