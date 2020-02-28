@@ -41,4 +41,12 @@ RSpec.describe ExperimentUser, type: :model do
     subject.ending_date = nil
     expect(subject).to_not be_valid
   end
+
+  context "#cannot_have_multiple_active_experiments" do
+    let(:another_active_experiment) { create(:experiment_user, :active) }
+
+    it "does not allow 2 active experiments at the same time" do
+      expect(another_active_experiment).to_not be_valid
+    end
+  end
 end

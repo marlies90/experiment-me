@@ -15,7 +15,6 @@ class ExperimentUsersController < ApplicationController
     @experiment_user.user_id = current_user.id
     @experiment_user.starting_date = DateTime.current
     @experiment_user.ending_date = (DateTime.current + 21).end_of_day
-    @experiment_user.active!
 
     if @experiment_user.save
       redirect_to dashboard_overview_path, notice: "You have successfully started the experiment"
