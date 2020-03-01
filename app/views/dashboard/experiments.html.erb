@@ -10,7 +10,7 @@
       <div class="row current_experiment">
         <div>
           <h3>Your current experiment</h3>
-          <% if @active_experiment.present? %>
+          <% if @active_experiment.present? && @active_experiment_user&.ending_date > DateTime.current %>
           <table class="table">
             <tr>
               <th>Name</th>
@@ -37,6 +37,8 @@
               </td>
             </tr>
           </table>
+          <% elsif @active_experiment.present? && @active_experiment_user&.ending_date < DateTime.current %>
+            <%= render "evaluate_experiment", active_experiment: @active_experiment %>
           <% else %>
           <div>
             You're not doing an experiment at the moment. Want to start one?
@@ -75,6 +77,26 @@
             <% if already_doing_an_experiment %>
             <td>You can run only one experiment at a time. If you want to retry a cancelled experiment, first cancel your current experiment.</td>
             <% end %>
+          </tr>
+        </table>
+      </div>
+      <% end %>
+
+      <% if @completed_experiments.present? %>
+      <div class="row completed_experiments">
+        <h3>Your completed experiments</h3>
+        <table class="table">
+          <tr>
+            <th>Name</th>
+            <th>Started on</th>
+            <th>Ended on</th>
+          </tr>
+          <% @completed_experiments.each do |experiment| %>
+          <tr>
+            <td><%= experiment.name %></td>
+            <td class="starting_date"><%= ExperimentUser.find_by(user: @user, experiment: experiment).starting_date %></td>
+            <td class="ending_date"><%= ExperimentUser.find_by(user: @user, experiment: experiment).ending_date %></td>
+          <% end %>
           </tr>
         </table>
       </div>

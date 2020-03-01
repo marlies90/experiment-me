@@ -2,8 +2,10 @@ module ExperimentHelper
   def start_or_cancel_experiment
     if params[:status] == "cancelled"
       "Stop"
-    else
+    elsif params[:status] == "active"
       "Start"
+    elsif params[:status] == "completed"
+      "Evaluate"  
     end
   end
 

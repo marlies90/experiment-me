@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
 
   def overview
     @active_experiment = Experiment.find_by_id(@user.experiment_users&.active&.first&.experiment_id)
+    @active_experiment_user = ExperimentUser.find_by_id(@user.experiment_users&.active)
   end
 
   def settings
@@ -15,6 +16,7 @@ class DashboardController < ApplicationController
     @active_experiment = Experiment.find_by_id(@user.experiment_users&.active&.first&.experiment_id)
     @active_experiment_user = ExperimentUser.find_by_id(@user.experiment_users&.active)
     @cancelled_experiments = Experiment.find(@user.experiment_users&.cancelled.map(&:experiment_id))
+    @completed_experiments = Experiment.find(@user.experiment_users&.completed.map(&:experiment_id))
   end
 
   def admin

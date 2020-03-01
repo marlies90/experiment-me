@@ -26,7 +26,7 @@
             </div>
           </div>
         </div>
-        <% if @active_experiment.present? %>
+        <% if @active_experiment.present? && @active_experiment_user.ending_date > DateTime.current %>
           <div class="col-sm-6">
             <div class="card">
               <div class="card-body">
@@ -35,6 +35,10 @@
                 <a href="<%= experiment_path(id: @active_experiment.slug, category: @active_experiment.category) %>" class="btn btn-primary">Experiment details</a>
               </div>
             </div>
+          </div>
+        <% elsif @active_experiment.present? && @active_experiment_user.ending_date < DateTime.current %>
+          <div class="col-sm-6">
+            <%= render "evaluate_experiment", active_experiment: @active_experiment %>
           </div>
         <% else %>
           <div class="col-sm-6">

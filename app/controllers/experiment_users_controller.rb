@@ -41,7 +41,7 @@ class ExperimentUsersController < ApplicationController
       else
         redirect_to dashboard_experiments_path, notice: "Something went wrong when cancelling the experiment"
       end
-    else
+    elsif params[:experiment_user][:status] == "active"
       @experiment_user.starting_date = DateTime.current
       @experiment_user.ending_date = (DateTime.current + 21).end_of_day
 
@@ -49,6 +49,12 @@ class ExperimentUsersController < ApplicationController
         redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
       else
         redirect_to dashboard_experiments_path, notice: "Something went wrong when reactivating the experiment"
+      end
+    elsif params[:experiment_user][:status] == "completed"
+      if @experiment_user.update(experiment_user_params)
+        redirect_to dashboard_experiments_path, notice: "You have completed the experiment"
+      else
+        redirect_to dashboard_experiments_path, notice: "Something went wrong when completing the experiment"
       end
     end
   end

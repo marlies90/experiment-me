@@ -8,6 +8,12 @@
       </div>
 
       <div class="row">
+        <% if @active_experiment.present? && @active_experiment_user.ending_date < DateTime.current %>
+          <div class="col-md-12 mb-4">
+            <%= render "dashboard/evaluate_experiment", active_experiment: @active_experiment %>
+          </div>
+        <% end %>
+
         <div class="col-md-5">
           <h3>Create a new journal entry</h3>
           <%= form_tag(new_journal_entry_path, method: :get) do |journal_entry_date| %>

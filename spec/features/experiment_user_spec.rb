@@ -120,6 +120,28 @@ RSpec.describe ExperimentUser, type: :feature do
           expect(page).to have_css(".cancelled_experiments .disabled")
         end
       end
+
+      context "when an experiment has been running for 21 days" do
+        let!(:experiment_user) { FactoryBot.create(
+          :experiment_user,
+          :active,
+          experiment: experiment,
+          user: current_user,
+          starting_date: (DateTime.current - 22).beginning_of_day,
+          ending_date: (DateTime.current - 1).end_of_day
+          ) }
+
+        it "lets the user complete it" do
+          expect(page).to have_content "YAY! You completed your experiment"
+
+          click_link("Evaluate experiment")
+          click_button("Evaluate this experiment")
+
+          within ".completed_experiments" do
+            expect(page).to have_content experiment.name
+          end
+        end
+      end
     end
   end
 end

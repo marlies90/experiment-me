@@ -8,6 +8,9 @@ class JournalEntriesController < ApplicationController
     create_date_list
     @entry_dates = @user.journal_entries.newest.limit(14).map(&:date).difference(@dates).map(&:to_datetime)
     @available_dates = (@dates - @entry_dates) | (@entry_dates - @dates)
+
+    @active_experiment = Experiment.find_by_id(@user.experiment_users&.active&.first&.experiment_id)
+    @active_experiment_user = ExperimentUser.find_by_id(@user.experiment_users&.active)
   end
 
   def show
