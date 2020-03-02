@@ -7,50 +7,51 @@
         <h1 class="h2">Admin</h1>
       </div>
       <div>
-        <div class="experiments">
+        <div class="admin-panel">
+          <div class="experiments">
+            <div class="row mb-1">
+              <div class="col-md-6">
+                <h4>Experiments</h4>
+              </div>
+              <div class="col-md-6 text-right">
+                <a class="btn btn-secondary" href="<%= new_experiment_path %>"><i class="fas fa-plus"></i>New experiment</a>
+              </div>
+            </div>
+            <table class="table">
+              <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Actions</th>
+              </tr>
+              <% @experiments.each do |experiment| %>
+              <tr>
+                <td><%= experiment.name %></td>
+                <td><%= experiment.category.name %></td>
+                <td>
+                  <span><%= link_to "Show", experiment_path(id: experiment.slug, category: experiment.category) %></span>
+                  <span><%= link_to "Edit", edit_experiment_path(id: experiment.slug, category: experiment.category) %></span>
+                  <span><%= link_to "Destroy", experiment_path(id: experiment.slug, category: experiment.category), method: :delete, data: { confirm: "Are you sure?" } %></span>
+                </td>
+              </tr>
+              <% end %>
+            </table>
+          </div>
+
           <div class="row mb-1">
             <div class="col-md-6">
-              <h4>Experiments</h4>
+              <h4>Categories</h4>
             </div>
             <div class="col-md-6 text-right">
-              <a class="btn btn-secondary" href="<%= new_experiment_path %>"><i class="fas fa-plus"></i>New experiment</a>
+              <a class="btn btn-secondary" href="<%= new_category_path %>"><i class="fas fa-plus"></i>New category</a>
             </div>
           </div>
+
           <table class="table">
             <tr>
-              <th>Name</th>
               <th>Category</th>
               <th>Actions</th>
             </tr>
-            <% @experiments.each do |experiment| %>
-            <tr>
-              <td><%= experiment.name %></td>
-              <td><%= experiment.category.name %></td>
-              <td>
-                <span><%= link_to "Show", experiment_path(id: experiment.slug, category: experiment.category) %></span>
-                <span><%= link_to "Edit", edit_experiment_path(id: experiment.slug, category: experiment.category) %></span>
-                <span><%= link_to "Destroy", experiment_path(id: experiment.slug, category: experiment.category), method: :delete, data: { confirm: "Are you sure?" } %></span>
-              </td>
-            </tr>
-            <% end %>
-          </table>
-        </div>
-
-        <div class="row mb-1">
-          <div class="col-md-6">
-            <h4>Categories</h4>
-          </div>
-          <div class="col-md-6 text-right">
-            <a class="btn btn-secondary" href="<%= new_category_path %>"><i class="fas fa-plus"></i>New category</a>
-          </div>
-        </div>
-
-        <table class="table">
-          <tr>
-            <th>Category</th>
-            <th>Actions</th>
-          </tr>
-          <% @categories.each do |category| %>
+            <% @categories.each do |category| %>
             <tr>
               <td><%= category.name %></td>
               <td>
@@ -59,24 +60,24 @@
                 <span><%= link_to "Destroy", category_path(category), method: :delete, data: { confirm: "Are you sure?" } %></span>
               </td>
             </tr>
-          <% end %>
-        </table>
+            <% end %>
+          </table>
 
-        <div class="row mb-1">
-          <div class="col-md-6">
-            <h4>Journal Statements</h4>
+          <div class="row mb-1">
+            <div class="col-md-6">
+              <h4>Journal Statements</h4>
+            </div>
+            <div class="col-md-6 text-right">
+              <a class="btn btn-secondary" href="<%= new_journal_statement_path %>"><i class="fas fa-plus"></i>New journal statement</a>
+            </div>
           </div>
-          <div class="col-md-6 text-right">
-            <a class="btn btn-secondary" href="<%= new_journal_statement_path %>"><i class="fas fa-plus"></i>New journal statement</a>
-          </div>
-        </div>
 
-        <table class="table">
-          <tr>
-            <th>Journal Statements</th>
-            <th>Actions</th>
-          </tr>
-          <% @journal_statements.each do |journal_statement| %>
+          <table class="table">
+            <tr>
+              <th>Journal Statements</th>
+              <th>Actions</th>
+            </tr>
+            <% @journal_statements.each do |journal_statement| %>
             <tr>
               <td><%= journal_statement.name %></td>
               <td>
@@ -84,24 +85,25 @@
                 <span><%= link_to "Destroy", journal_statement_path(journal_statement), method: :delete, data: { confirm: "Are you sure?" } %></span>
               </td>
             </tr>
-          <% end %>
-        </table>
+            <% end %>
+          </table>
 
-        <h4>Users</h4>
-        <table class="table">
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-          </tr>
-          <% @users.each do |user| %>
-          <tr>
-            <td><%= user.first_name %></td>
-            <td><%= user.email %></td>
-            <td><%= user.role %></td>
-          </tr>
-          <% end %>
-        </table>
+          <h4>Users</h4>
+          <table class="table">
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+            <% @users.each do |user| %>
+            <tr>
+              <td><%= user.first_name %></td>
+              <td><%= user.email %></td>
+              <td><%= user.role %></td>
+            </tr>
+            <% end %>
+          </table>
+        </div>
       </div>
     </main>
   </div>

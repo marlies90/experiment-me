@@ -13,8 +13,8 @@ class ExperimentUsersController < ApplicationController
   def create
     @experiment_user = ExperimentUser.new(experiment_user_params)
     @experiment_user.user_id = current_user.id
-    @experiment_user.starting_date = DateTime.current
-    @experiment_user.ending_date = (DateTime.current + 21).end_of_day
+    @experiment_user.starting_date = params[:experiment_user][:starting_date] || DateTime.current
+    @experiment_user.ending_date = (@experiment_user.starting_date + 21.days).end_of_day
 
     if @experiment_user.save
       redirect_to dashboard_overview_path, notice: "You have successfully started the experiment"

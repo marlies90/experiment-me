@@ -33,7 +33,7 @@ RSpec.describe Experiment, type: :feature do
     end
 
     it "Allows the user to view that experiment" do
-      within ".experiments" do
+      within ".admin-panel .experiments" do
         click_link "Show"
       end
 
@@ -41,7 +41,7 @@ RSpec.describe Experiment, type: :feature do
     end
 
     it "Allows the user to go into editing mode" do
-      within ".experiments" do
+      within ".admin-panel .experiments" do
         click_link "Edit"
       end
 
@@ -49,7 +49,7 @@ RSpec.describe Experiment, type: :feature do
     end
 
     it "Allows the user to update that experiment" do
-      within ".experiments" do
+      within ".admin-panel .experiments" do
         click_link "Edit"
       end
 
@@ -59,7 +59,7 @@ RSpec.describe Experiment, type: :feature do
     end
 
     it "Allows the user to delete that experiment" do
-      within ".experiments" do
+      within ".admin-panel .experiments" do
         click_link "Destroy"
       end
 

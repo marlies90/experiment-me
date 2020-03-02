@@ -1,5 +1,29 @@
 <%= simple_form_for @experiment_user do |f| %>
   <%= f.hidden_field :experiment_id, value: @experiment.id %>
   <%= f.hidden_field :status, value: params[:status] %>
-  <%= f.submit "#{start_or_cancel_experiment} this experiment", class: "btn btn-primary" %>
+
+  <% if params[:status] == "active" %>
+    <div>
+      <span>For the upcoming 3 weeks, you'll be trying out the experiment "<strong><%= @experiment.name %>".</strong></span>
+      <h4>Objective</h4>
+      <p>
+        <i class="fas fa-trophy"></i>
+        <%= @experiment.objective %>
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <span>When would you like to start the experiment?</span>
+        <%= f.input :starting_date,
+        as: :select,
+        collection: [["Today", DateTime.current], ["Tomorrow", (DateTime.current + 1).beginning_of_day]],
+        selected: "Today",
+        label: false %>
+      </div>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.submit "#{start_or_cancel_experiment} this experiment", class: "btn btn-primary" %>
+  </div>
 <% end %>

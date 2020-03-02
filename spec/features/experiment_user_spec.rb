@@ -29,11 +29,30 @@ RSpec.describe ExperimentUser, type: :feature do
       context "without any other active experiment" do
         let!(:experiment_user) { nil }
 
-        it "allows a user to succesfully start a new experiment" do
+        it "allows the user to start a new experiment today" do
           click_link "Start this experiment"
+          select("Today", from: "experiment_user_starting_date")
           click_button "Start this experiment"
-          expect(page).to have_content "You have successfully started the experiment"
-          expect(page).to have_content "You're doing the experiment \"#{experiment.name}\""
+          find(".sidebar .experiments a").click
+
+          within ".current_experiment" do
+            expect(page).to have_content experiment.name
+            expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current))
+            expect(find(".ending_date").text.to_datetime).to be_within(1.second).of((DateTime.current + 21).end_of_day)
+          end
+        end
+
+        it "allows the user to start a new experiment tomorrow" do
+          click_link "Start this experiment"
+          select("Tomorrow", from: "experiment_user_starting_date")
+          click_button "Start this experiment"
+          find(".sidebar .experiments a").click
+
+          within ".current_experiment" do
+            expect(page).to have_content experiment.name
+            expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current + 1).beginning_of_day)
+            expect(find(".ending_date").text.to_datetime).to be_within(1.second).of((DateTime.current + 22).end_of_day)
+          end
         end
       end
 
