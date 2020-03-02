@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_27_095953) do
+ActiveRecord::Schema.define(version: 2020_02_18_095634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,19 @@ ActiveRecord::Schema.define(version: 2020_01_27_095953) do
     t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
 
+  create_table "experiment_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "experiment_id", null: false
+    t.integer "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "starting_date", null: false
+    t.datetime "ending_date", null: false
+    t.index ["experiment_id"], name: "index_experiment_users_on_experiment_id"
+    t.index ["user_id", "experiment_id"], name: "index_experiment_users_on_user_id_and_experiment_id", unique: true
+    t.index ["user_id"], name: "index_experiment_users_on_user_id"
+  end
+
   create_table "experiments", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -89,6 +102,9 @@ ActiveRecord::Schema.define(version: 2020_01_27_095953) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.bigint "experiment_id"
+    t.boolean "experiment_success"
+    t.index ["experiment_id"], name: "index_journal_entries_on_experiment_id"
     t.index ["slug"], name: "index_journal_entries_on_slug"
     t.index ["user_id"], name: "index_journal_entries_on_user_id"
   end
@@ -138,7 +154,10 @@ ActiveRecord::Schema.define(version: 2020_01_27_095953) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "experiment_users", "experiments"
+  add_foreign_key "experiment_users", "users"
   add_foreign_key "experiments", "categories"
+  add_foreign_key "journal_entries", "experiments"
   add_foreign_key "journal_entries", "users"
   add_foreign_key "journal_ratings", "journal_entries"
   add_foreign_key "journal_ratings", "journal_statements"

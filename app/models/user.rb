@@ -5,7 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
   validates_presence_of :first_name
 
-  enum role: [:standard, :admin]
+  enum role: {
+    standard: 0,
+    admin: 1
+  }
 
   has_many :journal_entries
+  has_many :experiment_users
+  has_many :experiments, through: :experiment_users
 end

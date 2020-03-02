@@ -4,6 +4,8 @@ class Experiment < ApplicationRecord
 
   belongs_to :category
   has_many :resources
+  has_many :experiment_users
+  has_many :users, through: :experiment_users
   has_and_belongs_to_many :benefits
   has_one_attached :image
 

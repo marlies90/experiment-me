@@ -1,0 +1,5 @@
+<%= simple_form_for @experiment_user do |f| %>
+  <%= f.hidden_field :experiment_id, value: @experiment.id %>
+  <%= f.hidden_field :status, value: params[:status] %>
+  <%= f.submit "#{start_or_cancel_experiment} this experiment", class: "btn btn-primary" %>
+<% end %>

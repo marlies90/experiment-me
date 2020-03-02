@@ -5,6 +5,7 @@ class ExperimentsController < ApplicationController
   end
 
   def show
+    @existing_experiment_user = ExperimentUser.find_by(experiment_id: @experiment.id, user_id: current_user&.id)
   end
 
   def new

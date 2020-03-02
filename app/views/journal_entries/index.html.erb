@@ -7,8 +7,30 @@
         <h1 class="h2">Journal</h1>
       </div>
 
-      <div>
-        <a class="btn btn-primary" href="<%= new_journal_entry_path %>"><i class="fas fa-plus"></i>New journal entry</a>
+      <div class="row">
+        <% if @active_experiment.present? && @active_experiment_user.ending_date < DateTime.current %>
+          <div class="col-md-12 mb-4">
+            <%= render "dashboard/evaluate_experiment", active_experiment: @active_experiment %>
+          </div>
+        <% end %>
+
+        <div class="col-md-5">
+          <h3>Create a new journal entry</h3>
+          <%= form_tag(new_journal_entry_path, method: :get) do |journal_entry_date| %>
+          <%= label_tag(:date, "Date") %>
+          <%= select_tag(
+          :date,
+          options_for_select(
+          @dates.collect{ |d| [ to_journal_date(d), d ] },
+          disabled: @entry_dates,
+          selected: @available_dates.first
+          ),
+          class: "form-control mb-2"
+          )
+          %>
+          <%= submit_tag("New journal entry", class: "btn btn-primary") %>
+          <% end %>
+        </div>
       </div>
 
       <% if @journal_entries.present? %>
