@@ -23,11 +23,8 @@
 
       <% if active_experiment_on_date(date) %>
         <div>
-          <%= @active_experiment_on_date.name %>
-          <%= @active_experiment_on_date.experiment_users.first.starting_date %>
-          <%= @active_experiment_on_date.experiment_users.first.ending_date %>
           You're currently doing the experiment "<strong><%= @active_experiment_on_date.name %></strong>". Did you stick to the experiment today?
-          <%= f.input(:experiment_success, as: :radio_buttons) %>
+          <%= f.input(:experiment_success, label: false, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
           <%= f.hidden_field :experiment_id, value: @active_experiment_on_date.id %>
         </div>
       <% end %>
