@@ -23,6 +23,22 @@
     </div>
   <% end %>
 
+  <% if params[:status] == "cancelled" %>
+    <div>
+      <span>You're cancelling the experiment. You can retry it later if you want to, starting from day 1 again.</span>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <span>Why are you cancelling the experiment?</span>
+        <%= f.input :cancellation_reason,
+        as: :select,
+        collection: ExperimentUser.cancellation_reasons.keys,
+        label: false
+        %>
+      </div>
+    </div>
+  <% end %>
+
   <div>
     <%= f.submit "#{start_or_cancel_experiment} this experiment", class: "btn btn-primary" %>
   </div>

@@ -67,7 +67,7 @@ class ExperimentUsersController < ApplicationController
 
   def experiment_user_params
     params.fetch(:experiment_user).permit(
-      :experiment_id, :user_id, :status
+      :experiment_id, :user_id, :status, :cancellation_reason
     )
   end
 end

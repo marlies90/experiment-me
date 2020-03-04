@@ -11,6 +11,14 @@ class ExperimentUser < ApplicationRecord
     cancelled: 2
     }
 
+  enum cancellation_reason: {
+    "I accidentally started it": 0,
+    "I have no time to focus on it right now": 1,
+    "I no longer feel motivated to do this": 2,
+    "I do not think it will have a positive impact on my life": 3,
+    "Other": 4
+  }
+
   private
 
   def cannot_have_multiple_active_experiments

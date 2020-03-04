@@ -59,6 +59,7 @@
             <th>Name</th>
             <th>Started on</th>
             <th>Ended on</th>
+            <th>Cancellation reason</th>
             <th>Actions</th>
             <th>Notes</th>
           </tr>
@@ -67,6 +68,7 @@
             <td><%= experiment.name %></td>
             <td class="starting_date"><%= ExperimentUser.find_by(user: @user, experiment: experiment).starting_date %></td>
             <td class="ending_date"><%= ExperimentUser.find_by(user: @user, experiment: experiment).ending_date %></td>
+            <td class="cancellation_reason"><%= ExperimentUser.find_by(user: @user, experiment: experiment).cancellation_reason %></td>
             <td><%= link_to "Retry this experiment",
               edit_experiment_user_path(
               id: ExperimentUser.find_by(experiment_id: experiment.id, user_id: current_user.id)&.id,
