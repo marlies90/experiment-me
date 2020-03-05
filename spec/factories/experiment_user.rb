@@ -15,6 +15,7 @@ FactoryBot.define do
 
     trait :cancelled do
       status { 2 }
+      cancellation_reason { 2 }
     end
   end
 end

@@ -81,7 +81,7 @@ RSpec.describe ExperimentUser, type: :feature do
     end
 
     context "when an experiment is active" do
-      it "Allows the user to stop that experiment" do
+      it "allows the user to stop that experiment" do
         within ".current_experiment" do
           expect(page).to have_content experiment.name
           expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current - 1).beginning_of_day)
@@ -89,12 +89,14 @@ RSpec.describe ExperimentUser, type: :feature do
         end
 
         click_link("Stop this experiment")
+        select("I have no time to focus on it right now", from: "experiment_user_cancellation_reason")
         click_button("Stop this experiment")
 
         within ".cancelled_experiments" do
           expect(page).to have_content experiment.name
           expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current - 1).beginning_of_day)
           expect(find(".ending_date").text.to_datetime).to be_within(1.second).of(DateTime.current)
+          expect(find(".cancellation_reason")).to have_content "I have no time to focus on it right now"
         end
       end
     end
