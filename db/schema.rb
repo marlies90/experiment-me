@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_104224) do
+ActiveRecord::Schema.define(version: 2020_03_05_095954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_104224) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "measurement_statement"
   end
 
   create_table "benefits_experiments", id: false, force: :cascade do |t|
@@ -57,6 +58,15 @@ ActiveRecord::Schema.define(version: 2020_03_04_104224) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.index ["slug"], name: "index_categories_on_slug", unique: true
+  end
+
+  create_table "experiment_user_measurements", force: :cascade do |t|
+    t.bigint "experiment_user_id"
+    t.bigint "benefit_id"
+    t.integer "starting_score"
+    t.integer "ending_score"
+    t.index ["benefit_id"], name: "index_experiment_user_measurements_on_benefit_id"
+    t.index ["experiment_user_id"], name: "index_experiment_user_measurements_on_experiment_user_id"
   end
 
   create_table "experiment_users", force: :cascade do |t|
@@ -155,6 +165,8 @@ ActiveRecord::Schema.define(version: 2020_03_04_104224) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "experiment_user_measurements", "benefits"
+  add_foreign_key "experiment_user_measurements", "experiment_users"
   add_foreign_key "experiment_users", "experiments"
   add_foreign_key "experiment_users", "users"
   add_foreign_key "experiments", "categories"
