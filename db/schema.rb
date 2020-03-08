@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_05_095954) do
+ActiveRecord::Schema.define(version: 2020_03_08_132347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,13 +43,6 @@ ActiveRecord::Schema.define(version: 2020_03_05_095954) do
     t.text "measurement_statement"
   end
 
-  create_table "benefits_experiments", id: false, force: :cascade do |t|
-    t.bigint "benefit_id"
-    t.bigint "experiment_id"
-    t.index ["benefit_id"], name: "index_benefits_experiments_on_benefit_id"
-    t.index ["experiment_id"], name: "index_benefits_experiments_on_experiment_id"
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -58,6 +51,13 @@ ActiveRecord::Schema.define(version: 2020_03_05_095954) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.index ["slug"], name: "index_categories_on_slug", unique: true
+  end
+
+  create_table "experiment_benefits", id: false, force: :cascade do |t|
+    t.bigint "benefit_id"
+    t.bigint "experiment_id"
+    t.index ["benefit_id"], name: "index_experiment_benefits_on_benefit_id"
+    t.index ["experiment_id"], name: "index_experiment_benefits_on_experiment_id"
   end
 
   create_table "experiment_user_measurements", force: :cascade do |t|

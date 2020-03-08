@@ -1,5 +1,6 @@
 class Benefit < ApplicationRecord
-  has_and_belongs_to_many :experiments
+  has_many :experiment_benefits
+  has_many :experiments, through: :experiment_benefits
 
   validates_presence_of :name, :measurement_statement
 end

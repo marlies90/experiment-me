@@ -24,6 +24,7 @@ class DashboardController < ApplicationController
     @experiments = Experiment.all
     @journal_statements = JournalStatement.all
     @users = User.all
+    @benefits = Benefit.all
   end
 
   private
