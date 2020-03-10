@@ -42,6 +42,31 @@ RSpec.describe ExperimentUser, type: :model do
     expect(subject).to_not be_valid
   end
 
+  it "is not valid without experiment_user_measurements" do
+    subject.experiment_user_measurements = []
+    expect(subject).to_not be_valid
+  end
+
+  context "#experiment_user_measurement" do
+    context "when completing an experiment" do
+      subject { build(:experiment_user, :completed) }
+
+      it "validates presence of experiment_user_measurement" do
+        subject.experiment_user_measurements = []
+        expect(subject).to_not be_valid
+      end
+    end
+
+    context "when cancelling an experiment" do
+      subject { build(:experiment_user, :cancelled) }
+
+      it "does not validate presence of experiment_user_measurement" do
+        subject.experiment_user_measurements = []
+        expect(subject).to be_valid
+      end
+    end
+  end
+
   context "#cannot_have_multiple_active_experiments" do
     let(:another_active_experiment) { create(:experiment_user, :active) }
 

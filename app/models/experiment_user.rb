@@ -1,9 +1,13 @@
 class ExperimentUser < ApplicationRecord
   belongs_to :user
   belongs_to :experiment
+  has_many :experiment_user_measurements
 
   validates_presence_of :user, :experiment, :status, :starting_date, :ending_date
+  validates_presence_of :experiment_user_measurements, if: -> { experiment_user_measurement }
+
   validate :cannot_have_multiple_active_experiments
+  accepts_nested_attributes_for :experiment_user_measurements
 
   enum status: {
     active: 0,
@@ -20,6 +24,10 @@ class ExperimentUser < ApplicationRecord
   }
 
   private
+
+  def experiment_user_measurement
+    active? || completed?
+  end
 
   def cannot_have_multiple_active_experiments
     if active? && ExperimentUser.where(user_id: user, status: "active").present?

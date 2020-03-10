@@ -5,6 +5,12 @@ class ExperimentUsersController < ApplicationController
     if current_user
       @experiment_user = ExperimentUser.new
       authorize @experiment_user
+
+      experiment_user_measurements = ExperimentBenefit.where(experiment_id: @experiment.id).map do |experiment_benefit|
+        ExperimentUserMeasurement.new(benefit_id: experiment_benefit.benefit_id)
+      end
+
+      @experiment_user.experiment_user_measurements = experiment_user_measurements
     else
       redirect_to(new_user_session_path)
     end
@@ -67,7 +73,8 @@ class ExperimentUsersController < ApplicationController
 
   def experiment_user_params
     params.fetch(:experiment_user).permit(
-      :experiment_id, :user_id, :status, :cancellation_reason
+      :experiment_id, :user_id, :status, :cancellation_reason, :starting_date,
+      experiment_user_measurements_attributes: [:id, :benefit_id, :starting_score, :ending_score]
     )
   end
 end
