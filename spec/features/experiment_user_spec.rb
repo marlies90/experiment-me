@@ -121,6 +121,7 @@ RSpec.describe ExperimentUser, type: :feature do
           end
 
           click_link("Retry this experiment")
+          expect(page).to have_content "Start"
           click_button("Start this experiment")
 
           within ".current_experiment" do
@@ -162,6 +163,7 @@ RSpec.describe ExperimentUser, type: :feature do
           expect(page).to have_content "YAY! You completed your experiment"
 
           click_link("Evaluate experiment")
+          expect(page).to have_content "Evaluate"
           click_button("Evaluate this experiment")
 
           within ".completed_experiments" do

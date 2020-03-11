@@ -1,8 +1,7 @@
 <%= simple_form_for @experiment_user do |f| %>
   <%= f.hidden_field :experiment_id, value: @experiment.id %>
-  <%= f.hidden_field :status, value: params[:status] %>
 
-  <% if params[:status] == "active" %>
+  <% if activating_experiment %>
     <div>
       <span>For the upcoming 3 weeks, you'll be trying out the experiment "<strong><%= @experiment.name %>".</strong></span>
       <h4>Objective</h4>
@@ -27,13 +26,13 @@
           <%= experiment_user_measurement.hidden_field :benefit_id %>
           <%= experiment_user_measurement.object.benefit.measurement_statement %>
           <abbr title="required">*</abbr>
-          <%= experiment_user_measurement.input :starting_score, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+          <%= experiment_user_measurement.input :starting_score, required: true, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
         <% end %>
       </div>
     </div>
   <% end %>
 
-  <% if params[:status] == "cancelled" %>
+  <% if cancelling_experiment %>
     <div>
       <span>You're cancelling the experiment. You can retry it later if you want to, starting from day 1 again.</span>
     </div>

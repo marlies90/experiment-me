@@ -30,8 +30,7 @@
                   <%= link_to "Stop this experiment",
                   edit_experiment_user_path(
                   id: ExperimentUser.find_by(experiment_id: @active_experiment.id, user_id: current_user.id).id,
-                  experiment_id: @active_experiment.id,
-                  status: "cancelled"),
+                  experiment_id: @active_experiment.id),
                   class: "btn btn-danger" %>
                 </span>
               </td>
@@ -40,13 +39,12 @@
           <% elsif @active_experiment.present? && @active_experiment_user&.ending_date < DateTime.current %>
             <%= render "evaluate_experiment", active_experiment: @active_experiment %>
           <% else %>
-          <div>
-            You're not doing an experiment at the moment. Want to start one?
             <div>
-              <%= link_to "Choose experiment", categories_path, class: "btn btn-primary" %>
+              You're not doing an experiment at the moment. Want to start one?
+              <div>
+                <%= link_to "Choose experiment", categories_path, class: "btn btn-primary" %>
+              </div>
             </div>
-          </div>
-
           <% end %>
         </div>
       </div>
@@ -72,8 +70,7 @@
             <td><%= link_to "Retry this experiment",
               edit_experiment_user_path(
               id: ExperimentUser.find_by(experiment_id: experiment.id, user_id: current_user.id)&.id,
-              experiment_id: experiment.id,
-              status: "active"),
+              experiment_id: experiment.id),
               class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success" %></td>
             <% end %>
             <% if already_doing_an_experiment %>
