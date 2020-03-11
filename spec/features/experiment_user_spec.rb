@@ -32,6 +32,9 @@ RSpec.describe ExperimentUser, type: :feature do
         it "allows the user to start a new experiment today" do
           click_link "Start this experiment"
           select("Today", from: "experiment_user_starting_date")
+          all(class: "experiment_user_experiment_user_measurements_starting_score").each do |measurement|
+            measurement.choose(class: "radio_buttons", option: "8")
+          end
           click_button "Start this experiment"
           find(".sidebar .experiments a").click
 
@@ -45,6 +48,9 @@ RSpec.describe ExperimentUser, type: :feature do
         it "allows the user to start a new experiment tomorrow" do
           click_link "Start this experiment"
           select("Tomorrow", from: "experiment_user_starting_date")
+          all(class: "experiment_user_experiment_user_measurements_starting_score").each do |measurement|
+            measurement.choose(class: "radio_buttons", option: "8")
+          end
           click_button "Start this experiment"
           find(".sidebar .experiments a").click
 
