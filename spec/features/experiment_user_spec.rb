@@ -60,6 +60,13 @@ RSpec.describe ExperimentUser, type: :feature do
             expect(find(".ending_date").text.to_datetime).to be_within(1.second).of((DateTime.current + 22).end_of_day)
           end
         end
+
+        it "does not allow the user to start a new experiment without filling in the starting survey" do
+          click_link "Start this experiment"
+          select("Tomorrow", from: "experiment_user_starting_date")
+          click_button "Start this experiment"
+          expect(page).to have_content "Starting score can't be blank"
+        end
       end
 
       context "with another active experiment" do

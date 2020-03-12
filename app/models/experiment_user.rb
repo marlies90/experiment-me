@@ -4,7 +4,7 @@ class ExperimentUser < ApplicationRecord
   has_many :experiment_user_measurements
 
   validates_presence_of :user, :experiment, :status, :starting_date, :ending_date
-  validates_presence_of :experiment_user_measurements, if: -> { experiment_user_measurement }
+  validates_presence_of :experiment_user_measurement, if: -> { experiment_user_measurement }
 
   validate :cannot_have_multiple_active_experiments
   accepts_nested_attributes_for :experiment_user_measurements
