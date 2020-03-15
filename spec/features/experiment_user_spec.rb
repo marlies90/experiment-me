@@ -174,6 +174,9 @@ RSpec.describe ExperimentUser, type: :feature do
           all(class: "experiment_user_experiment_user_measurements_ending_score").each do |measurement|
             measurement.choose(class: "radio_buttons", option: "8")
           end
+          select("Very easy", from: "experiment_user_difficulty")
+          select("Yes", from: "experiment_user_experiment_continuation")
+
           click_button("Evaluate this experiment")
 
           within ".completed_experiments" do
@@ -181,7 +184,7 @@ RSpec.describe ExperimentUser, type: :feature do
           end
         end
 
-        it "does not let the user complete it without the ending measurement" do
+        it "does not let the user complete it without the ending measurements" do
           expect(page).to have_content "YAY! You completed your experiment"
 
           click_link("Evaluate experiment")
@@ -189,6 +192,8 @@ RSpec.describe ExperimentUser, type: :feature do
           click_button("Evaluate this experiment")
 
           expect(page).to have_content "Ending score can't be blank"
+          expect(page).to have_content "Difficulty can't be blank"
+          expect(page).to have_content "Experiment continuation can't be blank"
         end
       end
     end

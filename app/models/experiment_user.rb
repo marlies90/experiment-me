@@ -5,6 +5,7 @@ class ExperimentUser < ApplicationRecord
 
   validates_presence_of :user, :experiment, :status, :starting_date, :ending_date
   validates_presence_of :experiment_user_measurement, if: -> { experiment_user_measurement }
+  validates_presence_of :difficulty, :experiment_continuation, if: -> { completing_experiment }
 
   validate :cannot_have_multiple_active_experiments
   accepts_nested_attributes_for :experiment_user_measurements
@@ -14,7 +15,21 @@ class ExperimentUser < ApplicationRecord
     active: 0,
     completed: 1,
     cancelled: 2
-    }
+  }
+
+  enum difficulty_rate: {
+    "Very easy": 0,
+    "Easy": 1,
+    "Moderate": 2,
+    "Difficult": 3,
+    "Very difficult": 4
+  }
+
+  enum continuation_option: {
+    "Yes": 0,
+    "No": 1,
+    "Unsure": 2
+  }
 
   enum cancellation_reason: {
     "I accidentally started it": 0,
@@ -28,6 +43,10 @@ class ExperimentUser < ApplicationRecord
 
   def experiment_user_measurement
     active? || completed?
+  end
+
+  def completing_experiment
+    completed?
   end
 
   def cannot_have_multiple_active_experiments

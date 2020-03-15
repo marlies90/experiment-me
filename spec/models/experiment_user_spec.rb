@@ -66,6 +66,20 @@ RSpec.describe ExperimentUser, type: :model do
     end
   end
 
+  context "#completing_experiment" do
+    subject { build(:experiment_user, :completed) }
+
+    it "validates presence of difficulty" do
+      subject.difficulty = nil
+      expect(subject).to_not be_valid
+    end
+
+    it "validates presence of experiment_continuation" do
+      subject.experiment_continuation = nil
+      expect(subject).to_not be_valid
+    end
+  end
+
   context "#cannot_have_multiple_active_experiments" do
     let(:another_active_experiment) { create(:experiment_user, :active) }
 

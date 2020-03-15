@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_08_132347) do
+ActiveRecord::Schema.define(version: 2020_03_15_124150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 2020_03_08_132347) do
     t.datetime "starting_date", null: false
     t.datetime "ending_date", null: false
     t.integer "cancellation_reason"
+    t.integer "difficulty"
+    t.integer "experiment_continuation"
     t.index ["experiment_id"], name: "index_experiment_users_on_experiment_id"
     t.index ["user_id", "experiment_id"], name: "index_experiment_users_on_user_id_and_experiment_id", unique: true
     t.index ["user_id"], name: "index_experiment_users_on_user_id"

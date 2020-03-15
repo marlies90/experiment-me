@@ -62,6 +62,22 @@
           <abbr title="required">*</abbr>
           <%= experiment_user_measurement.input :ending_score, required: true, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
         <% end %>
+
+        <div>
+          <span>How would you rate the difficulty of this experiment to you?</span>
+          <abbr title="required">*</abbr>
+          <%= f.input :difficulty,
+          as: :select,
+          collection: ExperimentUser.difficulty_rates.keys,
+          label: false %>
+
+          <span>Will you continue this new behaviour now that the experiment is over?</span>
+          <abbr title="required">*</abbr>
+          <%= f.input :experiment_continuation,
+          as: :select,
+          collection: ExperimentUser.continuation_options.keys,
+          label: false %>
+        </div>
       </div>
     </div>
   <% end %>

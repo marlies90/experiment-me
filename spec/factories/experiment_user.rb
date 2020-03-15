@@ -7,22 +7,24 @@ FactoryBot.define do
 
     trait :active do
       status { 0 }
-      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2) }
+      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2, :with_starting_score) }
     end
 
     trait :completing do
       status { 0 }
-      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2, ending_score: nil) }
+      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2, :with_starting_score) }
     end
 
     trait :completed do
       status { 1 }
-      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2) }
+      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2, :complete) }
+      difficulty { Faker::Number.between(from: 0, to: 4) }
+      experiment_continuation { Faker::Number.between(from: 0, to: 2) }
     end
 
     trait :cancelling do
       status { 0 }
-      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2, ending_score: nil) }
+      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2, :with_starting_score) }
     end
 
     trait :cancelled do
