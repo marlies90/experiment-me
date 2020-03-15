@@ -49,7 +49,7 @@ RSpec.describe ExperimentUser, type: :model do
 
   context "#experiment_user_measurements" do
     context "when completing an experiment" do
-      subject { build(:experiment_user, :completed) }
+      subject { build(:experiment_user, :completing) }
 
       it "validates presence of experiment_user_measurement" do
         subject.experiment_user_measurements = FactoryBot.build_list(:experiment_user_measurement, 2, starting_score: nil, ending_score: nil)
@@ -58,7 +58,7 @@ RSpec.describe ExperimentUser, type: :model do
     end
 
     context "when cancelling an experiment" do
-      subject { build(:experiment_user, :cancelled, experiment_user_measurements: []) }
+      subject { build(:experiment_user, :cancelling) }
 
       it "does not validate presence of experiment_user_measurement" do
         expect(subject).to be_valid

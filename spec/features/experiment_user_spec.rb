@@ -159,7 +159,7 @@ RSpec.describe ExperimentUser, type: :feature do
       context "when an experiment has been running for 21 days" do
         let!(:experiment_user) { FactoryBot.create(
           :experiment_user,
-          :active,
+          :completing,
           experiment: experiment,
           user: current_user,
           starting_date: (DateTime.current - 22).beginning_of_day,
@@ -171,11 +171,24 @@ RSpec.describe ExperimentUser, type: :feature do
 
           click_link("Evaluate experiment")
           expect(page).to have_content "Evaluate"
+          all(class: "experiment_user_experiment_user_measurements_ending_score").each do |measurement|
+            measurement.choose(class: "radio_buttons", option: "8")
+          end
           click_button("Evaluate this experiment")
 
           within ".completed_experiments" do
             expect(page).to have_content experiment.name
           end
+        end
+
+        it "does not let the user complete it without the ending measurement" do
+          expect(page).to have_content "YAY! You completed your experiment"
+
+          click_link("Evaluate experiment")
+          expect(page).to have_content "Evaluate"
+          click_button("Evaluate this experiment")
+
+          expect(page).to have_content "Ending score can't be blank"
         end
       end
     end

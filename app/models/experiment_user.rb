@@ -8,6 +8,7 @@ class ExperimentUser < ApplicationRecord
 
   validate :cannot_have_multiple_active_experiments
   accepts_nested_attributes_for :experiment_user_measurements
+  validates_associated :experiment_user_measurements, if: -> { experiment_user_measurement }
 
   enum status: {
     active: 0,

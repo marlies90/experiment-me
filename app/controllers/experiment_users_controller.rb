@@ -49,7 +49,7 @@ class ExperimentUsersController < ApplicationController
       if @experiment_user.update(experiment_user_params)
         redirect_to dashboard_experiments_path, notice: "You have cancelled the experiment"
       else
-        redirect_to dashboard_experiments_path, notice: "Something went wrong when cancelling the experiment"
+        render :edit
       end
     # complete experiment
     elsif @experiment_user.ending_date < DateTime.current && @experiment_user.active?
@@ -57,7 +57,7 @@ class ExperimentUsersController < ApplicationController
       if @experiment_user.update(experiment_user_params)
         redirect_to dashboard_experiments_path, notice: "You have completed the experiment"
       else
-        redirect_to dashboard_experiments_path, notice: "Something went wrong when completing the experiment"
+        render :edit
       end
     # reactivate experiment
     elsif @experiment_user.cancelled?
@@ -68,7 +68,7 @@ class ExperimentUsersController < ApplicationController
       if @experiment_user.update(experiment_user_params)
         redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
       else
-        redirect_to dashboard_experiments_path, notice: "Something went wrong when reactivating the experiment"
+        render :edit
       end
     end
   end

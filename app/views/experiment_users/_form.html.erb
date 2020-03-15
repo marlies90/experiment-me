@@ -48,6 +48,24 @@
     </div>
   <% end %>
 
+  <% if completing_experiment %>
+    <div>
+      <span>YAY! You completed the experiment "<strong><%= @experiment.name %>".</strong></span>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <h4>Your ending measurement</h4>
+        <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
+          <%= experiment_user_measurement.hidden_field :id %>
+          <%= experiment_user_measurement.hidden_field :benefit_id %>
+          <%= experiment_user_measurement.object.benefit.measurement_statement %>
+          <abbr title="required">*</abbr>
+          <%= experiment_user_measurement.input :ending_score, required: true, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <div>
     <%= f.submit "#{start_or_cancel_experiment} this experiment", class: "btn btn-primary" %>
   </div>
