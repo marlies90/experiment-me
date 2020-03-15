@@ -1,5 +1,88 @@
 <%= simple_form_for @experiment_user do |f| %>
   <%= f.hidden_field :experiment_id, value: @experiment.id %>
-  <%= f.hidden_field :status, value: params[:status] %>
-  <%= f.submit "#{start_or_cancel_experiment} this experiment", class: "btn btn-primary" %>
+
+  <% if activating_experiment %>
+    <div>
+      <span>For the upcoming 3 weeks, you'll be trying out the experiment "<strong><%= @experiment.name %>".</strong></span>
+      <h4>Objective</h4>
+      <p>
+        <i class="fas fa-trophy"></i>
+        <%= @experiment.objective %>
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <span>When would you like to start the experiment?</span>
+        <%= f.input :starting_date,
+        as: :select,
+        collection: [["Today", DateTime.current], ["Tomorrow", (DateTime.current + 1).beginning_of_day]],
+        selected: "Today",
+        label: false %>
+      </div>
+      <div class="col-md-8">
+        <h4>Your initial measurement</h4>
+        <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
+          <%= experiment_user_measurement.hidden_field :id %>
+          <%= experiment_user_measurement.hidden_field :benefit_id %>
+          <%= experiment_user_measurement.object.benefit.measurement_statement %>
+          <abbr title="required">*</abbr>
+          <%= experiment_user_measurement.input :starting_score, required: true, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if cancelling_experiment %>
+    <div>
+      <span>You're cancelling the experiment. You can retry it later if you want to, starting from day 1 again.</span>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <span>Why are you cancelling the experiment?</span>
+        <%= f.input :cancellation_reason,
+        as: :select,
+        collection: ExperimentUser.cancellation_reasons.keys,
+        label: false
+        %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if completing_experiment %>
+    <div>
+      <span>YAY! You completed the experiment "<strong><%= @experiment.name %>".</strong></span>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <h4>Your ending measurement</h4>
+        <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
+          <%= experiment_user_measurement.hidden_field :id %>
+          <%= experiment_user_measurement.hidden_field :benefit_id %>
+          <%= experiment_user_measurement.object.benefit.measurement_statement %>
+          <abbr title="required">*</abbr>
+          <%= experiment_user_measurement.input :ending_score, required: true, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+        <% end %>
+
+        <div>
+          <span>How would you rate the difficulty of this experiment to you?</span>
+          <abbr title="required">*</abbr>
+          <%= f.input :difficulty,
+          as: :select,
+          collection: ExperimentUser.difficulty_rates.keys,
+          label: false %>
+
+          <span>Will you continue this new behaviour now that the experiment is over?</span>
+          <abbr title="required">*</abbr>
+          <%= f.input :experiment_continuation,
+          as: :select,
+          collection: ExperimentUser.continuation_options.keys,
+          label: false %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.submit "#{start_or_cancel_experiment} this experiment", class: "btn btn-primary" %>
+  </div>
 <% end %>

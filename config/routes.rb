@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :journal_entries, path: "/dashboard/journal"
   resources :journal_statements
+  resources :benefits
 
   devise_for :users
 

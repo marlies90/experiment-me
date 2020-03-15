@@ -1,12 +1,24 @@
 module ExperimentHelper
   def start_or_cancel_experiment
-    if params[:status] == "cancelled"
-      "Stop"
-    elsif params[:status] == "active"
+    if activating_experiment
       "Start"
-    elsif params[:status] == "completed"
-      "Evaluate"  
+    elsif cancelling_experiment
+      "Stop"
+    elsif completing_experiment
+      "Evaluate"
     end
+  end
+
+  def activating_experiment
+    @experiment_user&.id.blank? || @experiment_user.cancelled?
+  end
+
+  def completing_experiment
+    @experiment_user&.id.present? && @experiment_user.ending_date < DateTime.current
+  end
+
+  def cancelling_experiment
+    @experiment_user&.id.present? && @experiment_user.ending_date > DateTime.current
   end
 
   def already_doing_an_experiment

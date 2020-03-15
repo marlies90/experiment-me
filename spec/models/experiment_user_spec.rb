@@ -42,6 +42,44 @@ RSpec.describe ExperimentUser, type: :model do
     expect(subject).to_not be_valid
   end
 
+  it "is not valid without experiment_user_measurements" do
+    subject.experiment_user_measurements = FactoryBot.build_list(:experiment_user_measurement, 2, starting_score: nil, ending_score: nil)
+    expect(subject).to_not be_valid
+  end
+
+  context "#experiment_user_measurements" do
+    context "when completing an experiment" do
+      subject { build(:experiment_user, :completing) }
+
+      it "validates presence of experiment_user_measurement" do
+        subject.experiment_user_measurements = FactoryBot.build_list(:experiment_user_measurement, 2, starting_score: nil, ending_score: nil)
+        expect(subject).to_not be_valid
+      end
+    end
+
+    context "when cancelling an experiment" do
+      subject { build(:experiment_user, :cancelling) }
+
+      it "does not validate presence of experiment_user_measurement" do
+        expect(subject).to be_valid
+      end
+    end
+  end
+
+  context "#completing_experiment" do
+    subject { build(:experiment_user, :completed) }
+
+    it "validates presence of difficulty" do
+      subject.difficulty = nil
+      expect(subject).to_not be_valid
+    end
+
+    it "validates presence of experiment_continuation" do
+      subject.experiment_continuation = nil
+      expect(subject).to_not be_valid
+    end
+  end
+
   context "#cannot_have_multiple_active_experiments" do
     let(:another_active_experiment) { create(:experiment_user, :active) }
 

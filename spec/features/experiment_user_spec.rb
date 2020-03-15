@@ -29,11 +29,43 @@ RSpec.describe ExperimentUser, type: :feature do
       context "without any other active experiment" do
         let!(:experiment_user) { nil }
 
-        it "allows a user to succesfully start a new experiment" do
+        it "allows the user to start a new experiment today" do
           click_link "Start this experiment"
+          select("Today", from: "experiment_user_starting_date")
+          all(class: "experiment_user_experiment_user_measurements_starting_score").each do |measurement|
+            measurement.choose(class: "radio_buttons", option: "8")
+          end
           click_button "Start this experiment"
-          expect(page).to have_content "You have successfully started the experiment"
-          expect(page).to have_content "You're doing the experiment \"#{experiment.name}\""
+          find(".sidebar .experiments a").click
+
+          within ".current_experiment" do
+            expect(page).to have_content experiment.name
+            expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current))
+            expect(find(".ending_date").text.to_datetime).to be_within(1.second).of((DateTime.current + 21).end_of_day)
+          end
+        end
+
+        it "allows the user to start a new experiment tomorrow" do
+          click_link "Start this experiment"
+          select("Tomorrow", from: "experiment_user_starting_date")
+          all(class: "experiment_user_experiment_user_measurements_starting_score").each do |measurement|
+            measurement.choose(class: "radio_buttons", option: "8")
+          end
+          click_button "Start this experiment"
+          find(".sidebar .experiments a").click
+
+          within ".current_experiment" do
+            expect(page).to have_content experiment.name
+            expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current + 1).beginning_of_day)
+            expect(find(".ending_date").text.to_datetime).to be_within(1.second).of((DateTime.current + 22).end_of_day)
+          end
+        end
+
+        it "does not allow the user to start a new experiment without filling in the starting survey" do
+          click_link "Start this experiment"
+          select("Tomorrow", from: "experiment_user_starting_date")
+          click_button "Start this experiment"
+          expect(page).to have_content "Starting score can't be blank"
         end
       end
 
@@ -62,7 +94,7 @@ RSpec.describe ExperimentUser, type: :feature do
     end
 
     context "when an experiment is active" do
-      it "Allows the user to stop that experiment" do
+      it "allows the user to stop that experiment" do
         within ".current_experiment" do
           expect(page).to have_content experiment.name
           expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current - 1).beginning_of_day)
@@ -70,12 +102,14 @@ RSpec.describe ExperimentUser, type: :feature do
         end
 
         click_link("Stop this experiment")
+        select("I have no time to focus on it right now", from: "experiment_user_cancellation_reason")
         click_button("Stop this experiment")
 
         within ".cancelled_experiments" do
           expect(page).to have_content experiment.name
           expect(find(".starting_date").text.to_datetime).to be_within(1.second).of((DateTime.current - 1).beginning_of_day)
           expect(find(".ending_date").text.to_datetime).to be_within(1.second).of(DateTime.current)
+          expect(find(".cancellation_reason")).to have_content "I have no time to focus on it right now"
         end
       end
     end
@@ -94,6 +128,7 @@ RSpec.describe ExperimentUser, type: :feature do
           end
 
           click_link("Retry this experiment")
+          expect(page).to have_content "Start"
           click_button("Start this experiment")
 
           within ".current_experiment" do
@@ -124,7 +159,7 @@ RSpec.describe ExperimentUser, type: :feature do
       context "when an experiment has been running for 21 days" do
         let!(:experiment_user) { FactoryBot.create(
           :experiment_user,
-          :active,
+          :completing,
           experiment: experiment,
           user: current_user,
           starting_date: (DateTime.current - 22).beginning_of_day,
@@ -135,11 +170,30 @@ RSpec.describe ExperimentUser, type: :feature do
           expect(page).to have_content "YAY! You completed your experiment"
 
           click_link("Evaluate experiment")
+          expect(page).to have_content "Evaluate"
+          all(class: "experiment_user_experiment_user_measurements_ending_score").each do |measurement|
+            measurement.choose(class: "radio_buttons", option: "8")
+          end
+          select("Very easy", from: "experiment_user_difficulty")
+          select("Yes", from: "experiment_user_experiment_continuation")
+
           click_button("Evaluate this experiment")
 
           within ".completed_experiments" do
             expect(page).to have_content experiment.name
           end
+        end
+
+        it "does not let the user complete it without the ending measurements" do
+          expect(page).to have_content "YAY! You completed your experiment"
+
+          click_link("Evaluate experiment")
+          expect(page).to have_content "Evaluate"
+          click_button("Evaluate this experiment")
+
+          expect(page).to have_content "Ending score can't be blank"
+          expect(page).to have_content "Difficulty can't be blank"
+          expect(page).to have_content "Experiment continuation can't be blank"
         end
       end
     end

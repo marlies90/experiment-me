@@ -1,4 +1,4 @@
-<%= form_with(model: experiment, local: true) do |form| %>
+<%= simple_form_for @experiment do |form| %>
   <% if experiment.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(experiment.errors.count, "error") %> prohibited this experiment from being saved:</h2>
@@ -43,8 +43,8 @@
     </div>
 
     <h3>Resources</h3>
-    <%= form.fields_for :resources do |resource| %>
-    <%= render "resource_fields", f: resource %>
+    <%= form.simple_fields_for :resources do |resource| %>
+      <%= render "resource_fields", f: resource %>
     <% end %>
 
     <div class="form-group">
@@ -53,12 +53,14 @@
 
 
     <h3>Benefits</h3>
-    <%= form.fields_for :benefits do |benefit| %>
     <div class="form-group">
-      <%= benefit.label :name %>
-      <%= benefit.text_area :name, class:"form-control benefit_name" %>
+      <div class="row">
+        <div class="benefit_name col">
+          <%= form.association :benefits, as: :check_boxes %>
+        </div>
+      </div>
     </div>
-    <% end %>
+
 
     <div class="actions">
       <%= form.submit "Save experiment", class: "btn btn-primary" %>
