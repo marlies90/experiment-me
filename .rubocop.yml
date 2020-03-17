@@ -1,0 +1,25 @@
+inherit_from: .rubocop_todo.yml
+
+Layout/LineLength:
+  Max: 100
+  IgnoredPatterns: ['\A#']
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false

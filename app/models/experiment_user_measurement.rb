@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExperimentUserMeasurement < ApplicationRecord
   belongs_to :experiment_user
   belongs_to :benefit

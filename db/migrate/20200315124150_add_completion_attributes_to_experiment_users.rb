@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddCompletionAttributesToExperimentUsers < ActiveRecord::Migration[5.2]
   def change
     add_column :experiment_users, :difficulty, :integer

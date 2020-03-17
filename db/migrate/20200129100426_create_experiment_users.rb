@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateExperimentUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :experiment_users do |t|
@@ -8,6 +10,6 @@ class CreateExperimentUsers < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :experiment_users, [:user_id, :experiment_id], unique: true
+    add_index :experiment_users, %i[user_id experiment_id], unique: true
   end
 end

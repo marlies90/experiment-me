@@ -1,8 +1,10 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe JournalEntry, type: :feature do
   let(:current_user) { FactoryBot.create(:user) }
-  let!(:journal_statement) { FactoryBot.create_list(:journal_statement, 6)}
+  let!(:journal_statement) { FactoryBot.create_list(:journal_statement, 6) }
 
   before do
     login_as(current_user)
@@ -87,13 +89,15 @@ RSpec.describe JournalEntry, type: :feature do
 
   context "with an active experiment" do
     let!(:experiment_user) { create(:experiment_user, :active, user: current_user) }
-    let!(:completed_experiment_user) { create(
-      :experiment_user,
-      :completed,
-      user: current_user,
-      starting_date: (DateTime.current - 24).beginning_of_day,
-      ending_date: (DateTime.current - 3).beginning_of_day
-      ) }
+    let!(:completed_experiment_user) do
+      create(
+        :experiment_user,
+        :completed,
+        user: current_user,
+        starting_date: (DateTime.current - 24).beginning_of_day,
+        ending_date: (DateTime.current - 3).beginning_of_day
+      )
+    end
 
     context "when creating a new journal_entry" do
       context "with a date on which the current experiment is active" do
@@ -156,20 +160,24 @@ RSpec.describe JournalEntry, type: :feature do
 
     context "when editing an existing journal_entry" do
       context "with an experiment that has been completed in the meantime" do
-        let(:journal_entry) { FactoryBot.create(
-          :journal_entry,
-          user: current_user,
-          date: (DateTime.current - 35).beginning_of_day,
-          experiment_id: previous_experiment_user.experiment.id,
-          experiment_success: true
-          ) }
+        let(:journal_entry) do
+          FactoryBot.create(
+            :journal_entry,
+            user: current_user,
+            date: (DateTime.current - 35).beginning_of_day,
+            experiment_id: previous_experiment_user.experiment.id,
+            experiment_success: true
+          )
+        end
         let(:current_experiment_user) { FactoryBot.create(:experiment_user, :active) }
-        let(:previous_experiment_user) { create(
-          :experiment_user,
-          :completed,
-          starting_date: (DateTime.current - 50).beginning_of_day,
-          ending_date: (DateTime.current - 29).beginning_of_day
-          ) }
+        let(:previous_experiment_user) do
+          create(
+            :experiment_user,
+            :completed,
+            starting_date: (DateTime.current - 50).beginning_of_day,
+            ending_date: (DateTime.current - 29).beginning_of_day
+          )
+        end
 
         before do
           visit journal_entry_path(journal_entry)

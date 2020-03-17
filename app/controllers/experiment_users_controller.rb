@@ -1,14 +1,17 @@
+# frozen_string_literal: true
+
 class ExperimentUsersController < ApplicationController
-  before_action :set_experiment, only: [:new, :edit]
+  before_action :set_experiment, only: %i[new edit]
 
   def new
     if current_user
       @experiment_user = ExperimentUser.new
       authorize @experiment_user
 
-      experiment_user_measurements = ExperimentBenefit.where(experiment_id: @experiment.id).map do |experiment_benefit|
-        ExperimentUserMeasurement.new(benefit_id: experiment_benefit.benefit_id)
-      end
+      experiment_user_measurements =
+        ExperimentBenefit.where(experiment_id: @experiment.id).map do |experiment_benefit|
+          ExperimentUserMeasurement.new(benefit_id: experiment_benefit.benefit_id)
+        end
 
       @experiment_user.experiment_user_measurements = experiment_user_measurements
     else
@@ -32,38 +35,37 @@ class ExperimentUsersController < ApplicationController
   end
 
   def edit
-    @experiment_user = ExperimentUser.find_by(experiment_id: @experiment.id, user_id: current_user.id)
+    @experiment_user = ExperimentUser.find_by(
+      experiment_id: @experiment.id, user_id: current_user.id
+    )
     authorize @experiment_user
   end
 
   def update
     @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
-    @experiment_user = ExperimentUser.find_by(experiment_id: @experiment.id, user_id: current_user.id)
+    @experiment_user = ExperimentUser.find_by(
+      experiment_id: @experiment.id, user_id: current_user.id
+    )
     authorize @experiment_user
 
-    # cancel experiment
     if @experiment_user.ending_date > DateTime.current && @experiment_user.active?
-      @experiment_user.status = "cancelled"
-      @experiment_user.ending_date = DateTime.current
+      cancel_experiment
 
       if @experiment_user.update(experiment_user_params)
         redirect_to dashboard_experiments_path, notice: "You have cancelled the experiment"
       else
         render :edit
       end
-    # complete experiment
     elsif @experiment_user.ending_date < DateTime.current && @experiment_user.active?
-      @experiment_user.status = "completed"
+      complete_experiment
+
       if @experiment_user.update(experiment_user_params)
         redirect_to dashboard_experiments_path, notice: "You have completed the experiment"
       else
         render :edit
       end
-    # reactivate experiment
     elsif @experiment_user.cancelled?
-      @experiment_user.status = "active"
-      @experiment_user.starting_date = DateTime.current
-      @experiment_user.ending_date = (DateTime.current + 21).end_of_day
+      reactivate_experiment
 
       if @experiment_user.update(experiment_user_params)
         redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
@@ -75,14 +77,30 @@ class ExperimentUsersController < ApplicationController
 
   private
 
+  def cancel_experiment
+    @experiment_user.status = "cancelled"
+    @experiment_user.ending_date = DateTime.current
+  end
+
+  def complete_experiment
+    @experiment_user.status = "completed"
+  end
+
+  def reactivate_experiment
+    @experiment_user.status = "active"
+    @experiment_user.starting_date = DateTime.current
+    @experiment_user.ending_date = (DateTime.current + 21).end_of_day
+  end
+
   def set_experiment
     @experiment = Experiment.friendly.find(params[:experiment_id])
   end
 
   def experiment_user_params
     params.fetch(:experiment_user).permit(
-      :experiment_id, :user_id, :status, :cancellation_reason, :starting_date, :difficulty, :experiment_continuation,
-      experiment_user_measurements_attributes: [:id, :benefit_id, :starting_score, :ending_score]
+      :experiment_id, :user_id, :status, :cancellation_reason, :starting_date, :difficulty,
+      :experiment_continuation,
+      experiment_user_measurements_attributes: %i[id benefit_id starting_score ending_score]
     )
   end
 end

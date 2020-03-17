@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateJournalStatements < ActiveRecord::Migration[5.2]
   def change
     create_table :journal_statements do |t|

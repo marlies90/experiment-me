@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DashboardControllerPolicy < ApplicationPolicy
   def overview?
     user.present?

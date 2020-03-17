@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDatesToExperimentUsers < ActiveRecord::Migration[5.2]
   def change
     add_column :experiment_users, :starting_date, :datetime, null: false

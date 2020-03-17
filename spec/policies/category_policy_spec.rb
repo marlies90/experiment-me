@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe CategoryPolicy do
   subject { CategoryPolicy.new(user, category) }

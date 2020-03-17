@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JournalRating < ApplicationRecord
   belongs_to :journal_entry
   belongs_to :journal_statement

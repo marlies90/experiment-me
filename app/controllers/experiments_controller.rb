@@ -1,11 +1,14 @@
-class ExperimentsController < ApplicationController
-  before_action :set_experiment, only: [:show, :edit, :update, :destroy]
+# frozen_string_literal: true
 
-  def index
-  end
+class ExperimentsController < ApplicationController
+  before_action :set_experiment, only: %i[show edit update destroy]
+
+  def index; end
 
   def show
-    @existing_experiment_user = ExperimentUser.find_by(experiment_id: @experiment.id, user_id: current_user&.id)
+    @existing_experiment_user = ExperimentUser.find_by(
+      experiment_id: @experiment.id, user_id: current_user&.id
+    )
   end
 
   def new
@@ -13,15 +16,14 @@ class ExperimentsController < ApplicationController
     authorize @experiment
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @experiment = Experiment.new(experiment_params)
     authorize @experiment
 
     if @experiment.save
-      redirect_to dashboard_admin_path, notice: 'Experiment was successfully created.'
+      redirect_to dashboard_admin_path, notice: "Experiment was successfully created."
     else
       render :new
     end
@@ -29,7 +31,7 @@ class ExperimentsController < ApplicationController
 
   def update
     if @experiment.update(experiment_params)
-      redirect_to dashboard_admin_path, notice: 'Experiment was successfully updated.'
+      redirect_to dashboard_admin_path, notice: "Experiment was successfully updated."
     else
       render :edit
     end
@@ -37,21 +39,21 @@ class ExperimentsController < ApplicationController
 
   def destroy
     @experiment.destroy
-    redirect_to dashboard_admin_path, notice: 'Experiment was successfully destroyed.'
+    redirect_to dashboard_admin_path, notice: "Experiment was successfully destroyed."
   end
 
   private
 
-    def set_experiment
-      @experiment = Experiment.friendly.find(params[:id])
-      authorize @experiment
-    end
+  def set_experiment
+    @experiment = Experiment.friendly.find(params[:id])
+    authorize @experiment
+  end
 
-    def experiment_params
-      params.fetch(:experiment).permit(
-        :name, :description, :image, :objective, :category_id,
-        resources_attributes: [:id, :name, :source, :_destroy],
-        benefit_ids: []
-      )
-    end
+  def experiment_params
+    params.fetch(:experiment).permit(
+      :name, :description, :image, :objective, :category_id,
+      resources_attributes: %i[id name source _destroy],
+      benefit_ids: []
+    )
+  end
 end

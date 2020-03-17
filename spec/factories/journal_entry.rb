@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :journal_entry do
     date { DateTime.current.beginning_of_day }

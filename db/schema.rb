@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# rubocop: disable Layout/LineLength
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,8 +14,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_15_124150) do
-
+ActiveRecord::Schema.define(version: 20_200_315_124_150) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_03_15_124150) do
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+    t.index %w[record_type record_id name blob_id], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
@@ -81,7 +84,7 @@ ActiveRecord::Schema.define(version: 2020_03_15_124150) do
     t.integer "difficulty"
     t.integer "experiment_continuation"
     t.index ["experiment_id"], name: "index_experiment_users_on_experiment_id"
-    t.index ["user_id", "experiment_id"], name: "index_experiment_users_on_user_id_and_experiment_id", unique: true
+    t.index %w[user_id experiment_id], name: "index_experiment_users_on_user_id_and_experiment_id", unique: true
     t.index ["user_id"], name: "index_experiment_users_on_user_id"
   end
 
@@ -104,9 +107,9 @@ ActiveRecord::Schema.define(version: 2020_03_15_124150) do
     t.string "sluggable_type", limit: 50
     t.string "scope"
     t.datetime "created_at"
-    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
-    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+    t.index %w[slug sluggable_type scope], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index %w[slug sluggable_type], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index %w[sluggable_type sluggable_id], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
   create_table "journal_entries", force: :cascade do |t|
@@ -178,3 +181,5 @@ ActiveRecord::Schema.define(version: 2020_03_15_124150) do
   add_foreign_key "journal_ratings", "journal_statements"
   add_foreign_key "resources", "experiments"
 end
+
+# rubocop: enable Layout/LineLength

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Benefit < ApplicationRecord
   has_many :experiment_benefits
   has_many :experiments, through: :experiment_benefits

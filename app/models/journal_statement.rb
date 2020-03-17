@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JournalStatement < ApplicationRecord
   has_many :journal_ratings
 

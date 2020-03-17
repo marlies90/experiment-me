@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe ExperimentUser, type: :model do
   subject { build(:experiment_user, :active) }
@@ -43,7 +45,9 @@ RSpec.describe ExperimentUser, type: :model do
   end
 
   it "is not valid without experiment_user_measurements" do
-    subject.experiment_user_measurements = FactoryBot.build_list(:experiment_user_measurement, 2, starting_score: nil, ending_score: nil)
+    subject.experiment_user_measurements = FactoryBot.build_list(
+      :experiment_user_measurement, 2, starting_score: nil, ending_score: nil
+    )
     expect(subject).to_not be_valid
   end
 
@@ -52,7 +56,9 @@ RSpec.describe ExperimentUser, type: :model do
       subject { build(:experiment_user, :completing) }
 
       it "validates presence of experiment_user_measurement" do
-        subject.experiment_user_measurements = FactoryBot.build_list(:experiment_user_measurement, 2, starting_score: nil, ending_score: nil)
+        subject.experiment_user_measurements = FactoryBot.build_list(
+          :experiment_user_measurement, 2, starting_score: nil, ending_score: nil
+        )
         expect(subject).to_not be_valid
       end
     end

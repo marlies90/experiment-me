@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JournalEntry < ApplicationRecord
   extend FriendlyId
   friendly_id :date_slug, use: :slugged
@@ -14,7 +16,7 @@ class JournalEntry < ApplicationRecord
   validates_associated :journal_ratings
 
   scope :newest, -> { order("date DESC") }
-  scope :per_user, lambda { |user| where(user_id: user.id) }
+  scope :per_user, ->(user) { where(user_id: user.id) }
 
   private
 

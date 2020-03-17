@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExperimentPolicy < ApplicationPolicy
   def index?
     true

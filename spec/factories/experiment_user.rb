@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :experiment_user do
     experiment { FactoryBot.build(:experiment) }
@@ -7,24 +9,32 @@ FactoryBot.define do
 
     trait :active do
       status { 0 }
-      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2, :with_starting_score) }
+      experiment_user_measurements do
+        FactoryBot.build_list(:experiment_user_measurement, 2, :with_starting_score)
+      end
     end
 
     trait :completing do
       status { 0 }
-      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2, :with_starting_score) }
+      experiment_user_measurements do
+        FactoryBot.build_list(:experiment_user_measurement, 2, :with_starting_score)
+      end
     end
 
     trait :completed do
       status { 1 }
-      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2, :complete) }
+      experiment_user_measurements do
+        FactoryBot.build_list(:experiment_user_measurement, 2, :complete)
+      end
       difficulty { Faker::Number.between(from: 0, to: 4) }
       experiment_continuation { Faker::Number.between(from: 0, to: 2) }
     end
 
     trait :cancelling do
       status { 0 }
-      experiment_user_measurements { FactoryBot.build_list(:experiment_user_measurement, 2, :with_starting_score) }
+      experiment_user_measurements do
+        FactoryBot.build_list(:experiment_user_measurement, 2, :with_starting_score)
+      end
     end
 
     trait :cancelled do

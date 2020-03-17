@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe JournalRating, type: :model do
   let(:journal_entry) { FactoryBot.build_stubbed(:journal_entry) }

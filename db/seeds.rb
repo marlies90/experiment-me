@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 User.create!(email: "mgielen90@gmail.com", password: "123456", role: 1)
 User.create!(email: "anormaluser@gmail.com", password: "123456")
 
 puts "*** admin and normal user created ***"
 
-categories = ["Sleep", "Physical health", "Relax", "Connection"].map do |category|
+["Sleep", "Physical health", "Relax", "Connection"].map do |category|
   Category.create!(
-    name: "#{category}",
+    name: category.to_s,
     description: "This is the description of category #{category}",
     image: "https://via.placeholder.com/350"
   )
@@ -22,9 +24,8 @@ experiments = [
 
 experiments.map! do |experiment|
   Experiment.create!(
-    name: "#{experiment}",
-    description: "This is the description of experiment #{experiment}. Doggo ipsum noodle horse borkf big ol pupper, the neighborhood pupper. Borking doggo super chub long water shoob extremely cuuuuuute dat tungg tho h*ck, heck thicc pats. Pupperino pats you are doing me the shock aqua doggo heckin angery woofer, what a nice floof most angery pupper I have ever seen mlem. aqua doggo. extremely cuuuuuute. Length boy shoob vvv clouds aqua doggo, wow such tempt many pats fluffer. Floofs the neighborhood pupper long woofer porgo noodle horse doing me a frighten, thicc puggorino blep. Big ol doge heckin the neighborhood pupper boofers super chub sub woofer, adorable doggo blep fat boi sub woofer pupperino. Long woofer heckin good boys and girls shibe very hand that feed shibe thicc, fat boi very taste wow lotsa pats. heckin angery woofer long bois puggorino. Blep shoob long water shoob, puggorino.
-    Boofers super chub shibe extremely cuuuuuute, long water shoob heckin. Noodle horse mlem long doggo vvv, tungg I am bekom fat. Borking doggo tungg wow very biscit pupperino you are doin me a concern I am bekom fat, he made many woofs snoot what a nice floof. Shooberino long water shoob doggorino floofs, shoob. Bork aqua doggo smol clouds borkdrive, length boy porgo. Many pats tungg blep aqua doggo, wow very biscit length boy. doggorino pats heck. Clouds lotsa pats sub woofer such treat, vvv.",
+    name: experiment.to_s,
+    description: Faker::Lorem.paragraph,
     image: "https://via.placeholder.com/350",
     category: Category.first,
     objective: "This is the objective of experiment #{experiment}"
@@ -51,7 +52,8 @@ benefits = [
 
 benefits.map! do |benefit|
   Benefit.create!(
-    name: "#{benefit}"
+    name: benefit.to_s,
+    measurement_statement: "This is the measurement statement for #{benefit}"
   )
 end
 
@@ -63,7 +65,7 @@ end
 
 puts "*** linked benefits to experiments ***"
 
-journal_entry_dates = [ DateTime.current, DateTime.yesterday ]
+journal_entry_dates = [DateTime.current, DateTime.yesterday]
 
 journal_entry_dates.map do |date|
   JournalEntry.create!(
@@ -76,18 +78,19 @@ puts "*** journal entries created ***"
 
 journal_statements = [
   "I am in a good mood today", "I slept well and feel rested", "I am feeling healthy",
-  "I feel relaxed most of the time", "I feel connected to myself and/or others", "My life feels meaningful"
+  "I feel relaxed most of the time", "I feel connected to myself and/or others",
+  "My life feels meaningful"
 ]
 
 journal_statements.map do |statement|
   JournalStatement.create!(
-    name: "#{statement}"
+    name: statement.to_s
   )
 end
 
 puts "*** journal statements created ***"
 
-journal_rating_scores = [ 6, 7, 4, 2, 7, 9 ]
+journal_rating_scores = [6, 7, 4, 2, 7, 9]
 
 journal_rating_scores.map.with_index do |score, index|
   JournalRating.create!(

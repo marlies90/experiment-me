@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExperimentUser < ApplicationRecord
   belongs_to :user
   belongs_to :experiment
@@ -50,8 +52,8 @@ class ExperimentUser < ApplicationRecord
   end
 
   def cannot_have_multiple_active_experiments
-    if active? && ExperimentUser.where(user_id: user, status: "active").present?
-      errors.add(:experiment_user, ": you cannot have 2 active experiments at the same time")
-    end
+    return unless active? && ExperimentUser.where(user_id: user, status: "active").present?
+
+    errors.add(:experiment_user, ": you cannot have 2 active experiments at the same time")
   end
 end

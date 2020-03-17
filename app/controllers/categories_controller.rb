@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: %i[show edit update destroy]
 
   def index
     @categories = Category.all
@@ -14,15 +16,14 @@ class CategoriesController < ApplicationController
     authorize @category
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @category = Category.new(category_params)
     authorize @category
 
     if @category.save
-      redirect_to dashboard_admin_path, notice: 'Category was successfully created.'
+      redirect_to dashboard_admin_path, notice: "Category was successfully created."
     else
       render :new
     end
@@ -30,7 +31,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to dashboard_admin_path, notice: 'Category was successfully updated.'
+      redirect_to dashboard_admin_path, notice: "Category was successfully updated."
     else
       render :edit
     end
@@ -38,17 +39,17 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category.destroy
-    redirect_to dashboard_admin_path, notice: 'Category was successfully destroyed.'
+    redirect_to dashboard_admin_path, notice: "Category was successfully destroyed."
   end
 
   private
 
-    def set_category
-      @category = Category.friendly.find(params[:category])
-      authorize @category
-    end
+  def set_category
+    @category = Category.friendly.find(params[:category])
+    authorize @category
+  end
 
-    def category_params
-      params.fetch(:category).permit(:name, :description, :image)
-    end
+  def category_params
+    params.fetch(:category).permit(:name, :description, :image)
+  end
 end

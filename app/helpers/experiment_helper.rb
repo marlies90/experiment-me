@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ExperimentHelper
   def start_or_cancel_experiment
     if activating_experiment
@@ -38,6 +40,7 @@ module ExperimentHelper
     else
       ExperimentUser.where(user_id: current_user).each do |user_experiment|
         next unless user_experiment.starting_date < date && user_experiment.ending_date > date
+
         @active_experiment_on_date = user_experiment.experiment
       end
     end

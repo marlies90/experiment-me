@@ -1,18 +1,19 @@
+# frozen_string_literal: true
+
 class BenefitsController < ApplicationController
-  before_action :set_benefit, only: [:show, :edit, :update, :destroy]
+  before_action :set_benefit, only: %i[show edit update destroy]
 
   def new
     @benefit = Benefit.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @benefit = Benefit.new(benefit_params)
 
     if @benefit.save
-      redirect_to dashboard_admin_path, notice: 'Benefit was successfully created.'
+      redirect_to dashboard_admin_path, notice: "Benefit was successfully created."
     else
       render :new
     end
@@ -20,7 +21,7 @@ class BenefitsController < ApplicationController
 
   def update
     if @benefit.update(benefit_params)
-      redirect_to dashboard_admin_path, notice: 'Benefit was successfully updated.'
+      redirect_to dashboard_admin_path, notice: "Benefit was successfully updated."
     else
       render :edit
     end
@@ -28,7 +29,7 @@ class BenefitsController < ApplicationController
 
   def destroy
     @benefit.destroy
-    redirect_to dashboard_admin_path, notice: 'Benefit was successfully destroyed.'
+    redirect_to dashboard_admin_path, notice: "Benefit was successfully destroyed."
   end
 
   private

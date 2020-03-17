@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddMeasurementStatementToBenefits < ActiveRecord::Migration[5.2]
   def change
     add_column :benefits, :measurement_statement, :text

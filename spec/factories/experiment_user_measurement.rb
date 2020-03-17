@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :experiment_user_measurement do
     benefit { FactoryBot.build(:benefit) }

@@ -1,8 +1,12 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe ExperimentUserMeasurement, type: :model do
   let(:experiment_user) { FactoryBot.build(:experiment_user) }
-  subject { build(:experiment_user_measurement, :with_starting_score, experiment_user: experiment_user) }
+  subject do
+    build(:experiment_user_measurement, :with_starting_score, experiment_user: experiment_user)
+  end
 
   describe "associations" do
     it { is_expected.to respond_to(:experiment_user) }
@@ -51,7 +55,9 @@ RSpec.describe ExperimentUserMeasurement, type: :model do
 
   context "#ending_experiment" do
     let(:completed_experiment) { FactoryBot.build(:experiment_user, :completed) }
-    subject { create(:experiment_user_measurement, :complete, experiment_user: completed_experiment) }
+    subject do
+      create(:experiment_user_measurement, :complete, experiment_user: completed_experiment)
+    end
 
     context "when completing an experiment" do
       it "is not valid without an ending_score" do
