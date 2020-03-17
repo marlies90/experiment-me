@@ -1,5 +1,13 @@
 inherit_from: .rubocop_todo.yml
 
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/BlockLength:
+  Max: 25
+  Exclude:
+    - "spec/**/*"
+
 Layout/LineLength:
   Max: 100
   IgnoredPatterns: ['\A#']
@@ -23,3 +31,10 @@ Style/HashTransformValues:
 
 Style/Documentation:
   Enabled: false
+
+AllCops:
+  Exclude:
+    - "node_modules/**/*"
+    - "vendor/**/*"
+    - "db/schema.rb"
+    - "config/initializers/*"
