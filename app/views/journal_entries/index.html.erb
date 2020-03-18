@@ -8,7 +8,7 @@
       </div>
 
       <div class="row">
-        <% if @active_experiment.present? && @active_experiment_user.ending_date < DateTime.current %>
+        <% if completing_experiment %>
           <div class="col-md-12 mb-4">
             <%= render "dashboard/evaluate_experiment", active_experiment: @active_experiment %>
           </div>
@@ -22,7 +22,7 @@
           :date,
           options_for_select(
           @dates.collect{ |d| [ to_journal_date(d), d ] },
-          disabled: @entry_dates,
+          disabled: @journal_entry_dates,
           selected: @available_dates.first
           ),
           class: "form-control mb-2"

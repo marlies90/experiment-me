@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ExperimentUsersController < ApplicationController
-  before_action :set_experiment, only: %i[new edit]
+  before_action :experiment, only: %i[new edit]
 
   def new
     if current_user
@@ -22,10 +22,7 @@ class ExperimentUsersController < ApplicationController
   def create
     @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
     @experiment_user = ExperimentUser.new(experiment_user_params)
-    @experiment_user.user_id = current_user.id
-    @experiment_user.starting_date = params[:experiment_user][:starting_date] || DateTime.current
-    @experiment_user.ending_date = (@experiment_user.starting_date + 21.days).end_of_day
-    @experiment_user.status = "active"
+    set_initial_experiment_user_attributes
 
     if @experiment_user.save
       redirect_to dashboard_overview_path, notice: "You have successfully started the experiment"
@@ -35,24 +32,18 @@ class ExperimentUsersController < ApplicationController
   end
 
   def edit
-    @experiment_user = ExperimentUser.find_by(
-      experiment_id: @experiment.id, user_id: current_user.id
-    )
-    authorize @experiment_user
+    experiment_user
   end
 
   def update
     @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
-    @experiment_user = ExperimentUser.find_by(
-      experiment_id: @experiment.id, user_id: current_user.id
-    )
-    authorize @experiment_user
+    experiment_user
 
-    if @experiment_user.ending_date > DateTime.current && @experiment_user.active?
+    if uncompleted_active_experiment
       cancel_experiment
-    elsif @experiment_user.ending_date < DateTime.current && @experiment_user.active?
+    elsif completed_active_experiment
       complete_experiment
-    elsif @experiment_user.cancelled?
+    elsif cancelled_experiment
       reactivate_experiment
     end
   end
@@ -92,8 +83,34 @@ class ExperimentUsersController < ApplicationController
     end
   end
 
-  def set_experiment
-    @experiment = Experiment.friendly.find(params[:experiment_id])
+  def uncompleted_active_experiment
+    @experiment_user.ending_date > DateTime.current && @experiment_user.active?
+  end
+
+  def completed_active_experiment
+    @experiment_user.ending_date < DateTime.current && @experiment_user.active?
+  end
+
+  def cancelled_experiment
+    @experiment_user.cancelled?
+  end
+
+  def set_initial_experiment_user_attributes
+    @experiment_user.user_id = current_user.id
+    @experiment_user.starting_date = params[:experiment_user][:starting_date] || DateTime.current
+    @experiment_user.ending_date = (@experiment_user.starting_date + 21.days).end_of_day
+    @experiment_user.status = "active"
+  end
+
+  def experiment_user
+    @experiment_user ||= ExperimentUser.find_by(
+      experiment_id: @experiment.id, user_id: current_user.id
+    )
+    authorize @experiment_user
+  end
+
+  def experiment
+    @experiment ||= Experiment.friendly.find(params[:experiment_id])
   end
 
   def experiment_user_params

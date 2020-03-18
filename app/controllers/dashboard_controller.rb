@@ -2,11 +2,9 @@
 
 class DashboardController < ApplicationController
   before_action :set_user
+  before_action :active_experiment_user, only: %i[overview experiments]
 
-  def overview
-    @active_experiment = Experiment.find_by_id(@user.experiment_users&.active&.first&.experiment_id)
-    @active_experiment_user = ExperimentUser.find_by_id(@user.experiment_users&.active)
-  end
+  def overview; end
 
   def settings; end
 
@@ -14,7 +12,6 @@ class DashboardController < ApplicationController
 
   def experiments
     @active_experiment = Experiment.find_by_id(@user.experiment_users&.active&.first&.experiment_id)
-    @active_experiment_user = ExperimentUser.find_by_id(@user.experiment_users&.active)
     @cancelled_experiments = Experiment.find(
       @user.experiment_users&.cancelled&.map(&:experiment_id)
     )
@@ -36,5 +33,9 @@ class DashboardController < ApplicationController
   def set_user
     @user = current_user
     authorize self
+  end
+
+  def active_experiment_user
+    @active_experiment_user ||= ExperimentUser.find_by_id(@user.experiment_users&.active)
   end
 end

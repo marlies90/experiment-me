@@ -8,12 +8,10 @@ class JournalEntriesController < ApplicationController
   def index
     @journal_entries = JournalEntry.per_user(current_user)
     create_date_list
-    @entry_dates =
-      @user.journal_entries.newest.limit(14).map(&:date).difference(@dates).map(&:to_datetime)
-    @available_dates = (@dates - @entry_dates) | (@entry_dates - @dates)
+    journal_entry_dates
+    @available_dates = (@dates - @journal_entry_dates) | (@journal_entry_dates - @dates)
 
     @active_experiment = Experiment.find_by_id(@user.experiment_users&.active&.first&.experiment_id)
-    @active_experiment_user = ExperimentUser.find_by_id(@user.experiment_users&.active)
   end
 
   def show; end
@@ -61,6 +59,11 @@ class JournalEntriesController < ApplicationController
     end
   end
 
+  def journal_entry_dates
+    @journal_entry_dates =
+      @user.journal_entries.newest.limit(14).map(&:date).difference(@dates).map(&:to_datetime)
+  end
+
   def set_user
     @user = current_user
     authorize self
@@ -75,7 +78,7 @@ class JournalEntriesController < ApplicationController
       @journal_entry.date
     elsif params[:date].present?
       params[:date].to_datetime
-    elsif params[:journal_entry][:date].present?
+    else
       params[:journal_entry][:date].to_datetime
     end
   end

@@ -38,3 +38,4 @@ AllCops:
     - "vendor/**/*"
     - "db/schema.rb"
     - "config/initializers/*"
+    - "bin/*"
