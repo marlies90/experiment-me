@@ -10,7 +10,7 @@
       <div class="row current_experiment">
         <div>
           <h3>Your current experiment</h3>
-          <% if @active_experiment.present? && @active_experiment_user&.ending_date > DateTime.current %>
+          <% if @active_experiment.present? && uncompleted_experiment?(@active_experiment_user) %>
           <table class="table">
             <tr>
               <th>Name</th>
@@ -36,7 +36,7 @@
               </td>
             </tr>
           </table>
-          <% elsif @active_experiment.present? && @active_experiment_user&.ending_date < DateTime.current %>
+          <% elsif @active_experiment.present? && completed_experiment?(@active_experiment_user) %>
             <%= render "evaluate_experiment", active_experiment: @active_experiment %>
           <% else %>
             <div>
