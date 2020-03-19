@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  get "/:category/experiments", to: "categories#show", as: "category"
+  get "/:category/experiments", to: "categories#show", as: "category_show"
   resources :categories, except: [:show]
 
   resources :experiments, only: %i[new create]

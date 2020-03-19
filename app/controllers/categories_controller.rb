@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[show edit update destroy]
+  before_action :set_category, only: %i[edit update destroy]
 
   def index
     @categories = Category.all
   end
 
   def show
+    @category = Category.friendly.find(params[:category])
+    authorize @category
     @experiments = @category.experiments
   end
 
@@ -45,7 +47,7 @@ class CategoriesController < ApplicationController
   private
 
   def set_category
-    @category = Category.friendly.find(params[:category])
+    @category = Category.friendly.find(params[:id])
     authorize @category
   end
 

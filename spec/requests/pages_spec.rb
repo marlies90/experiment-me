@@ -22,7 +22,7 @@ RSpec.describe "Pages", type: :request do
 
     describe "GET /:category/experiments" do
       it "returns the page successfully" do
-        get category_path(category)
+        get category_show_path(category)
         expect(response).to have_http_status(200)
       end
     end
