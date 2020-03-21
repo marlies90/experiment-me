@@ -21,7 +21,7 @@ class DashboardController < ApplicationController
   end
 
   def admin
-    @categories = Category.all
+    @categories = Category.all.oldest_first
     @experiments = Experiment.all
     @journal_statements = JournalStatement.all
     @users = User.all

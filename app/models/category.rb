@@ -8,4 +8,6 @@ class Category < ApplicationRecord
 
   has_many :experiments
   has_one_attached :image
+
+  scope :oldest_first, -> { order("id ASC") }
 end

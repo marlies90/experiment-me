@@ -9,19 +9,15 @@
     <div class="container">
       <div class="row">
         <% @categories.each do |category| %>
-          <div class="col-md-6">
-            <div class="card mb-4 shadow-sm">
-              <%= image_tag category.image if category.image.attached? %>
-              <div class="card-body">
-                <h3><%= category.name %></h3>
-                <p class="card-text"><%= category.description %></p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <%= link_to 'View', category_show_path(category), class: "btn btn-sm btn-outline-secondary" %>
-                  </div>
+          <div class="col-md-3 category-card">
+            <a href="<%= category_show_path(category) %>">
+              <div class="card mb-4 shadow-sm">
+                <%= image_tag category.image if category.image.attached? %>
+                <div class="card-body">
+                  <h4><%= category.name %></h4>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         <% end %>
       </div>
