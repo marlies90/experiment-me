@@ -1,0 +1,50 @@
+.sleep-text {
+  color: $sleep-dark;
+}
+
+.sleep-background {
+  background-color: $sleep-light;
+}
+
+.health-text {
+  color: $health-dark;
+}
+
+.health-background {
+  background-color: $health-light;
+}
+
+.relax-text {
+  color: $relax-dark;
+}
+
+.relax-background {
+  background-color: $relax-light;
+}
+
+.connection-text {
+  color: $connection-dark;
+}
+
+.connection-background {
+  background-color: $connection-light;
+}
+
+.category {
+  border-top-left-radius: calc(.25rem - 1px);
+  border-top-right-radius: calc(.25rem - 1px);
+  min-height: 10rem;
+
+  .card-img-top {
+    z-index: 0;
+    opacity: 0.15;
+  }
+
+  .card-text {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: 1;
+  }
+}

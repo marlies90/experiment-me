@@ -9,12 +9,11 @@
     <div class="container">
       <div class="row">
         <% @categories.each do |category| %>
-          <div class="col-md-3 category-card">
+          <div class="col-md-3">
             <a href="<%= category_show_path(category) %>">
               <div class="card mb-4 shadow-sm">
-                <%= image_tag category.image if category.image.attached? %>
-                <div class="card-body">
-                  <h4><%= category.name %></h4>
+                <div class="category <%= category.name.downcase %>-background">
+                  <h2 class="card-text <%= category.name.downcase %>-text"><%= category.name %></h2>
                 </div>
               </div>
             </a>

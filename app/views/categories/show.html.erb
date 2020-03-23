@@ -1,26 +1,26 @@
 <main role="main">
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1 class="jumbotron-heading"><%= @category.name %></h1>
-      <p class="lead text-muted"><%= @category.description %></p>
+  <section>
+    <div class="jumbotron text-center <%= @category.name.downcase %>-background">
+      <div class="container">
+        <h1 class="jumbotron-heading <%= @category.name.downcase %>-text"><%= @category.name %></h1>
+        <p class="lead text-muted"><%= @category.description %></p>
+      </div>
     </div>
   </section>
+
   <div class="album py-5 bg-light">
     <div class="container">
       <div class="row">
         <% @experiments.each do |experiment| %>
-          <div class="col-md-4">
+          <div class="col-md-4 preview">
             <div class="card mb-4 shadow-sm">
-              <%= image_tag experiment.image if experiment.image.attached? %>
-              <div class="card-body">
-                <h3><%= experiment.name %></h3>
-                <p class="card-text"><%= experiment.description %></p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <%= link_to "View", experiment_path(id: experiment.slug), class: "btn btn-sm btn-outline-secondary" %>
-                  </div>
+              <a href="<%= experiment_path(id: experiment.slug) %>">
+                <%= image_tag experiment.image, class: "card-img-top" if experiment.image.attached? %>
+                <div class="card-body">
+                  <h4><%= experiment.name %></h4>
+                  <p class="card-text"><i class="fas fa-trophy"></i><%= experiment.objective %></p>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         <% end %>
