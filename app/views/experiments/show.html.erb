@@ -1,68 +1,64 @@
-<main>
+<main class="experiment-detail">
   <section class="jumbotron text-center" style="background: url(<%= rails_blob_url(@experiment.image) %>); background-size: cover;">
-    <div class="container">
-      <h1 class="jumbotron-heading"><%= @experiment.category.name %></h1>
-      <p class="lead text-muted"><%= @experiment.name %></p>
-    </div>
   </section>
-  <section>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <p><%= @experiment.description %></p>
-          <h3>Objective</h3>
-          <p>
-            <i class="fas fa-trophy"></i>
-            <%= @experiment.objective %>
-          </p>
 
-          <h3>Benefits</h3>
-          <ul>
-            <% @experiment.benefits.each do |benefit| %>
-            <li class="btn btn-info"><%= benefit.name %></li>
-            <% end %>
-          </ul>
-        </div>
+  <section class="container heading">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header bg-<%= @experiment.category.name.downcase %> text-<%= @experiment.category.name.downcase %>">
+            <h1 class="text-intense"><%= @experiment.name %></h1>
+            <div>
+              <i class="fas fa-trophy"></i>
+              <%= @experiment.objective %>
+            </div>
+          </div>
+          <div class="card-body row">
+            <div class="col-md-8">
+              <p><%= @experiment.description %></p>
+            </div>
+            <div class="col-md-4">
+              <h3>Benefits</h3>
+              <ul>
+                <% @experiment.benefits.each do |benefit| %>
+                <li class="btn btn-<%= @experiment.category.name.downcase %>"><%= benefit.name %></li>
+                <% end %>
+              </ul>
 
-        <div class="col-md-4">
-          <div class="card border-dark mb-3" style="max-width: 18rem;">
-            <div class="card-header">Want more info before you start?</div>
-            <div class="card-body text-dark">
-              <h5 class="card-title">Check out these resources</h5>
-              <p class="card-text">
+              <% if @experiment.resources.present? %>
+                <h3>Resources</h3>
                 <ul>
                   <% @experiment.resources.each do |resource| %>
                   <li><i class="fas fa-info"></i><%= link_to "#{resource.name}", "#{resource.source}", target: "_blank" %></li>
                   <% end %>
                 </ul>
-              </p>
+              <% end %>
             </div>
+          </div>
+
+          <div class="start_experiment text-center">
+            <% if @existing_experiment_user.present? %>
+              <%= link_to(
+              "Retry this experiment",
+              edit_experiment_user_path(experiment_id: params[:id]),
+              class: already_doing_an_experiment ? "btn btn-success disabled mb-4" : "btn btn-success mb-4")
+              %>
+            <% else %>
+              <%= link_to(
+              "Start this experiment",
+              new_experiment_user_path(experiment_id: params[:id]),
+              class: already_doing_an_experiment ? "btn btn-success disabled mb-4" : "btn btn-success mb-4")
+              %>
+            <% end %>
+          </div>
+          <div class="text-center">
+            <% if already_doing_an_experiment %>
+              <span>You can run only one experiment at a time. If you want to cancel your current experiment,
+              go to the <%= link_to("experiment overview page", dashboard_experiments_path) %>.</span>
+            <% end %>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <section>
-    <div class="start_experiment text-center">
-      <% if @existing_experiment_user.present? %>
-        <%= link_to(
-          "Retry this experiment",
-          edit_experiment_user_path(experiment_id: params[:id]),
-          class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success")
-        %>
-      <% else %>
-        <%= link_to(
-          "Start this experiment",
-          new_experiment_user_path(experiment_id: params[:id]),
-          class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success")
-        %>
-      <% end %>
-    </div>
-    <div class="text-center">
-      <% if already_doing_an_experiment %>
-      <span>You can run only one experiment at a time. If you want to cancel your current experiment,
-        go to the <%= link_to("experiment overview page", dashboard_experiments_path) %>.</span>
-      <% end %>
     </div>
   </section>
 </main>

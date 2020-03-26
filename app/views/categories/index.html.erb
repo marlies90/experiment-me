@@ -12,8 +12,8 @@
           <div class="col-md-3">
             <a href="<%= category_show_path(category) %>">
               <div class="card mb-4 shadow-sm">
-                <div class="category <%= category.name.downcase %>-background">
-                  <h2 class="card-text <%= category.name.downcase %>-text"><%= category.name %></h2>
+                <div class="category text-intense bg-<%= category.name.downcase %>">
+                  <h2 class="card-text text-<%= category.name.downcase %>"><%= category.name %></h2>
                 </div>
               </div>
             </a>

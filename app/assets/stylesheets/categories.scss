@@ -1,33 +1,73 @@
-.sleep-text {
+.text-sleep {
   color: $sleep-dark;
 }
 
-.sleep-background {
+.bg-sleep {
   background-color: $sleep-light;
 }
 
-.health-text {
+.btn-sleep {
+  background-color: $sleep-dark;
+  color: $sleep-light;
+  margin-bottom: .5rem;
+
+  &:hover {
+    color: $sleep-light;
+  }
+}
+
+.text-health {
   color: $health-dark;
 }
 
-.health-background {
+.bg-health {
   background-color: $health-light;
 }
 
-.relax-text {
+.btn-health {
+  background-color: $health-dark;
+  color: $health-light;
+  margin-bottom: .5rem;
+
+  &:hover {
+    color: $health-light;
+  }
+}
+
+.text-relax {
   color: $relax-dark;
 }
 
-.relax-background {
+.bg-relax {
   background-color: $relax-light;
 }
 
-.connection-text {
+.btn-relax {
+  background-color: $relax-dark;
+  color: $relax-light;
+  margin-bottom: .5rem;
+
+  &:hover {
+    color: $relax-light;
+  }
+}
+
+.text-connection {
   color: $connection-dark;
 }
 
-.connection-background {
+.bg-connection {
   background-color: $connection-light;
+}
+
+.btn-connection {
+  background-color: $connection-dark;
+  color: $connection-light;
+  margin-bottom: .5rem;
+
+  &:hover {
+    color: $connection-light;
+  }
 }
 
 .category {

@@ -2,6 +2,7 @@
 @import "bootstrap-adaptations";
 @import "colors";
 @import "categories";
+@import "experiments";
 
 html {
   font-size: 16px;
@@ -9,7 +10,7 @@ html {
 }
 
 body {
-  padding-top: 4.5rem;
+  padding-top: 3.5rem;
   height: 100%;
   font-family: 'Assistant', sans-serif;
 }
@@ -34,6 +35,15 @@ a {
   }
 }
 
+main {
+  padding-bottom: 4.5rem;
+}
+
 .fas {
   padding-right: 1rem;
+}
+
+.text-intense {
+  font-family: 'Patua One', cursive;
+
 }
