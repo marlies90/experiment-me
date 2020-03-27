@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
 module ExperimentHelper
-  def start_or_cancel_experiment
-    if activating_experiment
+  def start_or_cancel_experiment(experiment_user)
+    if activating_experiment(experiment_user)
       "Start"
-    elsif cancelling_experiment
+    elsif cancelling_experiment(experiment_user)
       "Stop"
-    elsif completing_experiment
+    elsif completing_experiment(experiment_user)
       "Evaluate"
     end
   end
 
-  def activating_experiment
-    @experiment_user&.id.blank? || @experiment_user.cancelled?
+  def activating_experiment(experiment_user)
+    experiment_user&.id.blank? || experiment_user.cancelled?
   end
 
-  def completing_experiment
-    @experiment_user&.id.present? && completed_experiment?(@experiment_user)
+  def completing_experiment(experiment_user)
+    experiment_user&.id.present? && completed_experiment?(experiment_user)
   end
 
-  def cancelling_experiment
-    @experiment_user&.id.present? && uncompleted_experiment?(@experiment_user)
+  def cancelling_experiment(experiment_user)
+    experiment_user&.id.present? && uncompleted_experiment?(experiment_user)
   end
 
   def uncompleted_experiment?(experiment_user)

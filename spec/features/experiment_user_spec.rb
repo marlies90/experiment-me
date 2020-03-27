@@ -33,8 +33,9 @@ RSpec.describe ExperimentUser, type: :feature do
       context "without any other active experiment" do
         let!(:experiment_user) { nil }
 
+        before { click_link "Start this experiment" }
+
         it "allows the user to start a new experiment today" do
-          click_link "Start this experiment"
           select("Today", from: "experiment_user_starting_date")
           all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
             score.choose(class: "radio_buttons", option: "8")
@@ -52,7 +53,6 @@ RSpec.describe ExperimentUser, type: :feature do
         end
 
         it "allows the user to start a new experiment tomorrow" do
-          click_link "Start this experiment"
           select("Tomorrow", from: "experiment_user_starting_date")
           all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
             score.choose(class: "radio_buttons", option: "8")
@@ -70,10 +70,14 @@ RSpec.describe ExperimentUser, type: :feature do
         end
 
         it "does not allow a user to start an experiment without filling in the starting survey" do
-          click_link "Start this experiment"
           select("Tomorrow", from: "experiment_user_starting_date")
           click_button "Start this experiment"
           expect(page).to have_content "Starting score can't be blank"
+        end
+
+        it "does not show the ending survey or cancellation reason" do
+          expect(page).to_not have_content "Your ending measurement"
+          expect(page).to_not have_content "You're cancelling the experiment"
         end
       end
 
@@ -124,6 +128,12 @@ RSpec.describe ExperimentUser, type: :feature do
           expect(find(".cancellation_reason")).to have_content "I accidentally started it"
         end
       end
+
+      it "does not show the starting or ending survey" do
+        click_link "Stop this experiment"
+        expect(page).to_not have_content "Your initial measurement"
+        expect(page).to_not have_content "Your ending measurement"
+      end
     end
 
     context "when an experiment has been cancelled" do
@@ -157,6 +167,18 @@ RSpec.describe ExperimentUser, type: :feature do
             expect(find(".ending_date").text.to_datetime).to be_within(1.second)
               .of((DateTime.current + 21).end_of_day)
           end
+        end
+
+        it "lets the user fill in the starting survey again" do
+          click_link("Retry this experiment")
+          expect(page).to have_content "Your initial measurement"
+          click_button("Start this experiment")
+        end
+
+        it "does not show the ending survey or cancellation reason" do
+          click_link "Retry this experiment"
+          expect(page).to_not have_content "Your ending measurement"
+          expect(page).to_not have_content "You're cancelling the experiment"
         end
       end
 
@@ -224,6 +246,12 @@ RSpec.describe ExperimentUser, type: :feature do
           expect(page).to have_content "Ending score can't be blank"
           expect(page).to have_content "Difficulty can't be blank"
           expect(page).to have_content "Experiment continuation can't be blank"
+        end
+
+        it "does not show the starting survey or cancellation reason" do
+          click_link "Evaluate experiment"
+          expect(page).to_not have_content "Your initial measurement"
+          expect(page).to_not have_content "You're cancelling the experiment"
         end
       end
     end

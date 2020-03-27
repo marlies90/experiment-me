@@ -1,9 +1,9 @@
 <main role="main">
   <section>
-    <div class="jumbotron text-center bg-<%= @category.name.downcase %>">
+    <div class="jumbotron text-center bg-<%= @category.name.downcase %> text-<%= @category.name.downcase %>">
       <div class="container">
-        <h1 class="jumbotron-heading text-intense text-<%= @category.name.downcase %>"><%= @category.name %></h1>
-        <p class="lead text-muted"><%= @category.description %></p>
+        <h1 class="jumbotron-heading text-intense"><%= @category.name %></h1>
+        <p class="lead"><%= @category.description %></p>
       </div>
     </div>
   </section>

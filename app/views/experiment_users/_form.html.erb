@@ -1,7 +1,7 @@
 <%= simple_form_for @experiment_user do |f| %>
   <%= f.hidden_field :experiment_id, value: @experiment.id %>
 
-  <% if activating_experiment %>
+  <% if activating_experiment(@experiment_user) %>
     <div>
       <span>For the upcoming 3 weeks, you'll be trying out the experiment "<strong><%= @experiment.name %>".</strong></span>
       <h4>Objective</h4>
@@ -30,9 +30,8 @@
         <% end %>
       </div>
     </div>
-  <% end %>
 
-  <% if cancelling_experiment %>
+  <% elsif cancelling_experiment(@experiment_user) %>
     <div>
       <span>You're cancelling the experiment. You can retry it later if you want to, starting from day 1 again.</span>
     </div>
@@ -46,9 +45,8 @@
         %>
       </div>
     </div>
-  <% end %>
 
-  <% if completing_experiment %>
+  <% elsif completing_experiment(@experiment_user) %>
     <div>
       <span>YAY! You completed the experiment "<strong><%= @experiment.name %>".</strong></span>
     </div>
@@ -83,6 +81,6 @@
   <% end %>
 
   <div>
-    <%= f.submit "#{start_or_cancel_experiment} this experiment", class: "btn btn-primary" %>
+    <%= f.submit "#{start_or_cancel_experiment(@experiment_user)} this experiment", class: "btn btn-primary" %>
   </div>
 <% end %>

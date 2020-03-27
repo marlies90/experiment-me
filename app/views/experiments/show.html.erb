@@ -1,5 +1,5 @@
 <main class="experiment-detail">
-  <section class="jumbotron text-center" style="background: url(<%= rails_blob_url(@experiment.image) %>); background-size: cover;">
+  <section class="jumbotron text-center" style="background: url(<%= rails_blob_url(@experiment.image) if @experiment.image.attached? %>); background-size: cover;">
   </section>
 
   <section class="container heading">
@@ -29,7 +29,7 @@
                 <h3>Resources</h3>
                 <ul>
                   <% @experiment.resources.each do |resource| %>
-                  <li><i class="fas fa-info"></i><%= link_to "#{resource.name}", "#{resource.source}", target: "_blank" %></li>
+                  <li><u><%= link_to "#{resource.name}", "#{resource.source}", target: "_blank" %></u></li>
                   <% end %>
                 </ul>
               <% end %>
