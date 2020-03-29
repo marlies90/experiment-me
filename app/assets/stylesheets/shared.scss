@@ -1,6 +1,8 @@
 @import "bootstrap";
-@import "bootstrap-adaptations";
 @import "colors";
+@import "bootstrap-adaptations";
+@import "devise";
+@import "dashboard";
 @import "categories";
 @import "experiments";
 
@@ -22,7 +24,6 @@ ul {
 li {
   padding-left: 1rem;
   list-style: none;
-
 }
 
 a {
@@ -45,5 +46,4 @@ main {
 
 .text-intense {
   font-family: 'Patua One', cursive;
-
 }

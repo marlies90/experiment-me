@@ -1,8 +1,11 @@
+.container-fluid {
+  padding-top: 4rem;
+}
+
 .jumbotron {
   padding-top: 2rem;
   padding-bottom: 2rem;
   margin-bottom: 0;
-
 }
 
 @media (min-width: 768px) {
@@ -22,4 +25,14 @@
 
 .jumbotron .container {
   max-width: 40rem;
+}
+
+.btn-primary {
+  background-color: $cta-dark;
+  border-color: $cta-dark;
+
+  &:hover, &:active {
+    background-color: $cta-light !important;
+    border-color: $cta-light !important;
+  }
 }
