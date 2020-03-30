@@ -9,6 +9,7 @@
           <div class="card-header bg-<%= @experiment.category.name.downcase %> text-<%= @experiment.category.name.downcase %>">
             <h1 class="text-intense"><%= @experiment.name %></h1>
             <div>
+              <span><u>Objective:</u></span><br>
               <i class="fas fa-trophy"></i>
               <%= @experiment.objective %>
             </div>
@@ -41,13 +42,13 @@
               <%= link_to(
               "Retry this experiment",
               edit_experiment_user_path(experiment_id: params[:id]),
-              class: already_doing_an_experiment ? "btn btn-success disabled mb-4" : "btn btn-success mb-4")
+              class: already_doing_an_experiment ? "btn btn-primary disabled mb-4" : "btn btn-primary mb-4")
               %>
             <% else %>
               <%= link_to(
               "Start this experiment",
               new_experiment_user_path(experiment_id: params[:id]),
-              class: already_doing_an_experiment ? "btn btn-success disabled mb-4" : "btn btn-success mb-4")
+              class: already_doing_an_experiment ? "btn btn-primary disabled mb-4" : "btn btn-primary mb-4")
               %>
             <% end %>
           </div>
