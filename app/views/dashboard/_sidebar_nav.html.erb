@@ -1,42 +1,49 @@
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+<nav class="col-md-3 col-lg-2 d-none d-md-block sidebar">
   <div class="sidebar-sticky">
     <ul class="nav flex-column">
-      <li class="nav-item">
-        <span class="nav-link dashboard">
-          <a href="<%= dashboard_overview_path %>"><i class="fas fa-home"></i>Dashboard</a>
-        </span>
-      </li>
-      <li class="nav-item">
-        <span class="nav-link journal_entries">
-          <a href="<%= journal_entries_path %>"><i class="fas fa-book"></i>Journal</a>
-        </span>
-      </li>
-      <li class="nav-item">
-        <span class="nav-link experiments">
-          <a href="<%= dashboard_experiments_path %>"><i class="fas fa-vial"></i>Experiments</a>
-        </span>
-      </li>
-      <li class="nav-item">
-        <span class="nav-link experiment_progress">
-          <a href="<%= dashboard_progress_path %>"><i class="fas fa-chart-line"></i>Progress</a>
-        </span>
-      </li>
-      <li class="nav-item">
-        <span class="nav-link settings">
-          <a href="<%= dashboard_settings_path %>"><i class="fas fa-cog"></i>Settings</a>
-        </span>
-      </li>
+      <a href="<%= dashboard_overview_path %>" class="nav-link dashboard <%= 'active' if current_page?(dashboard_overview_path) %>">
+        <li class="nav-item">
+          <i class="fas fa-home"></i>
+          Dashboard
+        </li>
+      </a>
+      <a href="<%= journal_entries_path %>" class="nav-link mt-2 journal <%= 'active' if current_page?(journal_entries_path) %>">
+        <li class="nav-item">
+          <i class="fas fa-book"></i>
+          Journal
+        </li>
+      </a>
+      <a href="<%= dashboard_experiments_path %>" class="nav-link mt-2 experiments <%= 'active' if current_page?(dashboard_experiments_path) %>">
+        <li class="nav-item">
+          <i class="fas fa-vial"></i>
+          Experiments
+        </li>
+      </a>
+      <a href="<%= dashboard_progress_path %>" class="nav-link mt-2 progess <%= 'active' if current_page?(dashboard_progress_path) %>">
+        <li class="nav-item">
+          <i class="fas fa-chart-line"></i>
+          Progress
+        </li>
+      </a>
+      <a href="<%= dashboard_settings_path %>" class="nav-link mt-2 settings <%= 'active' if current_page?(dashboard_settings_path) %>">
+        <li class="nav-item">
+          <i class="fas fa-cog"></i>
+          Settings
+        </li>
+      </a>
+
 
     <% if @user.admin? %>
-      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-intense">
         <span>Admin</span>
       </h6>
-      <ul class="nav flex-column mb-2">
-        <li class="nav-item">
-          <span class="nav-link">
-            <a href="<%= dashboard_admin_path %>"><i class="fas fa-unlock"></i>Admin panel</a>
-          </span>
-        </li>
+      <ul class="nav flex-column">
+        <a href="<%= dashboard_admin_path %>" class="nav-link mt-2 admin <%= 'active' if current_page?(dashboard_admin_path) %>">
+          <li class="nav-item">
+            <i class="fas fa-unlock"></i>
+            Admin panel
+          </li>
+        </a>
       </ul>
     <% end %>
   </div>
