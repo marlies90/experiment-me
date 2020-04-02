@@ -8,8 +8,8 @@ RSpec.describe User, type: :feature do
       visit new_user_registration_path
       fill_in "First name", with: Faker::Name.first_name
       fill_in "Email", with: Faker::Internet.email
-      fill_in "Password", with: "000000"
-      fill_in "Password confirmation", with: "000000"
+      fill_in "user_password", with: "000000"
+      fill_in "user_password_confirmation", with: "000000"
       click_button "Sign up"
       expect(page).to have_content "You have signed up successfully"
     end

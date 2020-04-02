@@ -41,7 +41,7 @@ RSpec.describe ExperimentUser, type: :feature do
             score.choose(class: "radio_buttons", option: "8")
           end
           click_button "Start this experiment"
-          find(".sidebar .experiments a").click
+          find(".sidebar .experiments").click
 
           within ".current_experiment" do
             expect(page).to have_content experiment.name
@@ -58,7 +58,7 @@ RSpec.describe ExperimentUser, type: :feature do
             score.choose(class: "radio_buttons", option: "8")
           end
           click_button "Start this experiment"
-          find(".sidebar .experiments a").click
+          find(".sidebar .experiments").click
 
           within ".current_experiment" do
             expect(page).to have_content experiment.name

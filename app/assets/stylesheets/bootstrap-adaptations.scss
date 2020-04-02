@@ -32,3 +32,44 @@
     border-color: $cta-light !important;
   }
 }
+
+@media (min-width: 768px) {
+  .mobile-header {
+    display: none;
+  }
+
+  .dropdown-item {
+    &:active {
+      background-color: $cta-light;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .dropdown-toggle, .dropdown-divider {
+      display: none;
+  }
+
+  .dropdown-menu {
+      display: block;
+      position: relative;
+      border-width: 0;
+      padding: .5rem 0 0;
+      margin: 0;
+      background-color: inherit;
+  }
+
+  .dropdown-item {
+      padding: .5rem 1rem;
+      color: rgba(255, 255, 255, 0.5);
+
+      &:hover {
+        color: rgba(255, 255, 255, 0.75);
+        background-color: inherit;
+      }
+  }
+
+  .mobile-header {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}

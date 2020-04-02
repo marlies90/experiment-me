@@ -1,17 +1,42 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="<%= home_path %>">LOGO</a>
+  <a class="navbar-brand" href="<%= home_path %>">experiment.rocks</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="<%= home_path %>">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
+    <div class="navbar-nav mr-auto">
+      <span class="nav-item ml-2 <%= 'active' if current_page?(home_path) %>">
+        <a class="nav-link" href="<%= home_path %>">Home</a>
+      </span>
+      <span class="nav-item ml-2 <%= 'active' if current_page?(categories_path) %>">
         <a class="nav-link" href="<%= categories_path %>">Experiments</a>
-      </li>
-      <%= login_helper %>
-    </ul>
+      </span>
+    </div>
+    <div class="navbar-nav mr-4">
+      <% if current_user.present? %>
+        <span class="nav-item ml-2 dropdown <%= 'active' if current_page?(dashboard_overview_path) %>">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Profile
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <span class="mobile-header"><strong>Profile</strong></span>
+            <a class="dropdown-item" href="<%= dashboard_overview_path %>"><i class="fas fa-home"></i>Dashboard</a>
+            <a class="dropdown-item" href="<%= journal_entries_path %>"><i class="fas fa-book"></i>Journal</a>
+            <a class="dropdown-item" href="<%= dashboard_experiments_path %>"><i class="fas fa-vial"></i>My experiments</a>
+            <a class="dropdown-item" href="<%= dashboard_progress_path %>"><i class="fas fa-chart-line"></i>Progress</a>
+            <a class="dropdown-item" href="<%= dashboard_settings_path %>"><i class="fas fa-cog"></i>Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="<%= destroy_user_session_path %>">Log out</a>
+          </div>
+        </span>
+      <% else %>
+        <span class="nav-item ml-2 <%= 'active' if current_page?(new_user_registration_path) %>">
+          <a class="nav-link" href="<%= new_user_registration_path %>">Register</a>
+        </span>
+        <span class="nav-item ml-2 <%= 'active' if current_page?(new_user_session_path) %>">
+          <a class="nav-link" href="<%= new_user_session_path %>">Log in</a>
+        </span>
+      <% end %>
+    </div>
   </div>
 </nav>
