@@ -8,16 +8,41 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-12 mb-4">
+        <div class="col-sm-6 mb-4">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"><i class="fas fa-book"></i>How are you feeling today, <%= @user.first_name %>?</h5>
-              <p class="card-text">Rate your day in your journal (also when you're not doing an experiment at the moment)</p>
+              <p class="card-text">Rate your day in your journal.</p>
               <a href="<%= journal_entries_path %>" class="btn btn-primary">Go to journal</a>
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <% if @active_experiment.present? && uncompleted_experiment?(@active_experiment_user) %>
+        <div class="col-sm-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Your current experiment</h5>
+              <p class="card-text">You're doing the experiment "<%= @active_experiment.name %>"</p>
+              <a href="<%= experiment_path(id: @active_experiment.slug, category: @active_experiment.category) %>" class="btn btn-primary">Experiment details</a>
+            </div>
+          </div>
+        </div>
+        <% elsif @active_experiment.present? && completed_experiment?(@active_experiment_user) %>
+        <div class="col-sm-6 mb-4">
+          <%= render "evaluate_experiment", active_experiment: @active_experiment %>
+        </div>
+        <% else %>
+        <div class="col-sm-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-plus"></i>Start a new experiment</h5>
+              <p class="card-text">View available experiments and pick your favorite.</p>
+              <a href="<%= categories_path %>" class="btn btn-primary">Find your new experiment</a>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <div class="col-sm-6 mb-4">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"><i class="fas fa-chart-line"></i>See your progress</h5>
@@ -26,31 +51,15 @@
             </div>
           </div>
         </div>
-        <% if @active_experiment.present? && uncompleted_experiment?(@active_experiment_user) %>
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Your current experiment</h5>
-                <p class="card-text">You're doing the experiment "<%= @active_experiment.name %>"</p>
-                <a href="<%= experiment_path(id: @active_experiment.slug, category: @active_experiment.category) %>" class="btn btn-primary">Experiment details</a>
-              </div>
+        <div class="col-sm-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-cog"></i>Settings</h5>
+              <p class="card-text">Update your account settings.</p>
+              <a href="<%= dashboard_settings_path %>" class="btn btn-primary">Go to settings</a>
             </div>
           </div>
-        <% elsif @active_experiment.present? && completed_experiment?(@active_experiment_user) %>
-          <div class="col-sm-6">
-            <%= render "evaluate_experiment", active_experiment: @active_experiment %>
-          </div>
-        <% else %>
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-plus"></i>Start a new experiment</h5>
-                <p class="card-text">View available experiments and pick your favorite.</p>
-                <a href="<%= categories_path %>" class="btn btn-primary">Find your new experiment</a>
-              </div>
-            </div>
-          </div>
-        <% end %>
+        </div>
       </div>
     </main>
   </div>

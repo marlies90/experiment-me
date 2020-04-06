@@ -42,7 +42,8 @@ module ExperimentHelper
       @active_experiment_on_date = Experiment.find_by(id: @journal_entry.experiment_id)
     else
       ExperimentUser.where(user_id: current_user).each do |user_experiment|
-        next unless user_experiment.starting_date < date && user_experiment.ending_date > date
+        next unless user_experiment.starting_date.beginning_of_day <= date &&
+          user_experiment.ending_date > date
 
         @active_experiment_on_date = user_experiment.experiment
       end
