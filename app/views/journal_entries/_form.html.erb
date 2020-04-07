@@ -15,31 +15,58 @@
     <div class="col">
       <div class="mt-3 mb-3">
         <div class="row">
-          <div class="col-3">
-            <%= to_journal_date(date) %>
+          <div class="col h5">
+            For <span class="cta-text text-intense"><%= to_journal_date(date) %></span>
           </div>
         </div>
       </div>
 
-      <% if active_experiment_on_date(date) %>
-        <div>
-          You're currently doing the experiment "<strong><%= @active_experiment_on_date.name %></strong>". Did you stick to the experiment today?
-          <%= f.input(:experiment_success, label: false, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
-          <%= f.hidden_field :experiment_id, value: @active_experiment_on_date.id %>
+      <div class="card mb-2">
+        <div class="card-body <%= "pb-0" if active_experiment_on_date(date) %>">
+          <h5>Your current experiment</h5>
+
+          <% if active_experiment_on_date(date) %>
+            <div class="card mb-3 experiment-banner">
+              <div class="row no-gutters">
+                <div class="col-3">
+                  <img class="card-img" src="<%= rails_blob_url(@active_experiment_on_date.image) if @active_experiment_on_date.image.attached? %>">
+                </div>
+                <div class="col-9 align-self-center">
+                  <div class="card-body">
+                    <h6 class="card-title mb-0"><%= @active_experiment_on_date.name %></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-2">
+               Did you stick to the experiment today?
+            </div>
+            <%= f.input(:experiment_success, label: false, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+            <%= f.hidden_field :experiment_id, value: @active_experiment_on_date.id %>
+          <% else %>
+            <div>
+              You're not doing an experiment at the moment.
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
 
       <%= f.hidden_field :date, value: date %>
 
-      <%= f.simple_fields_for :journal_ratings do |journal_rating| %>
-        <%= journal_rating.hidden_field :id %>
-        <%= journal_rating.hidden_field :journal_statement_id %>
-        <%= journal_rating.label :journal_statement do |journal_statement| %>
-          <%= journal_statement.object.journal_statement.name %>
-          <abbr title="required">*</abbr>
-        <% end %>
-        <%= journal_rating.input :score, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
-      <% end %>
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5>Your daily measurement</h5>
+          <%= f.simple_fields_for :journal_ratings do |journal_rating| %>
+            <%= journal_rating.hidden_field :id %>
+            <%= journal_rating.hidden_field :journal_statement_id %>
+            <%= journal_rating.label :journal_statement do |journal_statement| %>
+              <%= journal_statement.object.journal_statement.name %>
+              <abbr title="required">*</abbr>
+            <% end %>
+            <%= journal_rating.input :score, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+          <% end %>
+        </div>
+      </div>
 
       <div class="form-group">
         <%= f.submit "Save journal entry", class: "btn btn-primary" %>

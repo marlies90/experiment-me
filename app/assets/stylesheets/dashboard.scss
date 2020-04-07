@@ -29,4 +29,13 @@
   .cta-text {
     color: $cta-dark;
   }
+
+  .experiment-banner {
+    max-width: 30rem;
+
+    .card-img {
+      height: 100%;
+      object-fit: inherit;
+    }
+  }
 }

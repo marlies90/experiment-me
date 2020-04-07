@@ -106,7 +106,7 @@ RSpec.describe JournalEntry, type: :feature do
         end
 
         it "displays the current experiment" do
-          expect(page).to have_content "You're currently doing the experiment"
+          expect(page).to have_content "Your current experiment"
           expect(page).to have_content experiment_user.experiment.name
         end
 
@@ -122,7 +122,7 @@ RSpec.describe JournalEntry, type: :feature do
         end
 
         it "displays the previous experiment" do
-          expect(page).to have_content "You're currently doing the experiment"
+          expect(page).to have_content "Your current experiment"
           expect(page).to have_content completed_experiment_user.experiment.name
         end
 
@@ -185,7 +185,7 @@ RSpec.describe JournalEntry, type: :feature do
         end
 
         it "displays the experiment that was active on the moment the journal_entry was created" do
-          expect(page).to have_content "You're currently doing the experiment"
+          expect(page).to have_content "Your current experiment"
           expect(page).to have_content previous_experiment_user.experiment.name
         end
 
