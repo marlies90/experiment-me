@@ -11,7 +11,7 @@ class DashboardController < ApplicationController
   def progress; end
 
   def experiments
-    @active_experiment = Experiment.find_by_id(@user.experiment_users&.active&.first&.experiment_id)
+    @active_experiment = Experiment.find_by_id(@active_experiment_user&.experiment_id)
     @cancelled_experiments = Experiment.find(
       @user.experiment_users&.cancelled&.map(&:experiment_id)
     )
@@ -36,6 +36,6 @@ class DashboardController < ApplicationController
   end
 
   def active_experiment_user
-    @active_experiment_user ||= ExperimentUser.find_by_id(@user.experiment_users&.active)
+    @active_experiment_user ||= ExperimentUser.find_by_id(@user.experiment_users&.active&.first)
   end
 end

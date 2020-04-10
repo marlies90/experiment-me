@@ -26,7 +26,7 @@
           <h5>Your current experiment</h5>
 
           <% if active_experiment_on_date(date) %>
-            <div class="card mb-3 experiment-banner">
+            <div class="card mb-3 experiment-banner" style="max-width: 30rem;">
               <div class="row no-gutters">
                 <div class="col-3">
                   <img class="card-img" src="<%= rails_blob_url(@active_experiment_on_date.image) if @active_experiment_on_date.image.attached? %>">

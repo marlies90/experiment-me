@@ -7,36 +7,41 @@
         <h1 class="h2">Your experiments</h1>
       </div>
 
-      <div class="row current_experiment">
-        <div>
+      <div class="row mb-4">
+        <div class="current_experiment col-12">
           <h3>Your current experiment</h3>
-          <% if @active_experiment.present? && uncompleted_experiment?(@active_experiment_user) %>
-          <table class="table">
-            <tr>
-              <th>Name</th>
-              <th>Started on</th>
-              <th>Ending on</th>
-              <th>Actions</th>
-            </tr>
-            <tr>
-              <td><%= @active_experiment.name %></td>
-              <td class="starting_date"><%= @active_experiment_user.starting_date %></td>
-              <td class="ending_date"><%= @active_experiment_user.ending_date %></td>
-              <td>
-                <span><%= link_to "View details", experiment_path(id: @active_experiment.slug, category: @active_experiment.category) %></span>
-              </td>
-              <td>
-                <span>
-                  <%= link_to "Stop this experiment",
-                  edit_experiment_user_path(
-                  id: ExperimentUser.find_by(experiment_id: @active_experiment.id, user_id: current_user.id).id,
-                  experiment_id: @active_experiment.id),
-                  class: "btn btn-danger" %>
-                </span>
-              </td>
-            </tr>
-          </table>
-          <% elsif @active_experiment.present? && completed_experiment?(@active_experiment_user) %>
+          <% if @active_experiment_user.present? && uncompleted_experiment?(@active_experiment_user) %>
+            <div class="card mb-3 experiment-banner" style="max-width:35rem">
+              <div class="row no-gutters">
+                <div class="col-xs-12 col-sm-3">
+                  <img class="card-img" src="<%= rails_blob_url(@active_experiment.image) if @active_experiment.image.attached? %>">
+                </div>
+                <div class="col-sm-9">
+                  <div class="card-body current-experiment-preview">
+                    <div class="characteristics">
+                      <h6 class="card-title mb-0"><strong><%= @active_experiment.name %></strong></h6>
+                      <span class="starting_date">From <%= to_journal_date(@active_experiment_user.starting_date) %></span>
+                      <span class="ending_date">to <%= to_journal_date(@active_experiment_user.ending_date) %></span>
+                    </div>
+                    <div class="actions mt-1">
+                      <span>
+                        <%= link_to "Details",
+                        experiment_path(id: @active_experiment.slug, category: @active_experiment.category),
+                        class: "btn btn-warning mr-1" %>
+                      </span>
+                      <span>
+                        <%= link_to "Stop experiment",
+                        edit_experiment_user_path(
+                        id: ExperimentUser.find_by(experiment_id: @active_experiment.id, user_id: current_user.id).id,
+                        experiment_id: @active_experiment.id),
+                        class: "btn btn-danger" %>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% elsif @active_experiment_user.present? && completed_experiment?(@active_experiment_user) %>
             <%= render "evaluate_experiment", active_experiment: @active_experiment %>
           <% else %>
             <div>
@@ -50,55 +55,70 @@
       </div>
 
       <% if @cancelled_experiments.present? %>
-      <div class="row cancelled_experiments">
-        <h3>Your cancelled experiments</h3>
-        <table class="table">
-          <tr>
-            <th>Name</th>
-            <th>Started on</th>
-            <th>Ended on</th>
-            <th>Cancellation reason</th>
-            <th>Actions</th>
-            <th>Notes</th>
-          </tr>
-          <% @cancelled_experiments.each do |experiment| %>
-          <tr>
-            <td><%= experiment.name %></td>
-            <td class="starting_date"><%= ExperimentUser.find_by(user: @user, experiment: experiment).starting_date %></td>
-            <td class="ending_date"><%= ExperimentUser.find_by(user: @user, experiment: experiment).ending_date %></td>
-            <td class="cancellation_reason"><%= ExperimentUser.find_by(user: @user, experiment: experiment).cancellation_reason %></td>
-            <td><%= link_to "Retry this experiment",
-              edit_experiment_user_path(
-              id: ExperimentUser.find_by(experiment_id: experiment.id, user_id: current_user.id)&.id,
-              experiment_id: experiment.id),
-              class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success" %></td>
+      <div class="row mb-4">
+        <div class="cancelled_experiments col-12">
+          <h3>Your cancelled experiments</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Name</th>
+                <th scope="col">Started on</th>
+                <th scope="col">Cancelled on</th>
+                <th scope="col">Cancellation reason</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @cancelled_experiments.each do |experiment| %>
+              <tr>
+                <td><%= experiment.category.name %></td>
+                <td><%= experiment.name %></td>
+                <td class="starting_date"><%= to_journal_date(ExperimentUser.find_by(user: @user, experiment: experiment).starting_date) %></td>
+                <td class="ending_date"><%= to_journal_date(ExperimentUser.find_by(user: @user, experiment: experiment).ending_date) %></td>
+                <td class="cancellation_reason"><%= ExperimentUser.find_by(user: @user, experiment: experiment).cancellation_reason %></td>
+                <td><%= link_to "Retry this experiment",
+                  edit_experiment_user_path(
+                  id: ExperimentUser.find_by(experiment_id: experiment.id, user_id: current_user.id)&.id,
+                  experiment_id: experiment.id),
+                  class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success" %></td>
+                  <% end %>
+                </tr>
+            </tbody>
+            </table>
             <% end %>
             <% if already_doing_an_experiment %>
-            <td>You can run only one experiment at a time. If you want to retry a cancelled experiment, first cancel your current experiment.</td>
+            <td><em>* You can run only one experiment at a time. If you want to retry a cancelled experiment, first cancel your current experiment.</em></td>
             <% end %>
-          </tr>
-        </table>
-      </div>
-      <% end %>
+          </div>
+        </div>
 
       <% if @completed_experiments.present? %>
-      <div class="row completed_experiments">
-        <h3>Your completed experiments</h3>
-        <table class="table">
-          <tr>
-            <th>Name</th>
-            <th>Started on</th>
-            <th>Ended on</th>
-          </tr>
-          <% @completed_experiments.each do |experiment| %>
-          <tr>
-            <td><%= experiment.name %></td>
-            <td class="starting_date"><%= ExperimentUser.find_by(user: @user, experiment: experiment).starting_date %></td>
-            <td class="ending_date"><%= ExperimentUser.find_by(user: @user, experiment: experiment).ending_date %></td>
-          <% end %>
-          </tr>
-        </table>
-      </div>
+        <div class="row">
+          <div class="completed_experiments col-12">
+            <h3>Your completed experiments</h3>
+            <table class="table">
+              <tr>
+                <th>Category</th>
+                <th>Name</th>
+                <th>Started on</th>
+                <th>Ended on</th>
+                <th>Will continue?</th>
+                <th>Actions</th>
+              </tr>
+              <% @completed_experiments.each do |experiment| %>
+              <tr>
+                <td><%= experiment.category.name %></td>
+                <td><%= experiment.name %></td>
+                <td class="starting_date"><%= to_journal_date(ExperimentUser.find_by(user: @user, experiment: experiment).starting_date) %></td>
+                <td class="ending_date"><%= to_journal_date(ExperimentUser.find_by(user: @user, experiment: experiment).ending_date) %></td>
+                <td><%= ExperimentUser.find_by(user: @user, experiment: experiment).experiment_continuation %></td>
+                <td>View your measurements</td>
+                <% end %>
+              </tr>
+            </table>
+          </div>
+        </div>
       <% end %>
     </main>
   </div>

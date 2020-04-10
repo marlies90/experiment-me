@@ -115,7 +115,7 @@ RSpec.describe ExperimentUser, type: :feature do
             .of((DateTime.current + 20).end_of_day)
         end
 
-        click_link("Stop this experiment")
+        click_link("Stop experiment")
         select("I accidentally started it", from: "experiment_user_cancellation_reason")
         click_button("Stop this experiment")
 
@@ -130,7 +130,7 @@ RSpec.describe ExperimentUser, type: :feature do
       end
 
       it "does not show the starting or ending survey" do
-        click_link "Stop this experiment"
+        click_link "Stop experiment"
         expect(page).to_not have_content "Your initial measurement"
         expect(page).to_not have_content "Your ending measurement"
       end
