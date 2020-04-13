@@ -153,7 +153,7 @@ RSpec.describe JournalEntry, type: :feature do
 
           click_button "Save journal entry"
           expect(page).to have_content "prohibited this journal entry from being saved"
-          expect(page).to have_content "Experiment success can't be blank"
+          expect(page).to have_content "Fill in whether you stuck to the experiment"
         end
       end
     end
