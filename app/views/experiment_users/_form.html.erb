@@ -4,22 +4,23 @@
   <% if activating_experiment %>
     <div>
       <span>For the upcoming 3 weeks, you'll be trying out the experiment "<strong><%= @experiment.name %>".</strong></span>
-      <h4>Objective</h4>
+      <h5 class="mt-4">Objective</h5>
       <p>
         <i class="fas fa-trophy"></i>
         <%= @experiment.objective %>
       </p>
     </div>
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-12">
         <span>When would you like to start the experiment?</span>
         <%= f.input :starting_date,
         as: :select,
         collection: [["Today", DateTime.current], ["Tomorrow", (DateTime.current + 1).beginning_of_day]],
         selected: "Today",
-        label: false %>
+        label: false,
+        input_html: { class: "col-md-3 mt-2" } %>
       </div>
-      <div class="col-md-8">
+      <div class="col-12 mt-2">
         <h4>Your initial measurement</h4>
         <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
           <%= experiment_user_measurement.hidden_field :id %>

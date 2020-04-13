@@ -1,8 +1,10 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-10">
-      <h1>You're about to start the experiment '<%= @experiment.name %>'</h1>
-      <%= render "form", experiment: @experiment %>
+<main class="focus-form">
+  <div class="container">
+    <div class="row">
+      <div class="col form">
+        <h1 class="h2 text-intense">You're about to start the experiment '<%= @experiment.name %>'</h1>
+        <%= render "form", experiment: @experiment %>
+      </div>
     </div>
   </div>
-</div>
+</main>

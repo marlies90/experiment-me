@@ -1,7 +1,7 @@
 @import "bootstrap";
 @import "colors";
 @import "bootstrap-adaptations";
-@import "devise";
+@import "form";
 @import "dashboard";
 @import "categories";
 @import "experiments";
@@ -38,41 +38,6 @@ a {
 
 main {
   padding-bottom: 4.5rem;
-}
-
-input[type='radio']:after {
-  width: 16px;
-  height: 16px;
-  border-radius: 16px;
-  top: 0;
-  left: -1px;
-  position: relative;
-  content: '';
-  display: inline-block;
-  visibility: visible;
-  border: 1px solid grey;
-}
-
-input[type='radio']:checked:after {
-  width: 16px;
-  height: 16px;
-  border-radius: 16px;
-  top: 0;
-  left: -1px;
-  position: relative;
-  background-color: $cta-dark;
-  content: '';
-  display: inline-block;
-  visibility: visible;
-  border: 1px solid grey;
-}
-
-.collection_radio_buttons {
-  margin-bottom: -.1rem;
-}
-
-.radio_buttons .form-check-inline {
-  margin-botton: .5rem;
 }
 
 .fas {
