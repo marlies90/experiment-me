@@ -1,13 +1,8 @@
 <%= simple_form_for @journal_entry do |f| %>
   <% if @journal_entry.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(journal_entry.errors.count, "error") %> prohibited this journal entry from being saved:</h2>
-
-      <ul>
-      <% @journal_entry.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <h6>The journal entry is incomplete and can therefore not be saved. <br>
+        Please fill in the field(s) marked in red below:</h6>
     </div>
   <% end %>
 

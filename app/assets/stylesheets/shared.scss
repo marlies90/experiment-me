@@ -47,3 +47,18 @@ main {
 .text-intense {
   font-family: 'Patua One', cursive;
 }
+
+#error_explanation {
+  color: #dc3545;
+}
+
+.alert {
+  margin: .5rem;
+}
+
+@media (min-width: 768px) {
+  .alert {
+    position: absolute;
+    right: 0;
+  }
+}
