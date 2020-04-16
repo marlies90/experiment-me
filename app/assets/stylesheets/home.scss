@@ -1,6 +1,4 @@
-@import "shared";
-
-.jumbotron {
+.jumbotron-home {
   padding-top: 3rem;
   padding-bottom: 3rem;
   margin-bottom: 0;
@@ -8,21 +6,21 @@
 }
 
 @media (min-width: 768px) {
-  .jumbotron {
+  .jumbotron-home {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
 }
 
-.jumbotron p:last-child {
+.jumbotron-home p:last-child {
   margin-bottom: 0;
 }
 
-.jumbotron-heading {
+.jumbotron-home-heading {
   font-weight: 300;
 }
 
-.jumbotron .container {
+.jumbotron-home .container {
   max-width: 40rem;
 }
 

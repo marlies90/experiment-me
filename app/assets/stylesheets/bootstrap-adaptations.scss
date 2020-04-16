@@ -73,3 +73,14 @@
     color: rgba(255, 255, 255, 0.5);
   }
 }
+
+.alert {
+  margin: .5rem;
+}
+
+@media (min-width: 768px) {
+  .alert {
+    position: absolute;
+    right: 0;
+  }
+}
