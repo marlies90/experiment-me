@@ -52,39 +52,45 @@
   }
 }
 
-.text-connection {
-  color: $connection-dark;
+.text-connect {
+  color: $connect-dark;
 }
 
-.bg-connection {
-  background-color: $connection-light;
+.bg-connect {
+  background-color: $connect-light;
 }
 
-.btn-connection {
-  background-color: $connection-dark;
-  color: $connection-light;
+.btn-connect {
+  background-color: $connect-dark;
+  color: $connect-light;
   margin-bottom: .5rem;
 
   &:hover {
-    color: $connection-light;
+    color: $connect-light;
   }
 }
 
-.category {
-  border-top-left-radius: calc(.25rem - 1px);
-  border-top-right-radius: calc(.25rem - 1px);
-  min-height: 10rem;
-
-  .card-img-top {
-    z-index: 0;
-    opacity: 0.15;
+.categories {
+  .featurette-divider {
+    margin: 3rem 0;
   }
+  
+  .category-card {
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+    min-height: 10rem;
 
-  .card-text {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    z-index: 1;
+    .card-img-top {
+      z-index: 0;
+      opacity: 0.15;
+    }
+
+    .card-text {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      z-index: 1;
+    }
   }
 }

@@ -2,6 +2,7 @@
   padding-top: 2rem;
   padding-bottom: 2rem;
   margin-bottom: 0;
+  background-color: #fff;
 }
 
 @media (min-width: 768px) {
@@ -24,12 +25,29 @@
 }
 
 .btn-primary {
-  background-color: $cta-dark;
-  border-color: $cta-dark;
+  background-color: $brand-light;
+  border-color: $brand-light;
 
   &:hover, &:active {
-    background-color: $cta-light !important;
-    border-color: $cta-light !important;
+    background-color: $brand-dark !important;
+    border-color: $brand-dark !important;
+  }
+}
+
+.btn-primary.disabled {
+  background-color: $brand-light_disabled;
+  border-color: $brand-light_disabled;
+}
+
+.btn-secondary {
+  background-color: $light;
+  border-color: $light;
+  color: $dark;
+
+  &:hover, &:active {
+    background-color: $dark !important;
+    border-color: $dark !important;
+    color: $light;
   }
 }
 
@@ -40,7 +58,7 @@
 
   .dropdown-item {
     &:active {
-      background-color: $cta-light;
+      background-color: $brand-light;
     }
   }
 }

@@ -5,17 +5,17 @@
 
   .sidebar {
     padding-top: 5rem;
-    background-color: $cta-dark;
-    color: white;
+    background-color: $light;
+    color: $dark;
 
     .active {
-      background-color: $cta-light;
+      background-color: $brand-light;
       color: white;
     }
 
     .nav-link {
       &:hover {
-        background-color: $cta-light;
+        background-color: $brand-light;
         cursor: pointer;
         color: white;
       }
@@ -24,10 +24,6 @@
         font-size: 1.2rem;
       }
     }
-  }
-
-  .cta-text {
-    color: $cta-dark;
   }
 
   .experiment-banner {

@@ -51,13 +51,17 @@ main {
   font-family: 'Patua One', cursive;
 }
 
+.text-brand {
+  color: $brand-light;
+}
+
 #error_explanation {
-  color: #dc3545;
+  color: $error;
 }
 
 .footer {
-  background-color: #e9ecef;
-  color: #343a40;
+  background-color: $dark;
+  color: $light;
   z-index: 1030;
   flex-shrink: 0;
 }
