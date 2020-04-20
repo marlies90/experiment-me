@@ -7,12 +7,13 @@
 }
 
 .btn-sleep {
-  background-color: $sleep-dark;
-  color: $sleep-light;
+  background-color: $sleep-light;
+  color: $sleep-dark;
   margin-bottom: .5rem;
+  border-radius: 0;
 
   &:hover {
-    color: $sleep-light;
+    color: $sleep-dark;
   }
 }
 
@@ -25,12 +26,13 @@
 }
 
 .btn-health {
-  background-color: $health-dark;
-  color: $health-light;
+  background-color: $health-light;
+  color: $health-dark;
   margin-bottom: .5rem;
+  border-radius: 0;
 
   &:hover {
-    color: $health-light;
+    color: $health-dark;
   }
 }
 
@@ -43,12 +45,13 @@
 }
 
 .btn-relax {
-  background-color: $relax-dark;
-  color: $relax-light;
+  background-color: $relax-light;
+  color: $relax-dark;
   margin-bottom: .5rem;
+  border-radius: 0;
 
   &:hover {
-    color: $relax-light;
+    color: $relax-dark;
   }
 }
 
@@ -61,12 +64,13 @@
 }
 
 .btn-connect {
-  background-color: $connect-dark;
-  color: $connect-light;
+  background-color: $connect-light;
+  color: $connect-dark;
   margin-bottom: .5rem;
+  border-radius: 0;
 
   &:hover {
-    color: $connect-light;
+    color: $connect-dark;
   }
 }
 
@@ -74,7 +78,7 @@
   .featurette-divider {
     margin: 3rem 0;
   }
-  
+
   .category-card {
     border-top-left-radius: calc(.25rem - 1px);
     border-top-right-radius: calc(.25rem - 1px);
