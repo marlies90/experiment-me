@@ -1,20 +1,20 @@
-$sleep-dark: #66b5ff;
-$sleep-light: #e6f3ff;
+$sleep-dark: rgb(102,181,255);
+$sleep-light: rgb(230,243,255);
 
-$health-dark: #33cc33;
-$health-light: #d6f5d6;
+$health-dark: rgb(46,171,126);
+$health-light: rgb(214,245,214);
 
-$relax-dark: #D0E11E;
-$relax-light: #ffffcc;
+$relax-dark: rgb(224,174,67);
+$relax-light: rgb(255,242,204);
 
-$connect-dark: #E11E6E;
-$connect-light: #ffcccc;
+$connect-dark: rgb(209,55,53);
+$connect-light: rgb(255,204,204);
 
-$brand-dark: #5b3dad;
-$brand-light: #866ec7;
-$brand-light_disabled: rgba(134,110,199,0.6);
+$brand-dark: rgb(91,61,173);
+$brand-light: rgb(134,110,199);
+$brand-light_disabled: rgba($brand-light,0.6);
 
-$light: #e9ecef;
-$dark: #343a40;
+$light: rgb(233,236,239);
+$dark: rgb(52,58,64);
 
-$error: #dc3545;
+$error: rgb(220,53,69);

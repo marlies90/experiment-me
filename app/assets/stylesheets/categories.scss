@@ -3,7 +3,8 @@
 }
 
 .bg-sleep {
-  background-color: $sleep-light;
+  background: $sleep-light;
+  background: linear-gradient(180deg, rgba($sleep-light,1) 0%, rgba(255,255,255,1) 100%);
 }
 
 .btn-sleep {
@@ -22,7 +23,8 @@
 }
 
 .bg-health {
-  background-color: $health-light;
+  background: $health-light;
+  background: linear-gradient(180deg, rgba($health-light,1) 0%, rgba(255,255,255,1) 100%);
 }
 
 .btn-health {
@@ -41,7 +43,8 @@
 }
 
 .bg-relax {
-  background-color: $relax-light;
+  background: $relax-light;
+  background: linear-gradient(180deg, rgba($relax-light,1) 0%, rgba(255,255,255,1) 100%);
 }
 
 .btn-relax {
@@ -60,7 +63,8 @@
 }
 
 .bg-connect {
-  background-color: $connect-light;
+  background: $connect-light;
+  background: linear-gradient(180deg, rgba($connect-light,1) 0%, rgba(255,255,255,1) 100%);
 }
 
 .btn-connect {
@@ -75,10 +79,6 @@
 }
 
 .categories {
-  .featurette-divider {
-    margin: 3rem 0;
-  }
-
   .category-card {
     border-top-left-radius: calc(.25rem - 1px);
     border-top-right-radius: calc(.25rem - 1px);

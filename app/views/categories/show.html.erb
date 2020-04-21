@@ -1,6 +1,6 @@
 <main role="main">
   <section>
-    <div class="jumbotron text-center bg-<%= @category.name.downcase %> text-<%= @category.name.downcase %>">
+    <div class="jumbotron text-center pb-0 bg-<%= @category.name.downcase %> text-<%= @category.name.downcase %>">
       <div class="container">
         <h1 class="jumbotron-heading text-intense"><%= @category.name %></h1>
         <p class="lead"><%= @category.description %></p>
@@ -8,8 +8,9 @@
     </div>
   </section>
 
-  <div class="album py-5 bg-light">
+  <div class="album pb-5 bg-white">
     <div class="container">
+      <hr class="featurette-divider">
       <div class="row">
         <% @experiments.each do |experiment| %>
           <div class="col-md-4 preview">
@@ -17,7 +18,7 @@
               <a href="<%= experiment_path(id: experiment.slug) %>">
                 <%= image_tag experiment.image, class: "card-img-top" if experiment.image.attached? %>
                 <div class="card-body">
-                  <h4 class="text-intense"><%= experiment.name %></h4>
+                  <h4 class="text-intense text-<%= @category.name.downcase %>"><%= experiment.name %></h4>
                   <p class="card-text"><i class="fas fa-trophy"></i><%= experiment.objective %></p>
                 </div>
               </a>
