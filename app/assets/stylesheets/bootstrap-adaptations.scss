@@ -28,15 +28,30 @@
   background-color: $brand-light;
   border-color: $brand-light;
 
-  &:hover, &:active {
+  &:hover,
+  &:focus,
+  &.focus {
     background-color: $brand-dark !important;
     border-color: $brand-dark !important;
   }
-}
 
-.btn-primary.disabled {
-  background-color: $brand-light_disabled;
-  border-color: $brand-light_disabled;
+  &:active,
+  &.active, {
+    background-color: $brand-dark !important;
+    border-color: $brand-dark !important;
+
+    &:focus,
+    &.focus {
+      background-color: $brand-dark !important;
+      border-color: $brand-dark !important;
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: $brand-light_disabled;
+    border-color: $brand-light_disabled;
+  }
 }
 
 .btn-secondary {
@@ -44,12 +59,29 @@
   border-color: $light;
   color: $dark;
 
-  &:hover, &:active {
+  &:hover,
+  &:focus,
+  &.focus {
     background-color: $dark !important;
     border-color: $dark !important;
     color: $light;
   }
+
+  &:active,
+  &.active, {
+    background-color: $dark !important;
+    border-color: $dark !important;
+    color: $light;
+
+    &:focus,
+    &.focus {
+      background-color: $dark !important;
+      border-color: $dark !important;
+      color: $light;
+    }
+  }
 }
+
 
 @media (min-width: 768px) {
   .mobile-header {
@@ -101,4 +133,8 @@
     position: absolute;
     right: 0;
   }
+}
+
+.featurette-divider {
+  margin: 3rem 0;
 }
