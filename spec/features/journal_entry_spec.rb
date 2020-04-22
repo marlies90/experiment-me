@@ -48,13 +48,17 @@ RSpec.describe JournalEntry, type: :feature do
           rating.choose(class: "radio_buttons", option: "8")
         end
         click_button "Save journal entry"
-        expect(page).to have_content "The journal entry is incomplete and can therefore not be saved"
+        expect(page).to have_content(
+          "The journal entry is incomplete and can therefore not be saved"
+        )
         expect(page).to have_content "Score can't be blank"
       end
 
       it "does not allow a journal_entry to be created when 0 ratings have been filled in" do
         click_button "Save journal entry"
-        expect(page).to have_content "The journal entry is incomplete and can therefore not be saved"
+        expect(page).to have_content(
+          "The journal entry is incomplete and can therefore not be saved"
+        )
         expect(page).to have_content "Score can't be blank"
       end
     end
@@ -152,7 +156,9 @@ RSpec.describe JournalEntry, type: :feature do
           end
 
           click_button "Save journal entry"
-          expect(page).to have_content "The journal entry is incomplete and can therefore not be saved"
+          expect(page).to have_content(
+            "The journal entry is incomplete and can therefore not be saved"
+          )
           expect(page).to have_content "Fill in whether you stuck to the experiment"
         end
       end
