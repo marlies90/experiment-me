@@ -22,12 +22,13 @@
       </div>
       <div class="col-12 mt-2">
         <h4>Your initial measurement</h4>
+        <em>Rate the following statements about your last 3 weeks from 1 (low) to 5 (high)</em><br><br>
         <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
           <%= experiment_user_measurement.hidden_field :id %>
           <%= experiment_user_measurement.hidden_field :benefit_id %>
           <%= experiment_user_measurement.object.benefit.measurement_statement %>
           <abbr title="required">*</abbr>
-          <%= experiment_user_measurement.input :starting_score, required: true, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+          <%= experiment_user_measurement.input :starting_score, required: true, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
         <% end %>
       </div>
     </div>
@@ -54,12 +55,13 @@
     <div class="row">
       <div class="col-md-8">
         <h4>Your ending measurement</h4>
+        <em>Rate the following statements about your last 3 weeks from 1 (low) to 5 (high)</em><br><br>
         <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
           <%= experiment_user_measurement.hidden_field :id %>
           <%= experiment_user_measurement.hidden_field :benefit_id %>
           <%= experiment_user_measurement.object.benefit.measurement_statement %>
           <abbr title="required">*</abbr>
-          <%= experiment_user_measurement.input :ending_score, required: true, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+          <%= experiment_user_measurement.input :ending_score, required: true, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
         <% end %>
 
         <div>

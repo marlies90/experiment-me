@@ -51,6 +51,7 @@
       <div class="card mb-2">
         <div class="card-body">
           <h5>Your daily measurement</h5>
+          <em>Rate the following statements about your day from 1 (low) to 5 (high)</em><br><br>
           <%= f.simple_fields_for :journal_ratings do |journal_rating| %>
             <%= journal_rating.hidden_field :id %>
             <%= journal_rating.hidden_field :journal_statement_id %>
@@ -58,7 +59,7 @@
               <%= journal_statement.object.journal_statement.name %>
               <abbr title="required">*</abbr>
             <% end %>
-            <%= journal_rating.input :score, label: false, collection: 1..10, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+            <%= journal_rating.input :score, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
           <% end %>
         </div>
       </div>
