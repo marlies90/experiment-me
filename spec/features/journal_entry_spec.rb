@@ -36,7 +36,7 @@ RSpec.describe JournalEntry, type: :feature do
 
       it "allows a valid journal_entry to be created succesfully" do
         all(class: "journal_entry_journal_ratings_score").each do |rating|
-          rating.choose(class: "radio_buttons", option: "8")
+          rating.choose(class: "radio_buttons", option: "4")
         end
 
         click_button "Save journal entry"
@@ -45,7 +45,7 @@ RSpec.describe JournalEntry, type: :feature do
 
       it "does not allow a journal_entry to be created without filling in all ratings" do
         all(class: "journal_entry_journal_ratings_score").first do |rating|
-          rating.choose(class: "radio_buttons", option: "8")
+          rating.choose(class: "radio_buttons", option: "4")
         end
         click_button "Save journal entry"
         expect(page).to have_content(
@@ -83,7 +83,7 @@ RSpec.describe JournalEntry, type: :feature do
       it "allows the user to update that journal entry" do
         click_link("Edit journal entry")
         all(class: "journal_entry_journal_ratings_score").each do |rating|
-          rating.choose(class: "radio_buttons", option: "8")
+          rating.choose(class: "radio_buttons", option: "4")
         end
         click_button("Save journal entry")
         expect(page).to have_content "Journal entry was successfully updated."
@@ -143,7 +143,7 @@ RSpec.describe JournalEntry, type: :feature do
         it "allows a journal_entry to be created when experiment_success was filled in" do
           choose("journal_entry_experiment_success_true")
           all(class: "journal_entry_journal_ratings_score").each do |rating|
-            rating.choose(class: "radio_buttons", option: "8")
+            rating.choose(class: "radio_buttons", option: "4")
           end
 
           click_button "Save journal entry"
@@ -152,7 +152,7 @@ RSpec.describe JournalEntry, type: :feature do
 
         it "does not allow a journal_entry to be created without experiment_success filled in" do
           all(class: "journal_entry_journal_ratings_score").each do |rating|
-            rating.choose(class: "radio_buttons", option: "8")
+            rating.choose(class: "radio_buttons", option: "4")
           end
 
           click_button "Save journal entry"
