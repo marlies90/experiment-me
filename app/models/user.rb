@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
-  validates_presence_of :first_name
+  validates :first_name, presence: true, length: { maximum: 40 }
 
   enum role: {
     standard: 0,
