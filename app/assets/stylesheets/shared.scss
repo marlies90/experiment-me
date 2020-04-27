@@ -56,8 +56,12 @@ main {
   color: $brand-light;
 }
 
-#error_explanation {
+.text-error, #error_explanation {
   color: $error;
+}
+
+.text-success {
+  color: $health-dark;
 }
 
 .footer {

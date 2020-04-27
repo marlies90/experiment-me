@@ -3,15 +3,18 @@
 
   <% if activating_experiment %>
     <div>
-      <span>For the upcoming 3 weeks, you'll be trying out the experiment "<strong><%= @experiment.name %>".</strong></span>
-      <h5 class="mt-4">Objective</h5>
+      <span>For the upcoming 3 weeks, you'll be trying out the experiment
+        <strong><span class="text-brand"><%= @experiment.name %></span></strong>.
+      </span>
+      <h5 class="mt-4 text-intense">Objective</h5>
       <p>
         <i class="fas fa-trophy"></i>
-        <%= @experiment.objective %>
+        <span><%= @experiment.objective %></span>
       </p>
     </div>
     <div class="row">
       <div class="col-12">
+        <h5 class="mt-2 text-intense">Starting date</h5>
         <span>When would you like to start the experiment?</span>
         <%= f.input :starting_date,
         as: :select,
@@ -20,9 +23,14 @@
         label: false,
         input_html: { class: "col-md-3 mt-2" } %>
       </div>
-      <div class="col-12 mt-2">
-        <h4>Your initial measurement</h4>
-        <em>Rate the following statements about your last 3 weeks from 1 (low) to 5 (high)</em><br><br>
+      <div class="col-12">
+        <h5 class="mt-2 text-intense">Your starting measurement</h5>
+        <div class="mb-4">
+          <span>
+            Recall your last 3 weeks. How did you feel?<br>
+            Rate the statements below from 1 (<span class="text-error">completely disagree</span>) to 5 (<span class="text-success">completely agree</span>).
+          </span>
+        </div>
         <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
           <%= experiment_user_measurement.hidden_field :id %>
           <%= experiment_user_measurement.hidden_field :benefit_id %>
