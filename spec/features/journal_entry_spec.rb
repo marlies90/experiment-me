@@ -16,14 +16,28 @@ RSpec.describe JournalEntry, type: :feature do
       it "auto-selects today in the date picker" do
         expect(page).to have_select("date", selected: DateTime.current.beginning_of_day)
       end
+
+      it "shows that there are no journal entries for the past 14 days" do
+        expect(page).to have_content("No journal entry", count: 14)
+      end
     end
 
     context "when there is already a journal_entry for today" do
       let!(:journal_entry) { FactoryBot.create(:journal_entry, user: current_user) }
 
-      it "auto-selects yesterday when the entry for today has already been created" do
+      before do
         visit journal_entries_path
+      end
+
+      it "auto-selects yesterday when the entry for today has already been created" do
         expect(page).to have_select("date", selected: DateTime.current.beginning_of_day - 1)
+      end
+
+      it "shows that there is one journal entry" do
+        within(".table") do
+          expect(page).to have_css(".edit_journal_entry")
+        end
+        expect(page).to have_content("No journal entry", count: 13)
       end
     end
   end
@@ -64,24 +78,18 @@ RSpec.describe JournalEntry, type: :feature do
     end
 
     context "when a journal entry has been created" do
-      let(:journal_entry) { FactoryBot.create(:journal_entry, user: current_user) }
+      let!(:journal_entry) { FactoryBot.create(:journal_entry, user: current_user) }
 
       before do
-        visit journal_entry_path(journal_entry)
-      end
-
-      it "allows the user to view that journal entry" do
-        expect(page).to have_content "Statement"
-        expect(page).to have_content "Score"
+        visit journal_entries_path
+        find(class: "edit_journal_entry").click
       end
 
       it "allows the user to go into editing mode" do
-        click_link("Edit journal entry")
         expect(page).to have_css ".radio_buttons"
       end
 
       it "allows the user to update that journal entry" do
-        click_link("Edit journal entry")
         all(class: "journal_entry_journal_ratings_score").each do |rating|
           rating.choose(class: "radio_buttons", option: "4")
         end
@@ -166,11 +174,11 @@ RSpec.describe JournalEntry, type: :feature do
 
     context "when editing an existing journal_entry" do
       context "with an experiment that has been completed in the meantime" do
-        let(:journal_entry) do
+        let!(:journal_entry) do
           FactoryBot.create(
             :journal_entry,
             user: current_user,
-            date: (DateTime.current - 35).beginning_of_day,
+            date: (DateTime.current - 12).beginning_of_day,
             experiment_id: previous_experiment_user.experiment.id,
             experiment_success: true
           )
@@ -180,14 +188,14 @@ RSpec.describe JournalEntry, type: :feature do
           create(
             :experiment_user,
             :completed,
-            starting_date: (DateTime.current - 50).beginning_of_day,
-            ending_date: (DateTime.current - 29).beginning_of_day
+            starting_date: (DateTime.current - 31).beginning_of_day,
+            ending_date: (DateTime.current - 10).beginning_of_day
           )
         end
 
         before do
-          visit journal_entry_path(journal_entry)
-          click_link("Edit journal entry")
+          visit journal_entries_path
+          find(class: "edit_journal_entry").click
         end
 
         it "displays the experiment that was active on the moment the journal_entry was created" do

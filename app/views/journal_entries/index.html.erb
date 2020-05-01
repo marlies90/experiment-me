@@ -4,7 +4,7 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Journal</h1>
+        <h1 class="h2 text-intense">Journal</h1>
       </div>
 
       <div class="row">
@@ -15,7 +15,7 @@
         <% end %>
 
         <div class="col-md-8">
-          <h3>Create a new journal entry</h3>
+          <h3 class="text-intense">Create a new journal entry</h3>
           <%= form_tag(new_journal_entry_path, method: :get) do |journal_entry_date| %>
           <%= label_tag(:date, "Date") %>
           <%= select_tag(
@@ -33,21 +33,52 @@
         </div>
       </div>
 
-      <% if @journal_entries.present? %>
-        <div class="mt-4">
-          <h2 class="h5">Your last 10 entries</h2>
-          <table class="table">
-            <tr>
-              <th>Date</th>
-            </tr>
-            <% @journal_entries.newest.limit(10).each do |entry| %>
-            <tr>
-              <td class="existing_journal_entry"><%= link_to(to_journal_date(entry.date), entry) %></td>
-            </tr>
-            <% end %>
-          </table>
+      <hr class="featurette-divider">
+
+        <div class="">
+          <div class="">
+            <h3 class="text-intense">Entries in the last 14 days</h3>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr class="d-flex">
+                    <th class="col-3 col-lg-2">Date</th>
+                    <% @journal_statements.each do |journal_statement| %>
+                    <th class="col-2 col-lg-1"><%= journal_statement.category %></th>
+                    <% end %>
+                    <th class="col-2 text-brand">Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% @dates.each do |date| %>
+                  <tr class="d-flex">
+                    <td class="col-3 col-lg-2"><%= to_journal_date_no_year(date) %></td>
+
+                    <% if @journal_entry_dates.include?(date) %>
+                    <% journal_entry_for_date(date).journal_ratings.each do |journal_rating| %>
+                    <td class="col-2 col-lg-1"><%= journal_rating.score %></td>
+                    <% end %>
+                    <td class="col-2">
+                      <%= link_to edit_journal_entry_path(journal_entry_for_date(date)), class: "edit_journal_entry" do %>
+                      <i class="fas fa-pencil-alt"></i>
+                      <% end %>
+                      <%= link_to journal_entry_path(journal_entry_for_date(date)), method: :delete, data: { confirm: "Are you sure?" } do %>
+                      <i class="fas fa-trash-alt"></i>
+                      <% end %>
+                    </td>
+                    <% else %>
+                    <td class="col-8"><em>No journal entry</em></td>
+                    <% end %>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
         </div>
-      <% end %>
     </main>
   </div>
 </div>

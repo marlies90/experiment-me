@@ -12,4 +12,8 @@ module DashboardHelper
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
+
+  def journal_entry_for_date(date)
+    JournalEntry.includes(:journal_ratings).find_by(date: date)
+  end
 end

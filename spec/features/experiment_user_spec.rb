@@ -171,7 +171,7 @@ RSpec.describe ExperimentUser, type: :feature do
 
         it "lets the user fill in the starting survey again" do
           click_link("Retry this experiment")
-          expect(page).to have_content "Your initial measurement"
+          expect(page).to have_content "Your starting measurement"
           click_button("Start this experiment")
         end
 

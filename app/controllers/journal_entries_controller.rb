@@ -2,19 +2,17 @@
 
 class JournalEntriesController < ApplicationController
   before_action :set_user
-  before_action :set_journal_entry, only: %i[show edit update destroy]
+  before_action :set_journal_entry, only: %i[edit update destroy]
   helper_method :date
 
   def index
-    @journal_entries = JournalEntry.per_user(current_user)
+    @journal_statements = JournalStatement.all.id_asc
     create_date_list
     journal_entry_dates
     @available_dates = (@dates - @journal_entry_dates) | (@journal_entry_dates - @dates)
 
     @active_experiment = Experiment.find_by_id(@user.experiment_users&.active&.first&.experiment_id)
   end
-
-  def show; end
 
   def new
     @journal_entry = JournalEntry.new
@@ -50,6 +48,11 @@ class JournalEntriesController < ApplicationController
     end
   end
 
+  def destroy
+    @journal_entry.destroy
+    redirect_to journal_entries_path, notice: "Journal entry was successfully deleted."
+  end
+
   private
 
   def create_date_list
@@ -70,7 +73,10 @@ class JournalEntriesController < ApplicationController
   end
 
   def set_journal_entry
-    @journal_entry = JournalEntry.per_user(current_user).find_by(slug: params[:id])
+    @journal_entry = JournalEntry
+                     .includes(:user, :journal_ratings)
+                     .per_user(current_user)
+                     .find_by(slug: params[:id])
   end
 
   def date

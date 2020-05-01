@@ -6,7 +6,7 @@ class JournalEntry < ApplicationRecord
   include DateConcern
 
   belongs_to :user
-  has_many :journal_ratings
+  has_many :journal_ratings, dependent: :destroy
 
   validates_presence_of :date, :user_id, :journal_ratings
   validates :experiment_success,
