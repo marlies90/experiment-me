@@ -63,7 +63,7 @@
                       <%= link_to edit_journal_entry_path(journal_entry_for_date(date)), class: "edit_journal_entry" do %>
                       <i class="fas fa-pencil-alt"></i>
                       <% end %>
-                      <%= link_to journal_entry_path(journal_entry_for_date(date)), method: :delete, data: { confirm: "Are you sure?" } do %>
+                      <%= link_to journal_entry_path(journal_entry_for_date(date)), class: "destroy_journal_entry", method: :delete, data: { confirm: "Are you sure?" } do %>
                       <i class="fas fa-trash-alt"></i>
                       <% end %>
                     </td>

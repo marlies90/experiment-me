@@ -82,19 +82,25 @@ RSpec.describe JournalEntry, type: :feature do
 
       before do
         visit journal_entries_path
-        find(class: "edit_journal_entry").click
       end
 
       it "allows the user to go into editing mode" do
+        find(class: "edit_journal_entry").click
         expect(page).to have_css ".radio_buttons"
       end
 
       it "allows the user to update that journal entry" do
+        find(class: "edit_journal_entry").click
         all(class: "journal_entry_journal_ratings_score").each do |rating|
           rating.choose(class: "radio_buttons", option: "4")
         end
         click_button("Save journal entry")
         expect(page).to have_content "Journal entry was successfully updated."
+      end
+
+      it "allows the user to destroy that journal entry" do
+        find(class: "destroy_journal_entry").click
+        expect(page).to have_content "Journal entry was successfully deleted."
       end
     end
   end
