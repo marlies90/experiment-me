@@ -5,7 +5,7 @@
     <main class="col-md-9 ml-sm-auto col-lg-10 px-4 py-3">
       <div class="card mb-2">
         <div class="card-header bg-white">
-          <h1 class="text-intense h2">New journal entry for <span class="text-brand"><%= to_journal_date(date) %></span></h1>
+          <h1 class="text-intense h2">New journal entry for <span class="text-brand"><%= to_journal_date_no_year(date) %></span></h1>
         </div>
 
         <%= render "journal_entries/form", journal_entry: @journal_entry %>

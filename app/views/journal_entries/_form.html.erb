@@ -1,6 +1,6 @@
 <%= simple_form_for @journal_entry do |f| %>
   <% if @journal_entry.errors.any? %>
-    <div id="error_explanation">
+    <div class="col mt-4" id="error_explanation">
       <h6>The journal entry is incomplete and can therefore not be saved. <br>
         Please fill in the field(s) marked in red below:</h6>
     </div>
@@ -29,7 +29,7 @@
           <%= f.input(:experiment_success, label: false, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
           <%= f.hidden_field :experiment_id, value: @active_experiment_on_date.id %>
         <% else %>
-          <div>
+          <div class="mb-4">
             You're not doing an experiment at the moment.
           </div>
         <% end %>
