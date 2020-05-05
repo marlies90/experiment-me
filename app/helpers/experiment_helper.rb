@@ -51,4 +51,8 @@ module ExperimentHelper
 
     @active_experiment_on_date
   end
+
+  def experiment_user(experiment)
+    ExperimentUser.find_by(user: current_user, experiment: experiment)
+  end
 end

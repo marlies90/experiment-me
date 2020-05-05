@@ -4,12 +4,12 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Your experiments</h1>
+        <h1 class="h2 text-intense">Your experiments</h1>
       </div>
 
       <div class="row mb-4">
         <div class="current_experiment col-12">
-          <h3>Your current experiment</h3>
+          <h3 class="text-intense">Your current experiment</h3>
           <% if @active_experiment_user.present? && uncompleted_experiment?(@active_experiment_user) %>
             <div class="card mb-3 experiment-banner" style="max-width:35rem">
               <div class="row no-gutters">
@@ -27,14 +27,14 @@
                       <span>
                         <%= link_to "Details",
                         experiment_path(id: @active_experiment.slug, category: @active_experiment.category),
-                        class: "btn btn-warning mr-1" %>
+                        class: "btn btn-primary mr-1" %>
                       </span>
                       <span>
                         <%= link_to "Stop experiment",
                         edit_experiment_user_path(
-                        id: ExperimentUser.find_by(experiment_id: @active_experiment.id, user_id: current_user.id).id,
+                        id: experiment_user(@active_experiment).id,
                         experiment_id: @active_experiment.id),
-                        class: "btn btn-danger" %>
+                        class: "btn btn-secondary" %>
                       </span>
                     </div>
                   </div>
@@ -57,7 +57,7 @@
       <% if @cancelled_experiments.present? %>
       <div class="row mb-4">
         <div class="cancelled_experiments col-12">
-          <h3>Your cancelled experiments</h3>
+          <h3 class="text-intense">Your cancelled experiments</h3>
           <table class="table">
             <thead>
               <tr>
@@ -71,24 +71,25 @@
             </thead>
             <tbody>
               <% @cancelled_experiments.each do |experiment| %>
-              <tr>
-                <td><%= experiment.category.name %></td>
-                <td><%= experiment.name %></td>
-                <td class="starting_date"><%= to_journal_date(ExperimentUser.find_by(user: @user, experiment: experiment).starting_date) %></td>
-                <td class="ending_date"><%= to_journal_date(ExperimentUser.find_by(user: @user, experiment: experiment).ending_date) %></td>
-                <td class="cancellation_reason"><%= ExperimentUser.find_by(user: @user, experiment: experiment).cancellation_reason %></td>
-                <td><%= link_to "Retry this experiment",
-                  edit_experiment_user_path(
-                  id: ExperimentUser.find_by(experiment_id: experiment.id, user_id: current_user.id)&.id,
-                  experiment_id: experiment.id),
-                  class: already_doing_an_experiment ? "btn btn-success disabled" : "btn btn-success" %></td>
-                  <% end %>
+                <tr>
+                  <td><%= experiment.category.name %></td>
+                  <td><%= experiment.name %></td>
+                  <td class="starting_date"><%= to_journal_date(experiment_user(experiment).starting_date) %></td>
+                  <td class="ending_date"><%= to_journal_date(experiment_user(experiment).ending_date) %></td>
+                  <td class="cancellation_reason"><%= experiment_user(experiment).cancellation_reason %></td>
+                  <td><%= link_to "Retry this experiment",
+                    edit_experiment_user_path(
+                    id: experiment_user(experiment)&.id,
+                    experiment_id: experiment.id),
+                    class: already_doing_an_experiment ? "btn btn-primary disabled" : "btn btn-primary" %>
+                  </td>
                 </tr>
+              <% end %>
             </tbody>
             </table>
             <% end %>
             <% if already_doing_an_experiment %>
-            <td><em>* You can run only one experiment at a time. If you want to retry a cancelled experiment, first cancel your current experiment.</em></td>
+            <span class="text-brand"><em>* You can run only one experiment at a time. If you want to retry a cancelled experiment, first cancel your current experiment.</em></span>
             <% end %>
           </div>
         </div>
@@ -96,7 +97,7 @@
       <% if @completed_experiments.present? %>
         <div class="row">
           <div class="completed_experiments col-12">
-            <h3>Your completed experiments</h3>
+            <h3 class="text-intense">Your completed experiments</h3>
             <table class="table">
               <tr>
                 <th>Category</th>
@@ -110,10 +111,15 @@
               <tr>
                 <td><%= experiment.category.name %></td>
                 <td><%= experiment.name %></td>
-                <td class="starting_date"><%= to_journal_date(ExperimentUser.find_by(user: @user, experiment: experiment).starting_date) %></td>
-                <td class="ending_date"><%= to_journal_date(ExperimentUser.find_by(user: @user, experiment: experiment).ending_date) %></td>
-                <td><%= ExperimentUser.find_by(user: @user, experiment: experiment).experiment_continuation %></td>
-                <td>View your measurements</td>
+                <td class="starting_date"><%= to_journal_date(experiment_user(experiment).starting_date) %></td>
+                <td class="ending_date"><%= to_journal_date(experiment_user(experiment).ending_date) %></td>
+                <td><%= experiment_user(experiment).experiment_continuation %></td>
+                <td><%= link_to "View your measurements",
+                  experiment_user_path(
+                  id: experiment_user(experiment)&.id,
+                  experiment_id: experiment.id),
+                  class: "btn btn-secondary view_measurements" %>
+                </td>
                 <% end %>
               </tr>
             </table>
