@@ -42,12 +42,16 @@
               </div>
             </div>
           <% elsif @active_experiment_user.present? && completed_experiment?(@active_experiment_user) %>
-            <%= render "evaluate_experiment", active_experiment: @active_experiment %>
+            <div class="row">
+              <div class="col-md-6">
+                <%= render "evaluate_experiment", active_experiment: @active_experiment %>
+              </div>
+            </div>
           <% else %>
             <div>
               You're not doing an experiment at the moment. Want to start one?
               <div>
-                <%= link_to "Choose experiment", categories_path, class: "btn btn-primary" %>
+                <%= link_to "Choose experiment", categories_path, class: "btn btn-primary mt-2" %>
               </div>
             </div>
           <% end %>
@@ -87,12 +91,12 @@
               <% end %>
             </tbody>
             </table>
-            <% end %>
-            <% if already_doing_an_experiment %>
-            <span class="text-brand"><em>* You can run only one experiment at a time. If you want to retry a cancelled experiment, first cancel your current experiment.</em></span>
+            <% if @cancelled_experiments.present? && already_doing_an_experiment %>
+              <span class="text-brand"><em>* You can run only one experiment at a time. If you want to retry a cancelled experiment, first cancel your current experiment.</em></span>
             <% end %>
           </div>
         </div>
+      <% end %>
 
       <% if @completed_experiments.present? %>
         <div class="row">

@@ -42,18 +42,24 @@
               <%= link_to(
               "Retry this experiment",
               edit_experiment_user_path(experiment_id: params[:id]),
-              class: already_doing_an_experiment ? "btn btn-primary disabled" : "btn btn-primary mb-4")
+              class: already_doing_an_experiment || already_did_this_experiment(@experiment) ? "btn btn-primary disabled" : "btn btn-primary mb-4")
               %>
             <% else %>
               <%= link_to(
               "Start this experiment",
               new_experiment_user_path(experiment_id: params[:id]),
-              class: already_doing_an_experiment ? "btn btn-primary disabled" : "btn btn-primary mb-4")
+              class: already_doing_an_experiment || already_did_this_experiment(@experiment) ? "btn btn-primary disabled" : "btn btn-primary mb-4")
               %>
             <% end %>
           </div>
           <div class="card-body text-center">
-            <% if already_doing_an_experiment %>
+            <% if already_did_this_experiment(@experiment) %>
+              <span><i class="fas fa-check pr-1"></i>
+              You've already completed this experiment</span>
+            <% elsif already_doing_this_experiment(@experiment) %>
+              <span><i class="fas fa-clock pr-1"></i>
+              You're currently doing this experiment</span>
+            <% elsif already_doing_an_experiment %>
               <span><i class="fas fa-exclamation-circle pr-1"></i>
               You can run only one experiment at a time. If you want to cancel your current experiment,
               go to the <u><%= link_to("experiment overview page", dashboard_experiments_path) %></u>.</span>

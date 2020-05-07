@@ -35,6 +35,22 @@ module ExperimentHelper
     ExperimentUser.find_by(user_id: current_user, status: "active").present?
   end
 
+  def already_doing_this_experiment(experiment)
+    ExperimentUser.find_by(
+      user_id: current_user,
+      experiment_id: experiment.id,
+      status: "active"
+    ).present?
+  end
+
+  def already_did_this_experiment(experiment)
+    ExperimentUser.find_by(
+      user_id: current_user,
+      experiment_id: experiment.id,
+      status: "completed"
+    ).present?
+  end
+
   def active_experiment_on_date(date)
     return unless ExperimentUser.where(user_id: current_user)
 
