@@ -9,18 +9,18 @@ RSpec.describe ExperimentUserPolicy do
   context "When not logged in" do
     let(:user) { nil }
 
-    it { should forbid_actions(%i[create new update]) }
+    it { should forbid_actions(%i[create new update show]) }
   end
 
   context "When logged in as a standard user" do
     let(:user) { FactoryBot.create(:user) }
 
-    it { should permit_actions(%i[create new update]) }
+    it { should permit_actions(%i[create new update show]) }
   end
 
   context "When logged in as an admin user" do
     let(:user) { FactoryBot.create(:user, :admin) }
 
-    it { should permit_actions(%i[create new update]) }
+    it { should permit_actions(%i[create new update show]) }
   end
 end

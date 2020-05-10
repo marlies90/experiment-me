@@ -81,10 +81,49 @@ RSpec.describe ExperimentUser, type: :feature do
         end
       end
 
-      context "with another active experiment" do
-        it "does not allow a user to start a new experiment" do
-          expect(page).to have_content "You can run only one experiment at a time"
-          expect(page).to have_css(".start_experiment .disabled")
+      context "with an active experiment" do
+        context "when visiting the current experiment show page" do
+          it "tells the user this experiment is currently in progress" do
+            expect(page).to have_content "You're currently doing this experiment"
+            expect(page).to have_css(".start_experiment .disabled")
+          end
+        end
+
+        context "when visiting an untried experiment show page" do
+          let(:other_experiment) { FactoryBot.create(:experiment) }
+
+          before do
+            visit experiment_path(id: other_experiment.slug, category: other_experiment.category)
+          end
+
+          it "does not allow a user to start a new experiment" do
+            expect(page).to have_content "You can run only one experiment at a time"
+            expect(page).to have_css(".start_experiment .disabled")
+          end
+        end
+
+        context "when visiting a completed experiment show page" do
+          let(:completed_experiment) { FactoryBot.create(:experiment) }
+          let!(:experiment_user) do
+            FactoryBot.create(
+              :experiment_user,
+              :completed,
+              experiment: completed_experiment,
+              user: current_user
+            )
+          end
+
+          before do
+            visit experiment_path(
+              id: completed_experiment.slug,
+              category: completed_experiment.category
+            )
+          end
+
+          it "tells the user the experiment has already been done" do
+            expect(page).to have_content "You've already completed this experiment"
+            expect(page).to have_css(".start_experiment .disabled")
+          end
         end
       end
     end
@@ -233,6 +272,7 @@ RSpec.describe ExperimentUser, type: :feature do
 
           within ".completed_experiments" do
             expect(page).to have_content experiment.name
+            expect(page).to have_content "Yes"
           end
         end
 
@@ -252,6 +292,44 @@ RSpec.describe ExperimentUser, type: :feature do
           click_link "Evaluate experiment"
           expect(page).to_not have_content "Your initial measurement"
           expect(page).to_not have_content "You're cancelling the experiment"
+        end
+      end
+
+      context "when an experiment has been completed" do
+        let!(:experiment_user) do
+          FactoryBot.create(
+            :experiment_user,
+            :completed,
+            experiment: experiment,
+            user: current_user
+          )
+        end
+
+        it "lets the user view their starting and ending measurements" do
+          click_link("View your measurements")
+          expect(page).to have_content(
+            experiment_user.experiment_user_measurements.first.starting_score
+          )
+          expect(page).to have_content(
+            experiment_user.experiment_user_measurements.first.ending_score
+          )
+          expect(page).to have_content(
+            experiment_user.experiment_user_measurements.last.starting_score
+          )
+          expect(page).to have_content(
+            experiment_user.experiment_user_measurements.last.ending_score
+          )
+        end
+
+        it "lets the user view how they rated the difficulty and continuation options" do
+          click_link("View your measurements")
+          expect(page).to have_content(
+            ExperimentUser::DIFFICULTY_RATES[experiment_user.difficulty]
+          )
+
+          expect(page).to have_content(
+            ExperimentUser::CONTINUATION_OPTIONS[experiment_user.experiment_continuation]
+          )
         end
       end
     end

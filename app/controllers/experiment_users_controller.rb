@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class ExperimentUsersController < ApplicationController
-  before_action :experiment, only: %i[new edit]
+  before_action :experiment, only: %i[new edit show]
+
+  def show
+    experiment_user
+  end
 
   def new
     if current_user
@@ -25,7 +29,7 @@ class ExperimentUsersController < ApplicationController
     set_initial_experiment_user_attributes
 
     if @experiment_user.save
-      redirect_to dashboard_overview_path, notice: "You have successfully started the experiment"
+      redirect_to dashboard_experiments_path, notice: "You have successfully started the experiment"
     else
       render :new
     end

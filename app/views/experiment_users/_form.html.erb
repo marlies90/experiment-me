@@ -1,4 +1,11 @@
 <%= simple_form_for @experiment_user do |f| %>
+  <% if @experiment_user.errors.any? %>
+    <div class="mt-4" id="error_explanation">
+      <h6>The form is incomplete and can therefore not be saved. <br>
+        Please fill in the field(s) marked in red below:</h6>
+    </div>
+  <% end %>
+
   <%= f.hidden_field :experiment_id, value: @experiment.id %>
 
   <% if activating_experiment %>
@@ -50,43 +57,48 @@
         <span>Why are you cancelling the experiment?</span>
         <%= f.input :cancellation_reason,
         as: :select,
-        collection: ExperimentUser.cancellation_reasons.keys,
+        collection: ExperimentUser::CANCELLATION_REASONS.invert,
         label: false
         %>
       </div>
     </div>
 
+
   <% elsif completing_experiment %>
-    <div>
+    <div class="mb-4">
       <span>YAY! You completed the experiment "<strong><%= @experiment.name %>".</strong></span>
     </div>
     <div class="row">
-      <div class="col-md-8">
-        <h4>Your ending measurement</h4>
-        <em>Rate the following statements about your last 3 weeks from 1 (low) to 5 (high)</em><br><br>
-        <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
-          <%= experiment_user_measurement.hidden_field :id %>
-          <%= experiment_user_measurement.hidden_field :benefit_id %>
-          <%= experiment_user_measurement.object.benefit.measurement_statement %>
-          <abbr title="required">*</abbr>
-          <%= experiment_user_measurement.input :ending_score, required: true, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
-        <% end %>
-
-        <div>
-          <span>How would you rate the difficulty of this experiment to you?</span>
-          <abbr title="required">*</abbr>
-          <%= f.input :difficulty,
-          as: :select,
-          collection: ExperimentUser.difficulty_rates.keys,
-          label: false %>
-
-          <span>Will you continue this new behaviour now that the experiment is over?</span>
-          <abbr title="required">*</abbr>
-          <%= f.input :experiment_continuation,
-          as: :select,
-          collection: ExperimentUser.continuation_options.keys,
-          label: false %>
+      <div class="col-md-9">
+        <h4 class="text-intense">Your ending measurement</h4>
+        <div class="mb-4">
+          Recall your last 3 weeks. How did you feel?<br>
+          Rate the statements below from 1 (<span class="text-error">completely disagree</span>) to 5 (<span class="text-success">completely agree</span>).
         </div>
+        <div>
+          <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
+            <%= experiment_user_measurement.hidden_field :id %>
+            <%= experiment_user_measurement.hidden_field :benefit_id %>
+            <%= experiment_user_measurement.object.benefit.measurement_statement %>
+            <abbr title="required">*</abbr>
+            <%= experiment_user_measurement.input :ending_score, required: true, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <span>Was it easy for you to stick to the experiment?</span>
+        <abbr title="required">*</abbr>
+        <%= f.input :difficulty,
+        as: :select,
+        collection: ExperimentUser::DIFFICULTY_RATES.invert,
+        label: false %>
+
+        <span>Will you continue this new behaviour now that the experiment is over?</span>
+        <abbr title="required">*</abbr>
+        <%= f.input :experiment_continuation,
+        as: :select,
+        collection: ExperimentUser::CONTINUATION_OPTIONS.invert,
+        label: false %>
       </div>
     </div>
   <% end %>

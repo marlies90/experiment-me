@@ -5,6 +5,10 @@ class ExperimentUserPolicy < ApplicationPolicy
     user.present?
   end
 
+  def show?
+    create?
+  end
+
   def new?
     create?
   end

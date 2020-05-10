@@ -21,27 +21,27 @@ class ExperimentUser < ApplicationRecord
     cancelled: 2
   }
 
-  enum difficulty_rate: {
-    "Very easy": 0,
-    "Easy": 1,
-    "Moderate": 2,
-    "Difficult": 3,
-    "Very difficult": 4
-  }
+  DIFFICULTY_RATES = {
+    0 => "Very easy",
+    1 => "Easy",
+    2 => "Moderate",
+    3 => "Difficult",
+    4 => "Very difficult"
+  }.freeze
 
-  enum continuation_option: {
-    "Yes": 0,
-    "No": 1,
-    "Unsure": 2
-  }
+  CONTINUATION_OPTIONS = {
+    0 => "Yes",
+    1 => "No",
+    2 => "Unsure"
+  }.freeze
 
-  enum cancellation_reason: {
-    "I accidentally started it": 0,
-    "I have no time to focus on it right now": 1,
-    "I no longer feel motivated to do this": 2,
-    "I do not think it will have a positive impact on my life": 3,
-    "Other": 4
-  }
+  CANCELLATION_REASONS = {
+    0 => "I accidentally started it",
+    1 => "I have no time to focus on it right now",
+    2 => "I no longer feel motivated to do this",
+    3 => "I do not think it will have a positive impact on my life",
+    4 => "Other"
+  }.freeze
 
   private
 

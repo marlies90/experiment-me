@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   resources :experiments, only: %i[new create]
   resources :experiments, path: "/:category/experiments", except: %i[new create]
 
-  resources :experiment_users, path: "/my-experiments", only: %i[new create edit update]
+  resources :experiment_users, path: "/my-experiments", only: %i[new create edit update show]
 
   root "pages#home", as: "home"
 end

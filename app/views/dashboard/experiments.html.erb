@@ -80,7 +80,7 @@
                   <td><%= experiment.name %></td>
                   <td class="starting_date"><%= to_journal_date(experiment_user(experiment).starting_date) %></td>
                   <td class="ending_date"><%= to_journal_date(experiment_user(experiment).ending_date) %></td>
-                  <td class="cancellation_reason"><%= experiment_user(experiment).cancellation_reason %></td>
+                  <td class="cancellation_reason"><%= ExperimentUser::CANCELLATION_REASONS[experiment_user(experiment).cancellation_reason] %></td>
                   <td><%= link_to "Retry this experiment",
                     edit_experiment_user_path(
                     id: experiment_user(experiment)&.id,
@@ -117,7 +117,7 @@
                 <td><%= experiment.name %></td>
                 <td class="starting_date"><%= to_journal_date(experiment_user(experiment).starting_date) %></td>
                 <td class="ending_date"><%= to_journal_date(experiment_user(experiment).ending_date) %></td>
-                <td><%= experiment_user(experiment).experiment_continuation %></td>
+                <td><%= ExperimentUser::CONTINUATION_OPTIONS[experiment_user(experiment).experiment_continuation] %></td>
                 <td><%= link_to "View your measurements",
                   experiment_user_path(
                   id: experiment_user(experiment)&.id,
