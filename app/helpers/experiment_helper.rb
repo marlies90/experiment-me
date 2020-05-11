@@ -71,4 +71,8 @@ module ExperimentHelper
   def experiment_user(experiment)
     ExperimentUser.find_by(user: current_user, experiment: experiment)
   end
+
+  def active_experiment_day_counter(active_experiment_user)
+    (DateTime.current.beginning_of_day.to_date - active_experiment_user.starting_date.to_date).to_i
+  end
 end
