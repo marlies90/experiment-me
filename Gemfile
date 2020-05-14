@@ -35,6 +35,9 @@ gem "turbolinks", "~> 5"
 # security
 gem "rack-attack", "~> 6.2", ">= 6.2.2"
 
+# mails
+gem "sendgrid-ruby", "~> 6.2"
+
 group :development do
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "pry-rails", "~> 0.3.9"
