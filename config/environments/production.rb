@@ -68,7 +68,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: "https://experiment-rocks.herokuapp.com/" }
+  config.action_mailer.default_url_options = { host: "http://experiment.rocks" }
   config.action_mailer.perform_deliveries = true
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
@@ -77,7 +77,7 @@ Rails.application.configure do
     authentication: :plain,
     user_name: ENV["SENDGRID_USERNAME"],
     password: ENV["SENDGRID_PASSWORD"],
-    domain: "heroku.com",
+    domain: "experiment.rocks",
     enable_starttls_auto: true
   }
 
