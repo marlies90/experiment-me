@@ -9,7 +9,13 @@ class DashboardController < ApplicationController
 
   def settings; end
 
-  def progress; end
+  def progress
+    binding.pry
+    @journal_entries = JournalEntry.includes(:journal_ratings).per_user(current_user)
+
+    # JournalEntry.joins(:journal_ratings).per_user(current_user).group("journal_ratings.journal_entry_id")
+    # https://stackoverflow.com/questions/40708920/rails-chartkick-multiple-series-line-chart-with-nested-hash
+  end
 
   def experiments
     @cancelled_experiments = Experiment.find(

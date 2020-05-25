@@ -4,7 +4,16 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Progress</h1>
+        <h1 class="h2 text-intense">Progress</h1>
+      </div>
+
+      <div class="">
+        <div class="">
+
+          <%= line_chart @journal_entries.map do |journal_entry| %>
+            { name: journal_entry.journal_ratings.map(&:journal_entry_id), data: journal_entry.journal_ratings.map(&:score) }
+          <% end %>
+        </div>
       </div>
     </main>
   </div>
