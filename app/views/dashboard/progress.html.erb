@@ -9,10 +9,7 @@
 
       <div class="">
         <div class="">
-
-          <%= line_chart @journal_entries.map do |journal_entry| %>
-            { name: journal_entry.journal_ratings.map(&:journal_entry_id), data: journal_entry.journal_ratings.map(&:score) }
-          <% end %>
+          <%= line_chart @line_chart_data %>
         </div>
       </div>
     </main>

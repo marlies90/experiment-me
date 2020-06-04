@@ -10,11 +10,18 @@ class DashboardController < ApplicationController
   def settings; end
 
   def progress
-    binding.pry
     @journal_entries = JournalEntry.includes(:journal_ratings).per_user(current_user)
-
-    # JournalEntry.joins(:journal_ratings).per_user(current_user).group("journal_ratings.journal_entry_id")
-    # https://stackoverflow.com/questions/40708920/rails-chartkick-multiple-series-line-chart-with-nested-hash
+    @line_chart_data = JournalStatement.all.map do |journal_statement|
+      {
+        name: journal_statement.category,
+        data: @journal_entries.map do |journal_entry|
+          [
+            journal_entry.date,
+            journal_entry.journal_ratings.find_by(journal_statement_id: journal_statement.id).score
+          ]
+        end
+      }
+    end
   end
 
   def experiments
