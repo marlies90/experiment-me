@@ -4,7 +4,20 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Progress</h1>
+        <h1 class="h2 text-intense">Progress</h1>
+      </div>
+
+      <div class="">
+        <div class="">
+          <%= line_chart @line_chart_data %>
+        </div>
+        <%= line_chart @line_chart_data,
+          colors: ["rgb(134,110,199)", "rgb(102,181,255)", "rgb(46,171,126)", "rgb(224,174,67)", "rgb(209,55,53)", "rgb(52,58,64)"],
+          curve: false,
+          legend: "bottom",
+          max: 5,
+          messages: {empty: "There is no data for this time period"}
+        %>
       </div>
     </main>
   </div>

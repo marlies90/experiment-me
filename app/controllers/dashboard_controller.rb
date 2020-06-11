@@ -9,7 +9,20 @@ class DashboardController < ApplicationController
 
   def settings; end
 
-  def progress; end
+  def progress
+    @journal_entries = JournalEntry.includes(:journal_ratings).per_user(current_user)
+    @line_chart_data = JournalStatement.all.map do |journal_statement|
+      {
+        name: journal_statement.category,
+        data: @journal_entries.map do |journal_entry|
+          [
+            journal_entry.date,
+            journal_entry.journal_ratings.find_by(journal_statement_id: journal_statement.id).score
+          ]
+        end
+      }
+    end
+  end
 
   def experiments
     @cancelled_experiments = Experiment.find(
