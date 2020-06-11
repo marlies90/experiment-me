@@ -13,13 +13,13 @@ gem "rails", "~> 5.2.3"
 # layout
 gem "aws-sdk-s3", require: false
 gem "bootstrap", "~> 4.3", ">= 4.3.1"
+gem "chartkick", "~> 3.3", ">= 3.3.1"
 gem "cocoon", "~> 1.2", ">= 1.2.14"
 gem "friendly_id", "~> 5.3"
 gem "jquery-rails", "~> 4.3", ">= 4.3.5"
 gem "sass-rails", "~> 5.0"
 gem "simple_form", "~> 5.0", ">= 5.0.1"
 gem "uglifier", ">= 1.3.0"
-gem "chartkick", "~> 3.3", ">= 3.3.1"
 
 # authentication / authorization
 gem "devise", "~> 4.7", ">= 4.7.1"
