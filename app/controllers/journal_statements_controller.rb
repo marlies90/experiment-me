@@ -45,6 +45,6 @@ class JournalStatementsController < ApplicationController
   end
 
   def journal_statement_params
-    params.fetch(:journal_statement).permit(:name)
+    params.fetch(:journal_statement).permit(:name, :category)
   end
 end
