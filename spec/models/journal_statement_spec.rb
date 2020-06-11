@@ -8,6 +8,7 @@ RSpec.describe JournalStatement, type: :model do
   describe "associations" do
     it { is_expected.to respond_to(:journal_ratings) }
     it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:category) }
   end
 
   it "is valid with valid attributes" do
@@ -16,6 +17,11 @@ RSpec.describe JournalStatement, type: :model do
 
   it "is not valid without a name" do
     subject.name = nil
+    expect(subject).to_not be_valid
+  end
+
+  it "is not valid without a category" do
+    subject.category = nil
     expect(subject).to_not be_valid
   end
 end
