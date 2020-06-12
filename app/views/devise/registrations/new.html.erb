@@ -30,6 +30,10 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
         </div>
 
+        <div class="form_group">
+          <%= f.input :time_zone, class: "form-control", required: true %>
+        </div>
+
         <div class="form_group mt-2">
           <%= f.submit "Sign up", class: "btn btn-primary" %>
         </div>
