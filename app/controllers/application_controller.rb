@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   include Pundit
   before_action :configure_permitted_parameters, if: :devise_controller?
-  around_action :set_time_zone, if: :current_user
+  around_action :time_zone, if: :current_user
 
   protected
 
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_time_zone(&block)
+  def time_zone(&block)
     Time.use_zone(current_user.time_zone, &block)
   end
 end

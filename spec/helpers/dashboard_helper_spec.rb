@@ -9,7 +9,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     it "returns amount of days since start of the experiment and today" do
-      expect(helper.active_experiment_day_counter(experiment_user)).to eq(3)
+      expect(helper.active_experiment_day_counter(experiment_user)).to eq(4)
     end
   end
 end
