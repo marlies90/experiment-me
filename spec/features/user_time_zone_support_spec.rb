@@ -5,6 +5,8 @@ require "rails_helper"
 RSpec.describe "UserTimeZoneSupport", type: :feature do
   include ActiveSupport::Testing::TimeHelpers
 
+  # TODO test: active_experiment_on_date
+
   before do
     travel_to DateTime.parse("17th Jun 2020 07:00:00 AM")
   end
@@ -188,7 +190,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
           context "when the next day starts in local time" do
             before do
-              travel_to DateTime.parse("17th Jun 2020 23:00:00 PM")
+              travel_to DateTime.parse("17th Jun 2020 08:00:00 AM")
             end
 
             after do
@@ -205,11 +207,91 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
     end
 
     context "When canceling an experiment" do
+      let(:category) { FactoryBot.create(:category) }
+      let(:experiment) { FactoryBot.create(:experiment, category: category) }
 
+      before do
+        visit experiment_path(id: experiment.slug, category: category)
+        click_link "Start this experiment"
+        select("Today", from: "experiment_user_starting_date")
+        all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
+          score.choose(class: "radio_buttons", option: "4")
+        end
+        click_button "Start this experiment"
+        travel_to DateTime.parse("24th Jun 2020 07:00:00 AM")
+      end
+
+      after do
+        travel_back
+      end
+
+      it "shows the correct starting/ending dates on the experiment show page" do
+        visit dashboard_experiments_path
+        click_link "Stop experiment"
+        click_button "Stop this experiment"
+
+        within ".cancelled_experiments" do
+          expect(find(".starting_date").text).to have_content("16 Jun 2020")
+          expect(find(".ending_date").text).to have_content("23 Jun 2020")
+        end
+      end
     end
 
     context "When completing an experiment" do
+      let(:category) { FactoryBot.create(:category) }
+      let(:experiment) { FactoryBot.create(:experiment, category: category) }
 
+      before do
+        visit experiment_path(id: experiment.slug, category: category)
+        click_link "Start this experiment"
+        select("Today", from: "experiment_user_starting_date")
+        all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
+          score.choose(class: "radio_buttons", option: "4")
+        end
+        click_button "Start this experiment"
+        travel_to DateTime.parse("8 Jul 2020 08:00:00 AM")
+        visit dashboard_experiments_path
+      end
+
+      after do
+        travel_back
+      end
+
+      context "after 21 days" do
+        it "shows the call to action to complete the experiment" do
+          expect(page).to have_content("YAY! You completed your experiment")
+        end
+
+        it "shows the correct starting/ending dates on the experiment show page upon completion" do
+          click_link "Evaluate experiment"
+          all(class: "experiment_user_experiment_user_measurements_ending_score").each do |score|
+            score.choose(class: "radio_buttons", option: "4")
+          end
+          select("Very easy", from: "experiment_user_difficulty")
+          select("Yes", from: "experiment_user_experiment_continuation")
+          click_button("Evaluate this experiment")
+
+          within ".completed_experiments" do
+            expect(find(".starting_date").text).to have_content("16 Jun 2020")
+            expect(find(".ending_date").text).to have_content("7 Jul 2020")
+          end
+        end
+      end
+
+      context "just before the 21 days have passed" do
+        before do
+          travel_to DateTime.parse("7 Jul 2020 22:00:00 PM")
+          visit dashboard_experiments_path
+        end
+
+        after do
+          travel_back
+        end
+
+        it "does not yet show the call to action just before the 21 days have passed" do
+          expect(page).to_not have_content("YAY! You completed your experiment")
+        end
+      end
     end
   end
 
@@ -405,15 +487,91 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
     end
 
     context "When canceling an experiment" do
+      let(:category) { FactoryBot.create(:category) }
+      let(:experiment) { FactoryBot.create(:experiment, category: category) }
 
-    end
+      before do
+        visit experiment_path(id: experiment.slug, category: category)
+        click_link "Start this experiment"
+        select("Today", from: "experiment_user_starting_date")
+        all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
+          score.choose(class: "radio_buttons", option: "4")
+        end
+        click_button "Start this experiment"
+        travel_to DateTime.parse("23rd Jun 2020 23:00:00 PM")
+      end
 
-    context "When completing an experiment" do
-      it "shows the call to action to complete it after 21 days" do
+      after do
+        travel_back
+      end
 
+      it "shows the correct starting/ending dates on the experiment show page" do
+        visit dashboard_experiments_path
+        click_link "Stop experiment"
+        click_button "Stop this experiment"
+
+        within ".cancelled_experiments" do
+          expect(find(".starting_date").text).to have_content("17 Jun 2020")
+          expect(find(".ending_date").text).to have_content("24 Jun 2020")
+        end
       end
     end
 
-  end
+    context "When completing an experiment" do
+      let(:category) { FactoryBot.create(:category) }
+      let(:experiment) { FactoryBot.create(:experiment, category: category) }
 
+      before do
+        visit experiment_path(id: experiment.slug, category: category)
+        click_link "Start this experiment"
+        select("Today", from: "experiment_user_starting_date")
+        all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
+          score.choose(class: "radio_buttons", option: "4")
+        end
+        click_button "Start this experiment"
+        travel_to DateTime.parse("8 Jul 2020 23:00:00 PM")
+        visit dashboard_experiments_path
+      end
+
+      after do
+        travel_back
+      end
+
+      context "after 21 days" do
+        it "shows the call to action to complete the experiment" do
+          expect(page).to have_content("YAY! You completed your experiment")
+        end
+
+        it "shows the correct starting/ending dates on the experiment show page upon completion" do
+          click_link "Evaluate experiment"
+          all(class: "experiment_user_experiment_user_measurements_ending_score").each do |score|
+            score.choose(class: "radio_buttons", option: "4")
+          end
+          select("Very easy", from: "experiment_user_difficulty")
+          select("Yes", from: "experiment_user_experiment_continuation")
+          click_button("Evaluate this experiment")
+
+          within ".completed_experiments" do
+            expect(find(".starting_date").text).to have_content("17 Jun 2020")
+            expect(find(".ending_date").text).to have_content("8 Jul 2020")
+          end
+        end
+      end
+
+      context "just before the 21 days have passed" do
+        before do
+          travel_to DateTime.parse("8 Jul 2020 20:00:00 PM")
+          visit dashboard_experiments_path
+        end
+
+        after do
+          travel_back
+        end
+
+        it "does not yet show the call to action just before the 21 days have passed" do
+          expect(page).to_not have_content("YAY! You completed your experiment")
+        end
+      end
+    end
+  end
 end
