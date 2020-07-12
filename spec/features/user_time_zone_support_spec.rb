@@ -4,9 +4,7 @@ require "rails_helper"
 
 RSpec.describe "UserTimeZoneSupport", type: :feature do
   include ActiveSupport::Testing::TimeHelpers
-
-  # TODO test: active_experiment_on_date
-
+  
   before do
     travel_to DateTime.parse("17th Jun 2020 07:00:00 AM")
   end
@@ -180,6 +178,42 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           click_button("New journal entry")
 
           expect(page).to_not have_content experiment.name
+        end
+
+        context "#active_experiment_on_date(date)" do
+          context "just before the next day starts in local time" do
+            before do
+              travel_to DateTime.parse("17th Jun 2020 06:00:00 AM")
+            end
+
+            after do
+              travel_back
+            end
+
+            it "does not show the experiment when creating a new journal_entry" do
+              visit journal_entries_path
+              click_button("New journal entry")
+
+              expect(page).to_not have_content experiment.name
+            end
+          end
+
+          context "when the next day starts in local time" do
+            before do
+              travel_to DateTime.parse("17th Jun 2020 08:00:00 AM")
+            end
+
+            after do
+              travel_back
+            end
+
+            it "does show the experiment when creating a new journal_entry" do
+              visit journal_entries_path
+              click_button("New journal entry")
+
+              expect(page).to have_content experiment.name
+            end
+          end
         end
 
         context "#active_experiment_day_counter" do
@@ -460,6 +494,42 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           click_button("New journal entry")
 
           expect(page).to_not have_content experiment.name
+        end
+
+        context "#active_experiment_on_date(date)" do
+          context "just before the next day starts in local time" do
+            before do
+              travel_to DateTime.parse("17th Jun 2020 21:00:00 PM")
+            end
+
+            after do
+              travel_back
+            end
+
+            it "does not show the experiment when creating a new journal_entry" do
+              visit journal_entries_path
+              click_button("New journal entry")
+
+              expect(page).to_not have_content experiment.name
+            end
+          end
+
+          context "when the next day starts in local time" do
+            before do
+              travel_to DateTime.parse("17th Jun 2020 23:00:00 PM")
+            end
+
+            after do
+              travel_back
+            end
+
+            it "does show the experiment when creating a new journal_entry" do
+              visit journal_entries_path
+              click_button("New journal entry")
+
+              expect(page).to have_content experiment.name
+            end
+          end
         end
 
         context "#active_experiment_day_counter" do
