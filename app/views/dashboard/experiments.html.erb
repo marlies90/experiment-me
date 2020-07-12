@@ -20,8 +20,8 @@
                   <div class="card-body current-experiment-preview">
                     <div class="characteristics">
                       <h6 class="card-title mb-0"><strong><%= @active_experiment.name %></strong></h6>
-                      <span class="starting_date">From <%= to_journal_date(@active_experiment_user.starting_date) %></span>
-                      <span class="ending_date">to <%= to_journal_date(@active_experiment_user.ending_date) %></span>
+                      <span class="starting_date">From <%= to_journal_date(@active_experiment_user.starting_date.in_time_zone(current_user.time_zone)) %></span>
+                      <span class="ending_date">to <%= to_journal_date(@active_experiment_user.ending_date.in_time_zone(current_user.time_zone)) %></span>
                     </div>
                     <div class="actions mt-1">
                       <span>
@@ -78,8 +78,8 @@
                 <tr>
                   <td><%= experiment.category.name %></td>
                   <td><%= experiment.name %></td>
-                  <td class="starting_date"><%= to_journal_date(experiment_user(experiment).starting_date) %></td>
-                  <td class="ending_date"><%= to_journal_date(experiment_user(experiment).ending_date) %></td>
+                  <td class="starting_date"><%= to_journal_date(experiment_user(experiment).starting_date.in_time_zone(current_user.time_zone)) %></td>
+                  <td class="ending_date"><%= to_journal_date(experiment_user(experiment).ending_date.in_time_zone(current_user.time_zone)) %></td>
                   <td class="cancellation_reason"><%= ExperimentUser::CANCELLATION_REASONS[experiment_user(experiment).cancellation_reason] %></td>
                   <td><%= link_to "Retry this experiment",
                     edit_experiment_user_path(
@@ -115,8 +115,8 @@
               <tr>
                 <td><%= experiment.category.name %></td>
                 <td><%= experiment.name %></td>
-                <td class="starting_date"><%= to_journal_date(experiment_user(experiment).starting_date) %></td>
-                <td class="ending_date"><%= to_journal_date(experiment_user(experiment).ending_date) %></td>
+                <td class="starting_date"><%= to_journal_date(experiment_user(experiment).starting_date.in_time_zone(current_user.time_zone)) %></td>
+                <td class="ending_date"><%= to_journal_date(experiment_user(experiment).ending_date.in_time_zone(current_user.time_zone)) %></td>
                 <td><%= ExperimentUser::CONTINUATION_OPTIONS[experiment_user(experiment).experiment_continuation] %></td>
                 <td><%= link_to "View your measurements",
                   experiment_user_path(

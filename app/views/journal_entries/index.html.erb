@@ -17,18 +17,18 @@
         <div class="col-md-8">
           <h3 class="text-intense">Create a new journal entry</h3>
           <%= form_tag(new_journal_entry_path, method: :get) do |journal_entry_date| %>
-          <%= label_tag(:date, "Date") %>
-          <%= select_tag(
-          :date,
-          options_for_select(
-          @dates.collect{ |d| [ to_journal_date(d), d ] },
-          disabled: @journal_entry_dates,
-          selected: @available_dates.first
-          ),
-          class: "form-control mb-2 col-lg-5"
-          )
-          %>
-          <%= submit_tag("New journal entry", class: "btn btn-primary") %>
+            <%= label_tag(:date, "Date") %>
+            <%= select_tag(
+            :date,
+            options_for_select(
+            @dates.collect{ |d| [ to_journal_date(d), d ] },
+            disabled: @journal_entry_dates,
+            selected: @available_dates.first
+            ),
+            class: "form-control mb-2 col-lg-5"
+            )
+            %>
+            <%= submit_tag("New journal entry", class: "btn btn-primary") %>
           <% end %>
         </div>
       </div>
@@ -52,7 +52,7 @@
 
                 <tbody>
                   <% @dates.each do |date| %>
-                  <tr class="d-flex">
+                  <tr class="d-flex date-<%= date.to_date %>">
                     <td class="col-3 col-lg-2"><%= to_journal_date_no_year(date) %></td>
 
                     <% if @journal_entry_dates.include?(date) %>

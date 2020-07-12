@@ -58,7 +58,7 @@ class JournalEntriesController < ApplicationController
   def create_date_list
     @dates = []
     14.times do |index|
-      @dates << DateTime.current.beginning_of_day - index
+      @dates << DateTime.current.beginning_of_day - index.day
     end
   end
 

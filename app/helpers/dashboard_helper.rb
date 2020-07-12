@@ -18,6 +18,8 @@ module DashboardHelper
   end
 
   def active_experiment_day_counter(active_experiment_user)
-    (DateTime.current.beginning_of_day.to_date - active_experiment_user.starting_date.to_date).to_i
+    (
+      (DateTime.current.beginning_of_day.to_date - active_experiment_user.starting_date.to_date) + 1
+    ).to_i
   end
 end

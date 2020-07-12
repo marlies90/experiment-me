@@ -5,10 +5,17 @@ class ApplicationController < ActionController::Base
 
   include Pundit
   before_action :configure_permitted_parameters, if: :devise_controller?
+  around_action :time_zone, if: :current_user
 
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name time_zone])
+  end
+
+  private
+
+  def time_zone(&block)
+    Time.use_zone(current_user.time_zone, &block)
   end
 end

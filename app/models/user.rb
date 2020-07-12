@@ -6,6 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
   validates :first_name, presence: true, length: { maximum: 40 }
+  validates :time_zone, presence: true
 
   enum role: {
     standard: 0,

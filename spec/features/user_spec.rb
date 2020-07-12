@@ -6,10 +6,13 @@ RSpec.describe User, type: :feature do
   context "When signing up" do
     it "Allows for succesful creation of a new user profile" do
       visit new_user_registration_path
-      fill_in "First name", with: Faker::Name.first_name
-      fill_in "Email", with: Faker::Internet.email
-      fill_in "user_password", with: "000000"
-      fill_in "user_password_confirmation", with: "000000"
+      within ".form" do
+        fill_in "user_first_name", with: Faker::Name.first_name
+        fill_in "user_email", with: Faker::Internet.email
+        fill_in "user_password", with: "000000"
+        fill_in "user_password_confirmation", with: "000000"
+        select("(GMT+01:00) Amsterdam", from: "user_time_zone")
+      end
       click_button "Sign up"
       expect(page).to have_content "You have signed up successfully"
     end
@@ -20,8 +23,8 @@ RSpec.describe User, type: :feature do
 
     it "Allows an existing user to sign in" do
       visit new_user_session_path
-      fill_in "Email", with: existing_user.email
-      fill_in "Password", with: existing_user.password
+      fill_in "user_email", with: existing_user.email
+      fill_in "user_password", with: existing_user.password
       click_button "Log in"
       expect(page).to have_content "Signed in successfully"
     end
