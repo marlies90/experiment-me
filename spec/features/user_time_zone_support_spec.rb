@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "UserTimeZoneSupport", type: :feature do
   include ActiveSupport::Testing::TimeHelpers
-  
+
   before do
     travel_to DateTime.parse("17th Jun 2020 07:00:00 AM")
   end
