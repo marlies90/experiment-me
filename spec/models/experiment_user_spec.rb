@@ -80,9 +80,14 @@ RSpec.describe ExperimentUser, type: :model do
       expect(subject).to_not be_valid
     end
 
-    it "validates presence of experiment_continuation" do
-      subject.experiment_continuation = nil
+    it "validates presence of life_impact" do
+      subject.life_impact = nil
       expect(subject).to_not be_valid
+    end
+
+    it "accepts the ending_note" do
+      subject.ending_note = "YES YES YES"
+      expect(subject).to be_valid
     end
   end
 

@@ -302,7 +302,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
             score.choose(class: "radio_buttons", option: "4")
           end
           select("Very easy", from: "experiment_user_difficulty")
-          select("Yes", from: "experiment_user_experiment_continuation")
+          select("Moderate", from: "experiment_user_life_impact")
           click_button("Evaluate this experiment")
 
           within ".completed_experiments" do
@@ -618,7 +618,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
             score.choose(class: "radio_buttons", option: "4")
           end
           select("Very easy", from: "experiment_user_difficulty")
-          select("Yes", from: "experiment_user_experiment_continuation")
+          select("Moderate", from: "experiment_user_life_impact")
           click_button("Evaluate this experiment")
 
           within ".completed_experiments" do

@@ -108,7 +108,7 @@
                 <th>Name</th>
                 <th>Started on</th>
                 <th>Ended on</th>
-                <th>Will continue?</th>
+                <th>Life impact</th>
                 <th>Actions</th>
               </tr>
               <% @completed_experiments.each do |experiment| %>
@@ -117,7 +117,7 @@
                 <td><%= experiment.name %></td>
                 <td class="starting_date"><%= to_journal_date(experiment_user(experiment).starting_date.in_time_zone(current_user.time_zone)) %></td>
                 <td class="ending_date"><%= to_journal_date(experiment_user(experiment).ending_date.in_time_zone(current_user.time_zone)) %></td>
-                <td><%= ExperimentUser::CONTINUATION_OPTIONS[experiment_user(experiment).experiment_continuation] %></td>
+                <td><%= ExperimentUser::LIFE_IMPACT_OPTIONS[experiment_user(experiment).life_impact] %></td>
                 <td><%= link_to "View your measurements",
                   experiment_user_path(
                   id: experiment_user(experiment)&.id,

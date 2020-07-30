@@ -27,7 +27,8 @@ FactoryBot.define do
         FactoryBot.build_list(:experiment_user_measurement, 2, :complete)
       end
       difficulty { Faker::Number.between(from: 0, to: 4) }
-      experiment_continuation { Faker::Number.between(from: 0, to: 2) }
+      life_impact { Faker::Number.between(from: 0, to: 5) }
+      ending_note { Faker::Lorem.paragraph }
     end
 
     trait :cancelling do

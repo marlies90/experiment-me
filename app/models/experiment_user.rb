@@ -7,7 +7,7 @@ class ExperimentUser < ApplicationRecord
 
   validates_presence_of :user, :experiment, :status, :starting_date, :ending_date
   validates_presence_of :experiment_user_measurement, if: -> { experiment_user_measurement }
-  validates_presence_of :difficulty, :experiment_continuation, if: -> { completing_experiment }
+  validates_presence_of :difficulty, :life_impact, if: -> { completing_experiment }
 
   validate :cannot_have_multiple_active_experiments
   accepts_nested_attributes_for :experiment_user_measurements
@@ -29,10 +29,13 @@ class ExperimentUser < ApplicationRecord
     4 => "Very difficult"
   }.freeze
 
-  CONTINUATION_OPTIONS = {
-    0 => "Yes",
-    1 => "No",
-    2 => "Unsure"
+  LIFE_IMPACT_OPTIONS = {
+    0 => "Very big",
+    1 => "Big",
+    2 => "Moderate",
+    3 => "Small",
+    4 => "Very small",
+    5 => "No impact"
   }.freeze
 
   CANCELLATION_REASONS = {

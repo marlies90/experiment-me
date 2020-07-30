@@ -25,14 +25,27 @@
             </tbody>
           </table>
 
-          <div class="mt-2">
-            You rated the difficulty level of this experiment to be<br>
-            <span class="text-intense text-brand"><%= ExperimentUser::DIFFICULTY_RATES[@experiment_user.difficulty] %></span>
-          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="mt-2">
+                You rated the difficulty level of this experiment to be<br>
+                <span class="text-intense text-brand"><%= ExperimentUser::DIFFICULTY_RATES[@experiment_user.difficulty] %></span>
+              </div>
 
-          <div class="mt-2">
-            Did you plan to continue the new behaviour after the experiment?<br>
-            <span class="text-intense text-brand"><%= ExperimentUser::CONTINUATION_OPTIONS[@experiment_user.experiment_continuation] %></span>
+              <div class="mt-2">
+                You rated the impact of this experiment on your life to be <br>
+                <span class="text-intense text-brand"><%= ExperimentUser::LIFE_IMPACT_OPTIONS[@experiment_user.life_impact] %></span>
+              </div>
+
+              <div class="mt-2">
+                Your other notes/observations <br>
+                <% if @experiment_user.ending_note.present? %>
+                <span class="text-intense"><%= sanitize(@experiment_user.ending_note) %></span>
+                <% else %>
+                <span class="text-intense">-</span>
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
       </div>

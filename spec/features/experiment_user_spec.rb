@@ -266,13 +266,13 @@ RSpec.describe ExperimentUser, type: :feature do
             score.choose(class: "radio_buttons", option: "4")
           end
           select("Very easy", from: "experiment_user_difficulty")
-          select("Yes", from: "experiment_user_experiment_continuation")
+          select("Moderate", from: "experiment_user_life_impact")
 
           click_button("Evaluate this experiment")
 
           within ".completed_experiments" do
             expect(page).to have_content experiment.name
-            expect(page).to have_content "Yes"
+            expect(page).to have_content "Moderate"
           end
         end
 
@@ -285,7 +285,7 @@ RSpec.describe ExperimentUser, type: :feature do
 
           expect(page).to have_content "Ending score can't be blank"
           expect(page).to have_content "Difficulty can't be blank"
-          expect(page).to have_content "Experiment continuation can't be blank"
+          expect(page).to have_content "Life impact can't be blank"
         end
 
         it "does not show the starting survey or cancellation reason" do
@@ -321,15 +321,20 @@ RSpec.describe ExperimentUser, type: :feature do
           )
         end
 
-        it "lets the user view how they rated the difficulty and continuation options" do
+        it "lets the user view how they rated the difficulty and life impact options" do
           click_link("View your measurements")
           expect(page).to have_content(
             ExperimentUser::DIFFICULTY_RATES[experiment_user.difficulty]
           )
 
           expect(page).to have_content(
-            ExperimentUser::CONTINUATION_OPTIONS[experiment_user.experiment_continuation]
+            ExperimentUser::LIFE_IMPACT_OPTIONS[experiment_user.life_impact]
           )
+        end
+
+        it "lets the user see their note" do
+          click_link("View your measurements")
+          expect(page).to have_content(experiment_user.ending_note)
         end
       end
     end

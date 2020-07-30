@@ -93,12 +93,18 @@
         collection: ExperimentUser::DIFFICULTY_RATES.invert,
         label: false %>
 
-        <span>Will you continue this new behaviour now that the experiment is over?</span>
+        <span>How big of an impact has this experiment had on your life?</span>
         <abbr title="required">*</abbr>
-        <%= f.input :experiment_continuation,
+        <%= f.input :life_impact,
         as: :select,
-        collection: ExperimentUser::CONTINUATION_OPTIONS.invert,
+        collection: ExperimentUser::LIFE_IMPACT_OPTIONS.invert,
         label: false %>
+
+        <span>Any other observations? Unexpected benefits you may have experienced?</span>
+        <%= f.input :ending_note,
+        as: :text,
+        label: false,
+        input_html: { rows: 6 } %>
       </div>
     </div>
   <% end %>
