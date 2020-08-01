@@ -34,6 +34,14 @@
           <%= f.input :time_zone, class: "form-control", required: true %>
         </div>
 
+        <div class="form_group">
+          <%= f.check_box :terms_agreement, class: "mr-2" %>
+          <label for="resource_agree_with_policy">
+            I agree to the <u><%= link_to "terms & conditions", terms_conditions_path, target: "_blank" %></u> and
+            <u><%= link_to "privacy statement", privacy_statement_path, target: "_blank" %></u>
+          </label>
+        </div>
+
         <div class="form_group mt-2">
           <%= f.submit "Sign up", class: "btn btn-primary" %>
         </div>

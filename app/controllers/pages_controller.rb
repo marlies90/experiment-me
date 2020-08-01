@@ -2,4 +2,8 @@
 
 class PagesController < ApplicationController
   def home; end
+
+  def privacy_statement; end
+
+  def terms_conditions; end
 end

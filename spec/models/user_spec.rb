@@ -33,4 +33,9 @@ RSpec.describe User, type: :model do
     subject.time_zone = nil
     expect(subject).to_not be_valid
   end
+
+  it "is not valid without having accepted the terms and conditions" do
+    subject.terms_agreement = false
+    expect(subject).to_not be_valid
+  end
 end

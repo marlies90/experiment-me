@@ -12,6 +12,7 @@ RSpec.describe User, type: :feature do
         fill_in "user_password", with: "000000"
         fill_in "user_password_confirmation", with: "000000"
         select("(GMT+01:00) Amsterdam", from: "user_time_zone")
+        page.check("user_terms_agreement")
       end
       click_button "Sign up"
       expect(page).to have_content "You have signed up successfully"

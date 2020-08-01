@@ -3,7 +3,7 @@
 class ExperimentUser < ApplicationRecord
   belongs_to :user
   belongs_to :experiment
-  has_many :experiment_user_measurements
+  has_many :experiment_user_measurements, dependent: :destroy
 
   validates_presence_of :user, :experiment, :status, :starting_date, :ending_date
   validates_presence_of :experiment_user_measurement, if: -> { experiment_user_measurement }

@@ -7,6 +7,7 @@ FactoryBot.define do
     password { Faker::Internet.password }
     time_zone { "UTC" }
     role { 0 }
+    terms_agreement { true }
 
     trait :admin do
       role { 1 }
