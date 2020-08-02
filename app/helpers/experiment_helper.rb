@@ -12,23 +12,15 @@ module ExperimentHelper
   end
 
   def activating_experiment
-    @experiment_user&.id.blank? || @experiment_user.cancelled?
+    @experiment_user&.id.blank? || @experiment_user.cancelled
   end
 
   def completing_experiment
-    @experiment_user&.id.present? && completed_experiment?(@experiment_user)
+    @experiment_user&.id.present? && @experiment_user.completed_active_experiment
   end
 
   def cancelling_experiment
-    @experiment_user&.id.present? && uncompleted_experiment?(@experiment_user)
-  end
-
-  def uncompleted_experiment?(experiment_user)
-    experiment_user.ending_date > DateTime.current
-  end
-
-  def completed_experiment?(experiment_user)
-    experiment_user.ending_date < DateTime.current
+    @experiment_user&.id.present? && @experiment_user.uncompleted_active_experiment
   end
 
   def already_doing_an_experiment

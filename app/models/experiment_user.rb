@@ -46,6 +46,18 @@ class ExperimentUser < ApplicationRecord
     4 => "Other"
   }.freeze
 
+  def uncompleted_active_experiment
+    ending_date > DateTime.current && active?
+  end
+
+  def completed_active_experiment
+    ending_date < DateTime.current && active? || completed?
+  end
+
+  def cancelled
+    cancelled?
+  end
+
   private
 
   def experiment_user_measurement

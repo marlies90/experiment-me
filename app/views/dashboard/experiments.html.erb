@@ -10,7 +10,7 @@
       <div class="row mb-4">
         <div class="current_experiment col-12">
           <h3 class="text-intense">Your current experiment</h3>
-          <% if @active_experiment_user.present? && uncompleted_experiment?(@active_experiment_user) %>
+          <% if uncompleted_active_experiment? %>
             <div class="card mb-3 experiment-banner" style="max-width:35rem">
               <div class="row no-gutters">
                 <div class="col-xs-12 col-sm-3">
@@ -41,7 +41,7 @@
                 </div>
               </div>
             </div>
-          <% elsif @active_experiment_user.present? && completed_experiment?(@active_experiment_user) %>
+          <% elsif completed_active_experiment? %>
             <div class="row">
               <div class="col-md-6">
                 <%= render "evaluate_experiment", active_experiment: @active_experiment %>

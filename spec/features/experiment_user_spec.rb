@@ -244,98 +244,98 @@ RSpec.describe ExperimentUser, type: :feature do
           expect(page).to have_css(".cancelled_experiments .disabled")
         end
       end
+    end
 
-      context "when an experiment has been running for 21 days" do
-        let!(:experiment_user) do
-          FactoryBot.create(
-            :experiment_user,
-            :completing,
-            experiment: experiment,
-            user: current_user,
-            starting_date: (DateTime.current - 22).beginning_of_day,
-            ending_date: (DateTime.current - 1).end_of_day
-          )
+    context "when an experiment has been running for 21 days" do
+      let!(:experiment_user) do
+        FactoryBot.create(
+          :experiment_user,
+          :completing,
+          experiment: experiment,
+          user: current_user,
+          starting_date: (DateTime.current - 22).beginning_of_day,
+          ending_date: (DateTime.current - 1).end_of_day
+        )
+      end
+
+      it "lets the user complete it" do
+        expect(page).to have_content "YAY! You completed your experiment"
+
+        click_link("Evaluate experiment")
+        expect(page).to have_content "Evaluate"
+        all(class: "experiment_user_experiment_user_measurements_ending_score").each do |score|
+          score.choose(class: "radio_buttons", option: "4")
         end
+        select("Very easy", from: "experiment_user_difficulty")
+        select("Moderate", from: "experiment_user_life_impact")
 
-        it "lets the user complete it" do
-          expect(page).to have_content "YAY! You completed your experiment"
+        click_button("Evaluate this experiment")
 
-          click_link("Evaluate experiment")
-          expect(page).to have_content "Evaluate"
-          all(class: "experiment_user_experiment_user_measurements_ending_score").each do |score|
-            score.choose(class: "radio_buttons", option: "4")
-          end
-          select("Very easy", from: "experiment_user_difficulty")
-          select("Moderate", from: "experiment_user_life_impact")
-
-          click_button("Evaluate this experiment")
-
-          within ".completed_experiments" do
-            expect(page).to have_content experiment.name
-            expect(page).to have_content "Moderate"
-          end
-        end
-
-        it "does not let the user complete it without the ending measurements" do
-          expect(page).to have_content "YAY! You completed your experiment"
-
-          click_link("Evaluate experiment")
-          expect(page).to have_content "Evaluate"
-          click_button("Evaluate this experiment")
-
-          expect(page).to have_content "Ending score can't be blank"
-          expect(page).to have_content "Difficulty can't be blank"
-          expect(page).to have_content "Life impact can't be blank"
-        end
-
-        it "does not show the starting survey or cancellation reason" do
-          click_link "Evaluate experiment"
-          expect(page).to_not have_content "Your starting measurement"
-          expect(page).to_not have_content "You're cancelling the experiment"
+        within ".completed_experiments" do
+          expect(page).to have_content experiment.name
+          expect(page).to have_content "Moderate"
         end
       end
 
-      context "when an experiment has been completed" do
-        let!(:experiment_user) do
-          FactoryBot.create(
-            :experiment_user,
-            :completed,
-            experiment: experiment,
-            user: current_user
-          )
-        end
+      it "does not let the user complete it without the ending measurements" do
+        expect(page).to have_content "YAY! You completed your experiment"
 
-        it "lets the user view their starting and ending measurements" do
-          click_link("View your measurements")
-          expect(page).to have_content(
-            experiment_user.experiment_user_measurements.first.starting_score
-          )
-          expect(page).to have_content(
-            experiment_user.experiment_user_measurements.first.ending_score
-          )
-          expect(page).to have_content(
-            experiment_user.experiment_user_measurements.last.starting_score
-          )
-          expect(page).to have_content(
-            experiment_user.experiment_user_measurements.last.ending_score
-          )
-        end
+        click_link("Evaluate experiment")
+        expect(page).to have_content "Evaluate"
+        click_button("Evaluate this experiment")
 
-        it "lets the user view how they rated the difficulty and life impact options" do
-          click_link("View your measurements")
-          expect(page).to have_content(
-            ExperimentUser::DIFFICULTY_RATES[experiment_user.difficulty]
-          )
+        expect(page).to have_content "Ending score can't be blank"
+        expect(page).to have_content "Difficulty can't be blank"
+        expect(page).to have_content "Life impact can't be blank"
+      end
 
-          expect(page).to have_content(
-            ExperimentUser::LIFE_IMPACT_OPTIONS[experiment_user.life_impact]
-          )
-        end
+      it "does not show the starting survey or cancellation reason" do
+        click_link "Evaluate experiment"
+        expect(page).to_not have_content "Your starting measurement"
+        expect(page).to_not have_content "You're cancelling the experiment"
+      end
+    end
 
-        it "lets the user see their note" do
-          click_link("View your measurements")
-          expect(page).to have_content(experiment_user.ending_note)
-        end
+    context "when an experiment has been completed" do
+      let!(:experiment_user) do
+        FactoryBot.create(
+          :experiment_user,
+          :completed,
+          experiment: experiment,
+          user: current_user
+        )
+      end
+
+      it "lets the user view their starting and ending measurements" do
+        click_link("View your measurements")
+        expect(page).to have_content(
+          experiment_user.experiment_user_measurements.first.starting_score
+        )
+        expect(page).to have_content(
+          experiment_user.experiment_user_measurements.first.ending_score
+        )
+        expect(page).to have_content(
+          experiment_user.experiment_user_measurements.last.starting_score
+        )
+        expect(page).to have_content(
+          experiment_user.experiment_user_measurements.last.ending_score
+        )
+      end
+
+      it "lets the user view how they rated the difficulty and life impact options" do
+        click_link("View your measurements")
+        expect(page).to have_content(
+          ExperimentUser::DIFFICULTY_RATES[experiment_user.difficulty]
+        )
+
+        expect(page).to have_content(
+          ExperimentUser::LIFE_IMPACT_OPTIONS[experiment_user.life_impact]
+        )
+      end
+
+      it "lets the user see their note" do
+        click_link("View your measurements")
+        expect(page).to have_content(experiment_user.ending_note)
       end
     end
   end

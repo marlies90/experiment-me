@@ -22,4 +22,12 @@ module DashboardHelper
       (DateTime.current.beginning_of_day.to_date - active_experiment_user.starting_date.to_date) + 1
     ).to_i
   end
+
+  def uncompleted_active_experiment?
+    @active_experiment_user.present? && @active_experiment_user.uncompleted_active_experiment
+  end
+
+  def completed_active_experiment?
+    @active_experiment_user.present? && @active_experiment_user.completed_active_experiment
+  end
 end

@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <% if @active_experiment_user.present? && uncompleted_experiment?(@active_experiment_user) %>
+        <% if uncompleted_active_experiment? %>
         <div class="col-sm-6 mb-4">
           <div class="card">
             <div class="card-body">
@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <% elsif @active_experiment_user.present? && completed_experiment?(@active_experiment_user) %>
+        <% elsif completed_active_experiment? %>
         <div class="col-sm-6 mb-4">
           <%= render "evaluate_experiment", active_experiment: @active_experiment %>
         </div>

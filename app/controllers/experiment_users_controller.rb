@@ -43,11 +43,11 @@ class ExperimentUsersController < ApplicationController
     @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
     experiment_user
 
-    if uncompleted_active_experiment
+    if @experiment_user.uncompleted_active_experiment
       cancel_experiment
-    elsif completed_active_experiment
+    elsif @experiment_user.completed_active_experiment
       complete_experiment
-    elsif cancelled_experiment
+    elsif @experiment_user.cancelled
       reactivate_experiment
     end
   end
@@ -85,18 +85,6 @@ class ExperimentUsersController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def uncompleted_active_experiment
-    @experiment_user.ending_date > DateTime.current && @experiment_user.active?
-  end
-
-  def completed_active_experiment
-    @experiment_user.ending_date < DateTime.current && @experiment_user.active?
-  end
-
-  def cancelled_experiment
-    @experiment_user.cancelled?
   end
 
   def set_initial_experiment_user_attributes
