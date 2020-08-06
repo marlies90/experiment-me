@@ -57,3 +57,27 @@
     margin-top: 7rem;
   }
 }
+
+.experiment-steps .step {
+  padding: 1rem 1rem;
+  border: 2px solid $light;
+  border-radius: 16px;
+  background-color: white;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.about {
+  background-color: $dark;
+  color: $light;
+  padding: 1rem 1rem;
+  border-radius: 16px;
+
+  img {
+    height: 9rem;
+    border-radius: 16px;
+
+  }
+}
