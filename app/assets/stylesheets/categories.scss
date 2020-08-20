@@ -99,6 +99,13 @@
   }
 }
 
+.category-header {
+  @media (min-width: 1024px) {
+    padding-left: 12rem;
+    padding-right: 12rem;
+  }
+}
+
 .category-experiments {
   .card-img-top {
     height: 20vh;

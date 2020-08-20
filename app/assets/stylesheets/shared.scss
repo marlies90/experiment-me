@@ -40,6 +40,11 @@ a {
   }
 }
 
+.category-header a,
+.experiment-content a {
+  text-decoration: underline;
+}
+
 main {
   flex: 1 0 auto;
 }
