@@ -16,6 +16,13 @@
           messages: {empty: "There is no data for this time period"}
         %>
       </div>
+
+      <% if @journal_entries.count > 2 %>
+        <div class="mt-4">
+          * The chart looks a bit funky at first, it will get better as you add more data.<br>
+          Date picker functionality will be added soon.
+        </div>
+      <% end %>
     </main>
   </div>
 </div>

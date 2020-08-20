@@ -15,13 +15,13 @@
             </div>
           </div>
           <div class="card-body row">
-            <div class="col-md-8">
-              <p><%= simple_format(@experiment.description) %></p>
+            <div class="col-md-8 experiment-content">
+              <p><%= simple_format(sanitize(@experiment.description, attributes: ["href", "target"]), {}, sanitize: false) %></p>
             </div>
             <div class="col-md-4">
               <h3>Benefits</h3>
               <ul>
-                <% @experiment.benefits.reverse.each do |benefit| %>
+                <% @experiment.benefits.each do |benefit| %>
                 <li class="btn btn-<%= @experiment.category.name.downcase %>"><%= benefit.name %></li>
                 <% end %>
               </ul>
