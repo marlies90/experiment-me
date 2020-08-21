@@ -5,7 +5,9 @@
       <p class="lead text-muted">Discover your happiest life - one experiment at a time</p>
       <p>
         <a href="<%= categories_path %>" class="btn btn-primary my-2">View experiments</a>
-        <a href="<%= new_user_registration_path %>" class="btn btn-secondary my-2">Register</a>
+        <% unless current_user.present? %>
+          <a href="<%= new_user_registration_path %>" class="btn btn-secondary my-2">Register</a>
+        <% end %>
       </p>
     </div>
   </section>
