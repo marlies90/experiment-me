@@ -27,7 +27,7 @@
               </ul>
 
               <% if @experiment.resources.present? %>
-                <h3>Resources</h3>
+                <h3>More info</h3>
                 <ul>
                   <% @experiment.resources.each do |resource| %>
                   <li><u><%= link_to "#{resource.name}", "#{resource.source}", target: "_blank" %></u></li>

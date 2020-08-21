@@ -13,8 +13,9 @@
   margin-bottom: .5rem;
   border-radius: 0;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: $sleep-dark;
+    cursor: text;
   }
 }
 
@@ -33,8 +34,9 @@
   margin-bottom: .5rem;
   border-radius: 0;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: $health-dark;
+    cursor: text;
   }
 }
 
@@ -53,8 +55,9 @@
   margin-bottom: .5rem;
   border-radius: 0;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: $relax-dark;
+    cursor: text;
   }
 }
 
@@ -73,8 +76,9 @@
   margin-bottom: .5rem;
   border-radius: 0;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: $connect-dark;
+    cursor: text;
   }
 }
 
