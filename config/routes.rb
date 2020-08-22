@@ -3,7 +3,6 @@
 Rails.application.routes.draw do
   namespace :dashboard do
     get "overview"
-    get "settings"
     get "progress"
     get "experiments"
     get "admin"
@@ -12,6 +11,10 @@ Rails.application.routes.draw do
   resources :journal_entries, path: "/dashboard/journal"
   resources :journal_statements
   resources :benefits
+
+  devise_scope :user do
+    get "/dashboard/settings" => "devise/registrations#edit", as: "edit_user_registration"
+  end
 
   devise_for :users
 

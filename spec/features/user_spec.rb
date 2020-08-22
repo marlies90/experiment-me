@@ -30,4 +30,26 @@ RSpec.describe User, type: :feature do
       expect(page).to have_content "Signed in successfully"
     end
   end
+
+  context "When editing profile details" do
+    before do
+      login_as(user)
+      visit edit_user_registration_path
+    end
+
+    let(:user) { FactoryBot.create(:user, time_zone: "Amsterdam") }
+
+    it "correctly show the user details" do
+      expect(page).to have_field("user_email", with: user.email)
+      expect(page).to have_field("user_time_zone", with: "Amsterdam")
+    end
+
+    it "allows the user to update their profile" do
+      select("Sarajevo", from: "user_time_zone")
+      fill_in "user_current_password", with: user.password
+      click_button "Update"
+      expect(page).to have_content "Your account has been updated successfully"
+      expect(user.reload.time_zone).to eq("Sarajevo")
+    end
+  end
 end
