@@ -19,4 +19,3 @@
 //= require bootstrap-sprockets
 //= require cocoon
 //= require chartkick
-//= require cookies_eu
