@@ -31,6 +31,8 @@
 
     <%= yield %>
 
+    <%= render "cookies_eu/consent_banner", link: "/privacy-statement#cookie_statement" %>
+
     <%= render "shared/footer" %>
   </body>
 </html>
