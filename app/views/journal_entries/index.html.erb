@@ -14,6 +14,12 @@
           </div>
         <% end %>
 
+        <% if journal_entry_for_date(DateTime.current.beginning_of_day).present? %>
+          <div class="col-md-12 col-lg-7 mb-4">
+            <p class="alert-complete"><i class="fas fa-check"></i>You've filled in your entry for today: <%= to_journal_date_no_year(DateTime.current.beginning_of_day) %></p>
+          </div>
+        <% end %>
+
         <div class="col-md-8">
           <h3 class="text-intense">Create a new journal entry</h3>
           <%= form_tag(new_journal_entry_path, method: :get) do |journal_entry_date| %>
