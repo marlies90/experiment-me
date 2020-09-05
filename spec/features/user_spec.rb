@@ -15,7 +15,9 @@ RSpec.describe User, type: :feature do
         page.check("user_terms_agreement")
       end
       click_button "Sign up"
-      expect(page).to have_content "You have signed up successfully"
+      expect(page).to have_content(
+        "A message with a confirmation link has been sent to your email address"
+      )
     end
   end
 

@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   around_action :time_zone, if: :current_user
 
@@ -21,5 +23,10 @@ class ApplicationController < ActionController::Base
 
   def time_zone(&block)
     Time.use_zone(current_user.time_zone, &block)
+  end
+
+  def user_not_authorized
+    flash[:alert] = "You need to be logged in to continue."
+    redirect_to(request.referrer || home_path)
   end
 end
