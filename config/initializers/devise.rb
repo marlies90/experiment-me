@@ -24,7 +24,7 @@ Devise.setup do |config|
   # config.mailer = 'Devise::Mailer'
 
   # Configure the parent class responsible to send e-mails.
-  # config.parent_mailer = 'ActionMailer::Base'
+  config.parent_mailer = "ApplicationMailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -117,7 +117,7 @@ Devise.setup do |config|
   # config.pepper = '4be4d5795c9905418371f03082e0f5958471a31be5f8dee60aa3754f8621a98ee9a9405a77d758378ebccf5af3d0d7172b00ffbf73940f9aacb035734cc92029'
 
   # Send a notification to the original email when the user's email is changed.
-  # config.send_email_changed_notification = false
+  config.send_email_changed_notification = true
 
   # Send a notification email when the user's password is changed.
   # config.send_password_change_notification = false

@@ -1,5 +1,95 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<tr>
+  <td class="innerpadding borderbottom">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="bodycopy h3">
+          Welcome, <%= @resource.first_name %>!
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          To get started, please confirm your account email through the link below.
+        </td>
+      </tr>
+    </table>
+    <table class="col380" align="left" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 380px;">
+      <tr>
+        <td>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td style="padding: 20px 0 0 0;">
+                <table class="buttonwrapper" bgcolor="#866ec7" border="0" cellspacing="0" cellpadding="0" style="border-radius: 8px;">
+                  <tr>
+                    <td class="button-primary" height="36">
+                      <%= link_to "Confirm my account", confirmation_url(@resource, confirmation_token: @token) %>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+  <td class="innerpadding borderbottom">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="bodycopy h3">
+          What's next?
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy" style="padding: 0 0 5px 0;">
+          After confirmation, there are 2 things you can do right away:
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          1. Start using the journal to track how you're feeling on a day to day basis.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td style="padding: 10px 0 10px 0;">
+                <table class="buttonwrapper" bgcolor="#e9ecef" border="0" cellspacing="0" cellpadding="0" style="border-radius: 8px;">
+                  <tr>
+                    <td class="button-secondary" height="36">
+                      <%= link_to "Go to journal", journal_entries_url %>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy" style="padding: 10px 0 0 0;">
+          2. Choose your first experiment!
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td style="padding: 10px 0 10px 0;">
+                <table class="buttonwrapper" bgcolor="#e9ecef" border="0" cellspacing="0" cellpadding="0" style="border-radius: 8px;">
+                  <tr>
+                    <td class="button-secondary" height="36">
+                      <%= link_to "Choose experiment", categories_url %>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>

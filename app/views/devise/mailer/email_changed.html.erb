@@ -1,7 +1,22 @@
-<p>Hello <%= @email %>!</p>
+<tr>
+  <td class="innerpadding">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="bodycopy h3">
+          Hello <%= @resource.first_name %>!
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          <% if @resource.try(:unconfirmed_email?) %>
+            We're contacting you to notify you that your email is being changed to <%= @resource.unconfirmed_email %>.
+          <% else %>
+            We're contacting you to notify you that your email has been changed to <%= @resource.email %>.
+          <% end %>
 
-<% if @resource.try(:unconfirmed_email?) %>
-  <p>We're contacting you to notify you that your email is being changed to <%= @resource.unconfirmed_email %>.</p>
-<% else %>
-  <p>We're contacting you to notify you that your email has been changed to <%= @resource.email %>.</p>
-<% end %>
+          Should you have any questions about this, please contact us via info@experiment.rocks.
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
