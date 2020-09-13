@@ -16,8 +16,9 @@ RSpec.describe User, type: :feature do
       end
       click_button "Sign up"
       expect(page).to have_content(
-        "A message with a confirmation link has been sent to your email address"
+        "Welcome! You have signed up successfully"
       )
+      expect(page).to have_current_path(dashboard_overview_path)
     end
   end
 

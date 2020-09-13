@@ -7,6 +7,10 @@
         <h1 class="h2">Dashboard</h1>
       </div>
 
+      <% unless current_user.confirmed_at.present? %>
+        <p class="alert-incomplete"><i class="fas fa-clock"></i>Make sure to confirm your email within 3 days of registration. If you didn't receive a confirmation email, please <u><%= link_to "retry", new_user_confirmation_path %></u> or send an email to info@experiment.rocks </p>
+      <% end %>
+
       <div class="row">
         <div class="col-sm-6 mb-4">
           <div class="card">
