@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :journal_entries, path: "/dashboard/journal"
   resources :journal_statements
   resources :benefits
+  resources :contacts, only: %i[new create index]
 
   devise_scope :user do
     get "/dashboard/settings" => "devise/registrations#edit", as: "edit_user_registration"

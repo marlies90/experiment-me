@@ -37,6 +37,7 @@ gem "turbolinks", "~> 5"
 gem "rack-attack", "~> 6.2", ">= 6.2.2"
 
 # mails
+gem "mail_form", "~> 1.8"
 gem "sendgrid-ruby", "~> 6.2"
 
 group :development do

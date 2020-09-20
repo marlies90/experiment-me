@@ -1,0 +1,43 @@
+<main class="focus-form">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4 form">
+        <h2 class="text-intense">Contact</h2>
+        <p>I'd love to hear your feedback, questions, and your experiences with experiment.rocks. Contact me via this form or by sending an email to <u><a href="mailto:info@experiment.rocks">info@experiment.rocks</a></u>.</p>
+
+        <%= simple_form_for @contact do |f| %>
+          <%= render "devise/shared/error_messages", resource: @contact %>
+          <% if flash.now[:error] %>
+            <div id="error_explanation">
+              <%= flash.now[:error] %>
+            </div>
+          <% end %>
+
+          <div class="form_group">
+            <%= f.label :name %> <br>
+            <%= f.text_field :name, required: true, class: "form-control" %>
+          </div>
+
+          <div class="form_group">
+            <%= f.label :email %> <br>
+            <%= f.text_field :email, required: true, class: "form-control" %>
+          </div>
+
+          <div class="form_group">
+            <%= f.label :message %> <br>
+            <%= f.text_area :message, as: :text, class: "form-control", rows: 12 %>
+          </div>
+
+          <div class="d-none">
+            <%= f.label :human %> <br>
+            <%= f.text_field :human, hint: 'leave this field blank' %>
+          </div>
+
+          <div class="form_group mt-2">
+            <%= f.submit 'Send Message', class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>

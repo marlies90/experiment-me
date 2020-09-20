@@ -1,10 +1,15 @@
 <footer class="footer navbar navbar-expand-md bg-dark navbar-dark">
-  <div class="navbar-nav">
+  <div class="navbar-nav mr-auto">
     <span class="nav-item">
-      <a class="nav-link" href="/privacy-statement">Privacy statement</a>
+      <%= link_to "Privacy statement", privacy_statement_path, class: "nav-link" %>
     </span>
     <span class="nav-item">
-      <a class="nav-link" href="/terms-conditions">Terms and conditions</a>
+      <%= link_to "Terms and conditions", terms_conditions_path, class: "nav-link" %>
+    </span>
+  </div>
+  <div class="navbar-nav mr-4">
+    <span class="nav-item">
+      <%= link_to "Contact", new_contact_path, class: "nav-link" %>
     </span>
   </div>
 </footer>
