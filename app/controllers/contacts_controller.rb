@@ -6,14 +6,20 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(params[:contact])
+    @contact = Contact.new(contact_params)
     @contact.request = request
     if @contact.deliver
       flash.now[:error] = nil
-      redirect_to contacts_path, notice: "Message sent successfully"
+      redirect_to contacts_thank_you_path
     else
-      flash.now[:error] = "Something went wrong. Please contact info@experiment.rocks if it happens again."
+      flash.now[:error] = "Couldn't send message."
       render :new
     end
+  end
+
+  private
+
+  def contact_params
+    params.require(:contact).permit(:name, :email, :message, :human, :captcha)
   end
 end

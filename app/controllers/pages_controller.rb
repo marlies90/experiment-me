@@ -6,4 +6,6 @@ class PagesController < ApplicationController
   def privacy_statement; end
 
   def terms_conditions; end
+
+  def contact_thank_you; end
 end
