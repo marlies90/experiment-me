@@ -35,6 +35,7 @@ gem "turbolinks", "~> 5"
 
 # security
 gem "rack-attack", "~> 6.2", ">= 6.2.2"
+gem "sqreen"
 
 # mails
 gem "mail_form", "~> 1.8"
