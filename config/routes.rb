@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     get "/dashboard/settings" => "devise/registrations#edit", as: "edit_user_registration"
   end
 
-  devise_for :users, controllers: { confirmations: "confirmations" }
+  devise_for :users
 
   get "/:category/experiments", to: "categories#show", as: "category_show"
   resources :categories, except: [:show]

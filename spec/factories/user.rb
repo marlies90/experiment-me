@@ -9,8 +9,6 @@ FactoryBot.define do
     role { 0 }
     terms_agreement { true }
 
-    before(:create, &:skip_confirmation!)
-
     trait :admin do
       role { 1 }
     end
