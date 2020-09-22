@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   resources :journal_entries, path: "/dashboard/journal"
   resources :journal_statements
   resources :benefits
-  resources :contacts, only: %i[new create]
 
   devise_scope :user do
     get "/dashboard/settings" => "devise/registrations#edit", as: "edit_user_registration"
@@ -29,7 +28,7 @@ Rails.application.routes.draw do
 
   get "/privacy-statement", to: "pages#privacy_statement"
   get "/terms-conditions", to: "pages#terms_conditions"
-  get "/contacts/thank_you", to: "pages#contact_thank_you"
+  get "/contact", to: "pages#contact"
 
   root "pages#home", as: "home"
 end

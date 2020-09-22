@@ -7,5 +7,5 @@ class PagesController < ApplicationController
 
   def terms_conditions; end
 
-  def contact_thank_you; end
+  def contact; end
 end
