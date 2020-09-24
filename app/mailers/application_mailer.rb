@@ -2,7 +2,7 @@
 
 class ApplicationMailer < ActionMailer::Base
   rescue_from Net::SMTPAuthenticationError do
-    redirect_back(fallback_location: home_url, alert: "Error: email could not be sent")
+    redirect_to(home_url, alert: "Error: email could not be sent")
   end
 
   default from: "info@experiment.rocks"
