@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
 
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Net::SMTPAuthenticationError do
+    redirect_back(fallback_location: home_url, alert: "Error: email could not be sent")
+  end
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   around_action :time_zone, if: :current_user
