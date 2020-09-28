@@ -16,10 +16,6 @@ class JournalEntriesController < ApplicationController
 
   def new
     @journal_entry = JournalEntry.new
-    journal_ratings = JournalStatement.all.map do |statement|
-      JournalRating.new(journal_statement: statement)
-    end
-    @journal_entry.journal_ratings = journal_ratings
   end
 
   def edit; end
@@ -74,7 +70,7 @@ class JournalEntriesController < ApplicationController
 
   def set_journal_entry
     @journal_entry = JournalEntry
-                     .includes(:user, :journal_ratings)
+                     .includes(:user)
                      .per_user(current_user)
                      .find_by(slug: params[:id])
   end
@@ -92,7 +88,7 @@ class JournalEntriesController < ApplicationController
   def journal_entry_params
     params.fetch(:journal_entry).permit(
       :date, :user_id, :experiment_id, :experiment_success,
-      journal_ratings_attributes: %i[id journal_statement_id score]
+      :mood, :sleep, :health, :relax, :connect, :meaning
     )
   end
 end

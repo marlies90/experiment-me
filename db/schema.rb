@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_22_085155) do
+ActiveRecord::Schema.define(version: 2020_09_25_084528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,12 @@ ActiveRecord::Schema.define(version: 2020_09_22_085155) do
     t.string "slug"
     t.bigint "experiment_id"
     t.boolean "experiment_success"
+    t.integer "mood"
+    t.integer "sleep"
+    t.integer "health"
+    t.integer "relax"
+    t.integer "connect"
+    t.integer "meaning"
     t.index ["experiment_id"], name: "index_journal_entries_on_experiment_id"
     t.index ["slug"], name: "index_journal_entries_on_slug"
     t.index ["user_id"], name: "index_journal_entries_on_user_id"

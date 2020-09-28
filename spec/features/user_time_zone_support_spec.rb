@@ -53,13 +53,17 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
       end
 
       it "shows the correct date of this journal_entry on the index page after saving" do
-        all(class: "journal_entry_journal_ratings_score").each do |rating|
-          rating.choose(class: "radio_buttons", option: "4")
-        end
+        choose("journal_entry_mood_3")
+        choose("journal_entry_sleep_3")
+        choose("journal_entry_health_3")
+        choose("journal_entry_relax_3")
+        choose("journal_entry_connect_3")
+        choose("journal_entry_meaning_3")
+
         click_button "Save journal entry"
 
         within ".date-2020-06-16" do
-          expect(page).to have_content("4", count: 6)
+          expect(page).to have_content("3", count: 6)
         end
       end
     end
@@ -71,9 +75,13 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           select("15 Jun 2020 (Mon)", from: "date")
           click_button("New journal entry")
 
-          all(class: "journal_entry_journal_ratings_score").each do |rating|
-            rating.choose(class: "radio_buttons", option: "4")
-          end
+          choose("journal_entry_mood_3")
+          choose("journal_entry_sleep_3")
+          choose("journal_entry_health_3")
+          choose("journal_entry_relax_3")
+          choose("journal_entry_connect_3")
+          choose("journal_entry_meaning_3")
+
           click_button "Save journal entry"
 
           visit dashboard_overview_path
@@ -86,9 +94,13 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           visit journal_entries_path
           click_button("New journal entry")
 
-          all(class: "journal_entry_journal_ratings_score").each do |rating|
-            rating.choose(class: "radio_buttons", option: "4")
-          end
+          choose("journal_entry_mood_3")
+          choose("journal_entry_sleep_3")
+          choose("journal_entry_health_3")
+          choose("journal_entry_relax_3")
+          choose("journal_entry_connect_3")
+          choose("journal_entry_meaning_3")
+
           click_button "Save journal entry"
 
           visit dashboard_overview_path
@@ -369,13 +381,17 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
       end
 
       it "shows the correct date of this journal_entry on the index page after saving" do
-        all(class: "journal_entry_journal_ratings_score").each do |rating|
-          rating.choose(class: "radio_buttons", option: "4")
-        end
+        choose("journal_entry_mood_3")
+        choose("journal_entry_sleep_3")
+        choose("journal_entry_health_3")
+        choose("journal_entry_relax_3")
+        choose("journal_entry_connect_3")
+        choose("journal_entry_meaning_3")
+
         click_button "Save journal entry"
 
         within ".date-2020-06-17" do
-          expect(page).to have_content("4", count: 6)
+          expect(page).to have_content("3", count: 6)
         end
       end
     end
@@ -387,9 +403,13 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           select("16 Jun 2020 (Tue)", from: "date")
           click_button("New journal entry")
 
-          all(class: "journal_entry_journal_ratings_score").each do |rating|
-            rating.choose(class: "radio_buttons", option: "4")
-          end
+          choose("journal_entry_mood_3")
+          choose("journal_entry_sleep_3")
+          choose("journal_entry_health_3")
+          choose("journal_entry_relax_3")
+          choose("journal_entry_connect_3")
+          choose("journal_entry_meaning_3")
+
           click_button "Save journal entry"
 
           visit dashboard_overview_path
@@ -402,9 +422,13 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           visit journal_entries_path
           click_button("New journal entry")
 
-          all(class: "journal_entry_journal_ratings_score").each do |rating|
-            rating.choose(class: "radio_buttons", option: "4")
-          end
+          choose("journal_entry_mood_3")
+          choose("journal_entry_sleep_3")
+          choose("journal_entry_health_3")
+          choose("journal_entry_relax_3")
+          choose("journal_entry_connect_3")
+          choose("journal_entry_meaning_3")
+
           click_button "Save journal entry"
 
           visit dashboard_overview_path

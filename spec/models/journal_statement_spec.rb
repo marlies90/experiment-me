@@ -6,7 +6,6 @@ RSpec.describe JournalStatement, type: :model do
   subject { build(:journal_statement) }
 
   describe "associations" do
-    it { is_expected.to respond_to(:journal_ratings) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:category) }
   end

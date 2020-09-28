@@ -4,7 +4,11 @@ FactoryBot.define do
   factory :journal_entry do
     date { DateTime.current.beginning_of_day }
     user { FactoryBot.build_stubbed(:user) }
-
-    journal_ratings { FactoryBot.build_list(:journal_rating, 6) }
+    mood { Faker::Number.between(from: 1, to: 5) }
+    health { Faker::Number.between(from: 1, to: 5) }
+    sleep { Faker::Number.between(from: 1, to: 5) }
+    relax { Faker::Number.between(from: 1, to: 5) }
+    connect { Faker::Number.between(from: 1, to: 5) }
+    meaning { Faker::Number.between(from: 1, to: 5) }
   end
 end

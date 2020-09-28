@@ -42,15 +42,30 @@
             Rate the statements below from 1 (<span class="text-error">completely disagree</span>) to 5 (<span class="text-success">completely agree</span>).
           </em></span>
         </div>
-        <%= f.simple_fields_for :journal_ratings do |journal_rating| %>
-          <%= journal_rating.hidden_field :id %>
-          <%= journal_rating.hidden_field :journal_statement_id %>
-          <%= journal_rating.label :journal_statement do |journal_statement| %>
-            <span class=""><%= journal_statement.object.journal_statement.name %></span>
-            <abbr title="required">*</abbr>
-          <% end %>
-          <%= journal_rating.input :score, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
-        <% end %>
+
+        <span>I am in a good mood today</span>
+        <abbr title="required">*</abbr>
+        <%= f.input(:mood, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+        <span>I slept well and am feeling rested</span>
+        <abbr title="required">*</abbr>
+        <%= f.input(:sleep, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+        <span>I'm taking good care of my body</span>
+        <abbr title="required">*</abbr>
+        <%= f.input(:health, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+        <span>I'm feeling relaxed</span>
+        <abbr title="required">*</abbr>
+        <%= f.input(:relax, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+        <span>I'm feeling connected to myself and others</span>
+        <abbr title="required">*</abbr>
+        <%= f.input(:connect, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+        <span>My life feels meaningful</span>
+        <abbr title="required">*</abbr>
+        <%= f.input(:meaning, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
         <div class="form-group">
           <%= f.submit "Save journal entry", class: "btn btn-primary" %>
         </div>

@@ -18,7 +18,7 @@ module DashboardHelper
   end
 
   def journal_entry_for_date(date)
-    JournalEntry.includes(:journal_ratings).where(user: current_user).find_by(date: date)
+    JournalEntry.where(user: current_user).find_by(date: date)
   end
 
   def active_experiment_day_counter(active_experiment_user)

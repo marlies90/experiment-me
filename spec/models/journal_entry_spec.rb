@@ -8,10 +8,14 @@ RSpec.describe JournalEntry, type: :model do
 
   describe "associations" do
     it { is_expected.to respond_to(:user) }
-    it { is_expected.to respond_to(:journal_ratings) }
-    it { is_expected.to validate_presence_of(:journal_ratings) }
     it { is_expected.to validate_presence_of(:user_id) }
     it { is_expected.to validate_presence_of(:date) }
+    it { is_expected.to validate_presence_of(:mood) }
+    it { is_expected.to validate_presence_of(:sleep) }
+    it { is_expected.to validate_presence_of(:health) }
+    it { is_expected.to validate_presence_of(:relax) }
+    it { is_expected.to validate_presence_of(:connect) }
+    it { is_expected.to validate_presence_of(:meaning) }
   end
 
   it "is valid with valid attributes" do
@@ -41,8 +45,33 @@ RSpec.describe JournalEntry, type: :model do
     expect(subject).to_not be_valid
   end
 
-  it "is not valid without scores for all journal_statements" do
-    subject.journal_ratings = []
+  it "is not valid without filling in mood" do
+    subject.mood = nil
+    expect(subject).to_not be_valid
+  end
+
+  it "is not valid without filling in sleep" do
+    subject.sleep = nil
+    expect(subject).to_not be_valid
+  end
+
+  it "is not valid without filling in health" do
+    subject.health = nil
+    expect(subject).to_not be_valid
+  end
+
+  it "is not valid without filling in relax" do
+    subject.relax = nil
+    expect(subject).to_not be_valid
+  end
+
+  it "is not valid without filling in connect" do
+    subject.connect = nil
+    expect(subject).to_not be_valid
+  end
+
+  it "is not valid without filling in meaning" do
+    subject.meaning = nil
     expect(subject).to_not be_valid
   end
 

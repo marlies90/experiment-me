@@ -4,7 +4,6 @@ require "rails_helper"
 
 RSpec.describe JournalEntry, type: :feature do
   let(:current_user) { FactoryBot.create(:user) }
-  let!(:journal_statement) { FactoryBot.create_list(:journal_statement, 6) }
 
   before do
     login_as(current_user)
@@ -49,23 +48,25 @@ RSpec.describe JournalEntry, type: :feature do
       end
 
       it "allows a valid journal_entry to be created succesfully" do
-        all(class: "journal_entry_journal_ratings_score").each do |rating|
-          rating.choose(class: "radio_buttons", option: "4")
-        end
+        choose("journal_entry_mood_3")
+        choose("journal_entry_sleep_3")
+        choose("journal_entry_health_3")
+        choose("journal_entry_relax_3")
+        choose("journal_entry_connect_3")
+        choose("journal_entry_meaning_3")
 
         click_button "Save journal entry"
         expect(page).to have_content "Journal entry was successfully created."
       end
 
       it "does not allow a journal_entry to be created without filling in all ratings" do
-        all(class: "journal_entry_journal_ratings_score").first do |rating|
-          rating.choose(class: "radio_buttons", option: "4")
-        end
+        choose("journal_entry_sleep_3")
+
         click_button "Save journal entry"
         expect(page).to have_content(
           "The journal entry is incomplete and can therefore not be saved"
         )
-        expect(page).to have_content "Score can't be blank"
+        expect(page).to have_content "Meaning can't be blank"
       end
 
       it "does not allow a journal_entry to be created when 0 ratings have been filled in" do
@@ -73,7 +74,7 @@ RSpec.describe JournalEntry, type: :feature do
         expect(page).to have_content(
           "The journal entry is incomplete and can therefore not be saved"
         )
-        expect(page).to have_content "Score can't be blank"
+        expect(page).to have_content "Mood can't be blank"
       end
     end
 
@@ -91,9 +92,12 @@ RSpec.describe JournalEntry, type: :feature do
 
       it "allows the user to update that journal entry" do
         find(class: "edit_journal_entry").click
-        all(class: "journal_entry_journal_ratings_score").each do |rating|
-          rating.choose(class: "radio_buttons", option: "4")
-        end
+        choose("journal_entry_mood_3")
+        choose("journal_entry_sleep_3")
+        choose("journal_entry_health_3")
+        choose("journal_entry_relax_3")
+        choose("journal_entry_connect_3")
+        choose("journal_entry_meaning_3")
         click_button("Save journal entry")
         expect(page).to have_content "Journal entry was successfully updated."
       end
@@ -156,18 +160,24 @@ RSpec.describe JournalEntry, type: :feature do
 
         it "allows a journal_entry to be created when experiment_success was filled in" do
           choose("journal_entry_experiment_success_true")
-          all(class: "journal_entry_journal_ratings_score").each do |rating|
-            rating.choose(class: "radio_buttons", option: "4")
-          end
+          choose("journal_entry_mood_3")
+          choose("journal_entry_sleep_3")
+          choose("journal_entry_health_3")
+          choose("journal_entry_relax_3")
+          choose("journal_entry_connect_3")
+          choose("journal_entry_meaning_3")
 
           click_button "Save journal entry"
           expect(page).to have_content "Journal entry was successfully created."
         end
 
         it "does not allow a journal_entry to be created without experiment_success filled in" do
-          all(class: "journal_entry_journal_ratings_score").each do |rating|
-            rating.choose(class: "radio_buttons", option: "4")
-          end
+          choose("journal_entry_mood_3")
+          choose("journal_entry_sleep_3")
+          choose("journal_entry_health_3")
+          choose("journal_entry_relax_3")
+          choose("journal_entry_connect_3")
+          choose("journal_entry_meaning_3")
 
           click_button "Save journal entry"
           expect(page).to have_content(

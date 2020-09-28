@@ -49,9 +49,12 @@
                 <thead>
                   <tr class="d-flex">
                     <th class="col-3 col-lg-2">Date</th>
-                    <% @journal_statements.each do |journal_statement| %>
-                    <th class="col-2 col-lg-1"><%= journal_statement.category %></th>
-                    <% end %>
+                    <th class="col-2 col-lg-1">Mood</th>
+                    <th class="col-2 col-lg-1">Sleep</th>
+                    <th class="col-2 col-lg-1">Health</th>
+                    <th class="col-2 col-lg-1">Relax</th>
+                    <th class="col-2 col-lg-1">Connect</th>
+                    <th class="col-2 col-lg-1">Meaning</th>
                     <th class="col-2 text-brand">Actions</th>
                   </tr>
                 </thead>
@@ -62,17 +65,20 @@
                     <td class="col-3 col-lg-2"><%= to_journal_date_no_year(date) %></td>
 
                     <% if @journal_entry_dates.include?(date) %>
-                    <% journal_entry_for_date(date).journal_ratings.each do |journal_rating| %>
-                    <td class="col-2 col-lg-1"><%= journal_rating.score %></td>
-                    <% end %>
-                    <td class="col-2">
-                      <%= link_to edit_journal_entry_path(journal_entry_for_date(date)), class: "edit_journal_entry" do %>
-                      <i class="fas fa-pencil-alt"></i>
-                      <% end %>
-                      <%= link_to journal_entry_path(journal_entry_for_date(date)), class: "destroy_journal_entry", method: :delete, data: { confirm: "Are you sure?" } do %>
-                      <i class="fas fa-trash-alt"></i>
-                      <% end %>
-                    </td>
+                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).mood %></td>
+                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).sleep %></td>
+                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).health %></td>
+                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).relax %></td>
+                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).connect %></td>
+                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).meaning %></td>
+                      <td class="col-2">
+                        <%= link_to edit_journal_entry_path(journal_entry_for_date(date)), class: "edit_journal_entry" do %>
+                        <i class="fas fa-pencil-alt"></i>
+                        <% end %>
+                        <%= link_to journal_entry_path(journal_entry_for_date(date)), class: "destroy_journal_entry", method: :delete, data: { confirm: "Are you sure?" } do %>
+                        <i class="fas fa-trash-alt"></i>
+                        <% end %>
+                      </td>
                     <% else %>
                     <td class="col-8"><em>No journal entry</em></td>
                     <% end %>
