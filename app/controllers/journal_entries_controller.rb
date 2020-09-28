@@ -6,7 +6,6 @@ class JournalEntriesController < ApplicationController
   helper_method :date
 
   def index
-    @journal_statements = JournalStatement.all.id_asc
     create_date_list
     journal_entry_dates
     @available_dates = (@dates - @journal_entry_dates) | (@journal_entry_dates - @dates)

@@ -16,7 +16,6 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
   context "When logged in as a user from Alaska" do
     # Alaska is GMT-9(summer)/GMT-8(winter)
     let(:alaskan_user) { FactoryBot.create(:user, time_zone: "Alaska") }
-    let!(:journal_statement) { FactoryBot.create_list(:journal_statement, 6) }
 
     before { login_as(alaskan_user) }
 
@@ -344,7 +343,6 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
   context "When logged in as a user from the Netherlands" do
     # The Netherlands is GMT+2(summer)/GMT+1(winter)
     let(:dutch_user) { FactoryBot.create(:user, time_zone: "Amsterdam") }
-    let!(:journal_statement) { FactoryBot.create_list(:journal_statement, 6) }
 
     before { login_as(dutch_user) }
 

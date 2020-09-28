@@ -35,7 +35,6 @@ class DashboardController < ApplicationController
   def admin
     @categories = Category.all.oldest_first
     @experiments = Experiment.all
-    @journal_statements = JournalStatement.all
     @users = User.all
     @benefits = Benefit.all
   end
