@@ -1,15 +1,28 @@
 # frozen_string_literal: true
 
-User.create!(email: "mgielen90@gmail.com", password: "123456", role: 1)
-User.create!(email: "anormaluser@gmail.com", password: "123456")
+User.create!(
+  email: "mgielen90@gmail.com",
+  password: "123456",
+  first_name: "Marlies",
+  time_zone: "UTC",
+  terms_agreement: true,
+  role: 1
+)
+
+User.create!(
+  email: "anormaluser@gmail.com",
+  password: "123456",
+  first_name: "Iamnormal",
+  time_zone: "UTC",
+  terms_agreement: true
+)
 
 puts "*** admin and normal user created ***"
 
 ["Sleep", "Physical health", "Relax", "Connection"].map do |category|
   Category.create!(
     name: category.to_s,
-    description: "This is the description of category #{category}",
-    image: "https://via.placeholder.com/350"
+    description: "This is the description of category #{category}"
   )
 end
 
@@ -70,34 +83,14 @@ journal_entry_dates = [DateTime.current, DateTime.yesterday]
 journal_entry_dates.map do |date|
   JournalEntry.create!(
     date: date,
-    user_id: User.first.id
+    user_id: User.first.id,
+    mood: Faker::Number.between(from: 1, to: 5),
+    sleep: Faker::Number.between(from: 1, to: 5),
+    health: Faker::Number.between(from: 1, to: 5),
+    relax: Faker::Number.between(from: 1, to: 5),
+    connect: Faker::Number.between(from: 1, to: 5),
+    meaning: Faker::Number.between(from: 1, to: 5)
   )
 end
 
 puts "*** journal entries created ***"
-
-journal_statements = [
-  "I am in a good mood today", "I slept well and feel rested", "I am feeling healthy",
-  "I feel relaxed most of the time", "I feel connected to myself and/or others",
-  "My life feels meaningful"
-]
-
-journal_statements.map do |statement|
-  JournalStatement.create!(
-    name: statement.to_s
-  )
-end
-
-puts "*** journal statements created ***"
-
-journal_rating_scores = [6, 7, 4, 2, 7, 9]
-
-journal_rating_scores.map.with_index do |score, index|
-  JournalRating.create!(
-    journal_statement_id: JournalStatement.find_by(id: index + 1).id,
-    score: score,
-    journal_entry_id: JournalEntry.last.id
-  )
-end
-
-puts "*** journal ratings created ***"
