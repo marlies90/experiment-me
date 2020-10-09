@@ -6,6 +6,7 @@ Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
     - "config/environments/*"
+    - "config/routes.rb"
 
 Layout/LineLength:
   Max: 100
@@ -29,6 +30,9 @@ Style/HashTransformValues:
   Enabled: true
 
 Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
   Enabled: false
 
 AllCops:

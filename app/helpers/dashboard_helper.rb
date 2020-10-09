@@ -34,4 +34,23 @@ module DashboardHelper
   def completed_active_experiment?
     @active_experiment_user.present? && @active_experiment_user.completed_active_experiment
   end
+
+  def stat_by(start_date, end_date, categories)
+    start_date ||= 21.days.ago
+    end_date ||= Time.current
+    line_chart filtered_api_progress_data_path(
+      start_date: start_date, end_date: end_date, categories: categories
+    ),
+               legend: "top",
+               xtitle: "Dates",
+               ytitle: "Score",
+               max: 5,
+               curve: false,
+               discrete: true,
+               colors: [
+                 "rgb(134,110,199)", "rgb(102,181,255)", "rgb(46,171,126)",
+                 "rgb(224,174,67)", "rgb(209,55,53)", "rgb(52,58,64)"
+               ],
+               messages: { empty: "There is no data for this time period" }
+  end
 end

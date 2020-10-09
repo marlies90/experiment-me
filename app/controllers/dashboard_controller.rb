@@ -9,19 +9,7 @@ class DashboardController < ApplicationController
 
   def settings; end
 
-  def progress
-    @journal_entries = JournalEntry.per_user(current_user).select(
-      :date, :mood, :sleep, :health, :relax, :connect, :meaning
-    )
-    @line_chart_data = %w[mood sleep health relax connect meaning].map do |category|
-      {
-        name: category.capitalize,
-        data: @journal_entries.map do |journal_entry|
-          [journal_entry.date, journal_entry.send(category)]
-        end
-      }
-    end
-  end
+  def progress; end
 
   def experiments
     @cancelled_experiments = Experiment.find(

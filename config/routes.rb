@@ -8,6 +8,14 @@ Rails.application.routes.draw do
     get "admin"
   end
 
+  namespace :api do
+    resources :progress_data, only: [:create] do
+      collection do
+        get "filtered"
+      end
+    end
+  end
+
   resources :journal_entries, path: "/dashboard/journal"
   resources :benefits
 
