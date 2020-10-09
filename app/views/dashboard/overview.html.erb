@@ -13,7 +13,7 @@
             <div class="card-body">
               <h5 class="card-title"><i class="fas fa-book"></i>How are you feeling today, <%= @user.first_name %>?</h5>
               <% if journal_entry_for_date(DateTime.current.beginning_of_day).present? %>
-                <p class="card-text"><i class="fas fa-check"></i>You've filled in your entry for today: <%= to_journal_date_no_year(DateTime.current.beginning_of_day) %></p>
+                <p class="card-text"><i class="fas fa-check"></i>You've filled in your entry for today: <%= (DateTime.current.beginning_of_day).to_s(:journal_date) %></p>
               <% else %>
                 <p class="card-text">Rate your day in your journal.</p>
               <% end %>
@@ -25,7 +25,7 @@
         <div class="col-sm-6 mb-4">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"><i class="fas fa-vial"></i>Your current experiment - until <%= to_journal_date_no_year(@active_experiment_user.ending_date) %></h5>
+              <h5 class="card-title"><i class="fas fa-vial"></i>Your current experiment - until <%= (@active_experiment_user.ending_date).to_s(:journal_date) %></h5>
               <p class="card-text">You're on day <span class="text-brand text-intense"><%= active_experiment_day_counter(@active_experiment_user) %></span> of the experiment "<%= @active_experiment.name %>".<br></p>
               <a href="<%= experiment_path(id: @active_experiment.slug, category: @active_experiment.category) %>" class="btn btn-secondary">Experiment details</a>
             </div>

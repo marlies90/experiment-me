@@ -16,7 +16,7 @@
 
         <% if journal_entry_for_date(DateTime.current.beginning_of_day).present? %>
           <div class="col-md-12 col-lg-7 mb-4">
-            <p class="alert-complete"><i class="fas fa-check"></i>You've filled in your entry for today: <%= to_journal_date_no_year(DateTime.current.beginning_of_day) %></p>
+            <p class="alert-complete"><i class="fas fa-check"></i>You've filled in your entry for today: <%= (DateTime.current.beginning_of_day).to_s(:journal_date) %></p>
           </div>
         <% end %>
 
@@ -27,7 +27,7 @@
             <%= select_tag(
             :date,
             options_for_select(
-            @dates.collect{ |d| [ to_journal_date(d), d ] },
+            @dates.collect{ |d| [ d.to_s(:journal_date_with_year), d ] },
             disabled: @journal_entry_dates,
             selected: @available_dates.first
             ),
@@ -62,7 +62,7 @@
                 <tbody>
                   <% @dates.each do |date| %>
                   <tr class="d-flex date-<%= date.to_date %>">
-                    <td class="col-3 col-lg-2"><%= to_journal_date_no_year(date) %></td>
+                    <td class="col-3 col-lg-2"><%= date.to_s(:journal_date) %></td>
 
                     <% if @journal_entry_dates.include?(date) %>
                       <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).mood %></td>
