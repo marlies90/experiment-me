@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     redirect_back(fallback_location: home_url, alert: "Error: email could not be sent")
   end
 
+  def error
+    render status_code.to_s, status: (params[:code] || 500)
+  end
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   around_action :time_zone, if: :current_user
 
