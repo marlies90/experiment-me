@@ -36,10 +36,6 @@ Rails.application.routes.draw do
   get "/privacy-statement", to: "pages#privacy_statement"
   get "/terms-conditions", to: "pages#terms_conditions"
   get "/contact", to: "pages#contact"
-
-  %w[404 422 500].each do |code|
-    get code, controller: :application, action: :error, code: code
-  end
-
+  
   root "pages#home", as: "home"
 end
