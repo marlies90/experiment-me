@@ -107,6 +107,10 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
     erubi (1.9.0)
+    exception_handler (0.8.0.0)
+      bundler
+      rails (>= 4.2.0)
+      responders
     execjs (2.7.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
@@ -328,6 +332,7 @@ DEPENDENCIES
   chartkick (~> 3.4)
   cocoon (~> 1.2, >= 1.2.14)
   devise (~> 4.7, >= 4.7.1)
+  exception_handler (~> 0.8.0.0)
   factory_bot_rails
   faker (~> 2.10)
   friendly_id (~> 5.3)

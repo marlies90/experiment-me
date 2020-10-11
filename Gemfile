@@ -15,6 +15,7 @@ gem "aws-sdk-s3", require: false
 gem "bootstrap", "~> 4.3", ">= 4.3.1"
 gem "chartkick", "~> 3.4"
 gem "cocoon", "~> 1.2", ">= 1.2.14"
+gem "exception_handler", "~> 0.8.0.0"
 gem "friendly_id", "~> 5.3"
 gem "jquery-rails", "~> 4.3", ">= 4.3.5"
 gem "jquery-ui-rails", "~> 6.0", ">= 6.0.1"

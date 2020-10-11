@@ -30,4 +30,6 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  exception_handler:
+    not_found:              "The page you're looking for could not be found."
+    internal_server_error:  "An unexpected error happened."

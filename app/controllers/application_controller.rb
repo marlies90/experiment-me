@@ -35,6 +35,6 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:alert] = "You need to be logged in to continue."
-    redirect_to(request.referrer || home_path)
+    redirect_to(new_user_session_path)
   end
 end
