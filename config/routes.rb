@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   get "/privacy-statement", to: "pages#privacy_statement"
   get "/terms-conditions", to: "pages#terms_conditions"
   get "/contact", to: "pages#contact"
-  
+
+  get "/sitemap", to: "sitemaps#index"
+
   root "pages#home", as: "home"
 end

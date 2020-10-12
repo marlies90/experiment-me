@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc><%= @host %></loc>
+   </url>
+   <url>
+      <loc><%= "#{@host}#{categories_path}" %></loc>
+   </url>
+   <% @categories.each do |category| %>
+     <url>
+        <loc><%= "#{@host}/#{category.slug}/experiments" %></loc>
+     </url>
+   <% end %>
+   <% @experiments.each do |experiment| %>
+     <url>
+        <loc><%= "#{@host}/#{experiment.category.slug}/experiments/#{experiment.slug}" %></loc>
+     </url>
+   <% end %>
+</urlset>
