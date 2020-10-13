@@ -30,4 +30,9 @@ RSpec.describe Category, type: :model do
   #   subject.image = nil
   #   expect(subject).to_not be_valid
   # end
+
+  it "is valid without a description_meta" do
+    subject.description_meta = nil
+    expect(subject).to be_valid
+  end
 end

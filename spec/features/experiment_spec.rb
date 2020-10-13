@@ -18,7 +18,7 @@ RSpec.describe Experiment, type: :feature do
 
     it "Allows a valid experiment to be created succesfully" do
       fill_in "experiment_name", with: Faker::Superhero.name
-      fill_in "Description", with: Faker::Lorem.paragraph
+      fill_in "experiment_description", with: Faker::Lorem.paragraph
       # fill_in "Image", with: Faker::Avatar.image
       fill_in "Objective", with: Faker::Lorem.sentence
       page.check("experiment[benefit_ids][]")
