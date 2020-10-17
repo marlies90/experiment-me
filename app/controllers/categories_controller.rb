@@ -52,6 +52,6 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.fetch(:category).permit(:name, :description, :image, :description_meta)
+    params.fetch(:category).permit(:name, :description, :image, :description_meta, :title)
   end
 end

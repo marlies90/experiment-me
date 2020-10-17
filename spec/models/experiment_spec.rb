@@ -36,6 +36,11 @@ RSpec.describe Experiment, type: :model do
   #   expect(subject).to_not be_valid
   # end
 
+  it "is valid without a title" do
+    subject.title = nil
+    expect(subject).to be_valid
+  end
+
   it "is valid without a description_meta" do
     subject.description_meta = nil
     expect(subject).to be_valid

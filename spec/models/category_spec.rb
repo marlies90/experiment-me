@@ -35,4 +35,9 @@ RSpec.describe Category, type: :model do
     subject.description_meta = nil
     expect(subject).to be_valid
   end
+
+  it "is valid without a title" do
+    subject.title = nil
+    expect(subject).to be_valid
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_13_083829) do
+ActiveRecord::Schema.define(version: 2020_10_17_074200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2020_10_13_083829) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.text "description_meta"
+    t.text "title"
     t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
 
@@ -106,6 +107,7 @@ ActiveRecord::Schema.define(version: 2020_10_13_083829) do
     t.string "slug"
     t.text "objective"
     t.text "description_meta"
+    t.text "title"
     t.index ["category_id"], name: "index_experiments_on_category_id"
     t.index ["slug"], name: "index_experiments_on_slug", unique: true
   end
