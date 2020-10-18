@@ -6,6 +6,14 @@
   </section>
 
   <section class="container heading">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 bg-light">
+        <li class="breadcrumb-item"><%= link_to "Home", home_path %></li>
+        <li class="breadcrumb-item"><%= link_to "Categories", categories_path %></li>
+        <li class="breadcrumb-item"><%= link_to "#{@experiment.category.name}", category_show_path(@experiment.category) %></li>
+        <li class="breadcrumb-item active" aria-current="page"><%= @experiment.name %></li>
+      </ol>
+    </nav>
     <div class="row">
       <div class="col">
         <div class="card mb-4">

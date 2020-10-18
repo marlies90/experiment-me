@@ -5,15 +5,23 @@
   <section>
     <div class="jumbotron text-center category-header pb-0 bg-<%= @category.name.downcase %> text-<%= @category.name.downcase %>">
       <div class="px-4">
-        <h1 class="jumbotron-heading text-intense"><%= @category.name %></h1>
+        <h1 class="jumbotron-heading text-intense"><%= @category.name %> experiments</h1>
         <p class="lead"><%= simple_format(sanitize(@category.description, attributes: ["href", "target"]), {}, sanitize: false) %></p>
       </div>
     </div>
   </section>
 
+
   <div class="album pb-5 bg-white">
     <div class="container category-experiments">
-      <hr class="featurette-divider">
+      <hr class="featurette-divider mb-4">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 pl-0">
+          <li class="breadcrumb-item pl-0"><%= link_to "Home", home_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Categories", categories_path %></li>
+          <li class="breadcrumb-item active" aria-current="page"><%= @category.name %></li>
+        </ol>
+      </nav>
       <div class="row">
         <% @experiments.each do |experiment| %>
           <div class="col-md-4 preview">

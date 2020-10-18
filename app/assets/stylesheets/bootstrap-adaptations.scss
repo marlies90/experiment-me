@@ -138,3 +138,13 @@
 .featurette-divider {
   margin: 3rem 0;
 }
+
+.breadcrumb {
+  font-size: .8rem;
+  padding: .5rem;
+  background-color: transparent;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+}
