@@ -5,7 +5,7 @@
   <section class="jumbotron text-center" style="background: url(<%= rails_blob_url(@experiment.image) if @experiment.image.attached? %>); background-size: cover;">
   </section>
 
-  <section class="container heading">
+  <section class="container heading p-0">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb mb-0 bg-light">
         <li class="breadcrumb-item"><%= link_to "Home", home_path %></li>
@@ -20,30 +20,35 @@
           <div class="card-header bg-white">
             <h1 class="text-intense text-<%= @experiment.category.name.downcase %>"><%= @experiment.name %></h1>
             <div>
-              <span><u>Objective:</u></span><br>
+              <h2 class="text-intense h5">Objective</h2>
               <i class="fas fa-trophy"></i>
               <%= @experiment.objective %>
             </div>
           </div>
           <div class="card-body row">
-            <div class="col-md-8 experiment-content">
-              <p><%= simple_format(sanitize(@experiment.description, attributes: ["href", "target"]), {}, sanitize: false) %></p>
+            <div class="col-md-8 experiment-content order-last order-md-first">
+              <h2 class="text-intense h5">Description</h2>
+              <%= simple_format(sanitize(@experiment.description, attributes: ["href", "target", "class"]), {}, sanitize: false) %>
             </div>
-            <div class="col-md-4">
-              <h3>Benefits</h3>
-              <ul>
-                <% @experiment.benefits.each do |benefit| %>
-                <li class="btn btn-<%= @experiment.category.name.downcase %>"><%= benefit.name %></li>
-                <% end %>
-              </ul>
-
-              <% if @experiment.resources.present? %>
-                <h3>More info</h3>
+            <div class="col-md-4 order-first order-md-last">
+              <div>
+                <h3 class="text-intense h5">Experiment benefits</h3>
                 <ul>
-                  <% @experiment.resources.each do |resource| %>
-                  <li><u><%= link_to "#{resource.name}", "#{resource.source}", target: "_blank" %></u></li>
+                  <% @experiment.benefits.each do |benefit| %>
+                  <li class="btn btn-<%= @experiment.category.name.downcase %>"><%= benefit.name %></li>
                   <% end %>
                 </ul>
+              </div>
+
+              <% if @experiment.resources.present? %>
+                <div class="d-none d-md-block">
+                  <h3 class="text-intense h5">More info</h3>
+                  <ul>
+                    <% @experiment.resources.each do |resource| %>
+                    <li class="pl-0"><u><%= link_to "#{resource.name}", "#{resource.source}", target: "_blank" %></u></li>
+                    <% end %>
+                  </ul>
+                </div>
               <% end %>
             </div>
           </div>
@@ -76,6 +81,19 @@
               go to the <u><%= link_to("experiment overview page", dashboard_experiments_path) %></u>.</span>
             <% end %>
           </div>
+
+          <% if @experiment.resources.present? %>
+            <div class="col">
+              <div class="d-md-none">
+                <h3 class="text-intense h5">More info</h3>
+                <ul>
+                  <% @experiment.resources.each do |resource| %>
+                  <li class="pl-0"><u><%= link_to "#{resource.name}", "#{resource.source}", target: "_blank" %></u></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@
   color: $sleep-dark;
   margin-bottom: .5rem;
   border-radius: 0;
+  text-align: left;
 
   &:hover:not(:disabled) {
     color: $sleep-dark;
@@ -33,6 +34,7 @@
   color: $health-dark;
   margin-bottom: .5rem;
   border-radius: 0;
+  text-align: left;
 
   &:hover:not(:disabled) {
     color: $health-dark;
@@ -54,6 +56,7 @@
   color: $relax-dark;
   margin-bottom: .5rem;
   border-radius: 0;
+  text-align: left;
 
   &:hover:not(:disabled) {
     color: $relax-dark;
@@ -75,6 +78,7 @@
   color: $connect-dark;
   margin-bottom: .5rem;
   border-radius: 0;
+  text-align: left;
 
   &:hover:not(:disabled) {
     color: $connect-dark;

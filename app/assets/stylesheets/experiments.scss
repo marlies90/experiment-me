@@ -6,4 +6,8 @@
   .heading {
     margin-top: -4rem;
   }
+
+  h3 + br {
+    display: none;
+  }
 }
