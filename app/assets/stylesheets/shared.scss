@@ -43,6 +43,10 @@ a {
 .category-header a,
 .experiment-content a {
   text-decoration: underline;
+
+  &:hover {
+    color: black;
+  }
 }
 
 main {
@@ -66,7 +70,7 @@ main {
 }
 
 .text-success {
-  color: $health-dark;
+  color: $health;
 }
 
 .footer {

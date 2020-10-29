@@ -3,40 +3,42 @@
 
 <main role="main">
   <section>
-    <div class="jumbotron text-center category-header pb-0 bg-<%= @category.name.downcase %> text-<%= @category.name.downcase %>">
-      <div class="px-4">
+    <div class="jumbotron text-center category-header bg-<%= @category.name.downcase %> text-white">
+      <div class="px-2 px-sm-4">
         <h1 class="jumbotron-heading text-intense"><%= @category.name %> experiments</h1>
         <p class="lead"><%= simple_format(sanitize(@category.description, attributes: ["href", "target"]), {}, sanitize: false) %></p>
       </div>
     </div>
   </section>
 
-
-  <div class="album pb-5 bg-white">
-    <div class="container category-experiments">
-      <hr class="featurette-divider mb-4">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb mb-0 pl-0">
-          <li class="breadcrumb-item pl-0"><%= link_to "Home", home_path %></li>
-          <li class="breadcrumb-item"><%= link_to "Categories", categories_path %></li>
-          <li class="breadcrumb-item active" aria-current="page"><%= @category.name %></li>
-        </ol>
-      </nav>
-      <div class="row">
-        <% @experiments.each do |experiment| %>
-          <div class="col-md-4 preview">
-            <div class="card mb-4 shadow-sm">
-              <a href="<%= experiment_path(id: experiment.slug) %>">
-                <%= image_tag experiment.image, class: "card-img-top" if experiment.image.attached? %>
-                <div class="card-body">
-                  <h4 class="text-intense text-<%= @category.name.downcase %>"><%= experiment.name %></h4>
-                  <p class="card-text"><i class="fas fa-trophy"></i><%= experiment.objective %></p>
-                </div>
-              </a>
+  <section class="container p-0 category-experiments">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 bg-light">
+        <li class="breadcrumb-item"><%= link_to "Home", home_path %></li>
+        <li class="breadcrumb-item"><%= link_to "Categories", categories_path %></li>
+        <li class="breadcrumb-item active" aria-current="page"><%= @category.name %></li>
+      </ol>
+    </nav>
+    <div class="row">
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body row">
+            <% @experiments.each do |experiment| %>
+            <div class="col-md-4 preview">
+              <div class="card mb-4 shadow-sm">
+                <a href="<%= experiment_path(id: experiment.slug) %>">
+                  <%= image_tag experiment.image, class: "card-img-top" if experiment.image.attached? %>
+                  <div class="card-body">
+                    <h4 class="text-intense text-<%= @category.name.downcase %>"><%= experiment.name %></h4>
+                    <p class="card-text"><i class="fas fa-trophy"></i><%= experiment.objective %></p>
+                  </div>
+                </a>
+              </div>
             </div>
+            <% end %>
           </div>
-        <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </main>

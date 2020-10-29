@@ -1,87 +1,69 @@
 .text-sleep {
-  color: $sleep-dark;
-}
-
-.bg-sleep {
-  background: $sleep-light;
-  background: linear-gradient(180deg, rgba($sleep-light,1) 0%, rgba(255,255,255,1) 100%);
-}
-
-.btn-sleep {
-  background-color: $sleep-light;
-  color: $sleep-dark;
-  margin-bottom: .5rem;
-  border-radius: 0;
-  text-align: left;
-
-  &:hover:not(:disabled) {
-    color: $sleep-dark;
-    cursor: text;
-  }
+  color: $sleep;
 }
 
 .text-health {
-  color: $health-dark;
-}
-
-.bg-health {
-  background: $health-light;
-  background: linear-gradient(180deg, rgba($health-light,1) 0%, rgba(255,255,255,1) 100%);
-}
-
-.btn-health {
-  background-color: $health-light;
-  color: $health-dark;
-  margin-bottom: .5rem;
-  border-radius: 0;
-  text-align: left;
-
-  &:hover:not(:disabled) {
-    color: $health-dark;
-    cursor: text;
-  }
+  color: $health;
 }
 
 .text-relax {
-  color: $relax-dark;
-}
-
-.bg-relax {
-  background: $relax-light;
-  background: linear-gradient(180deg, rgba($relax-light,1) 0%, rgba(255,255,255,1) 100%);
-}
-
-.btn-relax {
-  background-color: $relax-light;
-  color: $relax-dark;
-  margin-bottom: .5rem;
-  border-radius: 0;
-  text-align: left;
-
-  &:hover:not(:disabled) {
-    color: $relax-dark;
-    cursor: text;
-  }
+  color: $relax;
 }
 
 .text-connect {
-  color: $connect-dark;
+  color: $connect;
+}
+
+.bg-sleep {
+  background: $sleep;
+  background: linear-gradient(135deg, rgba(102,181,255,1) 50%, rgba(46,171,126,1) 100%);
+}
+
+.bg-health {
+  background: $health;
+  background: linear-gradient(135deg, rgba(46,171,126,1) 50%, rgba(200,140,47,1) 100%);
+}
+
+.bg-relax {
+  background: $relax;
+  background: linear-gradient(135deg, rgba(200,140,47,1) 50%, rgba(170,35,33,1) 100%);
 }
 
 .bg-connect {
-  background: $connect-light;
-  background: linear-gradient(180deg, rgba($connect-light,1) 0%, rgba(255,255,255,1) 100%);
+  background: $connect;
+  background: linear-gradient(135deg, rgba(170,35,33,1) 50%, rgba(129,73,113,1) 100%);
+}
+
+.bg-brand {
+  background: rgb(134,110,199);
+  background: linear-gradient(90deg, rgba(91,61,174,1) 0%, rgba(134,110,199,1) 50%);
+
+}
+
+.btn-sleep {
+  background-color: $sleep;
+}
+
+.btn-health {
+  background: rgb(46,171,126);
+}
+
+.btn-relax {
+  background-color: $relax;
 }
 
 .btn-connect {
-  background-color: $connect-light;
-  color: $connect-dark;
+  background-color: $connect;
+}
+
+.btn-sleep, .btn-health, .btn-relax, .btn-connect {
+  color: white;
   margin-bottom: .5rem;
   border-radius: 0;
   text-align: left;
 
   &:hover:not(:disabled) {
-    color: $connect-dark;
+    color: white;
     cursor: text;
   }
 }
@@ -108,9 +90,22 @@
 }
 
 .category-header {
+  min-height: 22rem;
+  padding-top: 1.5rem;
+
   @media (min-width: 1024px) {
+    padding-top: 3rem;
+  }
+
+  @media (min-width: 1200px) {
     padding-left: 12rem;
     padding-right: 12rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .category-experiments {
+    margin-top: -4rem;
   }
 }
 
