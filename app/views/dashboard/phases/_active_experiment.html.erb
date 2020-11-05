@@ -1,0 +1,114 @@
+<div class="row px-sm-4 dashboard-detail">
+  <div class="col-sm-8 mb-sm-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">You're in phase 2: <span class="text-intense text-brand">experiment observation</span></h5>
+      </div>
+      <div class="row card-body pb-sm-0">
+        <div class="col-12 mb-4">
+          Yay! You've started an experiment 🎉<br>
+          You can add daily observations to measure the impact it has on your life.<br>
+          This shows you how you feel before, during and after an experiment.
+        </div>
+
+        <div class="col-lg-6 mb-2 mb-md-2">
+          <% if journal_entry_for_date(DateTime.current.beginning_of_day).present? %>
+          <div class="card text-center mb-3">
+            <div class="card-body card-action card-action-complete">
+              <p class="text-health">
+                <i class="fas fa-check h2"></i>
+              </p>
+              <h5 class="text-intense text-muted mb-4">You've added your observation for today.</h5>
+              <span class="btn btn-primary disabled"> Add observation</span>
+            </div>
+          </div>
+          <% else %>
+          <a href="<%= journal_entries_path %>">
+            <div class="card text-center mb-3">
+              <div class="card-body card-action">
+                <p class="icon">
+                  <i class="fas fa-eye h2"></i>
+                </p>
+                <h5 class="text-intense mb-4">I want to keep track of how I'm feeling.</h5>
+                <span class="btn btn-primary"> Add observation</span>
+              </div>
+            </div>
+          </a>
+          <% end %>
+        </div>
+        <div class="col-lg-6 mb-2 mb-md-2">
+          <a href="<%= dashboard_progress_path %>">
+            <div class="card text-center mb-3">
+              <div class="card-body card-action">
+                <p class="icon">
+                  <i class="fas fa-chart-line h2"></i>
+                </p>
+                <h5 class="text-intense mb-4">I want to see charts based on my observations.</h5>
+                <span class="btn btn-primary"> View charts</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-4">
+      <div class="row card-header bg-white m-0">
+        <div class="col-xs-12 col-sm-7 pl-0">
+          <span class="h5 mb-0 text-intense">Your experiment</span>
+        </div>
+        <div class="col-xs-12 col-sm-5 px-0 text-sm-right">
+          <span class="">Until <%= @active_experiment_user.ending_date.to_s(:journal_date) %></span>
+        </div>
+      </div>
+      <div class="row card-body">
+        <div class="col-xs-12 col-lg-5 mb-2">
+          <img class="card-img" src="<%= rails_blob_url(@active_experiment.image) if @active_experiment.image.attached? %>">
+        </div>
+        <div class="col-xs-12 col-lg-7 order-lg-first">
+          <p class="h5 text-intense text-<%= @active_experiment.category.name.downcase %>">
+            <%= @active_experiment.name %>
+          </p>
+          <p>
+            <i class="fas fa-trophy"></i> <%= @active_experiment.objective %>
+          </p>
+        </div>
+        <div class="col-xs-12 col-lg-10">
+          <p class="mb-1">
+            <strong>Practical details</strong>
+          </p>
+          <span class="mt-0"><%= simple_format(sanitize(@active_experiment.practical_details, attributes: ["href", "target", "class"]), {}, sanitize: false) %></span>
+          <p class="mb-1">
+            <strong>Potential benefits</strong>
+          </p>
+          <ul class="mt-0">
+            <% @active_experiment.benefits.each do |benefit| %>
+            <li class="btn btn-<%= @active_experiment.category.name.downcase %>"><%= benefit.name %></li>
+            <% end %>
+          </ul>
+          <p class="mb-0">
+            <u><a href="<%= experiment_path(id: @active_experiment.slug, category: @active_experiment.category) %>">See full experiment description ></a></u>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4 mb-4">
+    <div class="card phases">
+      <div class="card-header">
+        <h5 class="mb-0">Experiment phases</h5>
+      </div>
+      <div class="card-body">
+        <p><i class="far fa-check-square mr-2"></i> 1. <s>Prepare</s></p>
+        <p>
+          <i class="far fa-square mr-2"></i><span class="text-intense text-brand"> 2. Observe</span><br>
+          <span class="pl-4">From <strong><%= @active_experiment_user.starting_date.to_s(:journal_date) %></strong> to <strong><%= @active_experiment_user.ending_date.to_s(:journal_date) %></strong></span>
+        </p>
+        <p><i class="far fa-square mr-2"></i> 3. Analyze & express<br>
+          <span class="pl-4">On <strong><%= (@active_experiment_user.ending_date + 1.day).to_s(:journal_date) %></strong></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

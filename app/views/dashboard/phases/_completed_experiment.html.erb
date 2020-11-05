@@ -1,0 +1,48 @@
+<div class="row px-sm-4 dashboard-detail">
+  <div class="col-sm-8 mb-sm-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">You're in phase 3: <span class="text-intense text-brand">Analyze & express</span></h5>
+      </div>
+      <div class="row card-body pb-sm-0">
+        <div class="col-12 mb-4">
+          🎊🎊🎊 Congratulations! You completed your experiment 🎊🎊🎊<br><br>
+          To finalize it, analyze your results and share your findings!
+        </div>
+        <div class="col-lg-6 mb-2 mb-md-2">
+          <a href="<%= edit_experiment_user_path(
+          id: ExperimentUser.find_by(experiment_id: @active_experiment.id, user_id: current_user.id).id,
+          experiment_id: @active_experiment.id) %>">
+            <div class="card text-center mb-3">
+              <div class="card-body card-action">
+                <p class="icon">
+                  <i class="fas fa-vial h2"></i>
+                </p>
+                <h5 class="text-intense mb-4">I'm ready to wrap up this experiment!</h5>
+                <span class="btn btn-primary"> Analyze and express your findings</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">Experiment phases</h5>
+      </div>
+      <div class="card-body">
+        <p><i class="far fa-check-square mr-2"></i> 1. <s>Prepare</s></p>
+        <p>
+          <i class="far fa-check-square mr-2"></i> <s>2. Observe</s><br>
+          <span class="pl-4"><s>From <strong><%= @active_experiment_user.starting_date.to_s(:journal_date) %></strong> to <strong><%= @active_experiment_user.ending_date.to_s(:journal_date) %></strong></s></span>
+        </p>
+        <p><i class="far fa-square mr-2"></i><span class="text-intense text-brand"> 3. Analyze & express</span><br>
+          <span class="pl-4">On <strong><%= (@active_experiment_user.ending_date + 1.day).to_s(:journal_date) %></strong></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

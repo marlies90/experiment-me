@@ -65,4 +65,9 @@ RSpec.describe Experiment, type: :model do
     subject.resources = []
     expect(subject).to be_valid
   end
+
+  it "is valid without practical_details" do
+    subject.practical_details = nil
+    expect(subject).to be_valid
+  end
 end

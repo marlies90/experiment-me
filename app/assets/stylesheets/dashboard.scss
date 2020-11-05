@@ -26,6 +26,31 @@
     }
   }
 
+  .dashboard-header {
+    padding-top: 1.5rem;
+
+    @media (min-width: 576px) {
+      min-height: 10rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding-top: 2rem;
+      min-height: 13rem;
+    }
+  }
+
+  @media (min-width: 576px) {
+    .dashboard-detail {
+      margin-top: -1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .dashboard-detail {
+      margin-top: -4rem;
+    }
+  }
+
   .experiment-banner {
     .card-img {
       height: 100%;
@@ -59,5 +84,30 @@
     margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: 0.25rem;
+  }
+
+  .card-action {
+    &:hover,
+    &:focus,
+    &.focus {
+      .text-intense, .icon {
+        color: black;
+      }
+      .btn-primary {
+        background-color: $brand-dark !important;
+        border-color: $brand-dark !important;
+      }
+    }
+  }
+
+  .card-action-complete {
+    &:hover,
+    &:focus,
+    &.focus {
+      .btn-primary {
+        background-color: $brand-light_disabled !important;
+        border-color: $brand-light_disabled !important;
+      }
+    }
   }
 }
