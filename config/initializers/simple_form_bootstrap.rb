@@ -188,7 +188,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
     b.use :label, class: "col-sm-3 col-form-label pt-0"
-    b.wrapper :grid_wrapper, tag: "div", class: "col" do |ba|
+    b.wrapper :grid_wrapper, tag: "div", class: "col ml-1" do |ba|
       ba.use :input, class: "form-check-input", error_class: "is-invalid"
       ba.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback d-block" }
       ba.use :hint, wrap_with: { tag: "small", class: "form-text text-muted" }

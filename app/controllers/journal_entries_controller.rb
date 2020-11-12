@@ -26,7 +26,7 @@ class JournalEntriesController < ApplicationController
     create_date_list
 
     if @journal_entry.save
-      redirect_to journal_entries_path, notice: "Journal entry was successfully created."
+      redirect_to dashboard_progress_path, notice: "Your observation has been saved."
     else
       render :new
     end
@@ -37,7 +37,7 @@ class JournalEntriesController < ApplicationController
     @journal_entry.user_id = current_user.id
 
     if @journal_entry.update(journal_entry_params)
-      redirect_to journal_entries_path, notice: "Journal entry was successfully updated."
+      redirect_to journal_entries_path, notice: "Your observation has been updated."
     else
       render :edit
     end
@@ -45,21 +45,21 @@ class JournalEntriesController < ApplicationController
 
   def destroy
     @journal_entry.destroy
-    redirect_to journal_entries_path, notice: "Journal entry was successfully deleted."
+    redirect_to journal_entries_path, notice: "Your observation has been deleted."
   end
 
   private
 
   def create_date_list
     @dates = []
-    14.times do |index|
+    7.times do |index|
       @dates << DateTime.current.beginning_of_day - index.day
     end
   end
 
   def journal_entry_dates
     @journal_entry_dates =
-      @user.journal_entries.newest.limit(14).map(&:date).difference(@dates).map(&:to_datetime)
+      @user.journal_entries.newest.limit(7).map(&:date).difference(@dates).map(&:to_datetime)
   end
 
   def set_user

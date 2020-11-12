@@ -1,75 +1,130 @@
 <%= simple_form_for @journal_entry do |f| %>
-  <% if @journal_entry.errors.any? %>
-    <div class="col mt-4" id="error_explanation">
-      <h6>The journal entry is incomplete and can therefore not be saved. <br>
-        Please fill in the field(s) marked in red below:</h6>
-    </div>
-  <% end %>
-
-  <div class="row">
-    <div class="col">
-      <div class="card-body <%= "pb-0" if active_experiment_on_date(date) %>">
-        <h5 class="text-intense">Your current experiment</h5>
-        <% if active_experiment_on_date(date) %>
-          <div class="card mb-3 experiment-banner" style="max-width: 30rem;">
-            <div class="row no-gutters">
-              <div class="col-3">
-                <img class="card-img" src="<%= rails_blob_url(@active_experiment_on_date.image) if @active_experiment_on_date.image.attached? %>">
+  <div class="row px-sm-4 dashboard-detail">
+    <div class="col-lg-8 mb-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">How are you feeling today?</h5>
+        </div>
+        <div class="row card-body pb-sm-0">
+          <div class="col-12">
+            <% if @journal_entry.errors.any? %>
+            <div id="error_explanation">
+              <h6>The journal entry is incomplete and can therefore not be saved. <br>
+                Please fill in the field(s) marked in red below:</h6>
               </div>
-              <div class="col-9 align-self-center">
-                <div class="card-body">
-                  <h6 class="card-title mb-0"><%= @active_experiment_on_date.name %></h6>
-                </div>
+              <% end %>
+            <%= f.hidden_field :date, value: date %>
+            <div class="mb-3">
+              <span><em>
+                Rate the statements below from 1 (<span class="text-error">completely disagree</span>) to 5 (<span class="text-success">completely agree</span>).
+              </em></span>
+            </div>
+
+            <div class="mb-1">
+              <span class="btn-mood px-1 mx-1 rounded">mood</span>
+              <span>I am in a good mood today</span>
+              <abbr title="required">*</abbr>
+            </div>
+
+            <%= f.input(:mood, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+            <div class="mb-1">
+              <span class="btn-sleep px-1 mx-1 rounded">sleep</span>
+              <span>I slept well and am feeling rested</span>
+              <abbr title="required">*</abbr>
+            </div>
+            <%= f.input(:sleep, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+            <div class="mb-1">
+              <span class="btn-health px-1 mx-1 rounded">health</span>
+              <span>I'm taking good care of my body</span>
+              <abbr title="required">*</abbr>
+            </div>
+            <%= f.input(:health, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+            <div class="mb-1">
+              <span class="btn-relax px-1 mx-1 rounded">relax</span>
+              <span>I'm feeling relaxed</span>
+              <abbr title="required">*</abbr>
+            </div>
+            <%= f.input(:relax, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+            <div class="mb-1">
+              <span class="btn-connect px-1 mx-1 rounded">connect</span>
+              <span>I'm feeling connected to myself and others</span>
+              <abbr title="required">*</abbr>
+            </div>
+            <%= f.input(:connect, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+            <div class="mb-1">
+              <span class="btn-meaning px-1 mx-1 rounded">meaning</span>
+              <span>My life feels meaningful</span>
+              <abbr title="required">*</abbr>
+            </div>
+            <%= f.input(:meaning, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+
+            <% if active_experiment_on_date(date) %>
+            <hr>
+            <div class="mb-2">
+              Did you stick to the experiment today?
+            </div>
+            <%= f.input(:experiment_success, label: false, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
+            <%= f.hidden_field :experiment_id, value: @active_experiment_on_date.id %>
+            <% end %>
+            <div class="flex-row mb-4">
+              <div class="col-12 col-sm-6 pl-0">
+                <%= f.submit "Save observation", class: "btn btn-primary" %>
+                <% if @journal_entry.id.present? %>
+                  <%= link_to journal_entry_path(journal_entry_for_date(date)), class: "btn btn-secondary ml-2 destroy_journal_entry", method: :delete, data: { confirm: "Are you sure?" } do %>
+                    <i class="fas fa-trash-alt pr-0"></i>
+                  <% end %>
+                <% end %>
               </div>
             </div>
           </div>
-          <div class="mb-2">
-             Did you stick to the experiment today?
-          </div>
-          <%= f.input(:experiment_success, label: false, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
-          <%= f.hidden_field :experiment_id, value: @active_experiment_on_date.id %>
-        <% else %>
-          <div class="mb-4">
-            You're not doing an experiment at the moment.
-          </div>
-        <% end %>
-
-        <h5 class="text-intense">Your daily measurement</h5>
-        <%= f.hidden_field :date, value: date %>
-        <div class="mb-3">
-          <span><em>
-            How are you feeling today?<br>
-            Rate the statements below from 1 (<span class="text-error">completely disagree</span>) to 5 (<span class="text-success">completely agree</span>).
-          </em></span>
-        </div>
-
-        <span>I am in a good mood today</span>
-        <abbr title="required">*</abbr>
-        <%= f.input(:mood, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
-
-        <span>I slept well and am feeling rested</span>
-        <abbr title="required">*</abbr>
-        <%= f.input(:sleep, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
-
-        <span>I'm taking good care of my body</span>
-        <abbr title="required">*</abbr>
-        <%= f.input(:health, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
-
-        <span>I'm feeling relaxed</span>
-        <abbr title="required">*</abbr>
-        <%= f.input(:relax, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
-
-        <span>I'm feeling connected to myself and others</span>
-        <abbr title="required">*</abbr>
-        <%= f.input(:connect, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
-
-        <span>My life feels meaningful</span>
-        <abbr title="required">*</abbr>
-        <%= f.input(:meaning, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
-        <div class="form-group">
-          <%= f.submit "Save journal entry", class: "btn btn-primary" %>
         </div>
       </div>
     </div>
   <% end %>
-</div>
+
+  <div class="col-lg-4 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">Your current experiment</h5>
+      </div>
+      <div class="row card-body">
+        <% if active_experiment_on_date(date) %>
+          <div class="col-12 mb-2">
+            <img class="card-img" src="<%= rails_blob_url(@active_experiment_on_date.image) if @active_experiment_on_date.image.attached? %>">
+          </div>
+          <div class="col-12">
+            <p class="h5 text-intense text-<%= @active_experiment_on_date.category.name.downcase %>">
+              <%= @active_experiment_on_date.name %>
+            </p>
+            <p>
+              <i class="fas fa-trophy"></i> <%= @active_experiment_on_date.objective %>
+            </p>
+          </div>
+        <% else %>
+          <div class="col-12">
+            You're not doing an experiment at the moment.
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="card mt-4">
+      <div class="card-header">
+        <h5 class="mb-0">Why am I filling in all this?</h5>
+      </div>
+      <div class="row card-body">
+        <div class="col-12">
+          You're tracking 6 categories, so that you:
+          <ul>
+            <li class="pl-0 py-1">1. Know whether an experiment actually had an <strong>impact on how you feel</strong></li>
+            <li class="pl-0 py-1">2. Already build up data for your next experiment and can <strong>compare how you felt before versus during the experiment</strong></li>
+            <li class="pl-0 py-1">3. Find out which category could use improvement, and <strong>choose your next experiment</strong> in that category</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

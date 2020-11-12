@@ -2,93 +2,96 @@
   <div class="row full-height">
     <%= render 'dashboard/sidebar_nav' %>
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2 text-intense">Journal</h1>
-      </div>
-
-      <div class="row">
-        <% if completing_experiment %>
-          <div class="col-md-12 mb-4">
-            <%= render "dashboard/evaluate_experiment", active_experiment: @active_experiment %>
+    <main role="main" class="col-md-9 col-lg-10 ml-sm-auto px-0 bg-light overflow-hidden">
+      <section>
+        <div class="jumbotron rounded-0 bg-brand text-white dashboard-header">
+          <div class="px-2 px-sm-4">
+            <h1 class="jumbotron-heading text-intense"><i class="fas fa-eye"></i>Observations</h1>
+            <p class="lead">Add observations on how you're feeling, so that you can better analyze the impact the experiment has on your life.</p>
           </div>
-        <% end %>
-
-        <% if journal_entry_for_date(DateTime.current.beginning_of_day).present? %>
-          <div class="col-md-12 col-lg-7 mb-4">
-            <p class="alert-complete"><i class="fas fa-check"></i>You've filled in your entry for today: <%= (DateTime.current.beginning_of_day).to_s(:journal_date) %></p>
-          </div>
-        <% end %>
-
-        <div class="col-md-8">
-          <h3 class="text-intense">Create a new journal entry</h3>
-          <%= form_tag(new_journal_entry_path, method: :get) do |journal_entry_date| %>
-            <%= label_tag(:date, "Date") %>
-            <%= select_tag(
-            :date,
-            options_for_select(
-            @dates.collect{ |d| [ d.to_s(:journal_date_with_year), d ] },
-            disabled: @journal_entry_dates,
-            selected: @available_dates.first
-            ),
-            class: "form-control mb-2 col-lg-5"
-            )
-            %>
-            <%= submit_tag("New journal entry", class: "btn btn-primary") %>
-          <% end %>
         </div>
-      </div>
+      </section>
 
-      <hr class="featurette-divider">
-
-        <div class="">
-          <div class="">
-            <h3 class="text-intense">Entries in the last 14 days</h3>
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr class="d-flex">
-                    <th class="col-3 col-lg-2">Date</th>
-                    <th class="col-2 col-lg-1">Mood</th>
-                    <th class="col-2 col-lg-1">Sleep</th>
-                    <th class="col-2 col-lg-1">Health</th>
-                    <th class="col-2 col-lg-1">Relax</th>
-                    <th class="col-2 col-lg-1">Connect</th>
-                    <th class="col-2 col-lg-1">Meaning</th>
-                    <th class="col-2 text-brand">Actions</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <% @dates.each do |date| %>
-                  <tr class="d-flex date-<%= date.to_date %>">
-                    <td class="col-3 col-lg-2"><%= date.to_s(:journal_date) %></td>
-
-                    <% if @journal_entry_dates.include?(date) %>
-                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).mood %></td>
-                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).sleep %></td>
-                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).health %></td>
-                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).relax %></td>
-                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).connect %></td>
-                      <td class="col-2 col-lg-1"><%= journal_entry_for_date(date).meaning %></td>
-                      <td class="col-2">
-                        <%= link_to edit_journal_entry_path(journal_entry_for_date(date)), class: "edit_journal_entry" do %>
-                        <i class="fas fa-pencil-alt"></i>
-                        <% end %>
-                        <%= link_to journal_entry_path(journal_entry_for_date(date)), class: "destroy_journal_entry", method: :delete, data: { confirm: "Are you sure?" } do %>
-                        <i class="fas fa-trash-alt"></i>
-                        <% end %>
-                      </td>
-                    <% else %>
-                    <td class="col-8"><em>No journal entry</em></td>
+      <section>
+        <div class="row px-sm-4 dashboard-detail">
+          <div class="col-lg-8 mb-4">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0">Create a new observation</h5>
+              </div>
+              <div class="row card-body pb-sm-0">
+                <div class="col-12 mb-4">
+                  Add your daily observation.
+                  <div class="mt-2">
+                    <%= form_tag(new_journal_entry_path, method: :get) do |journal_entry_date| %>
+                    <strong><%= label_tag(:date, "Date") %></strong>
+                    <%= select_tag(
+                    :date,
+                    options_for_select(
+                    @dates.collect{ |d| [ d.to_s(:journal_date_with_year), d ] },
+                    disabled: @journal_entry_dates,
+                    selected: @available_dates.first
+                    ),
+                    class: "form-control mb-2 col-lg-5"
+                    )
+                    %>
+                    <%= submit_tag("New observation", class: "btn btn-primary") %>
                     <% end %>
-                  </tr>
-                  <% end %>
-                </tbody>
-              </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-4">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0">Observation streak</h5>
+              </div>
+              <div class="row card-body pb-sm-0">
+                <div class="col-12 mb-4">
+                  You've added observations for<br>
+                  <span class="text-intense text-health h1"><%= calculate_streak %></span><br>
+                  days in a row
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-8 mb-4">
+            <div class="card past_observations">
+              <div class="card-header">
+                <h5 class="mb-0">Observations made this week</h5>
+              </div>
+              <div class="row card-body pb-sm-0">
+                <div class="col-12 col-sm-7">
+                  <div class="row">
+                    <% @dates.each do |date| %>
+                    <div class="col-6 col-sm-6 mb-2">
+                      <%= date.to_s(:journal_date) %><br>
+                    </div>
+
+                    <div class="col-4 col-sm-4 mb-2 pr-0 date-<%= date.to_date %>">
+                      <% if @journal_entry_dates.include?(date) %>
+                        <i class="fas fa-check text-health"></i>
+                        <%= link_to edit_journal_entry_path(journal_entry_for_date(date)), class: "edit_journal_entry" do %>
+                          <i class="fas fa-pencil-alt"></i>
+                        <% end %>
+                        <% else %>
+                        <i class="fas fa-times text-connect"></i>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="col-12 mb-0 mb-sm-4">
+                  <u><%= link_to "See charts based on these observations >", dashboard_progress_path %></u>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </section>
     </main>
   </div>
 </div>

@@ -27,6 +27,27 @@ module DashboardHelper
     ).to_i
   end
 
+  def calculate_streak
+    return 0 if current_user&.journal_entries.nil?
+
+    streak_count = 0
+    today = Date.current
+
+    observation_array
+
+    observation_array.reduce(today) do |memo, date|
+      return streak_count || 0 if memo&.yesterday.nil?
+
+      yesterday = memo.yesterday
+      if date == yesterday || date == today
+        streak_count += 1
+        date
+      end
+    end
+
+    streak_count
+  end
+
   def uncompleted_active_experiment?
     @active_experiment_user.present? && @active_experiment_user.uncompleted_active_experiment
   end
@@ -52,5 +73,13 @@ module DashboardHelper
                  "rgb(224,174,67)", "rgb(209,55,53)", "rgb(52,58,64)"
                ],
                messages: { empty: "There is no data for this time period" }
+  end
+
+  private
+
+  def observation_array
+    current_user.journal_entries.newest.map do |observation|
+      observation.date.to_date
+    end
   end
 end

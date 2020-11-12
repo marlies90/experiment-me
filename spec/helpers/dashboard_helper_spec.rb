@@ -43,4 +43,135 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
+
+  describe "#calculate_streak" do
+    let(:user) { FactoryBot.create(:user) }
+    before { allow(helper).to receive(:current_user).and_return(user) }
+
+    describe "when there is no observation for yesterday" do
+      let!(:journal_entry) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 2.days,
+          user: user
+        )
+      end
+
+      it "returns 0" do
+        expect(helper.calculate_streak).to eq(0)
+      end
+    end
+
+    describe "when there is an observation for yesterday" do
+      let!(:journal_entry) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 1.day,
+          user: user
+        )
+      end
+
+      it "returns 1" do
+        expect(helper.calculate_streak).to eq(1)
+      end
+    end
+
+    describe "when there are 3 observations in a row" do
+      let!(:journal_entry_1) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 3.days,
+          user: user
+        )
+      end
+
+      let!(:journal_entry_2) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 2.days,
+          user: user
+        )
+      end
+
+      let!(:journal_entry_3) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 1.day,
+          user: user
+        )
+      end
+
+      it "returns 3" do
+        expect(helper.calculate_streak).to eq(3)
+      end
+    end
+
+    describe "when the observation for today is added" do
+      let!(:journal_entry_1) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 3.days,
+          user: user
+        )
+      end
+
+      let!(:journal_entry_2) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 2.days,
+          user: user
+        )
+      end
+
+      let!(:journal_entry_3) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 1.day,
+          user: user
+        )
+      end
+
+      let!(:journal_entry_4) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current,
+          user: user
+        )
+      end
+
+      it "adds 1 to the counter" do
+        expect(helper.calculate_streak).to eq(4)
+      end
+    end
+
+    describe "when the streak is broken" do
+      let!(:journal_entry_1) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 6.days,
+          user: user
+        )
+      end
+
+      let!(:journal_entry_2) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 5.days,
+          user: user
+        )
+      end
+
+      let!(:journal_entry_3) do
+        FactoryBot.create(
+          :journal_entry,
+          date: DateTime.current - 1.day,
+          user: user
+        )
+      end
+
+      it "does not count earlier observations" do
+        expect(helper.calculate_streak).to eq(1)
+      end
+    end
+  end
 end

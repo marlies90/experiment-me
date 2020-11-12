@@ -258,7 +258,7 @@ RSpec.describe ExperimentUser, type: :feature do
         )
       end
 
-      it "lets the user complete it" do
+      xit "lets the user complete it" do
         expect(page).to have_content "YAY! You completed your experiment"
 
         click_link("Evaluate experiment")
@@ -277,7 +277,7 @@ RSpec.describe ExperimentUser, type: :feature do
         end
       end
 
-      it "does not let the user complete it without the ending measurements" do
+      xit "does not let the user complete it without the ending measurements" do
         expect(page).to have_content "YAY! You completed your experiment"
 
         click_link("Evaluate experiment")
@@ -289,7 +289,7 @@ RSpec.describe ExperimentUser, type: :feature do
         expect(page).to have_content "Life impact can't be blank"
       end
 
-      it "does not show the starting survey or cancellation reason" do
+      xit "does not show the starting survey or cancellation reason" do
         click_link "Evaluate experiment"
         expect(page).to_not have_content "Your starting measurement"
         expect(page).to_not have_content "You're cancelling the experiment"

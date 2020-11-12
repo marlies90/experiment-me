@@ -16,8 +16,8 @@ RSpec.describe JournalEntry, type: :feature do
         expect(page).to have_select("date", selected: DateTime.current.beginning_of_day)
       end
 
-      it "shows that there are no journal entries for the past 14 days" do
-        expect(page).to have_content("No journal entry", count: 14)
+      it "shows that there are no journal entries for the past 7 days" do
+        expect(page).to have_css(".fa-times", count: 7)
       end
     end
 
@@ -33,10 +33,10 @@ RSpec.describe JournalEntry, type: :feature do
       end
 
       it "shows that there is one journal entry" do
-        within(".table") do
+        within(".past_observations") do
           expect(page).to have_css(".edit_journal_entry")
         end
-        expect(page).to have_content("No journal entry", count: 13)
+        expect(page).to have_css(".fa-times", count: 6)
       end
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe JournalEntry, type: :feature do
   context "without an active experiment" do
     context "when creating a new journal_entry" do
       before do
-        click_button("New journal entry")
+        click_button("New observation")
       end
 
       it "allows a valid journal_entry to be created succesfully" do
@@ -55,14 +55,14 @@ RSpec.describe JournalEntry, type: :feature do
         choose("journal_entry_connect_3")
         choose("journal_entry_meaning_3")
 
-        click_button "Save journal entry"
-        expect(page).to have_content "Journal entry was successfully created."
+        click_button "Save observation"
+        expect(page).to have_content "Your observation has been saved."
       end
 
       it "does not allow a journal_entry to be created without filling in all ratings" do
         choose("journal_entry_sleep_3")
 
-        click_button "Save journal entry"
+        click_button "Save observation"
         expect(page).to have_content(
           "The journal entry is incomplete and can therefore not be saved"
         )
@@ -70,7 +70,7 @@ RSpec.describe JournalEntry, type: :feature do
       end
 
       it "does not allow a journal_entry to be created when 0 ratings have been filled in" do
-        click_button "Save journal entry"
+        click_button "Save observation"
         expect(page).to have_content(
           "The journal entry is incomplete and can therefore not be saved"
         )
@@ -98,13 +98,14 @@ RSpec.describe JournalEntry, type: :feature do
         choose("journal_entry_relax_3")
         choose("journal_entry_connect_3")
         choose("journal_entry_meaning_3")
-        click_button("Save journal entry")
-        expect(page).to have_content "Journal entry was successfully updated."
+        click_button("Save observation")
+        expect(page).to have_content "Your observation has been updated."
       end
 
       it "allows the user to destroy that journal entry" do
+        find(class: "edit_journal_entry").click
         find(class: "destroy_journal_entry").click
-        expect(page).to have_content "Journal entry was successfully deleted."
+        expect(page).to have_content "Your observation has been deleted"
       end
     end
   end
@@ -124,7 +125,7 @@ RSpec.describe JournalEntry, type: :feature do
     context "when creating a new journal_entry" do
       context "with a date on which the current experiment is active" do
         before do
-          click_button("New journal entry")
+          click_button("New observation")
         end
 
         it "displays the current experiment" do
@@ -140,7 +141,7 @@ RSpec.describe JournalEntry, type: :feature do
       context "with a date on which the previous experiment was active" do
         before do
           find("#date option:last-of-type").select_option
-          click_button("New journal entry")
+          click_button("New observation")
         end
 
         it "displays the previous experiment" do
@@ -155,7 +156,7 @@ RSpec.describe JournalEntry, type: :feature do
 
       context "when submitting the form" do
         before do
-          click_button("New journal entry")
+          click_button("New observation")
         end
 
         it "allows a journal_entry to be created when experiment_success was filled in" do
@@ -167,8 +168,8 @@ RSpec.describe JournalEntry, type: :feature do
           choose("journal_entry_connect_3")
           choose("journal_entry_meaning_3")
 
-          click_button "Save journal entry"
-          expect(page).to have_content "Journal entry was successfully created."
+          click_button "Save observation"
+          expect(page).to have_content "Your observation has been saved."
         end
 
         it "does not allow a journal_entry to be created without experiment_success filled in" do
@@ -179,7 +180,7 @@ RSpec.describe JournalEntry, type: :feature do
           choose("journal_entry_connect_3")
           choose("journal_entry_meaning_3")
 
-          click_button "Save journal entry"
+          click_button "Save observation"
           expect(page).to have_content(
             "The journal entry is incomplete and can therefore not be saved"
           )
@@ -194,7 +195,7 @@ RSpec.describe JournalEntry, type: :feature do
           FactoryBot.create(
             :journal_entry,
             user: current_user,
-            date: (DateTime.current - 12).beginning_of_day,
+            date: (DateTime.current - 6).beginning_of_day,
             experiment_id: previous_experiment_user.experiment.id,
             experiment_success: true
           )
@@ -204,8 +205,8 @@ RSpec.describe JournalEntry, type: :feature do
           create(
             :experiment_user,
             :completed,
-            starting_date: (DateTime.current - 31).beginning_of_day,
-            ending_date: (DateTime.current - 10).beginning_of_day
+            starting_date: (DateTime.current - 25).beginning_of_day,
+            ending_date: (DateTime.current - 4).beginning_of_day
           )
         end
 
