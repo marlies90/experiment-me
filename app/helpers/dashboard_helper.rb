@@ -56,11 +56,11 @@ module DashboardHelper
     @active_experiment_user.present? && @active_experiment_user.completed_active_experiment
   end
 
-  def stat_by(start_date, end_date, categories)
-    start_date ||= 21.days.ago
-    end_date ||= Time.current
+  def stat_by(_start_date, _end_date, categories)
+    format_dates
+
     line_chart filtered_api_progress_data_path(
-      start_date: start_date, end_date: end_date, categories: categories
+      start_date: @start_date, end_date: @end_date, categories: categories
     ),
                legend: "top",
                xtitle: "Dates",
@@ -70,12 +70,47 @@ module DashboardHelper
                discrete: true,
                colors: [
                  "rgb(134,110,199)", "rgb(102,181,255)", "rgb(46,171,126)",
-                 "rgb(224,174,67)", "rgb(209,55,53)", "rgb(52,58,64)"
+                 "rgb(200,140,47)", "rgb(170,35,33)", "rgb(128,128,128)"
                ],
                messages: { empty: "There is no data for this time period" }
   end
 
+  def journal_entries_by(_start_date, _end_date)
+    format_dates
+
+    @selected_journal_entries =
+      JournalEntry.per_user(current_user).where(date: @start_date..@end_date).order(:date).all
+  end
+
+  def journal_entry_experiment(journal_entry)
+    Experiment.find_by_id(journal_entry&.experiment_id)
+  end
+
   private
+
+  def format_dates
+    format_start_date
+    format_end_date
+    @start_date, @end_date = @end_date, @start_date if @end_date < @start_date
+  end
+
+  def format_start_date
+    @start_date =
+      if params[:start_date].nil? || params[:start_date].empty?
+        21.days.ago.midnight
+      else
+        params[:start_date].to_datetime.midnight
+      end
+  end
+
+  def format_end_date
+    @end_date =
+      if params[:end_date].nil? || params[:end_date].empty?
+        Time.current.at_end_of_day
+      else
+        params[:end_date].to_datetime.at_end_of_day
+      end
+  end
 
   def observation_array
     current_user.journal_entries.newest.map do |observation|

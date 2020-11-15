@@ -1,82 +1,111 @@
 <div class="container-fluid dashboard">
   <div class="row full-height">
-    <%= render 'sidebar_nav' %>
+    <%= render 'dashboard/sidebar_nav' %>
 
-    <main role="main" class="col-md-9 col-lg-10 ml-sm-auto px-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2 text-intense">Progress</h1>
-      </div>
-
-      <div class="row">
-        <div class="col-md-8 pb-2 my-2">
-          See how you've been feeling based on your what you've filled in in your <u><%= link_to "journal entries", journal_entries_path %></u>.<br>
+    <main role="main" class="col-md-9 col-lg-10 ml-sm-auto px-0 bg-light overflow-hidden">
+      <section>
+        <div class="jumbotron rounded-0 bg-brand text-white dashboard-header">
+          <div class="px-2 px-sm-4">
+            <h1 class="jumbotron-heading text-intense"><i class="fas fa-chart-line"></i>Charts</h1>
+            <p class="lead">Your observations. In charts!</p>
+          </div>
         </div>
+      </section>
 
-        <div id="data_filters" class="bg-light p-4 col-12">
-          <h3 class="h4 text-intense">Graph filters</h3>
-          <%= form_tag api_progress_data_path(), remote: true, class: "row" do %>
-
-          <div class="col-sm-3 mt-1 mt-sm-0">
-            <label for="start_date"><strong>Start date</strong></label>
-            <div class="input-group">
-              <input type="text" class="actual_range form-control datepicker start" id="start_date" name="start_date">
-            </div>
-          </div>
-
-          <div class="col-sm-3 mt-1 mt-sm-0">
-            <label for="end_date"><strong>End date</strong></label>
-            <div class="input-group">
-              <input type="text" class="actual_range form-control datepicker end" id="end_date" name="end_date">
-            </div>
-          </div>
-
-          <div class="col-sm-4 mt-1 mt-sm-0">
-            <label for="categories"><strong>Categories</strong></label>
-
-            <div class="">
-              <div class="d-flex">
-                <label for="mood" class="custom-checkbox">Mood
-                  <input type="checkbox" id="mood" name="categories[]" value="mood" checked="checked">
-                  <span class="checkmark"></span>
-                </label>
-                <label for="sleep" class="custom-checkbox">Sleep
-                  <input type="checkbox" id="sleep" name="categories[]" value="sleep" checked="checked">
-                  <span class="checkmark"></span>
-                </label>
-                <label for="health" class="custom-checkbox">Health
-                  <input type="checkbox" id="health" name="categories[]" value="health" checked="checked">
-                  <span class="checkmark"></span>
-                </label>
-
+      <section>
+        <div class="row px-sm-4 dashboard-detail">
+          <div class="col-12 mb-4">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0">Chart filters</h5>
               </div>
-              <div class="d-flex">
-                <label for="relax" class="custom-checkbox">Relax
-                  <input type="checkbox" id="relax" name="categories[]" value="relax" checked="checked">
-                  <span class="checkmark"></span>
-                </label>
-                <label for="connect" class="custom-checkbox">Connect
-                  <input type="checkbox" id="connect" name="categories[]" value="connect" checked="checked">
-                  <span class="checkmark"></span>
-                </label>
-                <label for="meaning" class="custom-checkbox">Meaning
-                  <input type="checkbox" id="meaning" name="categories[]" value="meaning" checked="checked">
-                  <span class="checkmark"></span>
-                </label>
+              <div class="row card-body pb-sm-0">
+                <div class="col-12 mb-4" id="data_filters">
+                  <%= form_tag api_progress_data_path(), remote: true, class: "row" do %>
+                    <div class="col-sm-3 mt-1 mt-sm-0">
+                      <label for="start_date"><strong>Start date</strong></label>
+                      <div class="input-group">
+                        <input type="text" class="actual_range form-control datepicker start" id="start_date" name="start_date">
+                      </div>
+                    </div>
+
+                    <div class="col-sm-3 mt-1 mt-sm-0">
+                      <label for="end_date"><strong>End date</strong></label>
+                      <div class="input-group">
+                        <input type="text" class="actual_range form-control datepicker end" id="end_date" name="end_date">
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4 mt-1 mt-sm-0">
+                      <label for="categories"><strong>Categories</strong></label>
+
+                      <div class="">
+                        <div class="d-flex">
+                          <label for="mood" class="custom-checkbox">Mood
+                            <input type="checkbox" id="mood" name="categories[]" value="mood" checked="checked">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label for="sleep" class="custom-checkbox">Sleep
+                            <input type="checkbox" id="sleep" name="categories[]" value="sleep" checked="checked">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label for="health" class="custom-checkbox">Health
+                            <input type="checkbox" id="health" name="categories[]" value="health" checked="checked">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                        <div class="d-flex">
+                          <label for="relax" class="custom-checkbox">Relax
+                            <input type="checkbox" id="relax" name="categories[]" value="relax" checked="checked">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label for="connect" class="custom-checkbox">Connect
+                            <input type="checkbox" id="connect" name="categories[]" value="connect" checked="checked">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label for="meaning" class="custom-checkbox">Meaning
+                            <input type="checkbox" id="meaning" name="categories[]" value="meaning" checked="checked">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <%= submit_tag 'Show', class: 'btn btn-primary' %>
+                    </div>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="col-sm-3">
-            <%= submit_tag 'Show', class: 'btn btn-primary' %>
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Chart: How you've been feeling by day</h5>
+              </div>
+              <div class="row card-body pb-sm-0">
+                <div class="col-12 mb-4">
+                  <%= render "graph" %>
+                </div>
+              </div>
+            </div>
           </div>
-          <% end %>
+
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Details of your observations in this time frame</h5>
+              </div>
+              <div class="row card-body pb-sm-0">
+                <div class="col-12 mb-4">
+                  <%= render "selected_journal_entries" %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="my-4">
-        <h3 class="text-intense">How you've been feeling by day<h3>
-        <%= render "graph" %>
-      </div>
+      </section>
     </main>
   </div>
 </div>
