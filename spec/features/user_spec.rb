@@ -47,12 +47,32 @@ RSpec.describe User, type: :feature do
       expect(page).to have_field("user_time_zone", with: "Amsterdam")
     end
 
-    it "allows the user to update their profile" do
-      select("Sarajevo", from: "user_time_zone")
-      fill_in "user_current_password", with: user.password
-      click_button "Update"
+    it "allows the user to update their account" do
+      within ".account_settings" do
+        select("Sarajevo", from: "user_time_zone")
+        fill_in "user_current_password", with: user.password
+        click_button "Update account"
+      end
       expect(page).to have_content "Your account has been updated successfully"
       expect(user.reload.time_zone).to eq("Sarajevo")
+    end
+
+    it "allows the user to update their password" do
+      within ".password_settings" do
+        fill_in "user_current_password", with: user.password
+        fill_in "user_password", with: "1234567"
+        fill_in "user_password_confirmation", with: "1234567"
+        click_button "Update password"
+      end
+      expect(page).to have_content "Your account has been updated successfully"
+      expect(user.reload.valid_password?("1234567")).to be(true)
+    end
+
+    it "allows the user to delete their profile" do
+      click_button "Delete my account"
+
+      expect(page).to have_content "Your account has been deleted successfully"
+      expect { user.reload }.to raise_exception(ActiveRecord::RecordNotFound)
     end
   end
 end

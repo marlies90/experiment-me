@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddNoteToJournalEntry < ActiveRecord::Migration[6.0]
   def up
     add_column :journal_entries, :note, :text
