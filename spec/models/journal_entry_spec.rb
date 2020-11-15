@@ -75,6 +75,11 @@ RSpec.describe JournalEntry, type: :model do
     expect(subject).to_not be_valid
   end
 
+  it "is valid without a note" do
+    subject.note = nil
+    expect(subject).to be_valid
+  end
+
   describe ".per_user" do
     let(:user) { FactoryBot.create(:user) }
     let(:journal_entry_by_user) { FactoryBot.create(:journal_entry, user: user) }

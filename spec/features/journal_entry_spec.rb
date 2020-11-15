@@ -107,6 +107,11 @@ RSpec.describe JournalEntry, type: :feature do
         find(class: "destroy_journal_entry").click
         expect(page).to have_content "Your observation has been deleted"
       end
+
+      it "shows the details on the charts page" do
+        visit dashboard_progress_path
+        expect(page).to have_content journal_entry.note
+      end
     end
   end
 

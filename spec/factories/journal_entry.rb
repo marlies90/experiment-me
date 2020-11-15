@@ -10,5 +10,6 @@ FactoryBot.define do
     relax { Faker::Number.between(from: 1, to: 5) }
     connect { Faker::Number.between(from: 1, to: 5) }
     meaning { Faker::Number.between(from: 1, to: 5) }
+    note { Faker::Lorem.paragraph }
   end
 end

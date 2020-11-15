@@ -37,7 +37,7 @@ class JournalEntriesController < ApplicationController
     @journal_entry.user_id = current_user.id
 
     if @journal_entry.update(journal_entry_params)
-      redirect_to journal_entries_path, notice: "Your observation has been updated."
+      redirect_to dashboard_progress_path, notice: "Your observation has been updated."
     else
       render :edit
     end
@@ -87,7 +87,7 @@ class JournalEntriesController < ApplicationController
   def journal_entry_params
     params.fetch(:journal_entry).permit(
       :date, :user_id, :experiment_id, :experiment_success,
-      :mood, :sleep, :health, :relax, :connect, :meaning
+      :mood, :sleep, :health, :relax, :connect, :meaning, :note
     )
   end
 end

@@ -63,14 +63,25 @@
             </div>
             <%= f.input(:meaning, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
 
-            <% if active_experiment_on_date(date) %>
             <hr>
+            <% if active_experiment_on_date(date) %>
             <div class="mb-2">
               Did you stick to the experiment today?
+              <abbr title="required">*</abbr>
             </div>
             <%= f.input(:experiment_success, label: false, as: :radio_buttons, wrapper: :horizontal_collection_inline) %>
             <%= f.hidden_field :experiment_id, value: @active_experiment_on_date.id %>
             <% end %>
+
+            <div class="row">
+              <div class="col-12 col-md-10 mb-4">
+                <div class="mb-2">
+                  Notes
+                </div>
+                <%= f.text_area :note, class:"form-control", rows: 3 %>
+              </div>
+            </div>
+
             <div class="flex-row mb-4">
               <div class="col-12 col-sm-6 pl-0">
                 <%= f.submit "Save observation", class: "btn btn-primary" %>
