@@ -78,10 +78,10 @@ end
 
 puts "*** linked benefits to experiments ***"
 
-journal_entry_dates = [DateTime.current, DateTime.yesterday]
+observation_dates = [DateTime.current, DateTime.yesterday]
 
-journal_entry_dates.map do |date|
-  JournalEntry.create!(
+observation_dates.map do |date|
+  Observation.create!(
     date: date,
     user_id: User.first.id,
     mood: Faker::Number.between(from: 1, to: 5),
@@ -93,4 +93,4 @@ journal_entry_dates.map do |date|
   )
 end
 
-puts "*** journal entries created ***"
+puts "*** observations created ***"

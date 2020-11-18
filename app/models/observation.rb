@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class JournalEntry < ApplicationRecord
+class Observation < ApplicationRecord
   extend FriendlyId
   friendly_id :date_slug, use: :slugged
   include DateConcern

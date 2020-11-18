@@ -19,18 +19,18 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
     before { login_as(alaskan_user) }
 
-    context "When on the journal_entry index page" do
+    context "When on the observation index page" do
       before do
-        visit journal_entries_path
+        visit observations_path
       end
 
-      context "when selecting a date for the new journal entry" do
+      context "when selecting a date for the new observation" do
         it "correctly autoselects today" do
           expect(page).to have_select("date", selected: "16 Jun 2020 (Tue)")
         end
       end
 
-      context "when viewing the created journal entries in the last 14 days" do
+      context "when viewing the created observations in the last 14 days" do
         it "doesn't yet list the 17th as that is tomorrow to the Alaskan user" do
           within(".past_observations") do
             expect(page).to_not have_content("17 Jun (Wed)")
@@ -39,9 +39,9 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
       end
     end
 
-    context "When on the journal_entry create page" do
+    context "When on the observation create page" do
       before do
-        visit journal_entries_path
+        visit observations_path
         click_button("New observation")
       end
 
@@ -51,16 +51,16 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
         end
       end
 
-      it "shows the correct date of this journal_entry on the index page after saving" do
-        choose("journal_entry_mood_3")
-        choose("journal_entry_sleep_3")
-        choose("journal_entry_health_3")
-        choose("journal_entry_relax_3")
-        choose("journal_entry_connect_3")
-        choose("journal_entry_meaning_3")
+      it "shows the correct date of this observation on the index page after saving" do
+        choose("observation_mood_3")
+        choose("observation_sleep_3")
+        choose("observation_health_3")
+        choose("observation_relax_3")
+        choose("observation_connect_3")
+        choose("observation_meaning_3")
 
         click_button "Save observation"
-        visit journal_entries_path
+        visit observations_path
 
         within ".date-2020-06-16" do
           expect(page).to have_css(".fa-check")
@@ -69,18 +69,18 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
     end
 
     context "When on the dashboard page" do
-      context "when no journal_entry exists for today" do
+      context "when no observation exists for today" do
         it "has a call to action to fill it in" do
-          visit journal_entries_path
+          visit observations_path
           select("15 Jun 2020 (Mon)", from: "date")
           click_button("New observation")
 
-          choose("journal_entry_mood_3")
-          choose("journal_entry_sleep_3")
-          choose("journal_entry_health_3")
-          choose("journal_entry_relax_3")
-          choose("journal_entry_connect_3")
-          choose("journal_entry_meaning_3")
+          choose("observation_mood_3")
+          choose("observation_sleep_3")
+          choose("observation_health_3")
+          choose("observation_relax_3")
+          choose("observation_connect_3")
+          choose("observation_meaning_3")
 
           click_button "Save observation"
 
@@ -89,17 +89,17 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
         end
       end
 
-      context "when the journal_entry exists for today" do
+      context "when the observation exists for today" do
         it "shows the user it has been filled in" do
-          visit journal_entries_path
+          visit observations_path
           click_button("New observation")
 
-          choose("journal_entry_mood_3")
-          choose("journal_entry_sleep_3")
-          choose("journal_entry_health_3")
-          choose("journal_entry_relax_3")
-          choose("journal_entry_connect_3")
-          choose("journal_entry_meaning_3")
+          choose("observation_mood_3")
+          choose("observation_sleep_3")
+          choose("observation_health_3")
+          choose("observation_relax_3")
+          choose("observation_connect_3")
+          choose("observation_meaning_3")
 
           click_button "Save observation"
 
@@ -142,8 +142,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           end
         end
 
-        it "shows the experiment when creating a journal_entry" do
-          visit journal_entries_path
+        it "shows the experiment when creating a observation" do
+          visit observations_path
           click_button("New observation")
 
           expect(page).to have_content experiment.name
@@ -201,8 +201,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           end
         end
 
-        it "does not yet show the experiment when creating a journal_entry" do
-          visit journal_entries_path
+        it "does not yet show the experiment when creating a observation" do
+          visit observations_path
           click_button("New observation")
 
           expect(page).to_not have_content experiment.name
@@ -218,8 +218,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
               travel_back
             end
 
-            it "does not show the experiment when creating a new journal_entry" do
-              visit journal_entries_path
+            it "does not show the experiment when creating a new observation" do
+              visit observations_path
               click_button("New observation")
 
               expect(page).to_not have_content experiment.name
@@ -235,8 +235,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
               travel_back
             end
 
-            it "does show the experiment when creating a new journal_entry" do
-              visit journal_entries_path
+            it "does show the experiment when creating a new observation" do
+              visit observations_path
               click_button("New observation")
 
               expect(page).to have_content experiment.name
@@ -363,18 +363,18 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
     before { login_as(dutch_user) }
 
-    context "When on the journal_entry index page" do
+    context "When on the observation index page" do
       before do
-        visit journal_entries_path
+        visit observations_path
       end
 
-      context "when selecting a date for the new journal entry" do
+      context "when selecting a date for the new observation" do
         it "correctly autoselects today" do
           expect(page).to have_select("date", selected: "17 Jun 2020 (Wed)")
         end
       end
 
-      context "when viewing the created journal entries in the last 14 days" do
+      context "when viewing the created observations in the last 14 days" do
         it "already lists the 17th as that is today to the Dutch user" do
           within(".past_observations") do
             expect(page).to have_content("17 Jun (Wed)")
@@ -383,9 +383,9 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
       end
     end
 
-    context "When on the journal_entry create page" do
+    context "When on the observation create page" do
       before do
-        visit journal_entries_path
+        visit observations_path
         click_button("New observation")
       end
 
@@ -395,16 +395,16 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
         end
       end
 
-      it "shows the correct date of this journal_entry on the index page after saving" do
-        choose("journal_entry_mood_3")
-        choose("journal_entry_sleep_3")
-        choose("journal_entry_health_3")
-        choose("journal_entry_relax_3")
-        choose("journal_entry_connect_3")
-        choose("journal_entry_meaning_3")
+      it "shows the correct date of this observation on the index page after saving" do
+        choose("observation_mood_3")
+        choose("observation_sleep_3")
+        choose("observation_health_3")
+        choose("observation_relax_3")
+        choose("observation_connect_3")
+        choose("observation_meaning_3")
 
         click_button "Save observation"
-        visit journal_entries_path
+        visit observations_path
 
         within ".date-2020-06-17" do
           expect(page).to have_css(".fa-check")
@@ -413,18 +413,18 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
     end
 
     context "When on the dashboard page" do
-      context "when no journal_entry exists for today" do
+      context "when no observation exists for today" do
         it "has a call to action to fill it in" do
-          visit journal_entries_path
+          visit observations_path
           select("16 Jun 2020 (Tue)", from: "date")
           click_button("New observation")
 
-          choose("journal_entry_mood_3")
-          choose("journal_entry_sleep_3")
-          choose("journal_entry_health_3")
-          choose("journal_entry_relax_3")
-          choose("journal_entry_connect_3")
-          choose("journal_entry_meaning_3")
+          choose("observation_mood_3")
+          choose("observation_sleep_3")
+          choose("observation_health_3")
+          choose("observation_relax_3")
+          choose("observation_connect_3")
+          choose("observation_meaning_3")
 
           click_button "Save observation"
 
@@ -433,17 +433,17 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
         end
       end
 
-      context "when the journal_entry exists for today" do
+      context "when the observation exists for today" do
         it "shows the user it has been filled in" do
-          visit journal_entries_path
+          visit observations_path
           click_button("New observation")
 
-          choose("journal_entry_mood_3")
-          choose("journal_entry_sleep_3")
-          choose("journal_entry_health_3")
-          choose("journal_entry_relax_3")
-          choose("journal_entry_connect_3")
-          choose("journal_entry_meaning_3")
+          choose("observation_mood_3")
+          choose("observation_sleep_3")
+          choose("observation_health_3")
+          choose("observation_relax_3")
+          choose("observation_connect_3")
+          choose("observation_meaning_3")
 
           click_button "Save observation"
 
@@ -486,8 +486,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           end
         end
 
-        it "shows the experiment when creating a journal_entry" do
-          visit journal_entries_path
+        it "shows the experiment when creating a observation" do
+          visit observations_path
           click_button("New observation")
 
           expect(page).to have_content experiment.name
@@ -545,8 +545,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           end
         end
 
-        it "does not yet show the experiment when creating a journal_entry" do
-          visit journal_entries_path
+        it "does not yet show the experiment when creating a observation" do
+          visit observations_path
           click_button("New observation")
 
           expect(page).to_not have_content experiment.name
@@ -562,8 +562,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
               travel_back
             end
 
-            it "does not show the experiment when creating a new journal_entry" do
-              visit journal_entries_path
+            it "does not show the experiment when creating a new observation" do
+              visit observations_path
               click_button("New observation")
 
               expect(page).to_not have_content experiment.name
@@ -579,8 +579,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
               travel_back
             end
 
-            it "does show the experiment when creating a new journal_entry" do
-              visit journal_entries_path
+            it "does show the experiment when creating a new observation" do
+              visit observations_path
               click_button("New observation")
 
               expect(page).to have_content experiment.name

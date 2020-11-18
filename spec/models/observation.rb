@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe JournalEntry, type: :model do
-  subject { build(:journal_entry) }
+RSpec.describe Observation, type: :model do
+  subject { build(:observation) }
   let(:experiment) { build_stubbed(:experiment) }
 
   describe "associations" do
@@ -82,17 +82,17 @@ RSpec.describe JournalEntry, type: :model do
 
   describe ".per_user" do
     let(:user) { FactoryBot.create(:user) }
-    let(:journal_entry_by_user) { FactoryBot.create(:journal_entry, user: user) }
+    let(:observation_by_user) { FactoryBot.create(:observation, user: user) }
 
-    it "includes journal_entries created by a user" do
-      expect(JournalEntry.per_user(user)).to include journal_entry_by_user
+    it "includes observations created by a user" do
+      expect(Observation.per_user(user)).to include observation_by_user
     end
 
-    it "excludes journal_entries created by a different user" do
+    it "excludes observations created by a different user" do
       another_user = FactoryBot.create(:user)
-      journal_entry_by_another_user = FactoryBot.create(:journal_entry, user: another_user)
+      observation_by_another_user = FactoryBot.create(:observation, user: another_user)
 
-      expect(JournalEntry.per_user(user)).to_not include journal_entry_by_another_user
+      expect(Observation.per_user(user)).to_not include observation_by_another_user
     end
   end
 end

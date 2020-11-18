@@ -13,33 +13,33 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
-  describe "#journal_entry_for_date" do
-    describe "when a journal_entry exists for a user" do
+  describe "#observation_for_date" do
+    describe "when a observation exists for a user" do
       before { allow(helper).to receive(:current_user).and_return(user_one) }
 
       let(:user_one) { FactoryBot.create(:user) }
       let(:today) { DateTime.current.beginning_of_day }
-      let!(:journal_entry_user_one) do
-        FactoryBot.create(:journal_entry, user: user_one, date: today)
+      let!(:observation_user_one) do
+        FactoryBot.create(:observation, user: user_one, date: today)
       end
 
-      it "returns the correct journal_entry for the date given" do
-        expect(helper.journal_entry_for_date(today)).to eq(journal_entry_user_one)
+      it "returns the correct observation for the date given" do
+        expect(helper.observation_for_date(today)).to eq(observation_user_one)
       end
     end
 
-    describe "when a journal entry exists for a different user" do
+    describe "when an observation exists for a different user" do
       before { allow(helper).to receive(:current_user).and_return(user_one) }
 
       let(:user_one) { FactoryBot.create(:user) }
       let(:user_two) { FactoryBot.create(:user) }
       let(:today) { DateTime.current.beginning_of_day }
-      let!(:journal_entry_user_two) do
-        FactoryBot.create(:journal_entry, user: user_two, date: today)
+      let!(:observation_user_two) do
+        FactoryBot.create(:observation, user: user_two, date: today)
       end
 
-      it "does not return that journal_entry" do
-        expect(helper.journal_entry_for_date(today)).to be_nil
+      it "does not return that observation" do
+        expect(helper.observation_for_date(today)).to be_nil
       end
     end
   end
@@ -49,9 +49,9 @@ RSpec.describe ApplicationHelper, type: :helper do
     before { allow(helper).to receive(:current_user).and_return(user) }
 
     describe "when there is no observation for yesterday" do
-      let!(:journal_entry) do
+      let!(:observation) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 2.days,
           user: user
         )
@@ -63,9 +63,9 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     describe "when there is an observation for yesterday" do
-      let!(:journal_entry) do
+      let!(:observation) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 1.day,
           user: user
         )
@@ -77,25 +77,25 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     describe "when there are 3 observations in a row" do
-      let!(:journal_entry_1) do
+      let!(:observation_1) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 3.days,
           user: user
         )
       end
 
-      let!(:journal_entry_2) do
+      let!(:observation_2) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 2.days,
           user: user
         )
       end
 
-      let!(:journal_entry_3) do
+      let!(:observation_3) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 1.day,
           user: user
         )
@@ -107,33 +107,33 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     describe "when the observation for today is added" do
-      let!(:journal_entry_1) do
+      let!(:observation_1) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 3.days,
           user: user
         )
       end
 
-      let!(:journal_entry_2) do
+      let!(:observation_2) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 2.days,
           user: user
         )
       end
 
-      let!(:journal_entry_3) do
+      let!(:observation_3) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 1.day,
           user: user
         )
       end
 
-      let!(:journal_entry_4) do
+      let!(:observation_4) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current,
           user: user
         )
@@ -145,25 +145,25 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     describe "when the streak is broken" do
-      let!(:journal_entry_1) do
+      let!(:observation_1) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 6.days,
           user: user
         )
       end
 
-      let!(:journal_entry_2) do
+      let!(:observation_2) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 5.days,
           user: user
         )
       end
 
-      let!(:journal_entry_3) do
+      let!(:observation_3) do
         FactoryBot.create(
-          :journal_entry,
+          :observation,
           date: DateTime.current - 1.day,
           user: user
         )

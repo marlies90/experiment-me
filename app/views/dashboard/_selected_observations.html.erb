@@ -1,0 +1,36 @@
+<div id="selected_observations">
+  <% observations_by(@start_date, @end_date) %>
+
+  <% if @selected_observations.present? %>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr class="d-flex">
+          <th class="col-3 col-md-2 col-lg-1">Date</th>
+          <th class="col-3 col-md-2">Experiment</th>
+          <th class="col-3 col-md-2 col-lg-1">Success?</th>
+          <th class="col-10 col-md-6 col-lg-8">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% @selected_observations.each do |observation| %>
+          <tr class="d-flex">
+            <th scope="row" class="col-3 col-md-2 col-lg-1"><%= observation.date.to_s(:journal_date) %></th>
+
+            <% if observation.experiment_id.present? %>
+              <td class="col-3 col-md-2 text-intense text-<%= observation_experiment(observation).category.name.downcase %>"><%= observation_experiment(observation).name %></td>
+            <% else %>
+              <td class="col-3 col-md-2">none</td>
+            <% end %>
+
+            <td class="col-3 col-md-2 col-lg-1"><%= observation.experiment_success ? "yes" : "no" %></td>
+            <td class="col-10 col-md-6 col-lg-8"><%= observation.note %></td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+    <% else %>
+    <span>No observations</span>
+    <% end %>
+  </div>
+</div>

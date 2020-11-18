@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :journal_entry do
+  factory :observation do
     date { DateTime.current.beginning_of_day }
     user { FactoryBot.build_stubbed(:user) }
     mood { Faker::Number.between(from: 1, to: 5) }

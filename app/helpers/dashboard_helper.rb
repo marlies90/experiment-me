@@ -17,8 +17,8 @@ module DashboardHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  def journal_entry_for_date(date)
-    JournalEntry.where(user: current_user).find_by(date: date)
+  def observation_for_date(date)
+    Observation.where(user: current_user).find_by(date: date)
   end
 
   def active_experiment_day_counter(active_experiment_user)
@@ -28,7 +28,7 @@ module DashboardHelper
   end
 
   def calculate_streak
-    return 0 if current_user&.journal_entries.nil?
+    return 0 if current_user&.observations.nil?
 
     streak_count = 0
     today = Date.current
@@ -75,15 +75,15 @@ module DashboardHelper
                messages: { empty: "There is no data for this time period" }
   end
 
-  def journal_entries_by(_start_date, _end_date)
+  def observations_by(_start_date, _end_date)
     format_dates
 
-    @selected_journal_entries =
-      JournalEntry.per_user(current_user).where(date: @start_date..@end_date).order(:date).all
+    @selected_observations =
+      Observation.per_user(current_user).where(date: @start_date..@end_date).order(:date).all
   end
 
-  def journal_entry_experiment(journal_entry)
-    Experiment.find_by_id(journal_entry&.experiment_id)
+  def observation_experiment(observation)
+    Experiment.find_by_id(observation&.experiment_id)
   end
 
   private
@@ -113,7 +113,7 @@ module DashboardHelper
   end
 
   def observation_array
-    current_user.journal_entries.newest.map do |observation|
+    current_user.observations.newest.map do |observation|
       observation.date.to_date
     end
   end

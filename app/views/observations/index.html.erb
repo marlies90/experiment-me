@@ -23,13 +23,13 @@
                 <div class="col-12 mb-4">
                   Add your daily observation.
                   <div class="mt-2">
-                    <%= form_tag(new_journal_entry_path, method: :get) do |journal_entry_date| %>
+                    <%= form_tag(new_observation_path, method: :get) do |observation_date| %>
                     <strong><%= label_tag(:date, "Date") %></strong>
                     <%= select_tag(
                     :date,
                     options_for_select(
                     @dates.collect{ |d| [ d.to_s(:journal_date_with_year), d ] },
-                    disabled: @journal_entry_dates,
+                    disabled: @observation_dates,
                     selected: @available_dates.first
                     ),
                     class: "form-control mb-2 col-lg-5"
@@ -72,9 +72,9 @@
                     </div>
 
                     <div class="col-4 col-sm-4 mb-2 pr-0 date-<%= date.to_date %>">
-                      <% if @journal_entry_dates.include?(date) %>
+                      <% if @observation_dates.include?(date) %>
                         <i class="fas fa-check text-health"></i>
-                        <%= link_to edit_journal_entry_path(journal_entry_for_date(date)), class: "edit_journal_entry" do %>
+                        <%= link_to edit_observation_path(observation_for_date(date)), class: "edit_observation" do %>
                           <i class="fas fa-pencil-alt"></i>
                         <% end %>
                         <% else %>

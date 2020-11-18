@@ -1,4 +1,4 @@
-<%= simple_form_for @journal_entry do |f| %>
+<%= simple_form_for @observation do |f| %>
   <div class="row px-sm-4 dashboard-detail">
     <div class="col-lg-8 mb-4">
       <div class="card">
@@ -7,9 +7,9 @@
         </div>
         <div class="row card-body pb-sm-0">
           <div class="col-12">
-            <% if @journal_entry.errors.any? %>
+            <% if @observation.errors.any? %>
             <div id="error_explanation">
-              <h6>The journal entry is incomplete and can therefore not be saved. <br>
+              <h6>The observation is incomplete and can therefore not be saved. <br>
                 Please fill in the field(s) marked in red below:</h6>
               </div>
               <% end %>
@@ -85,8 +85,8 @@
             <div class="flex-row mb-4">
               <div class="col-12 col-sm-6 pl-0">
                 <%= f.submit "Save observation", class: "btn btn-primary" %>
-                <% if @journal_entry.id.present? %>
-                  <%= link_to journal_entry_path(journal_entry_for_date(date)), class: "btn btn-secondary ml-2 destroy_journal_entry", method: :delete, data: { confirm: "Are you sure?" } do %>
+                <% if @observation.id.present? %>
+                  <%= link_to observation_path(observation_for_date(date)), class: "btn btn-secondary ml-2 destroy_observation", method: :delete, data: { confirm: "Are you sure?" } do %>
                     <i class="fas fa-trash-alt pr-0"></i>
                   <% end %>
                 <% end %>

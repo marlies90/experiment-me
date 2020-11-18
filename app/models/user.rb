@@ -14,7 +14,7 @@ class User < ApplicationRecord
     admin: 1
   }
 
-  has_many :journal_entries, dependent: :destroy
+  has_many :observations, dependent: :destroy
   has_many :experiment_users, dependent: :destroy
   has_many :experiments, through: :experiment_users, dependent: :destroy
 end

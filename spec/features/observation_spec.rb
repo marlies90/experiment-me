@@ -2,39 +2,39 @@
 
 require "rails_helper"
 
-RSpec.describe JournalEntry, type: :feature do
+RSpec.describe Observation, type: :feature do
   let(:current_user) { FactoryBot.create(:user) }
 
   before do
     login_as(current_user)
-    visit journal_entries_path
+    visit observations_path
   end
 
   context "when selecting a date" do
-    context "when no other journal_entry has been created yet" do
+    context "when no other observation has been created yet" do
       it "auto-selects today in the date picker" do
         expect(page).to have_select("date", selected: DateTime.current.beginning_of_day)
       end
 
-      it "shows that there are no journal entries for the past 7 days" do
+      it "shows that there are no observations for the past 7 days" do
         expect(page).to have_css(".fa-times", count: 7)
       end
     end
 
-    context "when there is already a journal_entry for today" do
-      let!(:journal_entry) { FactoryBot.create(:journal_entry, user: current_user) }
+    context "when there is already a observation for today" do
+      let!(:observation) { FactoryBot.create(:observation, user: current_user) }
 
       before do
-        visit journal_entries_path
+        visit observations_path
       end
 
       it "auto-selects yesterday when the entry for today has already been created" do
         expect(page).to have_select("date", selected: DateTime.current.beginning_of_day - 1)
       end
 
-      it "shows that there is one journal entry" do
+      it "shows that there is one observation" do
         within(".past_observations") do
-          expect(page).to have_css(".edit_journal_entry")
+          expect(page).to have_css(".edit_observation")
         end
         expect(page).to have_css(".fa-times", count: 6)
       end
@@ -42,75 +42,75 @@ RSpec.describe JournalEntry, type: :feature do
   end
 
   context "without an active experiment" do
-    context "when creating a new journal_entry" do
+    context "when creating a new observation" do
       before do
         click_button("New observation")
       end
 
-      it "allows a valid journal_entry to be created succesfully" do
-        choose("journal_entry_mood_3")
-        choose("journal_entry_sleep_3")
-        choose("journal_entry_health_3")
-        choose("journal_entry_relax_3")
-        choose("journal_entry_connect_3")
-        choose("journal_entry_meaning_3")
+      it "allows a valid observation to be created succesfully" do
+        choose("observation_mood_3")
+        choose("observation_sleep_3")
+        choose("observation_health_3")
+        choose("observation_relax_3")
+        choose("observation_connect_3")
+        choose("observation_meaning_3")
 
         click_button "Save observation"
         expect(page).to have_content "Your observation has been saved."
       end
 
-      it "does not allow a journal_entry to be created without filling in all ratings" do
-        choose("journal_entry_sleep_3")
+      it "does not allow a observation to be created without filling in all ratings" do
+        choose("observation_sleep_3")
 
         click_button "Save observation"
         expect(page).to have_content(
-          "The journal entry is incomplete and can therefore not be saved"
+          "The observation is incomplete and can therefore not be saved"
         )
         expect(page).to have_content "Meaning can't be blank"
       end
 
-      it "does not allow a journal_entry to be created when 0 ratings have been filled in" do
+      it "does not allow a observation to be created when 0 ratings have been filled in" do
         click_button "Save observation"
         expect(page).to have_content(
-          "The journal entry is incomplete and can therefore not be saved"
+          "The observation is incomplete and can therefore not be saved"
         )
         expect(page).to have_content "Mood can't be blank"
       end
     end
 
-    context "when a journal entry has been created" do
-      let!(:journal_entry) { FactoryBot.create(:journal_entry, user: current_user) }
+    context "when a observation has been created" do
+      let!(:observation) { FactoryBot.create(:observation, user: current_user) }
 
       before do
-        visit journal_entries_path
+        visit observations_path
       end
 
       it "allows the user to go into editing mode" do
-        find(class: "edit_journal_entry").click
+        find(class: "edit_observation").click
         expect(page).to have_css ".radio_buttons"
       end
 
-      it "allows the user to update that journal entry" do
-        find(class: "edit_journal_entry").click
-        choose("journal_entry_mood_3")
-        choose("journal_entry_sleep_3")
-        choose("journal_entry_health_3")
-        choose("journal_entry_relax_3")
-        choose("journal_entry_connect_3")
-        choose("journal_entry_meaning_3")
+      it "allows the user to update that observation" do
+        find(class: "edit_observation").click
+        choose("observation_mood_3")
+        choose("observation_sleep_3")
+        choose("observation_health_3")
+        choose("observation_relax_3")
+        choose("observation_connect_3")
+        choose("observation_meaning_3")
         click_button("Save observation")
         expect(page).to have_content "Your observation has been updated."
       end
 
-      it "allows the user to destroy that journal entry" do
-        find(class: "edit_journal_entry").click
-        find(class: "destroy_journal_entry").click
+      it "allows the user to destroy that observation" do
+        find(class: "edit_observation").click
+        find(class: "destroy_observation").click
         expect(page).to have_content "Your observation has been deleted"
       end
 
       it "shows the details on the charts page" do
         visit dashboard_progress_path
-        expect(page).to have_content journal_entry.note
+        expect(page).to have_content observation.note
       end
     end
   end
@@ -127,7 +127,7 @@ RSpec.describe JournalEntry, type: :feature do
       )
     end
 
-    context "when creating a new journal_entry" do
+    context "when creating a new observation" do
       context "with a date on which the current experiment is active" do
         before do
           click_button("New observation")
@@ -164,41 +164,41 @@ RSpec.describe JournalEntry, type: :feature do
           click_button("New observation")
         end
 
-        it "allows a journal_entry to be created when experiment_success was filled in" do
-          choose("journal_entry_experiment_success_true")
-          choose("journal_entry_mood_3")
-          choose("journal_entry_sleep_3")
-          choose("journal_entry_health_3")
-          choose("journal_entry_relax_3")
-          choose("journal_entry_connect_3")
-          choose("journal_entry_meaning_3")
+        it "allows a observation to be created when experiment_success was filled in" do
+          choose("observation_experiment_success_true")
+          choose("observation_mood_3")
+          choose("observation_sleep_3")
+          choose("observation_health_3")
+          choose("observation_relax_3")
+          choose("observation_connect_3")
+          choose("observation_meaning_3")
 
           click_button "Save observation"
           expect(page).to have_content "Your observation has been saved."
         end
 
-        it "does not allow a journal_entry to be created without experiment_success filled in" do
-          choose("journal_entry_mood_3")
-          choose("journal_entry_sleep_3")
-          choose("journal_entry_health_3")
-          choose("journal_entry_relax_3")
-          choose("journal_entry_connect_3")
-          choose("journal_entry_meaning_3")
+        it "does not allow a observation to be created without experiment_success filled in" do
+          choose("observation_mood_3")
+          choose("observation_sleep_3")
+          choose("observation_health_3")
+          choose("observation_relax_3")
+          choose("observation_connect_3")
+          choose("observation_meaning_3")
 
           click_button "Save observation"
           expect(page).to have_content(
-            "The journal entry is incomplete and can therefore not be saved"
+            "The observation is incomplete and can therefore not be saved"
           )
           expect(page).to have_content "Fill in whether you stuck to the experiment"
         end
       end
     end
 
-    context "when editing an existing journal_entry" do
+    context "when editing an existing observation" do
       context "with an experiment that has been completed in the meantime" do
-        let!(:journal_entry) do
+        let!(:observation) do
           FactoryBot.create(
-            :journal_entry,
+            :observation,
             user: current_user,
             date: (DateTime.current - 6).beginning_of_day,
             experiment_id: previous_experiment_user.experiment.id,
@@ -216,11 +216,11 @@ RSpec.describe JournalEntry, type: :feature do
         end
 
         before do
-          visit journal_entries_path
-          find(class: "edit_journal_entry").click
+          visit observations_path
+          find(class: "edit_observation").click
         end
 
-        it "displays the experiment that was active on the moment the journal_entry was created" do
+        it "displays the experiment that was active on the moment the observation was created" do
           expect(page).to have_content "Your current experiment"
           expect(page).to have_content previous_experiment_user.experiment.name
         end

@@ -9,7 +9,7 @@
           You haven't started an experiment yet. What do you want to do?
         </div>
         <div class="col-lg-6 mb-2 mb-md-2">
-          <% if journal_entry_for_date(DateTime.current.beginning_of_day).present? %>
+          <% if observation_for_date(DateTime.current.beginning_of_day).present? %>
           <div class="card text-center mb-3">
             <div class="card-body card-action card-action-complete">
               <p class="text-health">
@@ -20,7 +20,7 @@
             </div>
           </div>
           <% else %>
-          <a href="<%= journal_entries_path %>">
+          <a href="<%= observations_path %>">
             <div class="card text-center mb-3">
               <div class="card-body card-action">
                 <p class="icon">

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :journal_entries, path: "/dashboard/journal"
+  resources :observations, path: "/dashboard/observations"
   resources :benefits
 
   devise_scope :user do

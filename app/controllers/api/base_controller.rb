@@ -8,7 +8,7 @@ class Api::BaseController < ApplicationController
   private
 
   def load_data
-    @journal_entries = JournalEntry.per_user(current_user).select(
+    @observations = Observation.per_user(current_user).select(
       :date, :mood, :sleep, :health, :relax, :connect, :meaning
     )
   end

@@ -8,7 +8,7 @@ class Api::ProgressDataController < Api::BaseController
   end
 
   def filtered
-    selected_journal_entries = @journal_entries.where(date: @start_date..@end_date).order(:date)
+    selected_observations = @observations.where(date: @start_date..@end_date).order(:date)
 
     dates = (@start_date..@end_date).to_a
 
@@ -16,9 +16,9 @@ class Api::ProgressDataController < Api::BaseController
       {
         name: category.capitalize,
         data: dates.map do |date|
-          journal_entry = selected_journal_entries.find_by(date: date.all_day)
-          if journal_entry && @categories.include?(category)
-            [date.to_s(:journal_date), journal_entry.send(category)]
+          observation = selected_observations.find_by(date: date.all_day)
+          if observation && @categories.include?(category)
+            [date.to_s(:journal_date), observation.send(category)]
           else
             [date.to_s(:journal_date), nil]
           end

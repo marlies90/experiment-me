@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_072533) do
+ActiveRecord::Schema.define(version: 2020_11_18_132955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_072533) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "journal_entries", force: :cascade do |t|
+  create_table "observations", force: :cascade do |t|
     t.datetime "date"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -139,9 +139,9 @@ ActiveRecord::Schema.define(version: 2020_11_15_072533) do
     t.integer "connect"
     t.integer "meaning"
     t.text "note"
-    t.index ["experiment_id"], name: "index_journal_entries_on_experiment_id"
-    t.index ["slug"], name: "index_journal_entries_on_slug"
-    t.index ["user_id"], name: "index_journal_entries_on_user_id"
+    t.index ["experiment_id"], name: "index_observations_on_experiment_id"
+    t.index ["slug"], name: "index_observations_on_slug"
+    t.index ["user_id"], name: "index_observations_on_user_id"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -180,7 +180,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_072533) do
   add_foreign_key "experiment_users", "experiments"
   add_foreign_key "experiment_users", "users"
   add_foreign_key "experiments", "categories"
-  add_foreign_key "journal_entries", "experiments"
-  add_foreign_key "journal_entries", "users"
+  add_foreign_key "observations", "experiments"
+  add_foreign_key "observations", "users"
   add_foreign_key "resources", "experiments"
 end
