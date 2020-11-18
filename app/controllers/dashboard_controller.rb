@@ -13,10 +13,10 @@ class DashboardController < ApplicationController
 
   def experiments
     @cancelled_experiments = Experiment.find(
-      @user.experiment_users&.cancelled&.latest_first&.map(&:experiment_id)
+      @user.experiment_users&.cancelled&.map(&:experiment_id)
     )
     @completed_experiments = Experiment.find(
-      @user.experiment_users&.completed&.latest_first&.map(&:experiment_id)
+      @user.experiment_users&.completed&.map(&:experiment_id)
     )
   end
 

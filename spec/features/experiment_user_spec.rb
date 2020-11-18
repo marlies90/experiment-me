@@ -154,7 +154,7 @@ RSpec.describe ExperimentUser, type: :feature do
             .of((DateTime.current + 20).end_of_day)
         end
 
-        click_link("Stop experiment")
+        click_link("Cancel experiment")
         select("I accidentally started it", from: "experiment_user_cancellation_reason")
         click_button("Stop this experiment")
 
@@ -164,12 +164,11 @@ RSpec.describe ExperimentUser, type: :feature do
             .of((DateTime.current - 1).beginning_of_day)
           expect(find(".ending_date").text.to_datetime).to be_within(1.second)
             .of(DateTime.current)
-          expect(find(".cancellation_reason")).to have_content "I accidentally started it"
         end
       end
 
       it "does not show the starting or ending survey" do
-        click_link "Stop experiment"
+        click_link "Cancel experiment"
         expect(page).to_not have_content "Your starting measurement"
         expect(page).to_not have_content "Your ending measurement"
       end
@@ -307,7 +306,7 @@ RSpec.describe ExperimentUser, type: :feature do
       end
 
       it "lets the user view their starting and ending measurements" do
-        click_link("View your measurements")
+        click_link("View report")
         expect(page).to have_content(
           experiment_user.experiment_user_measurements.first.starting_score
         )
@@ -322,8 +321,8 @@ RSpec.describe ExperimentUser, type: :feature do
         )
       end
 
-      it "lets the user view how they rated the difficulty and life impact options" do
-        click_link("View your measurements")
+      xit "lets the user view how they rated the difficulty and life impact options" do
+        click_link("View report")
         expect(page).to have_content(
           ExperimentUser::DIFFICULTY_RATES[experiment_user.difficulty]
         )
@@ -333,8 +332,8 @@ RSpec.describe ExperimentUser, type: :feature do
         )
       end
 
-      it "lets the user see their note" do
-        click_link("View your measurements")
+      xit "lets the user see their note" do
+        click_link("View report")
         expect(page).to have_content(experiment_user.ending_note)
       end
     end

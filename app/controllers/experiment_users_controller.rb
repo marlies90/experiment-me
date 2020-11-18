@@ -2,6 +2,7 @@
 
 class ExperimentUsersController < ApplicationController
   before_action :experiment, only: %i[new edit show]
+  before_action :set_user
 
   def show
     experiment_user
@@ -103,6 +104,10 @@ class ExperimentUsersController < ApplicationController
 
   def experiment
     @experiment ||= Experiment.friendly.find(params[:experiment_id])
+  end
+
+  def set_user
+    @user = current_user
   end
 
   def experiment_user_params

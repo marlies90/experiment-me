@@ -13,8 +13,6 @@ class ExperimentUser < ApplicationRecord
   accepts_nested_attributes_for :experiment_user_measurements
   validates_associated :experiment_user_measurements, if: -> { experiment_user_measurement }
 
-  scope :latest_first, -> { order("updated_at DESC") }
-
   enum status: {
     active: 0,
     completed: 1,

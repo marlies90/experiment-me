@@ -129,8 +129,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
           within ".current_experiment" do
             expect(page).to have_content experiment.name
-            expect(find(".starting_date").text).to have_content("16 Jun 2020")
-            expect(find(".ending_date").text).to have_content("7 Jul 2020")
+            expect(find(".starting_date").text).to have_content("16 Jun")
+            expect(find(".ending_date").text).to have_content("7 Jul")
           end
         end
 
@@ -188,8 +188,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
           within ".current_experiment" do
             expect(page).to have_content experiment.name
-            expect(find(".starting_date").text).to have_content("17 Jun 2020")
-            expect(find(".ending_date").text).to have_content("8 Jul 2020")
+            expect(find(".starting_date").text).to have_content("17 Jun")
+            expect(find(".ending_date").text).to have_content("8 Jul")
           end
         end
 
@@ -289,7 +289,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
       it "shows the correct starting/ending dates on the experiment show page" do
         visit dashboard_experiments_path
-        click_link "Stop experiment"
+        click_link "Cancel experiment"
         click_button "Stop this experiment"
 
         within ".cancelled_experiments" do
@@ -473,8 +473,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
           within ".current_experiment" do
             expect(page).to have_content experiment.name
-            expect(find(".starting_date").text).to have_content("17 Jun 2020")
-            expect(find(".ending_date").text).to have_content("8 Jul 2020")
+            expect(find(".starting_date").text).to have_content("17 Jun")
+            expect(find(".ending_date").text).to have_content("8 Jul")
           end
         end
 
@@ -532,8 +532,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
           within ".current_experiment" do
             expect(page).to have_content experiment.name
-            expect(find(".starting_date").text).to have_content("18 Jun 2020")
-            expect(find(".ending_date").text).to have_content("9 Jul 2020")
+            expect(find(".starting_date").text).to have_content("18 Jun")
+            expect(find(".ending_date").text).to have_content("9 Jul")
           end
         end
 
@@ -633,7 +633,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
       it "shows the correct starting/ending dates on the experiment show page" do
         visit dashboard_experiments_path
-        click_link "Stop experiment"
+        click_link "Cancel experiment"
         click_button "Stop this experiment"
 
         within ".cancelled_experiments" do
