@@ -2,8 +2,8 @@
 
 Rails.application.routes.draw do
   namespace :dashboard do
-    get "overview"
-    get "progress"
+    get "lab"
+    get "charts"
     get "experiments"
     get "admin"
   end

@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
 class DashboardControllerPolicy < ApplicationPolicy
-  def overview?
+  def lab?
     user.present?
   end
 
   def journal?
-    overview?
+    lab?
   end
 
   def experiments?
-    overview?
+    lab?
   end
 
   def settings?
-    overview?
+    lab?
   end
 
-  def progress?
-    overview?
+  def charts?
+    lab?
   end
 
   def admin?

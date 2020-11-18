@@ -18,7 +18,7 @@ RSpec.describe User, type: :feature do
       expect(page).to have_content(
         "Welcome! You have signed up successfully"
       )
-      expect(page).to have_current_path(dashboard_overview_path)
+      expect(page).to have_current_path(dashboard_lab_path)
     end
   end
 

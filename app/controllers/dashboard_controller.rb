@@ -2,14 +2,14 @@
 
 class DashboardController < ApplicationController
   before_action :set_user
-  before_action :active_experiment_user, only: %i[overview experiments]
-  before_action :active_experiment, only: %i[overview experiments]
+  before_action :active_experiment_user, only: %i[lab experiments]
+  before_action :active_experiment, only: %i[lab experiments]
 
-  def overview; end
+  def lab; end
 
   def settings; end
 
-  def progress; end
+  def charts; end
 
   def experiments
     @cancelled_experiments = Experiment.find(

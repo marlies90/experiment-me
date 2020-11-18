@@ -84,7 +84,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
           click_button "Save observation"
 
-          visit dashboard_overview_path
+          visit dashboard_lab_path
           expect(page).to have_content("I want to keep track of how I'm feeling")
         end
       end
@@ -103,7 +103,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
           click_button "Save observation"
 
-          visit dashboard_overview_path
+          visit dashboard_lab_path
           expect(page).to have_content("You've added your observation for today.")
         end
       end
@@ -135,7 +135,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
         end
 
         it "shows the correct starting/ending dates on the lab page" do
-          visit dashboard_overview_path
+          visit dashboard_lab_path
 
           within ".phases" do
             expect(page).to have_content "From 16 Jun (Tue) to 7 Jul (Tue)"
@@ -151,7 +151,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
         context "#active_experiment_day_counter" do
           xit "correctly shows the user is on day 1 of the experiment" do
-            visit dashboard_overview_path
+            visit dashboard_lab_path
             expect(page).to have_content "You're on day 1"
           end
 
@@ -165,7 +165,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
             end
 
             xit "increases the counter at the correct local time" do
-              visit dashboard_overview_path
+              visit dashboard_lab_path
               expect(page).to have_content "You're on day 2"
             end
           end
@@ -194,7 +194,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
         end
 
         it "shows the correct starting/ending dates on the lab page" do
-          visit dashboard_overview_path
+          visit dashboard_lab_path
 
           within ".phases" do
             expect(page).to have_content "From 17 Jun (Wed) to 8 Jul (Wed)"
@@ -246,7 +246,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
         context "#active_experiment_day_counter" do
           xit "correctly shows the user is on day 1 of the experiment" do
-            visit dashboard_overview_path
+            visit dashboard_lab_path
             expect(page).to have_content "You're on day 0"
           end
 
@@ -260,7 +260,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
             end
 
             xit "increases the counter at the correct local time" do
-              visit dashboard_overview_path
+              visit dashboard_lab_path
               expect(page).to have_content "You're on day 1"
             end
           end
@@ -428,7 +428,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
           click_button "Save observation"
 
-          visit dashboard_overview_path
+          visit dashboard_lab_path
           expect(page).to have_content("I want to keep track of how I'm feeling")
         end
       end
@@ -447,7 +447,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
           click_button "Save observation"
 
-          visit dashboard_overview_path
+          visit dashboard_lab_path
           expect(page).to have_content("You've added your observation for today.")
         end
       end
@@ -479,7 +479,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
         end
 
         it "shows the correct starting/ending dates on the lab page" do
-          visit dashboard_overview_path
+          visit dashboard_lab_path
 
           within ".phases" do
             expect(page).to have_content "From 17 Jun (Wed) to 8 Jul (Wed)"
@@ -495,7 +495,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
         context "#active_experiment_day_counter" do
           xit "correctly shows the user is on day 1 of the experiment" do
-            visit dashboard_overview_path
+            visit dashboard_lab_path
             expect(page).to have_content "You're on day 1"
           end
 
@@ -509,7 +509,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
             end
 
             xit "increases the counter at the correct local time" do
-              visit dashboard_overview_path
+              visit dashboard_lab_path
               expect(page).to have_content "You're on day 2"
             end
           end
@@ -538,7 +538,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
         end
 
         it "shows the correct starting/ending dates on the lab page" do
-          visit dashboard_overview_path
+          visit dashboard_lab_path
 
           within ".phases" do
             expect(page).to have_content "From 18 Jun (Thu) to 9 Jul (Thu)"
@@ -590,7 +590,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
 
         context "#active_experiment_day_counter" do
           xit "correctly shows the user is on day 1 of the experiment" do
-            visit dashboard_overview_path
+            visit dashboard_lab_path
             expect(page).to have_content "You're on day 0"
           end
 
@@ -604,7 +604,7 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
             end
 
             xit "increases the counter at the correct local time" do
-              visit dashboard_overview_path
+              visit dashboard_lab_path
               expect(page).to have_content "You're on day 1"
             end
           end

@@ -26,7 +26,7 @@ class ObservationsController < ApplicationController
     create_date_list
 
     if @observation.save
-      redirect_to dashboard_progress_path, notice: "Your observation has been saved."
+      redirect_to dashboard_charts_path, notice: "Your observation has been saved."
     else
       render :new
     end
@@ -37,7 +37,7 @@ class ObservationsController < ApplicationController
     @observation.user_id = current_user.id
 
     if @observation.update(observation_params)
-      redirect_to dashboard_progress_path, notice: "Your observation has been updated."
+      redirect_to dashboard_charts_path, notice: "Your observation has been updated."
     else
       render :edit
     end

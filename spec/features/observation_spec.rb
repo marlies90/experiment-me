@@ -109,7 +109,7 @@ RSpec.describe Observation, type: :feature do
       end
 
       it "shows the details on the charts page" do
-        visit dashboard_progress_path
+        visit dashboard_charts_path
         expect(page).to have_content observation.note
       end
     end

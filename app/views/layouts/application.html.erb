@@ -14,7 +14,7 @@
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
 
-    <% if current_page?(dashboard_progress_path) %>
+    <% if current_page?(dashboard_charts_path) %>
       <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <% end %>

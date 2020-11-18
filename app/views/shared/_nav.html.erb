@@ -14,16 +14,16 @@
     </div>
     <div class="navbar-nav mr-4">
       <% if current_user.present? %>
-        <span class="nav-item ml-2 dropdown <%= 'active' if current_page?(dashboard_overview_path) %>">
+        <span class="nav-item ml-2 dropdown <%= 'active' if current_page?(dashboard_lab_path) %>">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Profile
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <span class="mobile-header"><strong>Profile</strong></span>
-            <a class="dropdown-item" href="<%= dashboard_overview_path %>"><i class="fas fa-home"></i>Dashboard</a>
-            <a class="dropdown-item" href="<%= journal_entries_path %>"><i class="fas fa-book"></i>Journal</a>
+            <a class="dropdown-item" href="<%= dashboard_lab_path %>"><i class="fas fa-flask"></i>Lab</a>
+            <a class="dropdown-item" href="<%= observations_path %>"><i class="fas fa-eye"></i>Observations</a>
+            <a class="dropdown-item" href="<%= dashboard_charts_path %>"><i class="fas fa-chart-line"></i>Charts</a>
             <a class="dropdown-item" href="<%= dashboard_experiments_path %>"><i class="fas fa-vial"></i>My experiments</a>
-            <a class="dropdown-item" href="<%= dashboard_progress_path %>"><i class="fas fa-chart-line"></i>Progress</a>
             <a class="dropdown-item" href="<%= edit_user_registration_path %>"><i class="fas fa-cog"></i>Settings</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="<%= destroy_user_session_path %>">Log out</a>
