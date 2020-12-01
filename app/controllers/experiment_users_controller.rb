@@ -113,7 +113,7 @@ class ExperimentUsersController < ApplicationController
   def experiment_user_params
     params.fetch(:experiment_user).permit(
       :experiment_id, :user_id, :status, :cancellation_reason, :starting_date, :difficulty,
-      :life_impact, :ending_note,
+      :life_impact, :ending_note, :recommendation,
       experiment_user_measurements_attributes: %i[id benefit_id starting_score ending_score]
     )
   end

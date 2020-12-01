@@ -56,8 +56,8 @@ module DashboardHelper
     @active_experiment_user.present? && @active_experiment_user.completed_active_experiment
   end
 
-  def stat_by(_start_date, _end_date, categories)
-    format_dates
+  def stat_by(start_date, end_date, categories)
+    format_dates(start_date, end_date)
 
     line_chart filtered_api_progress_data_path(
       start_date: @start_date, end_date: @end_date, categories: categories
@@ -75,11 +75,31 @@ module DashboardHelper
                messages: { empty: "There is no data for this time period" }
   end
 
-  def observations_by(_start_date, _end_date)
-    format_dates
+  def observations_by(start_date, end_date)
+    format_dates(start_date, end_date)
 
     @selected_observations =
       Observation.per_user(current_user).where(date: @start_date..@end_date).order(:date).all
+  end
+
+  # rubocop:disable Metrics/AbcSize
+
+  def observation_averages(start_date_experiment, end_date_experiment)
+    calculate_averages_during_experiment(start_date_experiment, end_date_experiment)
+    calculate_averages_before_experiment(
+      start_date_experiment - 21.days,
+      end_date_experiment - 22.days
+    )
+  end
+
+  def compare_observation_averages(during, before)
+    if during > before
+      '<i class="text-health fas fa-arrow-up pr-0"></i>'.html_safe
+    elsif during < before
+      '<i class="text-connect fas fa-arrow-down pr-0"></i>'.html_safe
+    else
+      '<i class="fas fa-minus pr-0"></i>'.html_safe
+    end
   end
 
   def observation_experiment(observation)
@@ -88,24 +108,28 @@ module DashboardHelper
 
   private
 
-  def format_dates
-    format_start_date
-    format_end_date
+  def format_dates(start_date, end_date)
+    format_start_date(start_date)
+    format_end_date(end_date)
     @start_date, @end_date = @end_date, @start_date if @end_date < @start_date
   end
 
-  def format_start_date
+  def format_start_date(start_date)
     @start_date =
-      if params[:start_date].nil? || params[:start_date].empty?
+      if start_date
+        start_date.to_datetime.midnight
+      elsif params[:start_date].nil? || params[:start_date].empty?
         21.days.ago.midnight
       else
         params[:start_date].to_datetime.midnight
       end
   end
 
-  def format_end_date
+  def format_end_date(end_date)
     @end_date =
-      if params[:end_date].nil? || params[:end_date].empty?
+      if end_date
+        end_date.to_datetime.at_end_of_day
+      elsif params[:end_date].nil? || params[:end_date].empty?
         Time.current.at_end_of_day
       else
         params[:end_date].to_datetime.at_end_of_day
@@ -117,4 +141,30 @@ module DashboardHelper
       observation.date.to_date
     end
   end
+
+  def calculate_averages_during_experiment(start_date_experiment, end_date_experiment)
+    format_dates(start_date_experiment, end_date_experiment)
+
+    observations_during_exp = Observation.per_user(current_user).where(date: @start_date..@end_date)
+    @mood_during = observations_during_exp.average(:mood).to_f.round(2)
+    @sleep_during = observations_during_exp.average(:sleep).to_f.round(2)
+    @health_during = observations_during_exp.average(:health).to_f.round(2)
+    @relax_during = observations_during_exp.average(:relax).to_f.round(2)
+    @connect_during = observations_during_exp.average(:connect).to_f.round(2)
+    @meaning_during = observations_during_exp.average(:meaning).to_f.round(2)
+  end
+
+  def calculate_averages_before_experiment(start_date_experiment, end_date_experiment)
+    format_dates(start_date_experiment, end_date_experiment)
+
+    observations_before_exp = Observation.per_user(current_user).where(date: @start_date..@end_date)
+    @mood_before = observations_before_exp.average(:mood).to_f.round(2)
+    @sleep_before = observations_before_exp.average(:sleep).to_f.round(2)
+    @health_before = observations_before_exp.average(:health).to_f.round(2)
+    @relax_before = observations_before_exp.average(:relax).to_f.round(2)
+    @connect_before = observations_before_exp.average(:connect).to_f.round(2)
+    @meaning_before = observations_before_exp.average(:meaning).to_f.round(2)
+  end
+
+  # rubocop:enable Metrics/AbcSize
 end

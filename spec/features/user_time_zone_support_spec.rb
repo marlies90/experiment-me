@@ -320,18 +320,31 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
       end
 
       context "after 21 days" do
-        xit "shows the call to action to complete the experiment" do
-          expect(page).to have_content("YAY! You completed your experiment")
+        it "shows the call to action to complete the experiment" do
+          expect(page).to have_content("You completed your experiment")
         end
 
-        xit "shows the correct starting/ending dates on the experiment show page upon completion" do
-          click_link "Evaluate experiment"
+        it "shows the correct starting/ending dates for observations" do
+          click_link "Finalize experiment"
+
+          within ".during_dates" do
+            expect(page).to have_content("16 Jun")
+            expect(page).to have_content("7 Jul")
+          end
+
+          within ".before_dates" do
+            expect(page).to have_content("15 Jun")
+          end
+        end
+
+        it "shows the correct starting/ending dates on the experiment show page upon completion" do
+          click_link "Finalize experiment"
           all(class: "experiment_user_experiment_user_measurements_ending_score").each do |score|
             score.choose(class: "radio_buttons", option: "4")
           end
           select("Very easy", from: "experiment_user_difficulty")
           select("Moderate", from: "experiment_user_life_impact")
-          click_button("Evaluate this experiment")
+          click_button("Complete this experiment")
 
           within ".completed_experiments" do
             expect(find(".starting_date").text).to have_content("16 Jun 2020")
@@ -350,8 +363,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           travel_back
         end
 
-        xit "does not yet show the call to action just before the 21 days have passed" do
-          expect(page).to_not have_content("YAY! You completed your experiment")
+        it "does not yet show the call to action just before the 21 days have passed" do
+          expect(page).to_not have_content("You completed your experiment")
         end
       end
     end
@@ -664,18 +677,31 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
       end
 
       context "after 21 days" do
-        xit "shows the call to action to complete the experiment" do
-          expect(page).to have_content("YAY! You completed your experiment")
+        it "shows the call to action to complete the experiment" do
+          expect(page).to have_content("You completed your experiment")
         end
 
-        xit "shows the correct starting/ending dates on the experiment show page upon completion" do
-          click_link "Evaluate experiment"
+        it "shows the correct starting/ending dates for observations" do
+          click_link "Finalize experiment"
+
+          within ".during_dates" do
+            expect(page).to have_content("17 Jun")
+            expect(page).to have_content("8 Jul")
+          end
+
+          within ".before_dates" do
+            expect(page).to have_content("16 Jun")
+          end
+        end
+
+        it "shows the correct starting/ending dates on the experiment show page upon completion" do
+          click_link "Finalize experiment"
           all(class: "experiment_user_experiment_user_measurements_ending_score").each do |score|
             score.choose(class: "radio_buttons", option: "4")
           end
           select("Very easy", from: "experiment_user_difficulty")
           select("Moderate", from: "experiment_user_life_impact")
-          click_button("Evaluate this experiment")
+          click_button("Complete this experiment")
 
           within ".completed_experiments" do
             expect(find(".starting_date").text).to have_content("17 Jun 2020")
@@ -694,8 +720,8 @@ RSpec.describe "UserTimeZoneSupport", type: :feature do
           travel_back
         end
 
-        xit "does not yet show the call to action just before the 21 days have passed" do
-          expect(page).to_not have_content("YAY! You completed your experiment")
+        it "does not yet show the call to action just before the 21 days have passed" do
+          expect(page).to_not have_content("You completed your experiment")
         end
       end
     end

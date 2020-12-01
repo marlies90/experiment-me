@@ -89,6 +89,11 @@ RSpec.describe ExperimentUser, type: :model do
       subject.ending_note = "YES YES YES"
       expect(subject).to be_valid
     end
+
+    it "is valid without a recommendation" do
+      subject.recommendation = nil
+      expect(subject).to be_valid
+    end
   end
 
   context "#cannot_have_multiple_active_experiments" do

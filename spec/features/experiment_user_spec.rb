@@ -257,39 +257,38 @@ RSpec.describe ExperimentUser, type: :feature do
         )
       end
 
-      xit "lets the user complete it" do
-        expect(page).to have_content "YAY! You completed your experiment"
+      it "lets the user complete it" do
+        expect(page).to have_content "You completed your experiment"
 
-        click_link("Evaluate experiment")
-        expect(page).to have_content "Evaluate"
+        click_link("Finalize experiment")
+        expect(page).to have_content "You're completing the experiment"
         all(class: "experiment_user_experiment_user_measurements_ending_score").each do |score|
           score.choose(class: "radio_buttons", option: "4")
         end
         select("Very easy", from: "experiment_user_difficulty")
         select("Moderate", from: "experiment_user_life_impact")
 
-        click_button("Evaluate this experiment")
+        click_button("Complete this experiment")
 
         within ".completed_experiments" do
           expect(page).to have_content experiment.name
-          expect(page).to have_content "Moderate"
         end
       end
 
-      xit "does not let the user complete it without the ending measurements" do
-        expect(page).to have_content "YAY! You completed your experiment"
+      it "does not let the user complete it without the ending measurements" do
+        expect(page).to have_content "You completed your experiment"
 
-        click_link("Evaluate experiment")
-        expect(page).to have_content "Evaluate"
-        click_button("Evaluate this experiment")
+        click_link("Finalize experiment")
+        expect(page).to have_content "You're completing the experiment"
+        click_button("Complete this experiment")
 
         expect(page).to have_content "Ending score can't be blank"
         expect(page).to have_content "Difficulty can't be blank"
         expect(page).to have_content "Life impact can't be blank"
       end
 
-      xit "does not show the starting survey or cancellation reason" do
-        click_link "Evaluate experiment"
+      it "does not show the starting survey or cancellation reason" do
+        click_link "Finalize experiment"
         expect(page).to_not have_content "Your starting measurement"
         expect(page).to_not have_content "You're cancelling the experiment"
       end
@@ -321,7 +320,7 @@ RSpec.describe ExperimentUser, type: :feature do
         )
       end
 
-      xit "lets the user view how they rated the difficulty and life impact options" do
+      it "lets the user view how they rated the difficulty and life impact options" do
         click_link("View report")
         expect(page).to have_content(
           ExperimentUser::DIFFICULTY_RATES[experiment_user.difficulty]
@@ -332,9 +331,14 @@ RSpec.describe ExperimentUser, type: :feature do
         )
       end
 
-      xit "lets the user see their note" do
+      it "lets the user see their note" do
         click_link("View report")
         expect(page).to have_content(experiment_user.ending_note)
+      end
+
+      it "lets the user see their recommendation" do
+        click_link("View report")
+        expect(page).to have_content(experiment_user.recommendation)
       end
     end
   end

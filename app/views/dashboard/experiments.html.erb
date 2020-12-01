@@ -41,8 +41,6 @@
                     <p>
                       <i class="fas fa-trophy"></i> <%= @active_experiment.objective %>
                     </p>
-                  </div>
-                  <div class="col-xs-12 col-lg-8">
                     <p class="mb-1">
                       <strong>Practical details</strong>
                     </p>
@@ -52,7 +50,7 @@
                     </p>
                     <ul class="mt-0">
                       <% @active_experiment.benefits.each do |benefit| %>
-                        <li class="btn btn-<%= @active_experiment.category.name.downcase %>"><%= benefit.name %></li>
+                      <li class="btn btn-<%= @active_experiment.category.name.downcase %>"><%= benefit.name %></li>
                       <% end %>
                     </ul>
                     <div class="mb-2">
@@ -70,7 +68,6 @@
                       </span>
                     </div>
                   </div>
-
                 <% elsif completed_active_experiment? %>
                   <div class="col-12 mb-2">
                     🎊🎊🎊 Congratulations! You completed your experiment 🎊🎊🎊<br>
@@ -112,8 +109,8 @@
                             <% @completed_experiments.each do |experiment| %>
                             <tr class="d-flex">
                               <th scope="row" class="col-4 col-sm-3 text-intense text-<%= experiment.category.name.downcase %>"><%= experiment.name %></th>
-                              <td class="col-3 starting_date"><%= (experiment_user(experiment).starting_date.in_time_zone(current_user.time_zone)).to_s(:journal_date_with_year) %></td>
-                              <td class="col-3 ending_date"><%= (experiment_user(experiment).ending_date.in_time_zone(current_user.time_zone)).to_s(:journal_date_with_year) %></td>
+                              <td class="col-3 starting_date"><%= (experiment_user(experiment).starting_date).to_s(:journal_date_with_year) %></td>
+                              <td class="col-3 ending_date"><%= (experiment_user(experiment).ending_date).to_s(:journal_date_with_year) %></td>
                               <td class="col-5 col-sm-4">
                                 <%= link_to "View report",
                                 experiment_user_path(
@@ -158,8 +155,8 @@
                             <% @cancelled_experiments.each do |experiment| %>
                             <tr class="d-flex">
                               <th scope="row" class="col-4 col-sm-3 text-intense text-<%= experiment.category.name.downcase %>"><%= experiment.name %></th>
-                              <td class="col-3 starting_date"><%= (experiment_user(experiment).starting_date.in_time_zone(current_user.time_zone)).to_s(:journal_date_with_year) %></td>
-                              <td class="col-3 ending_date"><%= (experiment_user(experiment).ending_date.in_time_zone(current_user.time_zone)).to_s(:journal_date_with_year) %></td>
+                              <td class="col-3 starting_date"><%= (experiment_user(experiment).starting_date).to_s(:journal_date_with_year) %></td>
+                              <td class="col-3 ending_date"><%= (experiment_user(experiment).ending_date).to_s(:journal_date_with_year) %></td>
                               <td class="col-5 col-sm-4">
                                 <%= link_to "Retry this experiment",
                                   edit_experiment_user_path(

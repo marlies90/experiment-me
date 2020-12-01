@@ -21,8 +21,8 @@
                 <span class="h5">Experiment details</span>
                 <p>
                   <span class="text-intense">Time frame:</span><br>
-                  From <%= (experiment_user(@experiment).starting_date.in_time_zone(current_user.time_zone)).to_s(:journal_date_with_year) %>
-                  to <%= (experiment_user(@experiment).ending_date.in_time_zone(current_user.time_zone)).to_s(:journal_date_with_year) %>
+                  From <%= (experiment_user(@experiment).starting_date).to_s(:journal_date_with_year) %>
+                  to <%= (experiment_user(@experiment).ending_date).to_s(:journal_date_with_year) %>
                 </p>
                 <p>
                   <span class="text-intense">Objective:</span><br>
@@ -30,53 +30,70 @@
                 </p>
               </div>
 
-              <div class="col-12">
-              <span class="h5">Experiment results</span>
-                <div class="table-responsive mt-4">
-                  <table class="table">
-                    <thead>
-                      <tr class="d-flex">
-                        <th class="col-6 col-lg-4">Benefit (hypothesis)</th>
-                        <th class="col-3 col-sm-2 col-xl-1">Starting score</th>
-                        <th class="col-3 col-sm-2 col-xl-1">Ending score</th>
-                        <th class="col-8 col-lg-4">Statement</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <% @experiment_user.experiment_user_measurements.each do |measurement| %>
-                      <tr class="d-flex">
-                        <td class="col-6 col-lg-4"><span class="btn btn-<%= @experiment.category.name.downcase %>"><%= Benefit.find(measurement.benefit_id).name %></span></td>
-                        <td class="col-3 col-sm-2 col-xl-1 text-intense"><%= measurement.starting_score %></td>
-                        <td class="col-3 col-sm-2 col-xl-1 text-intense"><%= measurement.ending_score %></td>
-                        <td class="col-8 col-lg-4"><%= Benefit.find(measurement.benefit_id).measurement_statement %></td>
-                      </tr>
-                      <% end %>
-                    </tbody>
-                  </table>
-
-                  <!-- <div class="row">
-                    <div class="col-md-8">
-                      <div class="mt-2">
-                        You rated the difficulty level of this experiment to be<br>
-                        <span class="text-intense text-brand"><%= ExperimentUser::DIFFICULTY_RATES[@experiment_user.difficulty] %></span>
-                      </div>
-
-                      <div class="mt-2">
-                        You rated the impact of this experiment on your life to be <br>
-                        <span class="text-intense text-brand"><%= ExperimentUser::LIFE_IMPACT_OPTIONS[@experiment_user.life_impact] %></span>
-                      </div>
-
-                      <div class="mt-2">
-                        Your other notes/observations <br>
-                        <% if @experiment_user.ending_note.present? %>
-                        <span class="text-intense"><%= sanitize(@experiment_user.ending_note) %></span>
-                        <% else %>
-                        <span class="text-intense">-</span>
-                        <% end %>
-                      </div>
+              <div class="col-12 mb-4">
+                <span class="h5">Experiment results</span>
+                <div class="mt-2">
+                  <%= render "dashboard/experiment_users/completed_average_observation_scores", experiment_user: @experiment_user %>
+                </div>
+                <div class="card-body border rounded mt-2">
+                  <div class="row">
+                    <div class="col-12 mb-4">
+                      <span class="">Did you experience the experiment benefits? Comparison between the start versus the end of the experiment.
                     </div>
-                  </div> -->
+                    <div class="col-12 table-responsive">
+                      <table class="table mb-0">
+                        <thead>
+                          <tr class="d-flex">
+                            <th class="col-6 col-lg-4">Experiment benefits (hypothesis)</th>
+                            <th class="col-3 col-sm-2 col-xl-1">Starting score</th>
+                            <th class="col-3 col-sm-2 col-xl-1">Ending score</th>
+                            <th class="col-8 col-lg-4">Statement</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <% @experiment_user.experiment_user_measurements.each do |measurement| %>
+                          <tr class="d-flex">
+                            <td class="col-6 col-lg-4"><span class="btn btn-<%= @experiment.category.name.downcase %>"><%= Benefit.find(measurement.benefit_id).name %></span></td>
+                            <td class="col-3 col-sm-2 col-xl-1 text-intense"><%= measurement.starting_score %></td>
+                            <td class="col-3 col-sm-2 col-xl-1 text-intense"><%= measurement.ending_score %></td>
+                            <td class="col-8 col-lg-4"><%= Benefit.find(measurement.benefit_id).measurement_statement %></td>
+                          </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-body border rounded mt-2">
+                  <div class="mt-2">
+                    <span class="text-intense">Your experiment note</span> <br>
+                    <% if @experiment_user.ending_note.present? %>
+                    <span class=""><%= sanitize(@experiment_user.ending_note) %></span>
+                    <% else %>
+                    <span class="">-</span>
+                    <% end %>
+                  </div>
+
+                  <div class="mt-2">
+                    <span class="text-intense">Life impact</span> <br>
+                    <span class=""><%= ExperimentUser::LIFE_IMPACT_OPTIONS[@experiment_user.life_impact] %></span>
+                  </div>
+
+                  <div class="mt-2">
+                    <span class="text-intense">Difficulty</span> <br>
+                    <span class=""><%= ExperimentUser::DIFFICULTY_RATES[@experiment_user.difficulty] %></span>
+                  </div>
+
+                  <div class="mt-2">
+                    <span class="text-intense">Your message to others</span> <br>
+                    <% if @experiment_user.recommendation.present? %>
+                    <span class=""><%= sanitize(@experiment_user.recommendation) %></span>
+                    <% else %>
+                    <span class="">-</span>
+                    <% end %>
+                  </div>
                 </div>
               </div>
             </div>

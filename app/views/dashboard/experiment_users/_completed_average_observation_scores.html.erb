@@ -1,0 +1,47 @@
+<div class="card-body border rounded">
+  <div class="row">
+    <div class="col-12 mb-4">
+      <span class="text-intense">Average scores per category</span> in the 3 weeks of the experiment <em>(versus the 3 week before)</em>
+    </div>
+    <div class="col-6 col-sm-4 col-lg-2 text-center mb-4 mb-lg-0">
+      <% observation_averages(
+        experiment_user.starting_date, experiment_user.ending_date
+      )
+      %>
+      <span class="btn-mood px-1 mx-1 rounded">Mood</span><br>
+      <span class="h5"><%= @mood_during %></span>
+      <span class="ml-1"><%= compare_observation_averages(@mood_during, @mood_before) %><span><br>
+      <em>(was <%= @mood_before %>)</em>
+    </div>
+    <div class="col-6 col-sm-4 col-lg-2 text-center mb-4 mb-lg-0">
+      <span class="btn-sleep px-1 mx-1 rounded">Sleep</span><br>
+      <span class="h5"><%= @sleep_during %></span>
+      <span class="ml-1"><%= compare_observation_averages(@sleep_during, @sleep_before) %><span><br>
+      <em>(was <%= @sleep_before %>)</em>
+    </div>
+    <div class="col-6 col-sm-4 col-lg-2 text-center mb-4 mb-lg-0">
+      <span class="btn-health px-1 mx-1 rounded">Health</span><br>
+      <span class="h5"><%= @health_during %></span>
+      <span class="ml-1"><%= compare_observation_averages(@health_during, @health_before) %><span><br>
+      <em>(was <%= @health_before %>)</em>
+    </div>
+    <div class="col-6 col-sm-4 col-lg-2 text-center mb-4 mb-lg-0">
+      <span class="btn-relax px-1 mx-1 rounded">Relax</span><br>
+      <span class="h5"><%= @relax_during %></span>
+      <span class="ml-1"><%= compare_observation_averages(@relax_during, @relax_before) %><span><br>
+      <em>(was <%= @relax_before %>)</em>
+    </div>
+    <div class="col-6 col-sm-4 col-lg-2 text-center">
+      <span class="btn-connect px-1 mx-1 rounded">Connect</span><br>
+      <span class="h5"><%= @connect_during %></span>
+      <span class="ml-1"><%= compare_observation_averages(@connect_during, @connect_before) %><span><br>
+      <em>(was <%= @connect_before %>)</em>
+    </div>
+    <div class="col-6 col-sm-4 col-lg-2 text-center">
+      <span class="btn-meaning px-1 mx-1 rounded">Meaning</span><br>
+      <span class="h5"><%= @meaning_during %></span>
+      <span class="ml-1"><%= compare_observation_averages(@meaning_during, @meaning_before) %><span><br>
+      <em>(was <%= @meaning_before %>)</em>
+    </div>
+  </div>
+</div>

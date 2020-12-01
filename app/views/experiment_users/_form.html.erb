@@ -1,114 +1,389 @@
-<%= simple_form_for @experiment_user do |f| %>
-  <% if @experiment_user.errors.any? %>
-    <div class="mt-4" id="error_explanation">
-      <h6>The form is incomplete and can therefore not be saved. <br>
-        Please fill in the field(s) marked in red below:</h6>
+<% if activating_experiment %>
+  <div class="col-lg-8 mb-4">
+    <%= simple_form_for @experiment_user do |f| %>
+      <%= f.hidden_field :experiment_id, value: @experiment.id %>
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">You're about to start the experiment <span class="h5 text-intense text-<%= @experiment.category.name.downcase %>">
+            <%= @experiment.name %>
+          </span></h5>
+        </div>
+        <div class="row card-body pb-sm-0">
+          <div class="col-12 mb-4">
+            <% if @experiment_user.errors.any? %>
+            <div class="" id="error_explanation">
+              <h6>The form is incomplete and can therefore not be saved. <br>
+                Please fill in the field(s) marked in red below:</h6>
+              </div>
+              <% end %>
+            <span>The experiment will last for 21 days.</span>
+            <h5 class="mt-2 text-intense">What you'll be doing</h5>
+            <div>
+              <%= @experiment.practical_details %>
+            </div>
+            <h5 class="mt-2 text-intense">Starting date</h5>
+            <span>When would you like to start the experiment?</span>
+            <%= f.input :starting_date,
+            as: :select,
+            collection: [["Today", DateTime.current], ["Tomorrow", (DateTime.current + 1).beginning_of_day]],
+            selected: "Today",
+            label: false,
+            input_html: { class: "col-md-6 mt-2" } %>
+
+            <h5 class="mt-2 text-intense">Your starting measurement</h5>
+            <div class="mb-4">
+              <span>
+                Recall your last 3 weeks. How did you feel?<br>
+                Rate the statements below from 1 (<span class="text-error">completely disagree</span>) to 5 (<span class="text-success">completely agree</span>).
+              </span>
+            </div>
+            <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
+              <%= experiment_user_measurement.hidden_field :id %>
+              <%= experiment_user_measurement.hidden_field :benefit_id %>
+              <%= experiment_user_measurement.object.benefit.measurement_statement %>
+              <abbr title="required">*</abbr>
+              <%= experiment_user_measurement.input :starting_score, required: true, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+            <% end %>
+            <%= f.submit "Start this experiment", class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">The experiment</h5>
+        </div>
+        <div class="row card-body">
+          <div class="col-12 mb-2">
+            <img class="card-img" src="<%= rails_blob_url(@experiment.image) if @experiment.image.attached? %>">
+          </div>
+          <div class="col-12">
+            <p class="h5 text-intense text-<%= @experiment.category.name.downcase %>">
+              <%= @experiment.name %>
+            </p>
+            <p>
+              <i class="fas fa-trophy"></i> <%= @experiment.objective %>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
-
-  <%= f.hidden_field :experiment_id, value: @experiment.id %>
-
-  <% if activating_experiment %>
-    <div>
-      <span>For the upcoming 3 weeks, you'll be trying out the experiment
-        <strong><span class="text-brand"><%= @experiment.name %></span></strong>.
-      </span>
-      <h5 class="mt-4 text-intense">Objective</h5>
-      <p>
-        <i class="fas fa-trophy"></i>
-        <span><%= @experiment.objective %></span>
-      </p>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <h5 class="mt-2 text-intense">Starting date</h5>
-        <span>When would you like to start the experiment?</span>
-        <%= f.input :starting_date,
-        as: :select,
-        collection: [["Today", DateTime.current], ["Tomorrow", (DateTime.current + 1).beginning_of_day]],
-        selected: "Today",
-        label: false,
-        input_html: { class: "col-md-3 mt-2" } %>
-      </div>
-      <div class="col-12">
-        <h5 class="mt-2 text-intense">Your starting measurement</h5>
-        <div class="mb-4">
-          <span>
-            Recall your last 3 weeks. How did you feel?<br>
-            Rate the statements below from 1 (<span class="text-error">completely disagree</span>) to 5 (<span class="text-success">completely agree</span>).
-          </span>
-        </div>
-        <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
-          <%= experiment_user_measurement.hidden_field :id %>
-          <%= experiment_user_measurement.hidden_field :benefit_id %>
-          <%= experiment_user_measurement.object.benefit.measurement_statement %>
-          <abbr title="required">*</abbr>
-          <%= experiment_user_measurement.input :starting_score, required: true, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
-        <% end %>
-      </div>
-    </div>
 
   <% elsif cancelling_experiment %>
-    <div>
-      <span>You're cancelling the experiment. You can retry it later if you want to, starting from day 1 again.</span>
-    </div>
-    <div class="row">
-      <div class="col-md-5">
-        <span>Why are you cancelling the experiment?</span>
-        <%= f.input :cancellation_reason,
-        as: :select,
-        collection: ExperimentUser::CANCELLATION_REASONS.invert,
-        label: false
-        %>
+    <div class="col-md-8 mb-4">
+      <%= simple_form_for @experiment_user do |f| %>
+      <%= f.hidden_field :experiment_id, value: @experiment.id %>
+
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">You're about to cancel the experiment <span class="h5 text-intense text-<%= @experiment.category.name.downcase %>">
+            <%= @experiment.name %>
+          </span></h5>
+        </div>
+        <div class="row card-body pb-sm-0">
+          <div class="col-12 col-lg-8 mb-4">
+            <% if @experiment_user.errors.any? %>
+              <div class="" id="error_explanation">
+                <h6>The form is incomplete and can therefore not be saved. <br>
+                  Please fill in the field(s) marked in red below:
+                </h6>
+              </div>
+            <% end %>
+
+            <div>
+              You can retry it later if you want to, starting from day 1 again.
+            </div>
+
+            <div class="mt-4">
+              <div class="mb-2">
+                Why are you cancelling the experiment?
+              </div>
+              <%= f.input :cancellation_reason,
+              as: :select,
+              collection: ExperimentUser::CANCELLATION_REASONS.invert,
+              label: false
+              %>
+            </div>
+
+            <%= f.submit "Stop this experiment", class: "btn btn-primary" %>
+          </div>
+        </div>
       </div>
     </div>
 
-  <% elsif completing_experiment %>
-    <div class="mb-4">
-      <span>YAY! You completed the experiment "<strong><%= @experiment.name %>".</strong></span>
-    </div>
-    <div class="row">
-      <div class="col-md-9">
-        <h4 class="text-intense">Your ending measurement</h4>
-        <div class="mb-4">
-          Recall your last 3 weeks. How did you feel?<br>
-          Rate the statements below from 1 (<span class="text-error">completely disagree</span>) to 5 (<span class="text-success">completely agree</span>).
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">The experiment</h5>
         </div>
-        <div>
-          <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
-            <%= experiment_user_measurement.hidden_field :id %>
-            <%= experiment_user_measurement.hidden_field :benefit_id %>
-            <%= experiment_user_measurement.object.benefit.measurement_statement %>
-            <abbr title="required">*</abbr>
-            <%= experiment_user_measurement.input :ending_score, required: true, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
-          <% end %>
+        <div class="row card-body">
+          <div class="col-12 mb-2">
+            <img class="card-img" src="<%= rails_blob_url(@experiment.image) if @experiment.image.attached? %>">
+          </div>
+          <div class="col-12">
+            <p class="h5 text-intense text-<%= @experiment.category.name.downcase %>">
+              <%= @experiment.name %>
+            </p>
+            <p>
+              <i class="fas fa-trophy"></i> <%= @experiment.objective %>
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <span>Was it easy for you to stick to the experiment?</span>
-        <abbr title="required">*</abbr>
-        <%= f.input :difficulty,
-        as: :select,
-        collection: ExperimentUser::DIFFICULTY_RATES.invert,
-        label: false %>
-
-        <span>How big of an impact has this experiment had on your life?</span>
-        <abbr title="required">*</abbr>
-        <%= f.input :life_impact,
-        as: :select,
-        collection: ExperimentUser::LIFE_IMPACT_OPTIONS.invert,
-        label: false %>
-
-        <span>Any other observations? Unexpected benefits you may have experienced?</span>
-        <%= f.input :ending_note,
-        as: :text,
-        label: false,
-        input_html: { rows: 6 } %>
       </div>
     </div>
   <% end %>
 
-  <div>
-    <%= f.submit "#{start_or_cancel_experiment} this experiment", class: "btn btn-primary" %>
-  </div>
+  <% elsif completing_experiment %>
+    <div class="col-12 mb-4">
+      <%= simple_form_for @experiment_user do |f| %>
+      <%= f.hidden_field :experiment_id, value: @experiment.id %>
+
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">You're completing the experiment <span class="h5 text-intense text-<%= @experiment.category.name.downcase %>">
+            <%= @experiment.name %>
+          </span></h5>
+        </div>
+        <div class="row card-body pb-sm-0">
+          <div class="col-12 mb-4">
+            <% if @experiment_user.errors.any? %>
+              <div class="" id="error_explanation">
+                <h6>The form is incomplete and can therefore not be saved. <br>
+                  Please fill in the field(s) marked in red below:
+                </h6>
+              </div>
+            <% end %>
+
+            <div class="row">
+              <div class="col-12">
+                <h5 class="h5 text-intense">Your observations</h5>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="card-body border rounded before_dates">
+                  <span>The 3 weeks <strong>before</strong> the experiment</span>:
+                  <em><%= (@experiment_user.starting_date - 21.days).to_s(:journal_date) %> to <%= (@experiment_user.ending_date - 22.days).to_s(:journal_date) %></em>
+                  <%= stat_by(
+                  @experiment_user.starting_date - 21.days,
+                  @experiment_user.ending_date - 22.days,
+                  (@experiment.category.name.downcase).split)
+                  %>
+                </div>
+                <div class="selected_observations">
+                  <div class="card-body border rounded mt-1">
+                    <div class="reveal_notes_before w-100">
+                      <span class="text-intense">Your notes</span>
+                      <span class="angle_down"><i class="fas fa-angle-down ml-2"></i></span>
+                    </div>
+                    <div class="hide_notes_before d-none w-100">
+                      <span class="text-intense">Your notes</span>
+                      <span class="angle_up"><i class="fas fa-angle-up ml-2"></i></span>
+                    </div>
+                    <div class="notes_before d-none mt-2">
+                      <% observations_by(
+                      @experiment_user.starting_date - 21.days,
+                      @experiment_user.ending_date - 22.days)
+                      %>
+
+                      <% if @selected_observations.present? %>
+                      <div class="table-responsive">
+                        <table class="table mb-0">
+                          <thead>
+                            <tr class="d-flex">
+                              <th class="col-4 col-sm-3">Date</th>
+                              <th class="col-3 col-sm-2">Success?</th>
+                              <th class="col-10 col-md-6 col-lg-8">Notes</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% @selected_observations.each do |observation| %>
+                            <tr class="d-flex">
+                              <th scope="row" class="col-4 col-sm-3"><%= observation.date.to_s(:journal_date) %></th>
+                              <td class="col-3 col-sm-2"><%= observation.experiment_success ? "yes" : "no" %></td>
+                              <td class="col-10 col-md-6 col-lg-8"><%= observation.note %></td>
+                            </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                      <% else %>
+                      <span>No observations</span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="card-body border rounded during_dates">
+                  <span>
+                    The 3 weeks <strong>during</strong> the experiment:
+                    <em><%= @experiment_user.starting_date.to_s(:journal_date) %> to <%= @experiment_user.ending_date.to_s(:journal_date) %></em>
+                  </span>
+                  <%= stat_by(
+                  @experiment_user.starting_date,
+                  @experiment_user.ending_date,
+                  (@experiment.category.name.downcase).split)
+                  %>
+                </div>
+                <div class="selected_observations">
+                  <div class="card-body border rounded mt-1">
+                    <div class="reveal_notes_during w-100">
+                      <span class="text-intense">Your notes</span>
+                      <span class="angle_down"><i class="fas fa-angle-down ml-2"></i></span>
+                    </div>
+                    <div class="hide_notes_during d-none w-100">
+                      <span class="text-intense">Your notes</span>
+                      <span class="angle_up"><i class="fas fa-angle-up ml-2"></i></span>
+                    </div>
+                    <div class="notes_during d-none mt-2">
+                      <% observations_by(
+                        @experiment_user.starting_date,
+                        @experiment_user.ending_date)
+                      %>
+
+                      <% if @selected_observations.present? %>
+                      <div class="table-responsive">
+                        <table class="table mb-0">
+                          <thead>
+                            <tr class="d-flex">
+                              <th class="col-4 col-sm-3">Date</th>
+                              <th class="col-3 col-sm-2">Success?</th>
+                              <th class="col-10 col-md-6 col-lg-8">Notes</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              <% @selected_observations.each do |observation| %>
+                              <tr class="d-flex">
+                                <th scope="row" class="col-4 col-sm-3"><%= observation.date.to_s(:journal_date) %></th>
+                                <td class="col-3 col-sm-2"><%= observation.experiment_success ? "yes" : "no" %></td>
+                                <td class="col-10 col-md-6 col-lg-8"><%= observation.note %></td>
+                              </tr>
+                              <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                      <% else %>
+                      <span>No observations</span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 mt-2">
+                <%= render "dashboard/experiment_users/completed_average_observation_scores", experiment_user: @experiment_user %>
+              </div>
+
+              <div class="col-12 mt-4">
+                <div class="row">
+                  <div class="col-12 col-md-8">
+                    <h5 class="h5 text-intense">Analyze</h5>
+                    <div class="mb-3">
+                      Recall your last 3 weeks. How did you feel?<br>
+                      Rate the statements below from 1 (<span class="text-error">completely disagree</span>) to 5 (<span class="text-success">completely agree</span>).
+                    </div>
+                    <div>
+                      <%= f.simple_fields_for :experiment_user_measurements do |experiment_user_measurement| %>
+                      <%= experiment_user_measurement.hidden_field :id %>
+                      <%= experiment_user_measurement.hidden_field :benefit_id %>
+                      <%= experiment_user_measurement.object.benefit.measurement_statement %>
+                      <abbr title="required">*</abbr>
+                      <div>
+                        <span class="starting_score d-none btn-<%= @experiment.category.name.downcase %> px-2 rounded">
+                          Your starting score was <span class="text-intense"><%= experiment_user_measurement.object.starting_score %></span>
+                        </span>
+                      </div>
+                      <%= experiment_user_measurement.input :ending_score, required: true, label: false, collection: 1..5, as: :radio_buttons, wrapper: :horizontal_collection_inline %>
+                      <% end %>
+                      <div class="btn btn-secondary show_starting_scores mb-4">Compare with my starting scores</div>
+                    </div>
+
+                    <span>Any other things you noticed while doing the experiment? Unexpected benefits you may have experienced?</span>
+                    <%= f.input :ending_note,
+                    as: :text,
+                    label: false,
+                    input_html: { rows: 5 } %>
+                  </div>
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12">
+                        <h5 class="h5 text-intense">Express</h5>
+                      </div>
+                      <div class="col-12 col-md-5">
+                        <span>Was it easy for you to stick to the experiment?</span>
+                        <abbr title="required">*</abbr>
+                        <%= f.input :difficulty,
+                        as: :select,
+                        collection: ExperimentUser::DIFFICULTY_RATES.invert,
+                        label: false %>
+
+                        <span>How big of an impact has this experiment had on your life?</span>
+                        <abbr title="required">*</abbr>
+                        <%= f.input :life_impact,
+                        as: :select,
+                        collection: ExperimentUser::LIFE_IMPACT_OPTIONS.invert,
+                        label: false %>
+                      </div>
+                      <div class="col-12 col-md-8">
+                        <span>What would you say to people who are considering doing this experiment?</span>
+                        <span>(<em>By filling in this field, you allow experiment.rocks to share this message using your first name: '<%= current_user.first_name %>'</em>)</span>
+                        <%= f.input :recommendation,
+                        as: :text,
+                        label: false,
+                        input_html: { rows: 5 } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <%= f.submit "Complete this experiment", class: "btn btn-primary" %>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  <% end %>
 <% end %>
+
+<script>
+  $('.reveal_notes_before').on('click', function() {
+    $('.reveal_notes_before').removeClass('d-inline-block')
+    $('.reveal_notes_before').addClass('d-none')
+    $('.notes_before').removeClass('d-none');
+    $('.notes_before').addClass('d-block');
+    $('.hide_notes_before').addClass('d-inline-block')
+  });
+  $('.hide_notes_before').on('click', function() {
+    $('.hide_notes_before').removeClass('d-inline-block')
+    $('.hide_notes_before').addClass('d-none')
+    $('.notes_before').removeClass('d-block');
+    $('.notes_before').addClass('d-none');
+    $('.reveal_notes_before').addClass('d-inline-block')
+  });
+  $('.reveal_notes_during').on('click', function() {
+    $('.reveal_notes_during').removeClass('d-inline-block')
+    $('.reveal_notes_during').addClass('d-none')
+    $('.notes_during').removeClass('d-none');
+    $('.notes_during').addClass('d-block');
+    $('.hide_notes_during').addClass('d-inline-block')
+  });
+  $('.hide_notes_during').on('click', function() {
+    $('.hide_notes_during').removeClass('d-inline-block')
+    $('.hide_notes_during').addClass('d-none')
+    $('.notes_during').removeClass('d-block');
+    $('.notes_during').addClass('d-none');
+    $('.reveal_notes_during').addClass('d-inline-block')
+  });
+  $('.show_starting_scores').on('click', function() {
+    $('.starting_score').removeClass('d-none')
+    $('.starting_score').addClass('d-inline-block')
+    $('.show_starting_scores').addClass('d-none')
+  });
+</script>

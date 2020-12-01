@@ -8,6 +8,9 @@ Metrics/BlockLength:
     - "config/environments/*"
     - "config/routes.rb"
 
+Metrics/ModuleLength:
+  Max: 150
+
 Layout/LineLength:
   Max: 100
   IgnoredPatterns: ['\A#']
