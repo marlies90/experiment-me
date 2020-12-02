@@ -105,3 +105,12 @@ input[type='radio']:checked:after {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.hop {
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}

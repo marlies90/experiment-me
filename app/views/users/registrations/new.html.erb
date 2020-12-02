@@ -1,10 +1,10 @@
 <% content_for :robots, "noindex,follow" %>
 <% content_for :meta_title, "Sign up #{DEFAULT_META["meta_website"]}" %>
 
-<main class="focus-form">
+<main class="focus-form bg-meaning">
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-4 form">
+      <div class="col-md-6 col-lg-4 form rounded">
         <h2 class="text-intense">Sign up</h2>
 
         <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -43,7 +43,11 @@
             I agree to the <u><%= link_to "terms & conditions", terms_conditions_path, target: "_blank" %></u> and
             <u><%= link_to "privacy statement", privacy_statement_path, target: "_blank" %></u>
           </label>
+        </div>
 
+        <div class="hop">
+          <input type="checkbox" value="1" name="hop" id="hop" autocomplete="off" tabindex="-1">
+          <label for="hp">Huumans should NOT clik this.</label>
         </div>
 
         <div class="form_group mt-2">

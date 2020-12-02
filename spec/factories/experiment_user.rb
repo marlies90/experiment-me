@@ -29,6 +29,7 @@ FactoryBot.define do
       difficulty { Faker::Number.between(from: 0, to: 4) }
       life_impact { Faker::Number.between(from: 0, to: 5) }
       ending_note { Faker::Lorem.paragraph }
+      recommendation { Faker::Lorem.paragraph }
     end
 
     trait :cancelling do

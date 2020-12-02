@@ -19,11 +19,28 @@ RSpec.describe User, type: :feature do
         "Welcome! You have signed up successfully"
       )
       expect(page).to have_current_path(dashboard_lab_path)
+      expect(User.count).to be 1
+    end
+
+    it "Does not allow bots to sign up" do
+      visit new_user_registration_path
+      within ".form" do
+        fill_in "user_first_name", with: Faker::Name.first_name
+        fill_in "user_email", with: Faker::Internet.email
+        fill_in "user_password", with: "000000"
+        fill_in "user_password_confirmation", with: "000000"
+        select("(GMT+01:00) Amsterdam", from: "user_time_zone")
+        page.check("hop")
+        page.check("user_terms_agreement")
+      end
+      click_button "Sign up"
+
+      expect(User.count).to be 0
     end
   end
 
   context "When signing in" do
-    let!(:existing_user) { FactoryBot.create(:user) }
+    let(:existing_user) { FactoryBot.create(:user) }
 
     it "Allows an existing user to sign in" do
       visit new_user_session_path
@@ -31,6 +48,14 @@ RSpec.describe User, type: :feature do
       fill_in "user_password", with: existing_user.password
       click_button "Log in"
       expect(page).to have_content "Signed in successfully"
+    end
+
+    it "Allows the user to request a password reset" do
+      visit new_user_session_path
+      click_link "Forgot your password?"
+      fill_in "user_email", with: existing_user.email
+      click_button "Reset my password"
+      expect(page).to have_content "You will receive an email with instructions"
     end
   end
 

@@ -1,20 +1,22 @@
 <% content_for :robots, "noindex,follow" %>
 <% content_for :meta_title, "Contact #{DEFAULT_META["meta_website"]}" %>
 
-<main class="focus-form">
+<main class="focus-form bg-meaning">
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-4 form">
+      <div class="col-md-8 col-lg-6 form rounded pt-2">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mb-0 pl-0">
             <li class="breadcrumb-item pl-0"><%= link_to "Home", home_path %></li>
             <li class="breadcrumb-item active" aria-current="page">Contact</li>
           </ol>
         </nav>
-        <h2 class="text-intense">Contact</h2>
+        <h2 class="text-intense pt-2">Contact</h2>
         <p>Do you have any feedback, questions or ideas you'd like to share? I'd love to hear from you! Contact me at <u><a href="mailto:info@experiment.rocks">info@experiment.rocks</a></u>.</p>
-        <p>You can expect to receive a response within 5 days.</p>
+        <p>You can expect to receive a response within 3 days.</p>
         <p>Love, Marlies</p>
+
+        <img src="https://s3.eu-central-1.amazonaws.com/experiment.rocks/marlies_avatar.jpg" alt="Marlies, author of experiment.rocks" style="height: 8rem;">
       </div>
     </div>
   </div>

@@ -20,10 +20,15 @@ Rails.application.routes.draw do
   resources :benefits
 
   devise_scope :user do
-    get "/dashboard/settings" => "devise/registrations#edit", as: "edit_user_registration"
+    get "/dashboard/settings" => "users/registrations#edit", as: "edit_user_registration"
   end
 
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: "users/registrations",
+    sessions: "users/sessions",
+    passwords: "users/passwords",
+    unlocks: "users/unlocks"
+  }
 
   get "/:category/experiments", to: "categories#show", as: "category_show"
   resources :categories, except: [:show]

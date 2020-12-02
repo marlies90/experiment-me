@@ -39,6 +39,11 @@
   background: linear-gradient(90deg, rgba(91,61,174,1) 0%, rgba(134,110,199,1) 50%);
 }
 
+.bg-meaning {
+  background: rgb(233,236,239);
+  background: linear-gradient(90deg, rgba(233,236,239,1) 0%, rgba(166,171,176,1) 100%);
+}
+
 .btn-sleep {
   background-color: $sleep;
 }

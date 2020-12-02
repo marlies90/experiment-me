@@ -20,7 +20,7 @@ class ExperimentUsersController < ApplicationController
 
       @experiment_user.experiment_user_measurements = experiment_user_measurements
     else
-      redirect_to(new_user_session_path)
+      redirect_to(new_user_registration_path)
     end
   end
 
