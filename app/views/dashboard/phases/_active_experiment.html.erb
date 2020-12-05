@@ -77,7 +77,7 @@
           <p class="mb-1">
             <strong>Practical details</strong>
           </p>
-          <span class="mt-0"><%= simple_format(sanitize(@active_experiment.practical_details, attributes: ["href", "target", "class"]), {}, sanitize: false) %></span>
+          <span class="mt-0"><%= simple_format(sanitize(@active_experiment.practical_details, tags: %w(strong em a u), attributes: ["href", "target", "class"]), {}, sanitize: false) %></span>
           <p class="mb-1">
             <strong>Potential benefits</strong>
           </p>

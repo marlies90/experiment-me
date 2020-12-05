@@ -19,7 +19,7 @@
             <span>The experiment will last for 21 days.</span>
             <h5 class="mt-2 text-intense">What you'll be doing</h5>
             <div>
-              <%= @experiment.practical_details %>
+              <%= simple_format(sanitize(@experiment.practical_details, tags: %w(strong em a u), attributes: ["href", "target", "class"]), {}, sanitize: false) %>
             </div>
             <h5 class="mt-2 text-intense">Starting date</h5>
             <span>When would you like to start the experiment?</span>
