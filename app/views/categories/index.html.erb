@@ -1,34 +1,39 @@
 <% content_for :meta_title, "Experiment categories #{DEFAULT_META["meta_website"]}" %>
 <% content_for :meta_description, "See the life experiments available on experiment.rocks in 4 categories: sleep, health, relax and connect." %>
 
-<main role="main" class="categories">
-  <section class="jumbotron text-center pb-0">
-    <div class="container">
-      <h1 class="jumbotron-heading text-intense text-brand">Choose a category</h1>
+<main role="main" class="categories bg-light">
+  <section class="jumbotron text-center bg-brand categories-header">
+    <div class="container text-white">
+      <h1 class="jumbotron-heading text-intense">Choose a category</h1>
       <p class="lead">and see all corresponding experiments</p>
     </div>
   </section>
 
-  <div class="album pb-5">
-    <div class="container">
-      <hr class="featurette-divider mb-4">
-      <ol class="breadcrumb mb-0 pl-0">
-        <li class="breadcrumb-item pl-0"><%= link_to "Home", home_path %></li>
+  <section class="container p-0 category-experiments">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 bg-light">
+        <li class="breadcrumb-item"><%= link_to "Home", home_path %></li>
         <li class="breadcrumb-item active" aria-current="page">Categories</li>
       </ol>
-      <div class="row">
-        <% @categories.each do |category| %>
-          <div class="col-md-3">
-            <a href="<%= category_show_path(category) %>">
-              <div class="card mb-4 shadow-sm">
-                <div class="category-card text-intense bg-<%= category.name.downcase %>">
-                  <h2 class="card-text text-white"><%= category.name %></h2>
-                </div>
+    </nav>
+    <div class="row">
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body row">
+            <% @categories.each do |category| %>
+              <div class="col-md-3">
+                <a href="<%= category_show_path(category) %>">
+                  <div class="card mb-4 shadow-sm">
+                    <div class="category-card text-intense bg-<%= category.name.downcase %>">
+                      <h2 class="card-text text-white"><%= category.name %></h2>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </a>
+            <% end %>
           </div>
-        <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </main>

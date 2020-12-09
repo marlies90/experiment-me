@@ -10,4 +10,12 @@
   h3 + br {
     display: none;
   }
+
+  .experiment-image {
+    background-position: center !important;
+
+    @media (min-width: 678px) {
+      background-position: inherit !important;
+    }
+  }
 }

@@ -3,7 +3,7 @@
 
 <main role="main">
   <section>
-    <div class="jumbotron text-center category-header bg-<%= @category.name.downcase %> text-white">
+    <div class="jumbotron text-center category-header bg-<%= @category.name.downcase %> text-white rounded-0">
       <div class="px-2 px-sm-4">
         <h1 class="jumbotron-heading text-intense"><%= @category.name %> experiments</h1>
         <p class="lead"><%= simple_format(sanitize(@category.description, attributes: ["href", "target"]), {}, sanitize: false) %></p>

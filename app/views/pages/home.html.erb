@@ -1,7 +1,7 @@
 <% content_for :meta_title, "Experiment.rocks - your Happiness Lab" %>
 <% content_for :meta_description, "Discover your happiest life - one experiment at a time! Track how you're feeling and try life experiments to find out what makes YOU happy." %>
 
-<main role="main" class="bg-light">
+<main role="main" class="bg-white">
   <section class="jumbotron-home text-center">
     <div class="container">
       <h1 class="jumbotron-heading text-intense">Experiment.rocks</h1>
@@ -15,56 +15,172 @@
     </div>
   </section>
 
-  <div class="container">
-
-    <hr class="featurette-divider_home mt-0">
-
-    <div class="row justify-content-between">
-      <div class="col-md-6 experiment-steps">
-        <h2 class="text-intense">Get started</h2>
-        <div class="step">
-          <h2 class="text-intense text-brand h4">1. Choose an experiment</h2>
-          <p class="">
-            Browse the experiments per category to find out how they can improve your life.<br>
-            <a href="<%= categories_path %>" class="btn btn-primary my-2">View experiments</a>
-          </p>
+  <section class="bg-light">
+    <div class="card-body border rounded">
+      <div class="row">
+        <div class="col-6 col-sm-4 col-lg-2 text-center mb-4 mb-lg-0">
+          <i class="fas fa-grin-beam text-brand pr-0 h5"></i><br>
+          <span>Improve your </span><br>
+          <span class="text-intense text-brand h5">mood</span>
         </div>
-
-        <div class="step mt-4">
-          <h2 class="text-intense text-brand h4">2. Determine your starting point</h2>
-          <p class="">Fill in a starting survey to rate how you're feeling right now about the areas the experiment might impact.</p>
+        <div class="col-6 col-sm-4 col-lg-2 text-center mb-4 mb-lg-0">
+          <i class="fas fa-moon text-sleep pr-0 h5"></i><br>
+          <span>Get better</span><br>
+          <span class="text-intense text-sleep h5">sleep</span><br>
         </div>
-
-        <div class="step mt-4">
-          <h2 class="text-intense text-brand h4">3. Track how you're feeling</h2>
-          <p class="">Use observations and charts to keep track of how you're feeling on a day to day basis.</p>
+        <div class="col-6 col-sm-4 col-lg-2 text-center mb-4 mb-lg-0 pt-2 pt-sm-0">
+          <i class="fas fa-apple-alt text-health pr-0 h5"></i><br>
+          <span>Feel more </span><br>
+          <span class="text-intense text-health h5">healthy</span>
         </div>
-
-        <div class="step mt-4">
-          <h2 class="text-intense text-brand h4">4. Evaluate the results after 3 weeks</h2>
-          <p class="">Fill in the ending survey and evaluate - compare your starting and ending survey and check the progress graph. </p>
+        <div class="col-6 col-sm-4 col-lg-2 text-center mb-4 mb-sm-0 pt-2 pt-md-0">
+          <i class="fas fa-umbrella-beach text-relax pr-0 h5"></i><br>
+          <span>De-stress and </span><br>
+          <span class="text-intense text-relax h5">relax</span>
         </div>
-
-        <div class="step mt-4">
-          <h2 class="text-intense text-brand h4">5. Celebrate & Repeat</h2>
-          <p class="">Congratulations! You tried something new and found out whether it improved your life. Whenever you're ready, try out a new experiment! </p>
+        <div class="col-6 col-sm-4 col-lg-2 text-center mb-0 mb-lg-0 pt-2 pt-md-0">
+          <i class="fas fa-heart text-connect pr-0 h5"></i><br>
+          <span>Deepen your </span><br>
+          <span class="text-intense text-connect h5">relationships</span>
         </div>
-      </div>
-
-      <div class="col-md-4 mt-4 mt-sm-0">
-        <h2 class="text-intense">About</h2>
-        <div class="about text-center">
-          <img src="https://s3.eu-central-1.amazonaws.com/experiment.rocks/marlies_avatar.jpg" alt="Marlies, author of experiment.rocks">
-          <p class="mt-3">
-          Hi! I’ve spent countless hours researching happiness and mindfulness and trying out what I learned. <br><br>
-          On this site, you'll find the experiments that made the most impact in my life, plus experiments that I'm excited to try out.<br><br>
-          Join in and start discovering your happiest life too!<br><br>
-          Marlies
-          </p>
+        <div class="col-6 col-sm-4 col-lg-2 text-center mb-0 mb-lg-0 pt-2 pt-md-0">
+          <i class="fas fa-question-circle text-meaning pr-0 h5"></i><br>
+          <span>Live a life filled with</span><br>
+          <span class="text-intense text-meaning h5">meaning</span>
         </div>
       </div>
     </div>
+  </section>
 
-    <hr class="featurette-divider_home">
-  </div>
+  <section>
+    <div class="container px-0">
+      <div class="row my-8">
+        <div class="col-md-9">
+          <div class="card bg-brand text-white">
+            <div class="card-body">
+              <h2 class="text-intense">A life experiment in 5 simple steps</h2>
+              <div class="mt-4">
+                <h2 class="text-intense h4 d-flex flex-row justify-content-between">
+                  <span>
+                    1. Hypothesis
+                  </span>
+                  <span>
+                    <i class="fas fa-flask"></i>
+                  </span>
+                </h2>
+                <p class="">
+                  Each experiment has a list of benefits they can add to your life.<br>
+                  Choose one that resonates with what you're looking for and evaluate where you're at right now.<br>
+
+                  <a href="<%= categories_path %>" class="btn btn-secondary my-2">View experiments</a>
+                </p>
+              </div>
+
+              <hr class="border-white">
+
+              <div class="mt-4">
+                <h2 class="text-intense h4 d-flex flex-row justify-content-between">
+                  <span>
+                    2. Observation
+                  </span>
+                  <span>
+                    <i class="fas fa-eye"></i>
+                  </span>
+                </h2>
+                <p class="">
+                  Observe and track how you're actually feeling during the 21 days of the experiment.<br>
+                </p>
+              </div>
+
+              <hr class="border-white">
+
+              <div class="mt-4">
+                <h2 class="text-intense h4 d-flex flex-row justify-content-between">
+                  <span>
+                    3. Analysis
+                  </span>
+                  <span>
+                    <i class="fas fa-chart-line"></i>
+                  </span>
+                </h2>
+                <p class="">Fill in the ending evaluation and analyze whether the experiment made the life impact you were looking for.</p>
+              </div>
+
+              <hr class="border-white">
+
+              <div class="mt-4">
+                <h2 class="text-intense h4 d-flex flex-row justify-content-between">
+                  <span>
+                    4. Expression
+                  </span>
+                  <span>
+                    <i class="fas fa-comment-dots"></i>
+                  </span>
+                </h2>
+                <p class="">Share how this experiment was for you and help others decide which experiment to try out next.</p>
+              </div>
+
+              <hr class="border-white">
+
+              <div class="mt-4">
+                <h2 class="text-intense h4 d-flex flex-row justify-content-between">
+                  <span>
+                    5. Celebration
+                  </span>
+                  <span>
+                    <i class="fas fa-gift"></i>
+                  </span>
+                </h2>
+                <p class="">Congratulations! You tried something new and found out whether it improved your life.<br>
+                  Whenever you're ready, try out a new experiment! </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card mt-4 mt-sm-0 mb-4 bg-light">
+              <div class="card-body text-center">
+                <h2 class="text-intense text-brand"><%= Experiment.all.count %></h2>
+                <span>
+                  life experiments to choose from<br>
+                  (with new ones added weekly)
+                </span>
+              </div>
+            </div>
+            <div class="card bg-light">
+              <div class="card-body text-center">
+                <h2 class="text-intense text-brand">21</h2>
+                <span>
+                  days to complete an experiment
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section class="bg-light">
+    <div class="card-body about border rounded">
+      <div class="row">
+        <div class="col-12 col-sm-9">
+          <h3 class="text-intense">About</h3>
+          <p>
+            Hi! I’ve spent countless hours researching happiness and mindfulness and trying out what I learned.
+          </p>
+          <p>
+            On this site, you'll find the experiments that made the most impact in my life, plus experiments that I'm excited to try out.
+          </p>
+          <p>
+            Join in and start discovering your happiest life too!
+          </p>
+          Love, Marlies
+        </div>
+        <div class="col-12 col-sm-3 mt-4 mt-sm-0 text-center">
+          <img src="https://s3.eu-central-1.amazonaws.com/experiment.rocks/marlies_avatar.jpg" alt="Marlies, author of experiment.rocks">
+        </div>
+      </div>
+    </div>
+  </section>
 </main>

@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.friendly.find(params[:category])
     authorize @category
-    @experiments = @category.experiments
+    @experiments = @category.experiments.oldest_first
   end
 
   def new

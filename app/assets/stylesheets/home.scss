@@ -24,60 +24,14 @@
   max-width: 40rem;
 }
 
-.marketing .col-lg-4 {
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-.marketing h2 {
-  font-weight: 400;
-}
-.marketing .col-lg-4 p {
-  margin-right: .75rem;
-  margin-left: .75rem;
-}
-
-.featurette-divider_home {
-  margin: 5rem 0;
-}
-
-.featurette-heading {
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -.05rem;
-}
-
-@media (min-width: 40em) {
-  .featurette-heading {
-    font-size: 50px;
-  }
-}
-
-@media (min-width: 62em) {
-  .featurette-heading {
-    margin-top: 7rem;
-  }
-}
-
-.experiment-steps .step {
-  padding: 1rem 1rem;
-  border: 2px solid $light;
-  border-radius: 16px;
-  background-color: white;
-
-  p {
-    margin-bottom: 0;
-  }
-}
-
 .about {
-  background-color: $dark;
-  color: $light;
-  padding: 1rem 1rem;
-  border-radius: 16px;
+  font-size: 1.1rem;
 
   img {
-    height: 9rem;
-    border-radius: 16px;
-    border: 1px solid $light;
+    height: 10rem;
+  }
+
+  @media (min-width: 576px) {
+    padding: 3rem 5rem;
   }
 }

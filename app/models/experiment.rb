@@ -17,4 +17,6 @@ class Experiment < ApplicationRecord
                                 reject_if: ->(attrs) { attrs["name"].blank? }
 
   validates_presence_of :name, :description, :category, :objective, :benefits
+
+  scope :oldest_first, -> { order("id ASC") }
 end

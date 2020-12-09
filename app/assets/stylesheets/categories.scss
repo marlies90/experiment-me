@@ -14,24 +14,29 @@
   color: $connect;
 }
 
+.text-meaning {
+  color: $dark;
+}
+
 .bg-sleep {
   background: $sleep;
-  background: linear-gradient(135deg, rgba(102,181,255,1) 50%, rgba(46,171,126,1) 100%);
+  background: linear-gradient(135deg, rgba(102,181,255,1) 35%, rgba(49,117,180,1) 100%);
 }
 
 .bg-health {
   background: $health;
-  background: linear-gradient(135deg, rgba(46,171,126,1) 50%, rgba(200,140,47,1) 100%);
+  background: linear-gradient(135deg, rgba(46,171,126,1) 35%, rgba(14,111,76,1) 100%);
 }
 
 .bg-relax {
   background: $relax;
-  background: linear-gradient(135deg, rgba(200,140,47,1) 50%, rgba(170,35,33,1) 100%);
+  background: linear-gradient(135deg, rgba(200,140,47,1) 35%, rgba(138,88,11,1) 100%);
 }
 
 .bg-connect {
   background: $connect;
-  background: linear-gradient(135deg, rgba(170,35,33,1) 50%, rgba(129,73,113,1) 100%);
+  background: linear-gradient(135deg, rgba(170,35,33,1) 35%, rgba(115,13,12,1) 100%);
+
 }
 
 .bg-brand {
@@ -118,6 +123,16 @@
 @media (min-width: 768px) {
   .category-experiments {
     margin-top: -4rem;
+  }
+}
+
+.categories-header {
+  min-height: 12rem;
+  padding-top: 1.5rem;
+
+  @media (min-width: 768px) {
+    min-height: 16rem;
+    padding-top: 3rem;
   }
 }
 
