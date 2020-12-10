@@ -62,11 +62,12 @@ RSpec.describe ExperimentUser, type: :feature do
 
           within ".current_experiment" do
             expect(page).to have_content experiment.name
-            expect(find(".starting_date").text.to_datetime).to be_within(1.second)
-              .of((DateTime.current + 1).beginning_of_day)
-            expect(find(".ending_date").text.to_datetime).to be_within(1.second)
-              .of((DateTime.current + 22).end_of_day)
           end
+
+          expect(ExperimentUser.first.starting_date).to be_within(1.second)
+          .of((DateTime.current + 1).beginning_of_day)
+          expect(ExperimentUser.first.ending_date).to be_within(1.second)
+          .of((DateTime.current + 22).end_of_day)
         end
 
         it "does not allow a user to start an experiment without filling in the starting survey" do
