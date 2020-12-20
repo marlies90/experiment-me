@@ -1,0 +1,33 @@
+<% content_for :meta_title, "#{@blog_post.name} #{DEFAULT_META["meta_website"]}" %>
+<% content_for :meta_description, @blog_post.summary %>
+
+<main role="main" class="bg-meaning">
+  <section class="container my-4">
+    <div class="row">
+      <div class="col-12 col-md-9">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 bg-light">
+            <li class="breadcrumb-item"><%= link_to "Home", home_path %></li>
+            <li class="breadcrumb-item"><%= link_to "Blog", blog_posts_path %></li>
+            <li class="breadcrumb-item active" aria-current="page"><%= @blog_post.name %></li>
+          </ol>
+        </nav>
+        <div class="card">
+          <div class="card-body">
+            <h1 class="text-intense"><%= @blog_post.name %></h1>
+            <p><em><%= @blog_post.created_at.strftime("%e %b %Y") %></em></p>
+            <img class="card-img pb-4" src="<%= rails_blob_url(@blog_post.image) if @blog_post.image.attached? %>">
+            <%= simple_format(sanitize(@blog_post.description, attributes: ["href", "target", "class"]), {}, sanitize: false) %>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h3 class="text-intense">ABOUT</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

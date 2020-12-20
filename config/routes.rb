@@ -38,6 +38,8 @@ Rails.application.routes.draw do
 
   resources :experiment_users, path: "/my-experiments", only: %i[new create edit update show]
 
+  resources :blog_posts, path: "/blog"
+
   get "/privacy-statement", to: "pages#privacy_statement"
   get "/terms-conditions", to: "pages#terms_conditions"
   get "/contact", to: "pages#contact"

@@ -11,7 +11,7 @@ RSpec.describe Category, type: :feature do
     login_as(admin)
   end
 
-  context "When creating a new experiment" do
+  context "When creating a new category" do
     before do
       visit new_category_path
     end
@@ -49,7 +49,7 @@ RSpec.describe Category, type: :feature do
       expect(page).to have_content "Editing Category"
     end
 
-    it "Allows the user to update that experiment" do
+    it "Allows the user to update that category" do
       within ".admin-panel .categories" do
         click_link "Edit"
       end
@@ -59,7 +59,7 @@ RSpec.describe Category, type: :feature do
       expect(page).to have_content "Category was successfully updated."
     end
 
-    it "Allows the user to delete that experiment" do
+    it "Allows the user to delete that category" do
       within ".admin-panel .categories" do
         click_link "Destroy"
       end

@@ -23,8 +23,8 @@ class DashboardController < ApplicationController
   def admin
     @categories = Category.all.oldest_first
     @experiments = Experiment.all
-    @users = User.all
     @benefits = Benefit.all
+    @blog_posts = BlogPost.all
   end
 
   private

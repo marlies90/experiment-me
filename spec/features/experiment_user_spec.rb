@@ -45,11 +45,12 @@ RSpec.describe ExperimentUser, type: :feature do
 
           within ".current_experiment" do
             expect(page).to have_content experiment.name
-            expect(find(".starting_date").text.to_datetime).to be_within(1.second)
-              .of(DateTime.current)
-            expect(find(".ending_date").text.to_datetime).to be_within(1.second)
-              .of((DateTime.current + 21).end_of_day)
           end
+
+          expect(ExperimentUser.first.starting_date).to be_within(1.second)
+            .of(DateTime.current)
+          expect(ExperimentUser.first.ending_date).to be_within(1.second)
+            .of((DateTime.current + 21).end_of_day)
         end
 
         it "allows the user to start a new experiment tomorrow" do
@@ -65,9 +66,9 @@ RSpec.describe ExperimentUser, type: :feature do
           end
 
           expect(ExperimentUser.first.starting_date).to be_within(1.second)
-          .of((DateTime.current + 1).beginning_of_day)
+            .of((DateTime.current + 1).beginning_of_day)
           expect(ExperimentUser.first.ending_date).to be_within(1.second)
-          .of((DateTime.current + 22).end_of_day)
+            .of((DateTime.current + 22).end_of_day)
         end
 
         it "does not allow a user to start an experiment without filling in the starting survey" do
@@ -149,11 +150,12 @@ RSpec.describe ExperimentUser, type: :feature do
       it "allows the user to stop that experiment" do
         within ".current_experiment" do
           expect(page).to have_content experiment.name
-          expect(find(".starting_date").text.to_datetime).to be_within(1.second)
-            .of((DateTime.current - 1).beginning_of_day)
-          expect(find(".ending_date").text.to_datetime).to be_within(1.second)
-            .of((DateTime.current + 20).end_of_day)
         end
+
+        expect(ExperimentUser.first.starting_date).to be_within(1.second)
+          .of((DateTime.current - 1).beginning_of_day)
+        expect(ExperimentUser.first.ending_date).to be_within(1.second)
+          .of((DateTime.current + 20).end_of_day)
 
         click_link("Cancel experiment")
         select("I accidentally started it", from: "experiment_user_cancellation_reason")
@@ -161,11 +163,12 @@ RSpec.describe ExperimentUser, type: :feature do
 
         within ".cancelled_experiments" do
           expect(page).to have_content experiment.name
-          expect(find(".starting_date").text.to_datetime).to be_within(1.second)
-            .of((DateTime.current - 1).beginning_of_day)
-          expect(find(".ending_date").text.to_datetime).to be_within(1.second)
-            .of(DateTime.current)
         end
+
+        expect(ExperimentUser.first.starting_date).to be_within(1.second)
+          .of((DateTime.current - 1).beginning_of_day)
+        expect(ExperimentUser.first.ending_date).to be_within(1.second)
+          .of(DateTime.current)
       end
 
       it "does not show the starting or ending survey" do
@@ -201,11 +204,12 @@ RSpec.describe ExperimentUser, type: :feature do
 
           within ".current_experiment" do
             expect(page).to have_content experiment.name
-            expect(find(".starting_date").text.to_datetime).to be_within(1.second)
-              .of(DateTime.current.beginning_of_day)
-            expect(find(".ending_date").text.to_datetime).to be_within(1.second)
-              .of((DateTime.current + 21).end_of_day)
           end
+
+          expect(ExperimentUser.first.starting_date).to be_within(1.second)
+            .of(DateTime.current)
+          expect(ExperimentUser.first.ending_date).to be_within(1.second)
+            .of((DateTime.current + 21).end_of_day)
         end
 
         it "lets the user fill in the starting survey again" do

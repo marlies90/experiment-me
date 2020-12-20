@@ -1,0 +1,12 @@
+<div class="container pb">
+  <div class="row">
+    <div class="col-md-10">
+      <h1>Editing Blog post</h1>
+
+      <%= render 'form', experiment: @blog_post %>
+
+      <%= link_to 'Show', @blog_post %> |
+      <%= link_to 'Back', blog_posts_path %>
+    </div>
+  </div>
+</div>

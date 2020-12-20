@@ -65,48 +65,61 @@
             </table>
           </div>
 
-          <div class="row mb-1">
+          <div class="benefits row mb-1">
             <div class="col-md-6">
               <h4>Benefits</h4>
             </div>
             <div class="col-md-6 text-right">
               <a class="btn btn-secondary" href="<%= new_benefit_path %>"><i class="fas fa-plus"></i>New benefit</a>
             </div>
+
+            <table class="table">
+              <tr>
+                <th>Benefit name</th>
+                <th>Statement for measurement</th>
+                <th>Actions</th>
+              </tr>
+              <% @benefits.each do |benefit| %>
+              <tr>
+                <td><%= benefit.name %></td>
+                <td><%= benefit.measurement_statement %></td>
+                <td>
+                  <span><%= link_to "Edit", edit_benefit_path(benefit) %></span>
+                  <span><%= link_to "Destroy", benefit_path(benefit), method: :delete, data: { confirm: "Are you sure?" } %></span>
+                </td>
+              </tr>
+              <% end %>
+            </table>
           </div>
 
-          <table class="table">
-            <tr>
-              <th>Benefit name</th>
-              <th>Statement for measurement</th>
-              <th>Actions</th>
-            </tr>
-            <% @benefits.each do |benefit| %>
-            <tr>
-              <td><%= benefit.name %></td>
-              <td><%= benefit.measurement_statement %></td>
-              <td>
-                <span><%= link_to "Edit", edit_benefit_path(benefit) %></span>
-                <span><%= link_to "Destroy", benefit_path(benefit), method: :delete, data: { confirm: "Are you sure?" } %></span>
-              </td>
-            </tr>
-            <% end %>
-          </table>
+          <div class="blog_posts">
+            <div class="row mb-1">
+              <div class="col-md-6">
+                <h4>Blog posts</h4>
+              </div>
+              <div class="col-md-6 text-right">
+                <a class="btn btn-secondary" href="<%= new_blog_post_path %>"><i class="fas fa-plus"></i>New blog_post</a>
+              </div>
+            </div>
+            <table class="table">
+              <tr>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+              <% @blog_posts.each do |blog_post| %>
+              <tr>
+                <td><%= blog_post.name %></td>
+                <td>
+                  <span><%= link_to "Show", blog_post_path(id: blog_post.slug) %></span>
+                  <span><%= link_to "Edit", edit_blog_post_path(id: blog_post.slug) %></span>
+                  <span><%= link_to "Destroy", blog_post_path(id: blog_post.slug), method: :delete, data: { confirm: "Are you sure?" } %></span>
+                </td>
+              </tr>
+              <% end %>
+            </table>
+          </div>
 
-          <h4>Users</h4>
-          <table class="table">
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-            </tr>
-            <% @users.each do |user| %>
-            <tr>
-              <td><%= user.first_name %></td>
-              <td><%= user.email %></td>
-              <td><%= user.role %></td>
-            </tr>
-            <% end %>
-          </table>
+
         </div>
       </div>
     </div>

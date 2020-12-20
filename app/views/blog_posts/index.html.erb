@@ -1,0 +1,48 @@
+<% content_for :meta_title, "Experiment blogs #{DEFAULT_META["meta_website"]}" %>
+<% content_for :meta_description, "plz fill this in" %>
+
+<main role="main" class="bg-meaning">
+  <section class="container my-4">
+    <div class="row">
+      <div class="col-12 col-md-9">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 bg-light">
+            <li class="breadcrumb-item"><%= link_to "Home", home_path %></li>
+            <li class="breadcrumb-item active" aria-current="page"><%= link_to "Blog", blog_posts_path %></li>
+          </ol>
+        </nav>
+        <div class="card">
+          <div class="card-body">
+            <div class="pb-4">
+              <h1 class="text-intense">Experiment.blogs</h1>
+            </div>
+            <div class="row">
+              <% @blog_posts.each do |blog_post| %>
+                <div class="col-12 col-sm-4">
+                  <img class="card-img" src="<%= rails_blob_url(blog_post.image) if blog_post.image.attached? %>">
+                </div>
+                <div class="col-12 col-sm-8">
+                  <h2 class="h3 text-intense"><%= blog_post.name %></h2>
+                  <p class="mb-1"><em><%= blog_post.created_at.strftime("%e %b %Y") %></em></p>
+                  <p><%= blog_post.summary %></p>
+                  <%= link_to "Read more", blog_post_path(blog_post), class: "btn btn-primary" %>
+                </div>
+                <div class="col-12 py-2">
+                  <hr>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h3 class="text-intense">ABOUT</h3>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

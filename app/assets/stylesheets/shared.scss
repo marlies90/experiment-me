@@ -53,6 +53,10 @@ main {
   flex: 1 0 auto;
 }
 
+h2 + br, h3 + br {
+  display: none;
+}
+
 .fas {
   padding-right: 1rem;
 }
