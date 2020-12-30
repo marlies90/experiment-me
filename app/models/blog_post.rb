@@ -6,6 +6,7 @@ class BlogPost < ApplicationRecord
 
   validates_presence_of :name, :summary, :description
 
+  has_many :blog_comments, as: :commentable
   has_one_attached :image
 
   scope :newest_first, -> { order("created_at DESC") }

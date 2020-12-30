@@ -4,38 +4,64 @@ require "rails_helper"
 
 RSpec.describe User, type: :feature do
   context "When signing up" do
-    it "Allows for succesful creation of a new user profile" do
-      visit new_user_registration_path
-      within ".form" do
-        fill_in "user_first_name", with: Faker::Name.first_name
-        fill_in "user_email", with: Faker::Internet.email
-        fill_in "user_password", with: "000000"
-        fill_in "user_password_confirmation", with: "000000"
-        select("(GMT+01:00) Amsterdam", from: "user_time_zone")
-        page.check("user_terms_agreement")
+    context "new profile" do
+      it "Allows for succesful creation of a new user profile" do
+        visit new_user_registration_path
+        within ".form" do
+          fill_in "user_first_name", with: Faker::Name.first_name
+          fill_in "user_email", with: Faker::Internet.email
+          fill_in "user_password", with: "000000"
+          fill_in "user_password_confirmation", with: "000000"
+          select("(GMT+01:00) Amsterdam", from: "user_time_zone")
+          page.check("user_terms_agreement")
+        end
+        click_button "Sign up"
+        expect(page).to have_content(
+          "Welcome! You have signed up successfully"
+        )
+        expect(page).to have_current_path(dashboard_lab_path)
+        expect(User.count).to be 1
       end
-      click_button "Sign up"
-      expect(page).to have_content(
-        "Welcome! You have signed up successfully"
-      )
-      expect(page).to have_current_path(dashboard_lab_path)
-      expect(User.count).to be 1
+
+      it "Does not allow bots to sign up" do
+        visit new_user_registration_path
+        within ".form" do
+          fill_in "user_first_name", with: Faker::Name.first_name
+          fill_in "user_email", with: Faker::Internet.email
+          fill_in "user_password", with: "000000"
+          fill_in "user_password_confirmation", with: "000000"
+          select("(GMT+01:00) Amsterdam", from: "user_time_zone")
+          page.check("hop")
+          page.check("user_terms_agreement")
+        end
+        click_button "Sign up"
+
+        expect(User.count).to be 0
+      end
     end
 
-    it "Does not allow bots to sign up" do
-      visit new_user_registration_path
-      within ".form" do
-        fill_in "user_first_name", with: Faker::Name.first_name
-        fill_in "user_email", with: Faker::Internet.email
-        fill_in "user_password", with: "000000"
-        fill_in "user_password_confirmation", with: "000000"
-        select("(GMT+01:00) Amsterdam", from: "user_time_zone")
-        page.check("hop")
-        page.check("user_terms_agreement")
-      end
-      click_button "Sign up"
+    context "profile already exists for this email" do
+      let!(:existing_user) { FactoryBot.create(:user, email: "already_used@gmail.com") }
 
-      expect(User.count).to be 0
+      it "does not allow that email to be used again" do
+        expect(User.count).to be 1
+
+        visit new_user_registration_path
+        within ".form" do
+          fill_in "user_first_name", with: Faker::Name.first_name
+          fill_in "user_email", with: "already_used@gmail.com"
+          fill_in "user_password", with: "000000"
+          fill_in "user_password_confirmation", with: "000000"
+          select("(GMT+01:00) Amsterdam", from: "user_time_zone")
+          page.check("user_terms_agreement")
+        end
+        click_button "Sign up"
+        expect(page).to have_content(
+          "Email has already been taken"
+        )
+
+        expect(User.count).to be 1
+      end
     end
   end
 

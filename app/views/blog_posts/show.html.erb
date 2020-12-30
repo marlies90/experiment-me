@@ -20,6 +20,37 @@
             <%= simple_format(sanitize(@blog_post.description, attributes: ["href", "target", "class"]), {}, sanitize: false) %>
           </div>
         </div>
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <div class="existing_comments">
+              <h2 class="text-intense pb-2"><%= number_of_comments %> Comments</h2>
+              <%= render partial: "blog_comments", collection: @blog_post.blog_comments.reverse, as: "blog_comment"  %>
+            </div>
+
+            <div class="mt-4">
+              <h3 class="text-intense">Add a comment</h3>
+
+              <%= simple_form_for [ @blog_post, BlogComment.new ] do |f| %>
+              <p>
+                <%= f.label :author_name %><br/>
+                <%= f.text_field :author_name %>
+              </p>
+              <p>
+                <%= f.label :email %><br/>
+                <%= f.text_field :email %>
+              </p>
+              <p>
+                <%= f.label :comment %><br/>
+                <%= f.text_area :comment %>
+              </p>
+              <p>
+                <%= f.submit 'Submit' %>
+              </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-12 col-md-3">
         <div class="card mb-4">

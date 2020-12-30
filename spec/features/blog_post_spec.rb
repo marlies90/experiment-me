@@ -94,4 +94,94 @@ RSpec.describe BlogPost, type: :feature do
       end
     end
   end
+
+  context "creating blog comments" do
+    let!(:blog_post_1) { FactoryBot.create(:blog_post) }
+    let!(:blog_post_2) { FactoryBot.create(:blog_post) }
+
+    before do
+      visit blog_post_path(blog_post_1)
+    end
+
+    context "placing a comment" do
+      let!(:blog_comment) do
+        FactoryBot.create(:blog_comment, :on_blog_post, email: "enthusiasticuser@gmail.com")
+      end
+
+      it "does not allow placing a comment without filling in all fields" do
+        within ".new_blog_comment" do
+          fill_in "blog_comment_comment", with: Faker::Lorem.paragraph
+          click_button "Submit"
+        end
+
+        expect(page).to have_content "error"
+      end
+
+      it "allows the user to post multiple comments using the same email" do
+        within ".new_blog_comment" do
+          fill_in "blog_comment_author_name", with: Faker::Name.first_name
+          fill_in "blog_comment_email", with: "enthusiasticuser@gmail.com"
+          fill_in "blog_comment_comment", with: Faker::Lorem.paragraph
+          click_button "Submit"
+        end
+
+        expect(page).to have_content "Your comment was successfully posted!"
+      end
+    end
+
+    context "when placing a comment on a blog post" do
+      it "displays the comment" do
+        within ".new_blog_comment" do
+          fill_in "blog_comment_author_name", with: Faker::Name.first_name
+          fill_in "blog_comment_email", with: Faker::Internet.email
+          fill_in "blog_comment_comment", with: Faker::Lorem.paragraph
+          click_button "Submit"
+        end
+
+        expect(page).to have_content "Your comment was successfully posted!"
+
+        within ".existing_comments" do
+          expect(page).to have_content "1 Comments"
+        end
+      end
+
+      it "is saved only for that blog post" do
+        within ".new_blog_comment" do
+          fill_in "blog_comment_author_name", with: Faker::Name.first_name
+          fill_in "blog_comment_email", with: Faker::Internet.email
+          fill_in "blog_comment_comment", with: Faker::Lorem.paragraph
+          click_button "Submit"
+        end
+
+        visit blog_post_path(blog_post_2)
+
+        within ".existing_comments" do
+          expect(page).to have_content "0 Comments"
+        end
+      end
+    end
+
+    context "when placing a comment on a comment" do
+      let!(:blog_post_with_comments) { FactoryBot.create(:blog_post, :with_comments) }
+
+      before do
+        visit blog_post_path(blog_post_with_comments)
+      end
+
+      it "displays that comment under the one it is replying to" do
+        within ".new_comment_on_comment" do
+          fill_in "blog_comment_author_name", with: Faker::Name.first_name
+          fill_in "blog_comment_email", with: Faker::Internet.email
+          fill_in "blog_comment_comment", with: Faker::Lorem.paragraph
+          click_button "Submit"
+        end
+
+        expect(page).to have_content "Your comment was successfully posted!"
+
+        within ".existing_comments" do
+          expect(page).to have_content "2 Comments"
+        end
+      end
+    end
+  end
 end

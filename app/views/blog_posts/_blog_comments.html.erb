@@ -1,0 +1,30 @@
+<div class="card-body pb-0">
+  <h4 class="h6 text-intense"><%= blog_comment.author_name %></h4>
+  <span class=""><em><%= blog_comment.created_at.to_s(:date_with_time) %></em></span>
+  <p class="comment"><%= blog_comment.comment %></p>
+
+  <%= render partial: 'blog_comments/comment_on_comment', collection: blog_comment.blog_comments.oldest_first, as: "reply" %>
+
+  <div class="new_comment_on_comment">
+  <%= simple_form_for [blog_comment, BlogComment.new] do |f| %>
+
+  <p>
+    <%= f.label :author_name %><br/>
+    <%= f.text_field :author_name %>
+  </p>
+  <p>
+    <%= f.label :email %><br/>
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :comment %><br/>
+    <%= f.text_area :comment %>
+  </p>
+  <p>
+    <%= f.submit 'Submit' %>
+  </p>
+  <% end %>
+  </div>
+  <p class="reply"><u><a href="#">Reply</a></u></p>
+</div>
+<hr class="my-1">
