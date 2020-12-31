@@ -2,9 +2,9 @@
 <% content_for :meta_description, @blog_post.summary %>
 
 <main role="main" class="bg-meaning">
-  <section class="container my-4">
+  <section class="container my-4 px-0 overflow-hidden">
     <div class="row">
-      <div class="col-12 col-md-9">
+      <div class="col-12 col-lg-9">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mb-0 bg-light">
             <li class="breadcrumb-item"><%= link_to "Home", home_path %></li>
@@ -24,41 +24,32 @@
         <div class="card mt-4">
           <div class="card-body">
             <div class="existing_comments">
-              <h2 class="text-intense pb-2"><%= number_of_comments %> Comments</h2>
+              <h2 class="text-intense text-brand pb-2"><%= number_of_comments %> Comments</h2>
               <%= render partial: "blog_comments", collection: @blog_post.blog_comments.reverse, as: "blog_comment"  %>
             </div>
 
             <div class="mt-4">
-              <h3 class="text-intense">Add a comment</h3>
-
-              <%= simple_form_for [ @blog_post, BlogComment.new ] do |f| %>
-              <p>
-                <%= f.label :author_name %><br/>
-                <%= f.text_field :author_name %>
-              </p>
-              <p>
-                <%= f.label :email %><br/>
-                <%= f.text_field :email %>
-              </p>
-              <p>
-                <%= f.label :comment %><br/>
-                <%= f.text_area :comment %>
-              </p>
-              <p>
-                <%= f.submit 'Submit' %>
-              </p>
-              <% end %>
+              <h3 class="text-intense h4">Add a comment</h3>
+              <%= render template: "blog_comments/new", locals: { commentable: @blog_post } %>
             </div>
+
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-3">
-        <div class="card mb-4">
+      <div class="col-12 col-lg-3 mt-4 mt-lg-0">
+        <div class="card">
           <div class="card-body">
             <h3 class="text-intense">ABOUT</h3>
+            Here's some content for the about section
           </div>
         </div>
       </div>
     </div>
   </section>
 </main>
+
+<script>
+  $('.new_comment_on_comment').click(function() {
+    $(".reveal_reply_section", this).toggleClass('d-none');
+  });
+</script>
