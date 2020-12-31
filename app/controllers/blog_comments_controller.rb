@@ -2,15 +2,16 @@
 
 class BlogCommentsController < ApplicationController
   before_action :find_commentable, only: :create
+  invisible_captcha only: [:create], honeypot: :website
 
   def create
     @comment = BlogComment.new
     @commentable.blog_comments.build(blog_comment_params)
 
     if @commentable.save
-      redirect_back(fallback_location: home_path, notice: "Your comment was successfully posted!")
+      redirect_back(fallback_location: root_path, notice: "Your comment was successfully posted!")
     else
-      redirect_back(fallback_location: home_path, notice: "Your comment wasn't posted!")
+      redirect_back(fallback_location: root_path, alert: "Your comment wasn't posted!")
     end
   end
 

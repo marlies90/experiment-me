@@ -37,17 +37,14 @@
           <%= f.input :time_zone, class: "form-control", required: true %>
         </div>
 
+        <%= f.invisible_captcha :age %>
+
         <div class="form_group">
           <label for="resource_agree_with_policy">
             <%= f.check_box :terms_agreement, class: "mr-2" %>
             I agree to the <u><%= link_to "terms & conditions", terms_conditions_path, target: "_blank" %></u> and
             <u><%= link_to "privacy statement", privacy_statement_path, target: "_blank" %></u>
           </label>
-        </div>
-
-        <div class="hop">
-          <input type="checkbox" value="1" name="hop" id="hop" autocomplete="off" tabindex="-1">
-          <label for="hp">Huumans should NOT clik this.</label>
         </div>
 
         <div class="form_group mt-2">

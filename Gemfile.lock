@@ -126,6 +126,8 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    invisible_captcha (1.1.0)
+      rails (>= 4.2)
     jaro_winkler (1.5.4)
     jmespath (1.4.0)
     jquery-rails (4.4.0)
@@ -336,6 +338,7 @@ DEPENDENCIES
   factory_bot_rails
   faker (~> 2.10)
   friendly_id (~> 5.3)
+  invisible_captcha (~> 1.1)
   jquery-rails (~> 4.3, >= 4.3.5)
   jquery-ui-rails (~> 6.0, >= 6.0.1)
   launchy (~> 2.4, >= 2.4.3)

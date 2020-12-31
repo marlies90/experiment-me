@@ -36,6 +36,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "turbolinks", "~> 5"
 
 # security
+gem "invisible_captcha", "~> 1.1"
 gem "rack-attack", "~> 6.2", ">= 6.2.2"
 gem "sqreen"
 

@@ -52,5 +52,5 @@ Rails.application.routes.draw do
 
   get "/sitemap", to: "sitemaps#index"
 
-  root "pages#home", as: "home"
+  root "pages#home"
 end

@@ -127,6 +127,20 @@ RSpec.describe BlogPost, type: :feature do
 
         expect(page).to have_content "Your comment was successfully posted!"
       end
+
+      it "does not allow bots to spam comments" do
+        expect(BlogComment.count).to be 1
+
+        within ".new_blog_comment" do
+          fill_in "blog_comment_author_name", with: Faker::Name.first_name
+          fill_in "blog_comment_email", with: Faker::Internet.email
+          fill_in "blog_comment_comment", with: Faker::Lorem.paragraph
+          fill_in "blog_comment_website", with: Faker::Internet.url
+          click_button "Submit"
+        end
+
+        expect(BlogComment.count).to be 1
+      end
     end
 
     context "when placing a comment on a blog post" do

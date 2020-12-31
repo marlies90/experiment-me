@@ -8,7 +8,7 @@
   <section class="container heading p-0">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb mb-0 bg-light">
-        <li class="breadcrumb-item"><%= link_to "Home", home_path %></li>
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
         <li class="breadcrumb-item"><%= link_to "Categories", categories_path %></li>
         <li class="breadcrumb-item"><%= link_to "#{@experiment.category.name}", category_show_path(@experiment.category) %></li>
         <li class="breadcrumb-item active" aria-current="page"><%= @experiment.name %></li>

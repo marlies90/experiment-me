@@ -1,12 +1,12 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="<%= home_path %>">experiment.rocks</a>
+  <a class="navbar-brand" href="<%= root_path %>">experiment.rocks</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <div class="navbar-nav mr-auto">
-      <span class="nav-item ml-2 <%= 'active' if current_page?(home_path) %>">
-        <a class="nav-link" href="<%= home_path %>">Home</a>
+      <span class="nav-item ml-2 <%= 'active' if current_page?(root_path) %>">
+        <a class="nav-link" href="<%= root_path %>">Home</a>
       </span>
       <span class="nav-item ml-2 <%= 'active' if current_page?(categories_path) %>">
         <a class="nav-link" href="<%= categories_path %>">Experiments</a>

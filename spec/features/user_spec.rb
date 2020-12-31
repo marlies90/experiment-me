@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe User, type: :feature do
   context "When signing up" do
     context "new profile" do
-      it "Allows for succesful creation of a new user profile" do
+      it "allows for succesful creation of a new user profile" do
         visit new_user_registration_path
         within ".form" do
           fill_in "user_first_name", with: Faker::Name.first_name
@@ -23,7 +23,7 @@ RSpec.describe User, type: :feature do
         expect(User.count).to be 1
       end
 
-      it "Does not allow bots to sign up" do
+      it "does not allow bots to sign up" do
         visit new_user_registration_path
         within ".form" do
           fill_in "user_first_name", with: Faker::Name.first_name
@@ -31,7 +31,7 @@ RSpec.describe User, type: :feature do
           fill_in "user_password", with: "000000"
           fill_in "user_password_confirmation", with: "000000"
           select("(GMT+01:00) Amsterdam", from: "user_time_zone")
-          page.check("hop")
+          fill_in "user_age", with: "50"
           page.check("user_terms_agreement")
         end
         click_button "Sign up"
