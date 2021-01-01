@@ -12,6 +12,6 @@ FactoryBot.define do
   end
 
   trait :on_comment do
-    association :commentable, factory: :comment
+    association :commentable, factory: :blog_comment
   end
 end

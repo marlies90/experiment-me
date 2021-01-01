@@ -59,12 +59,44 @@ RSpec.describe BlogPost, type: :feature do
         expect(page).to have_content "Blog post was successfully updated."
       end
 
-      it "Allows the user to delete that blog post" do
+      it "allows the user to delete that blog post" do
         within ".admin-panel .blog_posts" do
           click_link "Destroy"
         end
 
         expect(page).to have_content "Blog post was successfully destroyed."
+      end
+    end
+
+    context "With blog comments" do
+      let!(:blog_post) { FactoryBot.create(:blog_post, :with_comments) }
+
+      before do
+        visit dashboard_admin_path
+      end
+
+      it "destroys the corresponding comments on blog post destroy" do
+        expect(BlogPost.count).to be 1
+        expect(BlogComment.count).to be 1
+
+        within ".admin-panel .blog_posts" do
+          click_link "Destroy"
+        end
+
+        expect(BlogPost.count).to be 0
+        expect(BlogComment.count).to be 0
+      end
+
+      it "allows the user to destroy a single blog comment" do
+        expect(BlogComment.count).to be 1
+        expect(page).to have_content blog_post.blog_comments.first.comment
+
+        within ".admin-panel .blog_comments" do
+          click_link "Destroy"
+        end
+
+        expect(page).to have_content "Comment was successfully destroyed"
+        expect(BlogComment.count).to be 0
       end
     end
   end
@@ -182,7 +214,7 @@ RSpec.describe BlogPost, type: :feature do
         visit blog_post_path(blog_post_with_comments)
       end
 
-      it "displays that comment under the one it is replying to" do
+      it "allows a user to reply to a comment" do
         within ".new_comment_on_comment" do
           fill_in "blog_comment_author_name", with: Faker::Name.first_name
           fill_in "blog_comment_email", with: Faker::Internet.email

@@ -10,17 +10,19 @@ RSpec.describe BlogCommentPolicy do
     let(:user) { nil }
 
     it { should permit_actions(%i[create]) }
+    it { should forbid_actions(%i[destroy]) }
   end
 
   context "When logged in as a standard user" do
     let(:user) { FactoryBot.create(:user) }
 
     it { should permit_actions(%i[create]) }
+    it { should forbid_actions(%i[destroy]) }
   end
 
   context "When logged in as an admin user" do
     let(:user) { FactoryBot.create(:user, :admin) }
 
-    it { should permit_actions(%i[create]) }
+    it { should permit_actions(%i[create destroy]) }
   end
 end

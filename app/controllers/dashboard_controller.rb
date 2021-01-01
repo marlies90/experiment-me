@@ -25,6 +25,7 @@ class DashboardController < ApplicationController
     @experiments = Experiment.all
     @benefits = Benefit.all
     @blog_posts = BlogPost.all
+    @blog_comments = BlogComment.all
   end
 
   private
