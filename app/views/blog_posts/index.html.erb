@@ -1,8 +1,8 @@
-<% content_for :meta_title, "Experiment blogs #{DEFAULT_META["meta_website"]}" %>
-<% content_for :meta_description, "plz fill this in" %>
+<% content_for :meta_title, "Blog #{DEFAULT_META["meta_website"]}" %>
+<% content_for :meta_description, "A personal exploration into happiness - inspiring and challenging you to experience life in a more enjoyable way!" %>
 
 <main role="main" class="bg-meaning">
-  <section class="container my-4">
+  <section class="container my-4 px-0 overflow-hidden">
     <div class="row">
       <div class="col-12 col-md-9">
         <nav aria-label="breadcrumb">
@@ -22,7 +22,7 @@
                   <img class="card-img" src="<%= rails_blob_url(blog_post.image) if blog_post.image.attached? %>">
                 </div>
                 <div class="col-12 col-sm-8">
-                  <h2 class="h3 text-intense"><%= blog_post.name %></h2>
+                  <h2 class="h3 text-intense"><%= link_to blog_post.name, blog_post_path(blog_post) %></h2>
                   <p class="mb-1"><em><%= blog_post.created_at.strftime("%e %b %Y") %></em></p>
                   <p><%= blog_post.summary %></p>
                   <%= link_to "Read more", blog_post_path(blog_post), class: "btn btn-primary" %>
@@ -35,14 +35,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-3">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h3 class="text-intense">ABOUT</h3>
-
-          </div>
-        </div>
-      </div>
+      <%= render "about" %>
     </div>
   </section>
 </main>

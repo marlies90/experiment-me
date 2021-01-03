@@ -16,4 +16,12 @@
         <loc><%= "#{@host}/#{experiment.category.slug}/experiments/#{experiment.slug}" %></loc>
      </url>
    <% end %>
+   <url>
+      <loc><%= "#{@host}/blog" %></loc>
+   </url>
+   <% @blog_posts.each do |blog_post| %>
+     <url>
+        <loc><%= "#{@host}/blog/#{blog_post.slug}" %></loc>
+     </url>
+   <% end %>
 </urlset>
