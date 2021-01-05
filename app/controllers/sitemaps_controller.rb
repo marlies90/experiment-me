@@ -5,5 +5,6 @@ class SitemapsController < ApplicationController
     @host = "#{request.protocol}#{request.host}"
     @categories = Category.all
     @experiments = Experiment.all
+    @blog_posts = BlogPost.all
   end
 end

@@ -14,11 +14,6 @@ RSpec.describe BlogComment, type: :model do
     expect(subject).to_not be_valid
   end
 
-  it "is not valid without a name that is too long" do
-    subject.author_name = "Thisissuchalongnameitisdefinitelymorethanfourtycharacters"
-    expect(subject).to_not be_valid
-  end
-
   it "is not valid without an email" do
     subject.email = nil
     expect(subject).to_not be_valid

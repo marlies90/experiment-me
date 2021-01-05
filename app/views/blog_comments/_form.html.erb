@@ -1,23 +1,18 @@
 <%= simple_form_for [ commentable, BlogComment.new ] do |f| %>
   <div class="row">
-    <% if @commentable && @commentable.errors.any? %>
-    <% @commentable.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-    <% end %>
-  <% end %>
-  <div class="col-12 col-sm-8 col-md-5">
-    <%= f.input :author_name, class:"form-control mb-1", label: "Name" %>
+    <div class="col-12 col-sm-8 col-md-5">
+      <%= f.hidden_field :blog_post_id, value: @blog_post.id %>
+      <%= f.input :author_name, class:"form-control mb-1", label: "Name", required: true %>
+      <%= f.input :email, class:"form-control mb-1", label: "Email (will not be made public)", required: true %>
+    </div>
+    <div class="col-12 col-sm-8">
+      <%= f.input :comment, class:"form-control", rows: 3, required: true%>
+    </div>
 
-    <%= f.input :email, class:"form-control mb-1", label: "Email (will not be made public)" %>
-  </div>
-  <div class="col-12 col-sm-8">
-    <%= f.input :comment, class:"form-control", rows: 3 %>
-  </div>
+    <%= f.invisible_captcha :website %>
 
-  <%= f.invisible_captcha :website %>
-
-  <div class="col-12">
-    <%= f.submit 'Submit', class: "btn btn-primary" %>
-  </div>
+    <div class="col-12">
+      <%= f.submit 'Submit', class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>

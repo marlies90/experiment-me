@@ -6,7 +6,6 @@ class BlogComment < ApplicationRecord
 
   validates_presence_of :author_name, :email, :comment
 
-  validates :author_name, length: { maximum: 40 }
   validates :email, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
 
   scope :oldest_first, -> { order("created_at ASC") }

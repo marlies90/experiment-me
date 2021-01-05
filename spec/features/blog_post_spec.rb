@@ -146,7 +146,8 @@ RSpec.describe BlogPost, type: :feature do
           click_button "Submit"
         end
 
-        expect(page).to have_content "error"
+        expect(page).to have_content "Author name can't be blank"
+        expect(page).to have_content "Email can't be blank"
       end
 
       it "allows the user to post multiple comments using the same email" do
@@ -157,7 +158,7 @@ RSpec.describe BlogPost, type: :feature do
           click_button "Submit"
         end
 
-        expect(page).to have_content "Your comment was successfully posted!"
+        expect(page).to have_content "Your comment has been posted!"
       end
 
       it "does not allow bots to spam comments" do
@@ -196,7 +197,7 @@ RSpec.describe BlogPost, type: :feature do
           click_button "Submit"
         end
 
-        expect(page).to have_content "Your comment was successfully posted!"
+        expect(page).to have_content "Your comment has been posted!"
 
         within ".existing_comments" do
           expect(page).to have_content "1 Comments"
@@ -234,7 +235,7 @@ RSpec.describe BlogPost, type: :feature do
           click_button "Submit"
         end
 
-        expect(page).to have_content "Your comment was successfully posted!"
+        expect(page).to have_content "Your comment has been posted!"
 
         within ".existing_comments" do
           expect(page).to have_content "2 Comments"

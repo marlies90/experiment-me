@@ -18,13 +18,25 @@
             <p><em><%= @blog_post.created_at.strftime("%e %b %Y") %></em></p>
             <img class="card-img pb-4" src="<%= rails_blob_url(@blog_post.image) if @blog_post.image.attached? %>">
             <%= simple_format(sanitize(@blog_post.description, attributes: ["href", "target", "class"]), {}, sanitize: false) %>
+            <div id="comment_section_anchor"></div>
           </div>
         </div>
 
         <div class="card mt-4">
           <div class="card-body">
             <div class="existing_comments">
-              <h2 class="text-intense text-brand pb-2"><%= number_of_comments %> Comments</h2>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-lg-7">
+                  <h2 class="text-intense text-brand pb-2 h2"><%= number_of_comments %> Comments</h2>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-5">
+                  <% if flash[:comment_notice] %>
+                    <span class="alert alert-success position-relative d-block m-0 mb-2"><i class="fas fa-check-circle text-health"></i><%= flash[:comment_notice] %></span>
+                  <% elsif flash[:comment_errors] %>
+                    <span class="alert alert-danger position-relative d-block m-0 mb-2"><i class="fas fa-angle-right"><%= flash[:comment_errors] %></i></span>
+                  <% end %>
+                </div>
+              </div>
               <%= render partial: "blog_comments", collection: @blog_post.blog_comments.reverse, as: "blog_comment"  %>
             </div>
 
