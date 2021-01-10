@@ -42,7 +42,6 @@ gem "sqreen"
 
 # mails
 gem "mail_form", "~> 1.8"
-gem "sendgrid-ruby", "~> 6.2"
 
 group :development do
   gem "listen", ">= 3.0.5", "< 3.2"
