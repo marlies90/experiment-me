@@ -2,7 +2,7 @@
 <% content_for :meta_description, @experiment.description_meta %>
 
 <main class="experiment-detail bg-light">
-  <section class="jumbotron text-center experiment-image" style="background: url(<%= rails_blob_url(@experiment.image) if @experiment.image.attached? %>); background-size: cover;">
+  <section class="jumbotron text-center experiment-image" style="background: url(<%= url_for(@experiment.image) if @experiment.image.attached? %>); background-size: cover;">
   </section>
 
   <section class="container heading p-0">

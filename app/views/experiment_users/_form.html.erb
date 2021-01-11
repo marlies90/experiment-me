@@ -57,7 +57,7 @@
         </div>
         <div class="row card-body">
           <div class="col-12 mb-2">
-            <img class="card-img" src="<%= rails_blob_url(@experiment.image) if @experiment.image.attached? %>">
+            <img class="card-img" src="<%= url_for(@experiment.image) if @experiment.image.attached? %>">
           </div>
           <div class="col-12">
             <p class="h5 text-intense text-<%= @experiment.category.name.downcase %>">
@@ -121,7 +121,7 @@
         </div>
         <div class="row card-body">
           <div class="col-12 mb-2">
-            <img class="card-img" src="<%= rails_blob_url(@experiment.image) if @experiment.image.attached? %>">
+            <img class="card-img" src="<%= url_for(@experiment.image) if @experiment.image.attached? %>">
           </div>
           <div class="col-12">
             <p class="h5 text-intense text-<%= @experiment.category.name.downcase %>">
