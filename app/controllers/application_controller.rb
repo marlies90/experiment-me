@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from Net::SMTPAuthenticationError do
     logger.error("SMTPAuthenticationError: couldn't send email")
-    redirect_back(fallback_location: home_url, alert: "Error: email could not be sent")
+    redirect_back(fallback_location: root_url, alert: "Error: email could not be sent")
   end
 
   before_action :configure_permitted_parameters, if: :devise_controller?
