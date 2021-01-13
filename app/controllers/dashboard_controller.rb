@@ -26,6 +26,7 @@ class DashboardController < ApplicationController
     @benefits = Benefit.all
     @blog_posts = BlogPost.all
     @blog_comments = BlogComment.all
+    @images = Image.all
   end
 
   private

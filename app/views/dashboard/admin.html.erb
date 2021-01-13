@@ -159,6 +159,33 @@
               <% end %>
             </table>
           </div>
+
+          <div class="images row mb-1">
+            <div class="col-md-6">
+              <h4>Images</h4>
+            </div>
+            <div class="col-md-6 text-right">
+              <a class="btn btn-secondary" href="<%= new_image_path %>"><i class="fas fa-plus"></i>New image</a>
+            </div>
+
+            <table class="table">
+              <tr>
+                <th>Image name</th>
+                <th>Alt</th>
+                <th>Actions</th>
+              </tr>
+              <% @images.each do |image| %>
+              <tr>
+                <td><%= image.name %></td>
+                <td><%= image.alt %></td>
+                <td>
+                  <span><%= link_to "Edit", edit_image_path(image) %></span>
+                  <span><%= link_to "Destroy", image_path(image), method: :delete, data: { confirm: "Are you sure?" } %></span>
+                </td>
+              </tr>
+              <% end %>
+            </table>
+          </div>
         </div>
       </div>
     </div>
