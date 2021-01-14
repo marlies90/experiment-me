@@ -2,7 +2,7 @@
 <% content_for :meta_description, "Discover your happiest life - one experiment at a time! Track how you're feeling and try life experiments to find out what makes YOU happy." %>
 
 <main role="main" class="bg-white">
-  <section class="jumbotron-home text-center">
+  <section class="jumbotron-home text-center home-image" style="background: url(<%= url_for(Image.find_by(name: "homepage_1").image) if Image.find_by(name: "homepage_1").image.attached? %>); background-size: cover;">
     <div class="container">
       <h1 class="jumbotron-heading text-intense">Experiment.rocks</h1>
       <p class="lead text-muted">Discover your happiest life - one experiment at a time</p>
@@ -178,7 +178,7 @@
           Love, Marlies
         </div>
         <div class="col-12 col-sm-3 mt-4 mt-sm-0 mr-sm-0 text-center">
-          <%= image_with_alt_tag("test") %>
+          <%= image_with_alt_tag("marlies_small") %>
         </div>
       </div>
     </div>

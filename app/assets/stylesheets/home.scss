@@ -24,11 +24,15 @@
   max-width: 40rem;
 }
 
+.home-image {
+  background-position: top !important;
+}
+
 .about {
   font-size: 1.1rem;
 
   img {
-    height: 10rem;
+    height: 15rem;
   }
 
   @media (min-width: 576px) {

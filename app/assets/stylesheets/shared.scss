@@ -84,3 +84,7 @@ h2 + br, h3 + br {
   z-index: 1030;
   flex-shrink: 0;
 }
+
+.logo img {
+  max-width: 10rem;
+}
