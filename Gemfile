@@ -9,6 +9,7 @@ ruby "2.6.3"
 gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 3.12"
 gem "rails", "~> 6.0.0"
+gem "sidekiq", "~> 6.1", ">= 6.1.2"
 
 # layout
 gem "aws-sdk-s3", require: false
@@ -39,9 +40,6 @@ gem "turbolinks", "~> 5"
 gem "invisible_captcha", "~> 1.1"
 gem "rack-attack", "~> 6.2", ">= 6.2.2"
 gem "sqreen"
-
-# mails
-gem "mail_form", "~> 1.8"
 
 group :development do
   gem "listen", ">= 3.0.5", "< 3.2"

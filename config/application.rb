@@ -25,5 +25,7 @@ module ExperimentMe
         all: { layout: "error" }
       }
     }
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end

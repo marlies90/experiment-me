@@ -31,6 +31,7 @@ class ExperimentUsersController < ApplicationController
 
     if @experiment_user.save
       redirect_to dashboard_experiments_path, notice: "You have successfully started the experiment"
+      UserMailer.with(user: @user, experiment: @experiment).experiment_start_email.deliver_later
     else
       render :new
     end
@@ -83,6 +84,7 @@ class ExperimentUsersController < ApplicationController
 
     if @experiment_user.update(experiment_user_params)
       redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
+      UserMailer.with(user: @user, experiment: @experiment).experiment_start_email.deliver_later
     else
       render :edit
     end
