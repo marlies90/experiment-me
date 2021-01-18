@@ -2,7 +2,20 @@
 <% content_for :meta_description, "Discover your happiest life - one experiment at a time! Track how you're feeling and try life experiments to find out what makes YOU happy." %>
 
 <main role="main" class="bg-white">
-  <section class="jumbotron-home text-center home-image" style="background: url(<%= url_for(Image.find_by(name: "homepage_1").image) if Image.find_by(name: "homepage_1").image.attached? %>); background-size: cover;">
+  <section class="jumbotron-home text-center home-image d-block d-sm-none" style="background: url(<%= url_for(Image.find_by(name: "homepage_mobile").image) if Image.find_by(name: "homepage_mobile").image.attached? %>); background-size: cover; height:30rem;">
+    <div class="container">
+      <h1 class="jumbotron-heading text-intense">Experiment.rocks</h1>
+      <p class="lead text-muted">Discover your happiest life - one experiment at a time</p>
+      <p>
+        <a href="<%= categories_path %>" class="btn btn-primary my-2">View experiments</a>
+        <% unless current_user.present? %>
+          <a href="<%= new_user_registration_path %>" class="btn btn-secondary my-2">Register</a>
+        <% end %>
+      </p>
+    </div>
+  </section>
+
+  <section class="jumbotron-home text-left home-image d-none d-sm-block" style="background: url(<%= url_for(Image.find_by(name: "homepage_desktop").image) if Image.find_by(name: "homepage_desktop").image.attached? %>); background-size: cover">
     <div class="container">
       <h1 class="jumbotron-heading text-intense">Experiment.rocks</h1>
       <p class="lead text-muted">Discover your happiest life - one experiment at a time</p>
