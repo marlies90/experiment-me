@@ -31,7 +31,7 @@ class ExperimentUsersController < ApplicationController
 
     if @experiment_user.save
       redirect_to dashboard_experiments_path, notice: "You have successfully started the experiment"
-      UserMailer.with(user: @user, experiment: @experiment).experiment_start_email.deliver_later
+      send_experiment_user_start_mail
     else
       render :new
     end
@@ -84,7 +84,7 @@ class ExperimentUsersController < ApplicationController
 
     if @experiment_user.update(experiment_user_params)
       redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
-      UserMailer.with(user: @user, experiment: @experiment).experiment_start_email.deliver_later
+      send_experiment_user_start_mail
     else
       render :edit
     end
@@ -95,6 +95,10 @@ class ExperimentUsersController < ApplicationController
     @experiment_user.starting_date = params[:experiment_user][:starting_date] || DateTime.current
     @experiment_user.ending_date = (@experiment_user.starting_date + 21.days).end_of_day
     @experiment_user.status = "active"
+  end
+
+  def send_experiment_user_start_mail
+    UserMailer.with(user: @user, experiment: @experiment).experiment_start_email.deliver_later
   end
 
   def experiment_user

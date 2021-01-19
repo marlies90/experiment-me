@@ -8,8 +8,27 @@
       </tr>
       <tr>
         <td class="bodycopy">
-          YOU JUST STARTED AN EXPERIMENT!!
-          This one: <%= @experiment.name %>
+          Awesome to see you’re doing something new to improve your life!<br><br>
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          For the next 21 days, you’re trying out the experiment ‘<%= @experiment.name %>’.<br>
+          Objective: <%= @experiment.objective %><br>
+          You’ll find all the details you need in your <%= link_to 'personal lab', dashboard_lab_url, class: "inline-link" %>.<br><br>
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy h3">
+          Measuring your experiment success
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          Now, how will you determine whether this experiment works for you?
+          You can mentally keep track of how you’re feeling, but do keep in mind that in 3 weeks it will
+          be difficult to remember how you were feeling right now. To get a more accurate picture of how this experiment
+          influences your life, you can fill in your daily observations.
         </td>
       </tr>
     </table>
@@ -22,7 +41,7 @@
                 <table class="buttonwrapper" bgcolor="#866ec7" border="0" cellspacing="0" cellpadding="0" style="border-radius: 8px;">
                   <tr>
                     <td class="button-primary" height="36">
-                      <%= link_to 'See your experiment', root_url %>
+                      <%= link_to 'Add observation', observations_url %>
                     </td>
                   </tr>
                 </table>
@@ -33,10 +52,16 @@
       </tr>
     </table>
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <td class="innerpadding bodycopy" style="padding: 20px 0 10px 0;">
-        If you didn't request this, please ignore this email.
-        Your password won't change until you access the link above and create a new one.
-      </td>
+      <tr>
+        <td class="bodycopy" style="padding: 20px 0 10px 0;">
+          If you have any questions, feel free to respond to this email.<br>
+          I’m very excited to be doing life experiments together!<br><br>
+
+          Love,<br>
+          Marlies
+        </td>
+      </tr>
+
     </table>
   </td>
 </tr>
