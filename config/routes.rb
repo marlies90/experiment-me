@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  require "sidekiq/web"
+
   namespace :dashboard do
     get "lab"
     get "charts"
@@ -51,6 +53,10 @@ Rails.application.routes.draw do
   get "/contact", to: "pages#contact"
 
   get "/sitemap", to: "sitemaps#index"
+
+  authenticate :user, ->(u) { u.admin? } do
+    mount Sidekiq::Web => "/sidekiq"
+  end
 
   root "pages#home"
 end
