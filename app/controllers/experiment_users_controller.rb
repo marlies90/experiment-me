@@ -99,7 +99,7 @@ class ExperimentUsersController < ApplicationController
 
   def send_experiment_user_start_mail
     UserMailer.with(user: @user, experiment: @experiment).experiment_start_email.deliver_later
-  rescue Standarderror
+  rescue StandardError
     nil
   end
 
