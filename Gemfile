@@ -9,6 +9,7 @@ ruby "2.6.3"
 gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 3.12"
 gem "rails", "~> 6.0.0"
+gem "redis"
 gem "sidekiq", "~> 6.1", ">= 6.1.2"
 
 # layout
