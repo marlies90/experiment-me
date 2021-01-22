@@ -52,7 +52,7 @@ class ExperimentsController < ApplicationController
   def experiment_params
     params.fetch(:experiment).permit(
       :name, :description, :image, :objective, :category_id, :description_meta, :title,
-      :practical_details,
+      :practical_details, :implementation_intention,
       resources_attributes: %i[id name source _destroy],
       benefit_ids: []
     )

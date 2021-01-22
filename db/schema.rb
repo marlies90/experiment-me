@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_105113) do
+ActiveRecord::Schema.define(version: 2021_01_22_093232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_105113) do
     t.text "description_meta"
     t.text "title"
     t.text "practical_details"
+    t.text "implementation_intention"
     t.index ["category_id"], name: "index_experiments_on_category_id"
     t.index ["slug"], name: "index_experiments_on_slug", unique: true
   end
@@ -145,6 +146,13 @@ ActiveRecord::Schema.define(version: 2020_12_21_105113) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "alt"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "observations", force: :cascade do |t|

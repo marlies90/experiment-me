@@ -70,4 +70,9 @@ RSpec.describe Experiment, type: :model do
     subject.practical_details = nil
     expect(subject).to be_valid
   end
+
+  it "is valid without implementation_intention" do
+    subject.implementation_intention = nil
+    expect(subject).to be_valid
+  end
 end

@@ -3,7 +3,7 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td class="bodycopy h3">
-          Hi <%= @user.first_name %>!
+          Hi <%= @user.first_name %>,
         </td>
       </tr>
       <tr>
@@ -14,10 +14,23 @@
       <tr>
         <td class="bodycopy">
           For the next 21 days, you’re trying out the experiment ‘<%= @experiment.name %>’.<br>
-          Objective: <%= @experiment.objective %><br>
+          Objective: <strong><%= @experiment.objective %></strong><br>
           You’ll find all the details you need in your <%= link_to 'personal lab', dashboard_lab_url, class: "inline-link" %>.<br><br>
         </td>
       </tr>
+      <tr>
+        <td class="bodycopy">
+          <% if @experiment.implementation_intention.present? %>
+          When implementing something new into your life, it is very common to want to give up and fall back into old behaviour.
+          To prevent that from happening to you, fill in this statement right now:<br><br>
+
+          <em><%= @experiment.implementation_intention %></em><br><br>
+
+          Really do this small exercise. It’s a powerful way to set yourself up for a successful experiment!<br><br>
+          <% end %>
+        </td>
+      </tr>
+
       <tr>
         <td class="bodycopy h3">
           Measuring your experiment success
