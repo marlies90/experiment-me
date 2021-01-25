@@ -11,6 +11,7 @@ gem "puma", "~> 3.12"
 gem "rails", "~> 6.0.0"
 gem "redis"
 gem "sidekiq", "< 6"
+gem "sidekiq-cron", "~> 1.2"
 
 # layout
 gem "aws-sdk-s3", require: false

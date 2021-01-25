@@ -1,0 +1,4 @@
+test_mail_marlies:
+  cron: "7 15 * * *"
+  class: "TestMailMarliesJob"
+  queue: mailers
