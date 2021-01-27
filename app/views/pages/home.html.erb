@@ -2,7 +2,20 @@
 <% content_for :meta_description, "Discover your happiest life - one experiment at a time! Track how you're feeling and try life experiments to find out what makes YOU happy." %>
 
 <main role="main" class="bg-white">
-  <section class="jumbotron-home text-center">
+  <section class="jumbotron-home text-center home-image d-block d-sm-none" style="background: url(<%= url_for(Image.find_by(name: "homepage_mobile")&.image) if Image.find_by(name: "homepage_mobile")&.image&.attached? %>); background-size: cover; height:30rem;">
+    <div class="container">
+      <h1 class="jumbotron-heading text-intense">Experiment.rocks</h1>
+      <p class="lead text-muted">Discover your happiest life - one experiment at a time</p>
+      <p>
+        <a href="<%= categories_path %>" class="btn btn-primary my-2">View experiments</a>
+        <% unless current_user.present? %>
+          <a href="<%= new_user_registration_path %>" class="btn btn-secondary my-2">Register</a>
+        <% end %>
+      </p>
+    </div>
+  </section>
+
+  <section class="jumbotron-home text-left home-image d-none d-sm-block" style="background: url(<%= url_for(Image.find_by(name: "homepage_desktop")&.image) if Image.find_by(name: "homepage_desktop")&.image&.attached? %>); background-size: cover">
     <div class="container">
       <h1 class="jumbotron-heading text-intense">Experiment.rocks</h1>
       <p class="lead text-muted">Discover your happiest life - one experiment at a time</p>
@@ -164,7 +177,7 @@
   <section class="bg-light">
     <div class="card-body about border rounded">
       <div class="row">
-        <div class="col-12 col-sm-9">
+        <div class="col-12 col-sm-7 col-lg-9">
           <h3 class="text-intense">About</h3>
           <p>
             Hi! I’ve spent countless hours researching happiness and mindfulness and trying out what I learned.
@@ -177,8 +190,8 @@
           </p>
           Love, Marlies
         </div>
-        <div class="col-12 col-sm-3 mt-4 mt-sm-0 text-center">
-          <img src="https://s3.eu-central-1.amazonaws.com/experiment.rocks/marlies_avatar.jpg" alt="Marlies, author of experiment.rocks">
+        <div class="col-12 col-sm-5 col-lg-3 mt-4 mt-sm-0 mr-sm-0 text-center">
+          <%= image_with_alt_tag("marlies_small") %>
         </div>
       </div>
     </div>

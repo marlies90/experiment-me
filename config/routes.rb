@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   resources :observations, path: "/dashboard/observations"
   resources :benefits
+  resources :images
 
   devise_scope :user do
     get "/dashboard/settings" => "users/registrations#edit", as: "edit_user_registration"

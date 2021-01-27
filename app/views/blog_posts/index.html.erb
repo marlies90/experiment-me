@@ -19,7 +19,7 @@
             <div class="row">
               <% @blog_posts.each do |blog_post| %>
                 <div class="col-12 col-sm-4">
-                  <img class="card-img" src="<%= rails_blob_url(blog_post.image) if blog_post.image.attached? %>">
+                  <img class="card-img" src="<%= url_for(blog_post.image) if blog_post.image.attached? %>">
                 </div>
                 <div class="col-12 col-sm-8">
                   <h2 class="h3 text-intense"><%= link_to blog_post.name, blog_post_path(blog_post) %></h2>

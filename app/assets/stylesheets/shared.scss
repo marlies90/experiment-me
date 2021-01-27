@@ -6,6 +6,7 @@
 @import "dashboard";
 @import "categories";
 @import "experiments";
+@import "content-pages";
 @import "blog";
 
 html {
@@ -83,4 +84,8 @@ h2 + br, h3 + br {
   color: $light;
   z-index: 1030;
   flex-shrink: 0;
+}
+
+.logo img {
+  max-width: 10rem;
 }

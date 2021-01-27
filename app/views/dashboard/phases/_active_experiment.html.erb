@@ -63,7 +63,7 @@
       </div>
       <div class="row card-body">
         <div class="col-xs-12 col-lg-5 mb-2">
-          <img class="card-img" src="<%= rails_blob_url(@active_experiment.image) if @active_experiment.image.attached? %>">
+          <img class="card-img" src="<%= url_for(@active_experiment.image) if @active_experiment.image.attached? %>">
         </div>
         <div class="col-xs-12 col-lg-7 order-lg-first">
           <p class="h5 text-intense text-<%= @active_experiment.category.name.downcase %>">

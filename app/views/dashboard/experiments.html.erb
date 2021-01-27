@@ -32,7 +32,7 @@
               <div class="row card-body">
                 <% if uncompleted_active_experiment? %>
                   <div class="col-xs-12 col-lg-4 mb-2">
-                    <img class="card-img" src="<%= rails_blob_url(@active_experiment.image) if @active_experiment.image.attached? %>">
+                    <img class="card-img" src="<%= url_for(@active_experiment.image) if @active_experiment.image.attached? %>">
                   </div>
                   <div class="col-xs-12 col-lg-8 order-lg-first">
                     <p class="h5 text-intense text-<%= @active_experiment.category.name.downcase %>">
