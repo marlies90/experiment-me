@@ -1,4 +1,5 @@
 require "sidekiq"
+Dir[Rails.root.join("app", "jobs", "*.rb")].each { |f| require f }
 
 Sidekiq.configure_server do |config|
   config.redis = { url: ENV["REDISTOGO_URL"] }
