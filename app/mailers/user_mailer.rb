@@ -7,8 +7,9 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: "Yay! You just started an experiment")
   end
 
-  def test_mail_marlies
+  def experiment_midway_email
     @user = params[:user]
-    mail(to: @user.email, subject: "This is the cron test")
+    @experiment = params[:experiment]
+    mail(to: @user.email, subject: "You’re halfway through the experiment 💪")
   end
 end

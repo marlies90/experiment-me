@@ -3,11 +3,14 @@
 require "rails_helper"
 
 RSpec.describe ExperimentUser, type: :feature do
+  include ActiveJob::TestHelper
+
   let(:current_user) { FactoryBot.create(:user) }
   let(:experiment) { FactoryBot.create(:experiment) }
   let!(:experiment_user) do
     FactoryBot.create(:experiment_user, :active, experiment: experiment, user: current_user)
   end
+  let(:enqueued_jobs) { ActiveJob::Base.queue_adapter.enqueued_jobs }
 
   before do
     login_as(current_user)
@@ -80,6 +83,17 @@ RSpec.describe ExperimentUser, type: :feature do
         it "does not show the ending survey or cancellation reason" do
           expect(page).to_not have_content "Your ending measurement"
           expect(page).to_not have_content "You're cancelling the experiment"
+        end
+
+        it "sends the experiment start mail" do
+          select("Today", from: "experiment_user_starting_date")
+          all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
+            score.choose(class: "radio_buttons", option: "4")
+          end
+          click_button "Start this experiment"
+
+          expect(enqueued_jobs.last["arguments"]).to include("experiment_start_email")
+          expect(enqueued_jobs.size).to be 1
         end
       end
 
@@ -222,6 +236,18 @@ RSpec.describe ExperimentUser, type: :feature do
           click_link "Retry this experiment"
           expect(page).to_not have_content "Your ending measurement"
           expect(page).to_not have_content "You're cancelling the experiment"
+        end
+
+        it "sends the experiment start mail" do
+          click_link "Retry this experiment"
+          select("Today", from: "experiment_user_starting_date")
+          all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
+            score.choose(class: "radio_buttons", option: "4")
+          end
+          click_button "Start this experiment"
+
+          expect(enqueued_jobs.last["arguments"]).to include("experiment_start_email")
+          expect(enqueued_jobs.size).to be 1
         end
       end
 

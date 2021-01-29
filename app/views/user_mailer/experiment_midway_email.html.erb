@@ -1,0 +1,51 @@
+<tr>
+  <td class="innerpadding">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="bodycopy h3">
+          <%= @user.first_name %>,
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          Only 1.5 weeks to go to complete ‘<%= link_to @experiment.name, experiment_url(id: @experiment.slug, category: @experiment.category), class: "inline-link" %>’!<br><br>
+          This is a perfect moment to see what impact this has had on your life so far.<br><br>
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          Have you noticed any of these benefits?<br>
+          <% @experiment.benefits.each do |benefit| %>
+            <span class="benefit benefit-<%= @experiment.category.name.downcase %>"><%= benefit.name %></span>
+          <% end %>
+
+          <br>
+
+          And have there perhaps been other changes you’ve noticed in the past 1.5 weeks? <br><br>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="bodycopy">
+          Take a bit of time to think about this, so that you’re better able to decide whether this experiment
+          is moving you into the right direction.<br><br>
+
+          Keep up the good work, changing habits is not easy.<br>
+          Celebrating you, wherever you are at!<br>
+
+        </td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="bodycopy" style="padding: 20px 0 10px 0;">
+          <em>P.S. If you’ve decided not to continue this experiment right now, make sure to <%= link_to 'cancel it', dashboard_experiments_url, class: "inline-link" %> so that you can retry it later.<em><br><br>
+
+          Love,<br>
+          Marlies
+        </td>
+      </tr>
+
+    </table>
+  </td>
+</tr>
