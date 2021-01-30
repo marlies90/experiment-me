@@ -1,0 +1,54 @@
+<tr>
+  <td class="innerpadding">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="bodycopy h3">
+          WOOHOO! You rock, <%= @user.first_name %>!
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          21 days of trying something new, and you made it all the way through!<br><br>
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          The big question: has this experiment made the impact you were hoping for?<br><br>
+          Do the experiment completion and find out:
+        </td>
+      </tr>
+    </table>
+
+    <table class="col380" align="left" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 380px;">
+      <tr>
+        <td>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td style="padding: 20px 0 0 0;">
+                <table class="buttonwrapper" bgcolor="#866ec7" border="0" cellspacing="0" cellpadding="0" style="border-radius: 8px;">
+                  <tr>
+                    <td class="button-primary" height="36">
+                      <%= link_to "Complete '#{@experiment.name}'", edit_experiment_user_url(
+                      id: @experiment_user.id, experiment_id: @experiment.id) %>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="bodycopy" style="padding: 20px 0 10px 0;">
+          Once you complete the experiment you can start a new one straight away (or take some time to enjoy your achievement 😄)
+          <br><br>
+
+          Love,<br>
+          Marlies
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>

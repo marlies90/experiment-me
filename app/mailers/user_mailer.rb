@@ -12,4 +12,11 @@ class UserMailer < ApplicationMailer
     @experiment = params[:experiment]
     mail(to: @user.email, subject: "You’re halfway through the experiment 💪")
   end
+
+  def experiment_end_email
+    @user = params[:user]
+    @experiment = params[:experiment]
+    @experiment_user = params[:experiment_user]
+    mail(to: @user.email, subject: "YES! You’ve completed the experiment 🎉")
+  end
 end
