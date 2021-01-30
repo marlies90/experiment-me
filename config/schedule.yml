@@ -2,3 +2,8 @@ experiment_midway_mail:
   cron: "5 11 * * *"
   class: "ExperimentMidwayMailJob"
   queue: mailers
+
+experiment_end_mail:
+  cron: "05 06,18 * * *"
+  class: "ExperimentEndMailJob"
+  queue: mailers
