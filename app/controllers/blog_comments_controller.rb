@@ -11,11 +11,12 @@ class BlogCommentsController < ApplicationController
 
     if @comment.save
       flash[:comment_notice] = "Your comment has been posted!"
+      send_google_analytics_event
     else
       flash[:comment_errors] = @comment.errors.full_messages
     end
 
-    redirect_to blog_post_path(@blog_post) + "#comment_section_anchor"
+    redirect_to blog_post_path(@blog_post.slug) + "#comment_section_anchor"
   end
 
   def destroy
@@ -41,12 +42,21 @@ class BlogCommentsController < ApplicationController
     end
   end
 
+  def send_google_analytics_event
+    GoogleAnalyticsEvent.new(
+      "blog_comment",
+      "creation",
+      @blog_post.slug.to_s,
+      params[:ga_client_id]
+    )
+  end
+
   def set_blog_comment
     @comment = BlogComment.find(params[:id])
     authorize @comment
   end
 
   def set_blog_post
-    @blog_post = BlogPost.find(blog_post_params[:blog_post_id]).slug
+    @blog_post = BlogPost.find(blog_post_params[:blog_post_id])
   end
 end

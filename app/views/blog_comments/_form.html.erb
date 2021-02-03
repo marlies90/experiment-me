@@ -1,6 +1,7 @@
 <%= simple_form_for [ commentable, BlogComment.new ] do |f| %>
   <div class="row">
     <div class="col-12 col-sm-8 col-md-5">
+      <%= hidden_field_tag "ga_client_id", "", class: "ga-client-id" %>
       <%= f.hidden_field :blog_post_id, value: @blog_post.id %>
       <%= f.input :author_name, class:"form-control mb-1", label: "Name", required: true %>
       <%= f.input :email, class:"form-control mb-1", label: "Email (will not be made public)", required: true %>

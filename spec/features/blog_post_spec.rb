@@ -186,6 +186,22 @@ RSpec.describe BlogPost, type: :feature do
         expect(page).to have_content "alert('I am an alert box!!')"
         expect(page).not_to have_content "<script>"
       end
+
+      it "sends an event to Google Analytics" do
+        expect(GoogleAnalyticsEvent).to receive(:new).with(
+          "blog_comment",
+          "creation",
+          blog_post_1.slug.to_s,
+          ""
+        )
+
+        within ".new_blog_comment" do
+          fill_in "blog_comment_author_name", with: Faker::Name.first_name
+          fill_in "blog_comment_email", with: Faker::Internet.email
+          fill_in "blog_comment_comment", with: Faker::Lorem.paragraph
+          click_button "Submit"
+        end
+      end
     end
 
     context "when placing a comment on a blog post" do
