@@ -32,7 +32,11 @@
                   </div>
 
                   <div class="form_group pb-2">
-                    <%= f.input :time_zone, class: "form-control" %>
+                    <%= f.label :time_zone, class: "mb-0" %><br />
+                    <div class="mb-1">
+                      <small><em>Hint: type in your country's capital city (e.g. Amsterdam), country name or major city in your area</em></small>
+                    </div>
+                    <%= f.input :time_zone, class: "form-control", required: true, label: false %>
                   </div>
 
                   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -102,8 +106,13 @@
                 </div>
             </div>
           </div>
-
       </section>
     </div>
   </div>
 </main>
+
+<script>
+  $(document).ready(function() {
+    $('#user_time_zone').select2();
+  });
+</script>
