@@ -34,7 +34,11 @@
         </div>
 
         <div class="form_group">
-          <%= f.input :time_zone, class: "form-control", required: true %>
+          <%= f.label :time_zone, required: true, class: "mb-0" %><br />
+          <div class="mb-1">
+            <small><em>Hint: type in your country's capital city (e.g. Amsterdam), country name or major city in your area</em></small>
+          </div>
+          <%= f.input :time_zone, class: "form-control", required: true, label: false %>
         </div>
 
         <%= f.invisible_captcha :age %>
@@ -60,3 +64,9 @@
     </div>
   </div>
 </main>
+
+<script>
+  $(document).ready(function() {
+    $('#user_time_zone').select2();
+  });
+</script>
