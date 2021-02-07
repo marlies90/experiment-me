@@ -9,6 +9,7 @@ class GoogleAnalyticsEvent
   end
 
   def event
+    puts "the event is startingggg"
     return unless GOOGLE_ANALYTICS_SETTINGS[:tracking_code].present?
 
     params = {
@@ -21,6 +22,9 @@ class GoogleAnalyticsEvent
       el: @label
     }
 
+    puts "these are the params: #{params}"
+    puts "this is the endpoint: #{GOOGLE_ANALYTICS_SETTINGS[:endpoint]}"
+
     begin
       Faraday.post(
         GOOGLE_ANALYTICS_SETTINGS[:endpoint],
@@ -29,7 +33,7 @@ class GoogleAnalyticsEvent
         open_timeout: 4
       )
       true
-    rescue Faraday::Exception
+    rescue Faraday::Error
       false
     end
   end
