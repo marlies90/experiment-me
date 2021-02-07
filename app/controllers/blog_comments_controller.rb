@@ -48,7 +48,7 @@ class BlogCommentsController < ApplicationController
       "creation",
       @blog_post.slug.to_s,
       params[:ga_client_id]
-    )
+    ).event
   end
 
   def set_blog_comment

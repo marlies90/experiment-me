@@ -34,12 +34,11 @@
     </script>
 
     <script>
-      $(document).ready(function() {
-        ga(function(tracker) {
-          var clientId = tracker.get('clientId');
-          $('.ga-client-id').val(clientId);
-        });
-      });
+      window['GoogleAnalyticsObject'] = 'ga';
+      window['ga'] = window['ga'] || function() {
+        (window['ga'].q = window['ga'].q || []).push(arguments)
+      };
+      ga('create', 'UA-167571882-1', 'auto');
     </script>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?forceLang=en&theme=momh&always=1&showNoConsent=1&hideDetailsBtn=1&showPolicyLink=1&remember=90&privacyPage=%2Fprivacy-statement%23cookiestatement"></script>
