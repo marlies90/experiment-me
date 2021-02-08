@@ -22,10 +22,7 @@ class GoogleAnalyticsEvent
     }
 
     begin
-      response = Faraday.post(
-        "https://www.google-analytics.com/debug/collect?tid=fake&v=1",
-        params
-      )
+      Faraday.post(GOOGLE_ANALYTICS_SETTINGS[:endpoint], params)
       true
     rescue Faraday::Error
       false
