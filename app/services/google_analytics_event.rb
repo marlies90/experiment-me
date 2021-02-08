@@ -9,7 +9,7 @@ class GoogleAnalyticsEvent
   end
 
   def event
-    # return unless GOOGLE_ANALYTICS_SETTINGS[:tracking_code].present?
+    return unless GOOGLE_ANALYTICS_SETTINGS[:tracking_code].present?
 
     params = {
       v: GOOGLE_ANALYTICS_SETTINGS[:version],
@@ -21,17 +21,11 @@ class GoogleAnalyticsEvent
       el: @label
     }
 
-    puts "these are the params: #{params}"
-    puts "this is the endpoint: #{GOOGLE_ANALYTICS_SETTINGS[:endpoint]}"
-
     begin
       response = Faraday.post(
-        'https://www.google-analytics.com/debug/collect?tid=fake&v=1',
-        params: params,
-        timeout: 4,
-        open_timeout: 4
+        "https://www.google-analytics.com/debug/collect?tid=fake&v=1",
+        params
       )
-      puts "this is the response body: #{response.body}"
       true
     rescue Faraday::Error
       false
