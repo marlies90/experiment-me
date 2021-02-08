@@ -26,10 +26,12 @@ class GoogleAnalyticsEvent
 
     begin
       response = Faraday.post(
-        GOOGLE_ANALYTICS_SETTINGS[:endpoint],
-        params: params
+        'https://www.google-analytics.com/debug/collect?tid=fake&v=1',
+        params: params,
+        timeout: 4,
+        open_timeout: 4
       )
-      puts "this is the Faraday response: #{response}"
+      puts "this is the response body: #{response.body}"
       true
     rescue Faraday::Error
       false
