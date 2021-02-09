@@ -11,7 +11,13 @@ class GoogleAnalyticsEvent
   def event
     return unless GOOGLE_ANALYTICS_SETTINGS[:tracking_code].present?
 
-    params = {
+    SendGoogleAnalyticsEventJob.perform_later(event_params)
+  end
+
+  private
+
+  def event_params
+    {
       v: GOOGLE_ANALYTICS_SETTINGS[:version],
       tid: GOOGLE_ANALYTICS_SETTINGS[:tracking_code],
       cid: @client_id,
@@ -20,12 +26,5 @@ class GoogleAnalyticsEvent
       ea: @action,
       el: @label
     }
-
-    begin
-      Faraday.post(GOOGLE_ANALYTICS_SETTINGS[:endpoint], params)
-      true
-    rescue Faraday::Error
-      false
-    end
   end
 end
