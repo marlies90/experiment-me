@@ -44,8 +44,8 @@ class BlogCommentsController < ApplicationController
 
   def send_google_analytics_event
     GoogleAnalyticsEvent.new(
-      "blog_comment",
-      "creation",
+      "Blog comment",
+      "Creation",
       @blog_post.slug.to_s,
       params[:ga_client_id]
     ).event

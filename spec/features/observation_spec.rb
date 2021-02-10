@@ -41,6 +41,26 @@ RSpec.describe Observation, type: :feature do
     end
   end
 
+  context "when creating a new observation" do
+    before do
+      click_button("New observation")
+    end
+
+    it "sends an event to Google Analytics" do
+      event = spy(GoogleAnalyticsEvent)
+      expect(GoogleAnalyticsEvent).to receive(:new).and_return(event)
+
+      choose("observation_mood_3")
+      choose("observation_sleep_3")
+      choose("observation_health_3")
+      choose("observation_relax_3")
+      choose("observation_connect_3")
+      choose("observation_meaning_3")
+
+      click_button "Save observation"
+    end
+  end
+
   context "without an active experiment" do
     context "when creating a new observation" do
       before do

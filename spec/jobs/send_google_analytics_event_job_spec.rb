@@ -14,8 +14,8 @@ RSpec.describe SendGoogleAnalyticsEventJob, type: :job do
         tid: (GOOGLE_ANALYTICS_SETTINGS[:tracking_code]).to_s,
         cid: "555",
         t: "event",
-        ec: "blog_comment",
-        ea: "creation",
+        ec: "Blog comment",
+        ea: "Creation",
         el: "a_blog_slug"
       }
     end

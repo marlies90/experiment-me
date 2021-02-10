@@ -9,8 +9,8 @@ RSpec.describe GoogleAnalyticsEvent do
   let(:blog_post) { FactoryBot.create(:blog_post) }
   let!(:event) do
     subject.new(
-      "blog_comment",
-      "creation",
+      "Blog comment",
+      "Creation",
       blog_post.slug.to_s,
       "3423422.4324222"
     ).event
@@ -31,8 +31,8 @@ RSpec.describe GoogleAnalyticsEvent do
             "tid" => (GOOGLE_ANALYTICS_SETTINGS[:tracking_code]).to_s,
             "cid" => "3423422.4324222",
             "t" => "event",
-            "ec" => "blog_comment",
-            "ea" => "creation",
+            "ec" => "Blog comment",
+            "ea" => "Creation",
             "el" => blog_post.slug.to_s,
             "_aj_symbol_keys" => %w[v tid cid t ec ea el]
           }
@@ -42,8 +42,8 @@ RSpec.describe GoogleAnalyticsEvent do
       context "when the client_id is empty" do
         let!(:event) do
           subject.new(
-            "blog_comment",
-            "creation",
+            "Blog comment",
+            "Creation",
             blog_post.slug.to_s,
             ""
           ).event

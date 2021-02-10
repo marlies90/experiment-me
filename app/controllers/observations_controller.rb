@@ -27,6 +27,7 @@ class ObservationsController < ApplicationController
 
     if @observation.save
       redirect_to dashboard_charts_path, notice: "Your observation has been saved."
+      send_google_analytics_event
     else
       render :new
     end
@@ -82,6 +83,15 @@ class ObservationsController < ApplicationController
     else
       params[:observation][:date].to_datetime
     end
+  end
+
+  def send_google_analytics_event
+    GoogleAnalyticsEvent.new(
+      "Observation",
+      "Creation",
+      "",
+      params[:ga_client_id]
+    ).event
   end
 
   def observation_params
