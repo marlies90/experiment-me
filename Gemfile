@@ -59,6 +59,7 @@ group :test do
   gem "launchy", "~> 2.4", ">= 2.4.3"
   gem "rspec-rails"
   gem "shoulda", "~> 3.6"
+  gem "webmock"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

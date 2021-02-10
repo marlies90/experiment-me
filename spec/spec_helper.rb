@@ -20,6 +20,7 @@ RSpec.configure do |config|
   require "factory_bot_rails"
   require "capybara/rspec"
   require "pry"
+  require "webmock/rspec"
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
