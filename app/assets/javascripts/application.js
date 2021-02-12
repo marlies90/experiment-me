@@ -20,3 +20,5 @@
 //= require chartkick
 //= require turbolinks
 //= require_tree .
+
+//= require google_analytics/client_id

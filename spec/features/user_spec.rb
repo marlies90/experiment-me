@@ -4,9 +4,12 @@ require "rails_helper"
 
 RSpec.describe User, type: :feature do
   context "When signing up" do
+    before do
+      visit new_user_registration_path
+    end
+
     context "new profile" do
       it "allows for succesful creation of a new user profile" do
-        visit new_user_registration_path
         within ".form" do
           fill_in "user_first_name", with: Faker::Name.first_name
           fill_in "user_email", with: Faker::Internet.email
@@ -24,7 +27,6 @@ RSpec.describe User, type: :feature do
       end
 
       it "does not allow bots to sign up" do
-        visit new_user_registration_path
         within ".form" do
           fill_in "user_first_name", with: Faker::Name.first_name
           fill_in "user_email", with: Faker::Internet.email
@@ -38,6 +40,23 @@ RSpec.describe User, type: :feature do
 
         expect(User.count).to be 0
       end
+
+      it "sends an event to Google Analytics" do
+        event = spy(GoogleAnalyticsEvent)
+        expect(GoogleAnalyticsEvent).to receive(:new)
+          .with("User", "Registration", "", "")
+          .and_return(event)
+
+        within ".form" do
+          fill_in "user_first_name", with: Faker::Name.first_name
+          fill_in "user_email", with: Faker::Internet.email
+          fill_in "user_password", with: "000000"
+          fill_in "user_password_confirmation", with: "000000"
+          select("(GMT+01:00) Amsterdam", from: "user_time_zone")
+          page.check("user_terms_agreement")
+        end
+        click_button "Sign up"
+      end
     end
 
     context "profile already exists for this email" do
@@ -46,7 +65,6 @@ RSpec.describe User, type: :feature do
       it "does not allow that email to be used again" do
         expect(User.count).to be 1
 
-        visit new_user_registration_path
         within ".form" do
           fill_in "user_first_name", with: Faker::Name.first_name
           fill_in "user_email", with: "already_used@gmail.com"

@@ -188,12 +188,10 @@ RSpec.describe BlogPost, type: :feature do
       end
 
       it "sends an event to Google Analytics" do
-        expect(GoogleAnalyticsEvent).to receive(:new).with(
-          "blog_comment",
-          "creation",
-          blog_post_1.slug.to_s,
-          ""
-        )
+        event = spy(GoogleAnalyticsEvent)
+        expect(GoogleAnalyticsEvent).to receive(:new)
+          .with("Blog comment", "Creation", blog_post_1.slug.to_s, "")
+          .and_return(event)
 
         within ".new_blog_comment" do
           fill_in "blog_comment_author_name", with: Faker::Name.first_name

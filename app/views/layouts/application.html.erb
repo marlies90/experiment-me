@@ -24,13 +24,13 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167571882-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= GOOGLE_ANALYTICS_SETTINGS[:tracking_code] %>"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-167571882-1');
+      gtag('config', '<%= GOOGLE_ANALYTICS_SETTINGS[:tracking_code] %>');
     </script>
 
     <script>
@@ -38,7 +38,7 @@
       window['ga'] = window['ga'] || function() {
         (window['ga'].q = window['ga'].q || []).push(arguments)
       };
-      ga('create', 'UA-167571882-1', 'auto');
+      ga('create', '<%= GOOGLE_ANALYTICS_SETTINGS[:tracking_code] %>', 'auto');
     </script>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?forceLang=en&theme=momh&always=1&showNoConsent=1&hideDetailsBtn=1&showPolicyLink=1&remember=90&privacyPage=%2Fprivacy-statement%23cookiestatement"></script>

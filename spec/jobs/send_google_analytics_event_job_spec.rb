@@ -11,21 +11,24 @@ RSpec.describe SendGoogleAnalyticsEventJob, type: :job do
     let(:event_params) do
       {
         v: 1,
-        tid: "UA",
+        tid: (GOOGLE_ANALYTICS_SETTINGS[:tracking_code]).to_s,
         cid: "555",
         t: "event",
-        ec: "f",
-        ea: "d",
-        el: "f"
+        ec: "Blog comment",
+        ea: "Creation",
+        el: "a_blog_slug"
       }
     end
 
-    context "when the experiment started 10 days ago" do
-      it "schedules the email" do
-        subject.perform_later(event_params)
+    before do
+      stub_request(:post, (GOOGLE_ANALYTICS_SETTINGS[:endpoint]).to_s)
+    end
 
-        expect(enqueued_jobs.last["job_class"]).to eq("SendGoogleAnalyticsEventJob")
-        expect(enqueued_jobs.size).to be 1
+    context "when an event is triggered" do
+      it "does a POST request to GA" do
+        subject.perform_now(event_params)
+
+        expect(a_request(:post, (GOOGLE_ANALYTICS_SETTINGS[:endpoint]).to_s)).to have_been_made.once
       end
     end
   end

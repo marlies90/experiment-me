@@ -32,6 +32,7 @@ class ExperimentUsersController < ApplicationController
     if @experiment_user.save
       redirect_to dashboard_experiments_path, notice: "You have successfully started the experiment"
       send_experiment_user_start_mail
+      send_google_analytics_event("Creation")
     else
       render :new
     end
@@ -62,6 +63,7 @@ class ExperimentUsersController < ApplicationController
 
     if @experiment_user.update(experiment_user_params)
       redirect_to dashboard_experiments_path, notice: "You have cancelled the experiment"
+      send_google_analytics_event("Cancellation")
     else
       render :edit
     end
@@ -72,6 +74,7 @@ class ExperimentUsersController < ApplicationController
 
     if @experiment_user.update(experiment_user_params)
       redirect_to dashboard_experiments_path, notice: "You have completed the experiment"
+      send_google_analytics_event("Completion")
     else
       render :edit
     end
@@ -85,6 +88,7 @@ class ExperimentUsersController < ApplicationController
     if @experiment_user.update(experiment_user_params)
       redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
       send_experiment_user_start_mail
+      send_google_analytics_event("Reactivation")
     else
       render :edit
     end
@@ -101,6 +105,15 @@ class ExperimentUsersController < ApplicationController
     UserMailer.with(user: @user, experiment: @experiment).experiment_start_email.deliver_later
   rescue StandardError
     nil
+  end
+
+  def send_google_analytics_event(action)
+    GoogleAnalyticsEvent.new(
+      "Experiment user",
+      action,
+      @experiment.slug.to_s,
+      params[:ga_client_id]
+    ).event
   end
 
   def experiment_user

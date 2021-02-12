@@ -57,11 +57,4 @@
   $('.new_comment_on_comment').click(function() {
     $(".reveal_reply_section", this).removeClass('d-none');
   });
-
-  $(document).ready(function() {
-    ga(function(tracker) {
-      var clientId = tracker.get('clientId');
-      $('.ga-client-id').val(clientId);
-    });
-  });
 </script>
