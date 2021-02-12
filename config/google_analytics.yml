@@ -6,4 +6,9 @@ production:
 test:
   endpoint: "http://www.google-analytics.com/collect"
   version: 1
-  tracking_code: UA-111111111-1
+  tracking_code: UA-99999999-1
+
+development:
+  endpoint: "http://www.google-analytics.com/collect"
+  version: 1
+  tracking_code: UA-99999999-1
