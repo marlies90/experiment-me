@@ -92,8 +92,20 @@ RSpec.describe ExperimentUser, type: :feature do
           end
           click_button "Start this experiment"
 
-          expect(enqueued_jobs.last["arguments"]).to include("experiment_start_email")
-          expect(enqueued_jobs.size).to be 1
+          expect(enqueued_jobs.first["arguments"]).to include("experiment_start_email")
+        end
+
+        it "sends an event to Google Analytics" do
+          event = spy(GoogleAnalyticsEvent)
+          expect(GoogleAnalyticsEvent).to receive(:new)
+            .with("Experiment user", "Creation", experiment.slug.to_s, "")
+            .and_return(event)
+
+          select("Today", from: "experiment_user_starting_date")
+          all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
+            score.choose(class: "radio_buttons", option: "4")
+          end
+          click_button "Start this experiment"
         end
       end
 
@@ -190,6 +202,17 @@ RSpec.describe ExperimentUser, type: :feature do
         expect(page).to_not have_content "Your starting measurement"
         expect(page).to_not have_content "Your ending measurement"
       end
+
+      it "sends an event to Google Analytics" do
+        event = spy(GoogleAnalyticsEvent)
+        expect(GoogleAnalyticsEvent).to receive(:new)
+          .with("Experiment user", "Cancellation", experiment.slug.to_s, "")
+          .and_return(event)
+
+        click_link("Cancel experiment")
+        select("I accidentally started it", from: "experiment_user_cancellation_reason")
+        click_button("Stop this experiment")
+      end
     end
 
     context "when an experiment has been cancelled" do
@@ -246,8 +269,21 @@ RSpec.describe ExperimentUser, type: :feature do
           end
           click_button "Start this experiment"
 
-          expect(enqueued_jobs.last["arguments"]).to include("experiment_start_email")
-          expect(enqueued_jobs.size).to be 1
+          expect(enqueued_jobs.first["arguments"]).to include("experiment_start_email")
+        end
+
+        it "sends an event to Google Analytics" do
+          event = spy(GoogleAnalyticsEvent)
+          expect(GoogleAnalyticsEvent).to receive(:new)
+            .with("Experiment user", "Reactivation", experiment.slug.to_s, "")
+            .and_return(event)
+
+          click_link "Retry this experiment"
+          select("Today", from: "experiment_user_starting_date")
+          all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
+            score.choose(class: "radio_buttons", option: "4")
+          end
+          click_button "Start this experiment"
         end
       end
 
@@ -322,6 +358,23 @@ RSpec.describe ExperimentUser, type: :feature do
         click_link "Finalize experiment"
         expect(page).to_not have_content "Your starting measurement"
         expect(page).to_not have_content "You're cancelling the experiment"
+      end
+
+      it "sends an event to Google Analytics upon completion" do
+        event = spy(GoogleAnalyticsEvent)
+        expect(GoogleAnalyticsEvent).to receive(:new)
+          .with("Experiment user", "Completion", experiment.slug.to_s, "")
+          .and_return(event)
+
+        click_link("Finalize experiment")
+        expect(page).to have_content "You're completing the experiment"
+        all(class: "experiment_user_experiment_user_measurements_ending_score").each do |score|
+          score.choose(class: "radio_buttons", option: "4")
+        end
+        select("Very easy", from: "experiment_user_difficulty")
+        select("Moderate", from: "experiment_user_life_impact")
+
+        click_button("Complete this experiment")
       end
     end
 

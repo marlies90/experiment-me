@@ -48,7 +48,9 @@ RSpec.describe Observation, type: :feature do
 
     it "sends an event to Google Analytics" do
       event = spy(GoogleAnalyticsEvent)
-      expect(GoogleAnalyticsEvent).to receive(:new).and_return(event)
+      expect(GoogleAnalyticsEvent).to receive(:new)
+        .with("Observation", "Creation", "", "")
+        .and_return(event)
 
       choose("observation_mood_3")
       choose("observation_sleep_3")

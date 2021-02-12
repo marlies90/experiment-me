@@ -4,6 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   invisible_captcha only: [:create], honeypot: :age, scope: :user
+  after_action :send_google_analytics_event, only: [:create]
 
   # GET /resource/sign_up
   # def new
@@ -60,4 +61,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+
+  def send_google_analytics_event
+    GoogleAnalyticsEvent.new(
+      "User",
+      "Registration",
+      "",
+      params[:ga_client_id]
+    ).event
+  end
 end
