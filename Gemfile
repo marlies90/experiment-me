@@ -7,6 +7,7 @@ ruby "2.6.3"
 
 # setup
 gem "faraday"
+gem "lograge"
 gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 3.12"
 gem "rails", "~> 6.1.0"
