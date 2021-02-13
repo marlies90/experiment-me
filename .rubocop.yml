@@ -48,3 +48,4 @@ AllCops:
     - "db/schema.rb"
     - "config/initializers/*"
     - "bin/*"
+    - "db/migrate/*.active_storage.rb"
