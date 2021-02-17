@@ -3,12 +3,16 @@
 require "rails_helper"
 
 RSpec.describe User, type: :feature do
+  include ActiveJob::TestHelper
+
   context "When signing up" do
     before do
       visit new_user_registration_path
     end
 
     context "new profile" do
+      let(:enqueued_jobs) { ActiveJob::Base.queue_adapter.enqueued_jobs }
+
       it "allows for succesful creation of a new user profile" do
         within ".form" do
           fill_in "user_first_name", with: Faker::Name.first_name
@@ -39,6 +43,20 @@ RSpec.describe User, type: :feature do
         click_button "Sign up"
 
         expect(User.count).to be 0
+      end
+
+      it "sends a welcome email" do
+        within ".form" do
+          fill_in "user_first_name", with: Faker::Name.first_name
+          fill_in "user_email", with: Faker::Internet.email
+          fill_in "user_password", with: "000000"
+          fill_in "user_password_confirmation", with: "000000"
+          select("(GMT+01:00) Amsterdam", from: "user_time_zone")
+          page.check("user_terms_agreement")
+        end
+        click_button "Sign up"
+
+        expect(enqueued_jobs.last["arguments"]).to include("welcome_email")
       end
 
       it "sends an event to Google Analytics" do

@@ -4,6 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   invisible_captcha only: [:create], honeypot: :age, scope: :user
+  after_action :send_welcome_email, only: [:create]
   after_action :send_google_analytics_event, only: [:create]
 
   # GET /resource/sign_up
@@ -63,6 +64,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   private
+
+  def send_welcome_email
+    UserMailer.with(user: @user).welcome_email.deliver_later
+  rescue StandardError
+    nil
+  end
 
   def send_google_analytics_event
     GoogleAnalyticsEvent.new(

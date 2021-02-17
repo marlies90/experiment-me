@@ -46,8 +46,8 @@ gem "sqreen"
 
 # logging
 gem "lograge"
-gem "sentry-ruby"
 gem "sentry-rails"
+gem "sentry-ruby"
 
 group :development do
   gem "listen", ">= 3.0.5", "< 3.2"
