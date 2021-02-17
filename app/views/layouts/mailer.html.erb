@@ -8,7 +8,7 @@
       body {margin: 0; padding: 0; min-width: 100%!important;}
       img {height: auto;}
       .content {width: 100%; max-width: 600px;}
-      .header {padding: 20px 30px 20px 20px;}
+      .header {padding: 10px 30px 10px 20px;}
       .header a {color: #ffffff; text-decoration: none;}
       .innerpadding {padding: 26px 30px 30px 30px;}
       .borderbottom {border-bottom: 1px solid #f2eeed;}
@@ -23,7 +23,7 @@
       .button-primary a {color: #ffffff; text-decoration: none; display:block; cursor:pointer;}
       .button-secondary {text-align: center; font-size: 18px; font-family: sans-serif; padding: 0 20px 0 20px}
       .button-secondary a {color: #343a40; text-decoration: none; display:block; cursor:pointer;}
-      .footer {padding: 20px 30px 15px 30px;}
+      .footer {padding: 15px 30px 15px 30px;}
       .footer a {color: #ffffff; text-decoration: none;}
       .footercopy {font-family: sans-serif; font-size: 14px; color: #ffffff;}
       .benefit {color: #ffffff; text-align: center; font-family: sans-serif; padding: 10px 20px 10px 20px; display: inline-block; margin-bottom: 5px; margin-top: 5px;}
@@ -63,8 +63,10 @@
               <td bgcolor="#343a40" class="header">
                 <table align="left" border="0" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td class="h2" style="padding: 0 0 0 3px; color:#ffffff;">
-                      <a href="https://www.experiment.rocks">experiment.rocks</a>
+                    <td style="color:#ffffff;">
+                      <a href="https://www.experiment.rocks">
+                        <img src="<%= url_for(Image.find_by(name: "logo").image) %>" alt="Experiment.rocks" width="150" height="100" style="display: block;" />
+                      </a>
                     </td>
                   </tr>
                 </table>
@@ -86,7 +88,7 @@
               <td class="footer" bgcolor="#343a40">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td align="center" class="footercopy">
+                    <td align="right" class="footercopy">
                       &reg; <a href="https://www.experiment.rocks">experiment.rocks</a> <br/>
                     </td>
                   </tr>
