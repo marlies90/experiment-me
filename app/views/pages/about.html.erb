@@ -1,0 +1,104 @@
+<% content_for :meta_title, "About #{DEFAULT_META["meta_website"]}" %>
+<% content_for :meta_description, "" %>
+
+<main role="main" class="about">
+  <section>
+    <div class="jumbotron text-center bg-brand text-white rounded-0">
+      <div class="px-2 px-sm-4">
+        <h1 class="jumbotron-heading text-intense h3">Your happiness does not depend on that promotion, lake house or deep relationship.</h1>
+        <p class="h5">It depends on <strong>you</strong>. You have the power to massively transform how you experience life.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container p-0 category-experiments">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 bg-light">
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+        <li class="breadcrumb-item active" aria-current="page">About</li>
+      </ol>
+    </nav>
+    <div class="row">
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body row justify-content-around">
+            <div class="col-sm-8">
+              <p>
+                Doing life experiments helps you discover that power: you try something out, see how you feel. Perhaps it improves your life, perhaps it does not. The important thing is that you’re actively taking steps to live a better, more enjoyable life that YOU love.
+              </p>
+              <p>
+                You start becoming a creator - you’re creating what you want, rather than feeling stuck in whatever situation you find yourself in. You discover how exciting it can feel to be alive - there are limitless possibilities to explore!
+              </p>
+              <p class="text-center">
+                <%= image_with_alt_tag("about_2") %>
+              </p>
+              <p>
+                <span class="h5"><strong>How doing experiments transformed my life</strong></span>
+              </p>
+              <p>
+                Experiment.rocks is the site I needed some years ago.
+              </p>
+              <p>
+                When it felt like my life was just work, relationship and chores and no energy to do anything else. I’d come home exhausted after a work day, quickly have a meal and then head off to my boyfriend’s place, hoping he would not want to talk or do anything. I just wanted to sleep. But I didn’t. I pushed myself to be social because I felt it was expected of me. I felt irritated more and more often but pretended everything was ok. I was surrounded by lots of great people yet I always felt this uncomfortable emptiness during and after socialising.
+              </p>
+              <p>
+                I tried to accommodate others, putting my own needs last. I had no idea what I wanted or needed in the first place. This is not to say it was all gloomy - I did have a lot of fun going out with colleagues, traveling and playing board games. But underneath that there was always this uneasy feeling that something wasn’t quite right. A never-ending search for that missing piece that would make me feel whole.
+              </p>
+              <p>
+                <span clas="h5">
+                  <strong>
+                    The thought that I could change any of this didn’t even cross my mind.
+                  </strong>
+                </span>
+              </p>
+              <p>
+                I got to a point of nearly burning out, and for a few months I just did the bare minimum needed to regain my energy. When I recovered, there was one thing I knew for sure - I do not want to feel like that again.
+              </p>
+              <p>
+                I started rethinking everything in my life - is this <em>really</em> what I want? Countless hours of research into happiness followed. I found an overwhelming amount of information on how others have improved their lives, and decided to try out what I learned.
+              </p>
+              <p>
+                Interesting things started happening. Life slowly seemed to become easier and more enjoyable. Taking good care of myself started out as a necessity to regain energy, but turned into the number one priority once I saw what it did for my life.
+              </p>
+              <p>
+                A space opened up inside that allows me to enjoy the small things in life and to be present. To accept and love myself, including the parts I rejected for so long. To accept and truly listen to others. My relationships have deepened immensely. I feel content most of the time, and am learning to be ok with not feeling good too. There’s an inner peace and a knowing that no matter what happens, I am ok.
+              </p>
+              <p class="text-center">
+                <%= image_with_alt_tag("about") %>
+              </p>
+              <p>
+                The old me would’ve never dreamed of creating a website and actually putting my own face and insights on there. But I have found a previously unknown drive and confidence to get out my comfort zone and impact your life. And yes, it is scary to put myself out there. But there’s a stronger sense of excitement over the lessons and experiences this dive into the unknown will bring.
+              </p>
+              <p>
+                <span class="h5"><strong>Start living your authentic life</strong></span>
+              </p>
+              <p>
+                <em>Most of us have two lives. The life we live, and the unlived life within us.<br>
+                  Steven Pressfield</em>
+                </p>
+                <p>
+                  I want you to start making the unlived life within you into your reality.
+                </p>
+                <p>
+                  That’s why I’m organising the happiness habits I discovered into experiments, so that you can go straight to the most important part - trying out what resonates with you and discovering that <strong>you have the power to transform your life</strong>. And to help you progress even faster, I’ll be sharing my journey and different ways of viewing and experiencing life on the blog.
+                </p>
+                <p>
+                  Let’s get started!
+                </p>
+                <p>
+                  <a href="<%= categories_path %>" class="btn btn-primary my-2">Choose an experiment</a>
+                  <a href="<%= blog_posts_path %>" class="btn btn-secondary my-2">Read blog</a>
+                </p>
+                <p>
+                  Love,
+                </p>
+                <p>
+                  Marlies
+                </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

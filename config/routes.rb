@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     resources :blog_comments
   end
 
+  get "/about", to: "pages#about"
   get "/privacy-statement", to: "pages#privacy_statement"
   get "/terms-conditions", to: "pages#terms_conditions"
   get "/contact", to: "pages#contact"

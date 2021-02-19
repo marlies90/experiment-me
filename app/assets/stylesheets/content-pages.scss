@@ -3,3 +3,23 @@
     height: 20rem;
   }
 }
+
+.about {
+  img {
+    width: 30rem;
+  }
+
+  .jumbotron {
+    min-height: 20rem;
+
+    @media (min-width: 1024px) {
+      padding-top: 3rem;
+      min-height: 15rem;
+    }
+
+    @media (min-width: 1200px) {
+      padding-left: 12rem;
+      padding-right: 12rem;
+    }
+  }
+}
