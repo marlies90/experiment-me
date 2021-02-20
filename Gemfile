@@ -6,7 +6,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.6.3"
 
 # setup
-gem "bullet"
 gem "faraday"
 gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 3.12"
@@ -51,6 +50,7 @@ gem "sentry-rails"
 gem "sentry-ruby"
 
 group :development do
+  gem "bullet"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "pry-rails", "~> 0.3.9"
   gem "spring"
