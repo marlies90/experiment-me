@@ -24,40 +24,36 @@ module ExperimentHelper
   end
 
   def already_doing_an_experiment
-    ExperimentUser.find_by(user_id: current_user, status: "active").present?
+    current_experiment&.present?
   end
 
   def already_doing_this_experiment(experiment)
-    ExperimentUser.find_by(
-      user_id: current_user,
-      experiment_id: experiment.id,
-      status: "active"
-    ).present?
+    current_experiment&.experiment_id == experiment.id
   end
 
   def already_did_this_experiment(experiment)
-    ExperimentUser.find_by(
-      user_id: current_user,
-      experiment_id: experiment.id,
-      status: "completed"
-    ).present?
+    completed_experiments_ids&.include?(experiment.id)
   end
 
   def active_experiment_on_date(date)
-    return unless ExperimentUser.where(user_id: current_user)
+    return unless @current_user&.experiment_users&.any?
 
-    if @observation.experiment_id.present?
-      @active_experiment_on_date = Experiment.find_by(id: @observation.experiment_id)
-    else
-      ExperimentUser.where(user_id: current_user).each do |user_experiment|
-        next unless user_experiment.starting_date.beginning_of_day <= date &&
-                    user_experiment.ending_date > date
+    @active_experiment_on_date = if @observation.experiment_id.present?
+                                   Experiment.find_by(id: @observation.experiment_id)
+                                 else
+                                   ExperimentUser
+                                     .where(user_id: current_user)
+                                     .find_by("starting_date <= ? AND ending_date > ?", date, date)
+                                       &.experiment
+                                 end
+  end
 
-        @active_experiment_on_date = user_experiment.experiment
-      end
-    end
+  def current_experiment
+    @current_user&.experiment_users&.active&.first
+  end
 
-    @active_experiment_on_date
+  def completed_experiments_ids
+    @current_user&.experiment_users&.completed&.map(&:experiment_id)
   end
 
   def experiment_user(experiment)

@@ -26,7 +26,7 @@
             <span>When would you like to start the experiment?</span>
             <%= f.input :starting_date,
             as: :select,
-            collection: [["Today", DateTime.current], ["Tomorrow", (DateTime.current + 1).beginning_of_day]],
+            collection: [["Today", DateTime.current.beginning_of_day], ["Tomorrow", (DateTime.current + 1).beginning_of_day]],
             selected: "Today",
             label: false,
             input_html: { class: "col-md-6 mt-2" } %>

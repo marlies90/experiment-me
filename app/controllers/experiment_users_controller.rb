@@ -27,12 +27,12 @@ class ExperimentUsersController < ApplicationController
   def create
     @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
     @experiment_user = ExperimentUser.new(experiment_user_params)
-    set_initial_experiment_user_attributes
+    @experiment_user.user_id = current_user.id
+    set_starting_experiment_user_attributes
 
     if @experiment_user.save
       redirect_to dashboard_experiments_path, notice: "You have successfully started the experiment"
-      send_experiment_user_start_mail
-      send_google_analytics_event("Creation")
+      send_start_notifications("Creation")
     else
       render :new
     end
@@ -59,7 +59,7 @@ class ExperimentUsersController < ApplicationController
 
   def cancel_experiment
     @experiment_user.status = "cancelled"
-    @experiment_user.ending_date = DateTime.current
+    @experiment_user.ending_date = DateTime.current.beginning_of_day
 
     if @experiment_user.update(experiment_user_params)
       redirect_to dashboard_experiments_path, notice: "You have cancelled the experiment"
@@ -81,24 +81,25 @@ class ExperimentUsersController < ApplicationController
   end
 
   def reactivate_experiment
-    @experiment_user.status = "active"
-    @experiment_user.starting_date = DateTime.current
-    @experiment_user.ending_date = (DateTime.current + 21).end_of_day
+    set_starting_experiment_user_attributes
 
     if @experiment_user.update(experiment_user_params)
       redirect_to dashboard_experiments_path, notice: "You have reactivated the experiment"
-      send_experiment_user_start_mail
-      send_google_analytics_event("Reactivation")
+      send_start_notifications("Reactivation")
     else
       render :edit
     end
   end
 
-  def set_initial_experiment_user_attributes
-    @experiment_user.user_id = current_user.id
-    @experiment_user.starting_date = params[:experiment_user][:starting_date] || DateTime.current
+  def set_starting_experiment_user_attributes
+    @experiment_user.starting_date = params[:experiment_user][:starting_date]
     @experiment_user.ending_date = (@experiment_user.starting_date + 21.days).end_of_day
     @experiment_user.status = "active"
+  end
+
+  def send_start_notifications(notification_type)
+    send_experiment_user_start_mail
+    send_google_analytics_event(notification_type)
   end
 
   def send_experiment_user_start_mail

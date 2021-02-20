@@ -51,7 +51,7 @@ RSpec.describe ExperimentUser, type: :feature do
           end
 
           expect(ExperimentUser.first.starting_date).to be_within(1.second)
-            .of(DateTime.current)
+            .of(DateTime.current.beginning_of_day)
           expect(ExperimentUser.first.ending_date).to be_within(1.second)
             .of((DateTime.current + 21).end_of_day)
         end
@@ -194,7 +194,7 @@ RSpec.describe ExperimentUser, type: :feature do
         expect(ExperimentUser.first.starting_date).to be_within(1.second)
           .of((DateTime.current - 1).beginning_of_day)
         expect(ExperimentUser.first.ending_date).to be_within(1.second)
-          .of(DateTime.current)
+          .of(DateTime.current.beginning_of_day)
       end
 
       it "does not show the starting or ending survey" do
@@ -230,7 +230,7 @@ RSpec.describe ExperimentUser, type: :feature do
       end
 
       context "when the user doesn't already have an active experiment" do
-        it "allows the user to reactivate that experiment" do
+        it "allows the user to reactivate that experiment starting today" do
           within ".cancelled_experiments" do
             expect(page).to have_content experiment.name
           end
@@ -244,9 +244,26 @@ RSpec.describe ExperimentUser, type: :feature do
           end
 
           expect(ExperimentUser.first.starting_date).to be_within(1.second)
-            .of(DateTime.current)
+            .of(DateTime.current.beginning_of_day)
           expect(ExperimentUser.first.ending_date).to be_within(1.second)
             .of((DateTime.current + 21).end_of_day)
+        end
+
+        it "allows the user to reactivate that experiment starting tomorrow" do
+          click_link("Retry this experiment")
+          expect(page).to have_content "Start"
+          select("Tomorrow", from: "experiment_user_starting_date")
+
+          click_button("Start this experiment")
+
+          within ".current_experiment" do
+            expect(page).to have_content experiment.name
+          end
+
+          expect(ExperimentUser.first.starting_date).to be_within(1.second)
+            .of((DateTime.current + 1).beginning_of_day)
+          expect(ExperimentUser.first.ending_date).to be_within(1.second)
+            .of((DateTime.current + 22).end_of_day)
         end
 
         it "lets the user fill in the starting survey again" do
