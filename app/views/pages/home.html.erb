@@ -1,7 +1,7 @@
 <% content_for :meta_title, "Experiment.rocks - your Happiness Lab" %>
 <% content_for :meta_description, "Discover your happiest life - one experiment at a time! Track how you're feeling and try life experiments to find out what makes YOU happy." %>
 
-<main role="main" class="bg-white">
+<main role="main" class="bg-white overflow-hidden">
   <section class="jumbotron-home text-center home-image d-block d-sm-none" style="background: url(<%= url_for(Image.find_by(name: "homepage_mobile")&.image) if Image.find_by(name: "homepage_mobile")&.image&.attached? %>); background-size: cover; height:30rem;">
     <div class="container">
       <h1 class="jumbotron-heading text-intense">Experiment.rocks</h1>

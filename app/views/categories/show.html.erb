@@ -1,7 +1,7 @@
 <% content_for :meta_title, "#{@category.title} #{DEFAULT_META["meta_website"]}" %>
 <% content_for :meta_description, @category.description_meta %>
 
-<main role="main">
+<main role="main" class="overflow-hidden">
   <section>
     <div class="jumbotron text-center category-header bg-<%= @category.name.downcase %> text-white rounded-0">
       <div class="px-2 px-sm-4">

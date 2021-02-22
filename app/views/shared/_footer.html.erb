@@ -1,5 +1,5 @@
-<footer class="footer navbar navbar-expand-md bg-dark navbar-dark">
-  <div class="navbar-nav mr-auto">
+<footer class="footer navbar navbar-expand-md bg-dark navbar-dark flex-column flex-md-row">
+  <div class="navbar-nav mr-auto order-2 order-md-1">
     <span class="nav-item">
       <%= link_to "Privacy statement", privacy_statement_path, class: "nav-link" %>
     </span>
@@ -7,7 +7,7 @@
       <%= link_to "Terms and conditions", terms_conditions_path, class: "nav-link" %>
     </span>
   </div>
-  <div class="navbar-nav mr-4">
+  <div class="navbar-nav mr-auto mr-md-4 order-1 order-md-2">
     <span class="nav-item">
       <%= link_to "Contact", contact_path, class: "nav-link" %>
     </span>

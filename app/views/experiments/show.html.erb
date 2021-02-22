@@ -1,7 +1,7 @@
 <% content_for :meta_title, "#{@experiment.title} #{DEFAULT_META["meta_website"]}" %>
 <% content_for :meta_description, @experiment.description_meta %>
 
-<main class="experiment-detail bg-light">
+<main class="experiment-detail bg-light overflow-hidden">
   <section class="jumbotron text-center experiment-image" style="background: url(<%= url_for(@experiment.image) if @experiment.image.attached? %>); background-size: cover;">
   </section>
 
