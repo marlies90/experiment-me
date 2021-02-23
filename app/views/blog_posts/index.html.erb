@@ -4,7 +4,7 @@
 <main role="main" class="bg-meaning">
   <section class="container my-4 px-0 overflow-hidden">
     <div class="row">
-      <div class="col-12 col-md-9">
+      <div class="col-12 col-lg-9">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mb-0 bg-light">
             <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
@@ -14,18 +14,21 @@
         <div class="card">
           <div class="card-body">
             <div class="pb-4">
-              <h1 class="text-intense">Experiment.blogs</h1>
+              <h1 class="text-intense h2">Experiment.blogs</h1>
             </div>
             <div class="row">
               <% @blog_posts.each do |blog_post| %>
                 <div class="col-12 col-sm-4">
-                  <img class="card-img" src="<%= url_for(blog_post.image) if blog_post.image.attached? %>">
+                  <a href="<%= blog_post_path(blog_post) %>">
+                    <img class="card-img" src="<%= url_for(blog_post.image) if blog_post.image.attached? %>">
+                  </a>
                 </div>
-                <div class="col-12 col-sm-8">
+                <div class="col-12 col-sm-8 mt-2 mt-sm-0">
                   <h2 class="h3 text-intense"><%= link_to blog_post.name, blog_post_path(blog_post) %></h2>
                   <p class="mb-1"><em><%= blog_post.created_at.strftime("%e %b %Y") %></em></p>
-                  <p><%= blog_post.summary %></p>
-                  <%= link_to "Read more", blog_post_path(blog_post), class: "btn btn-primary" %>
+                  <p><%= simple_format(sanitize(blog_post.summary), {}, sanitize: false) %></p>
+
+                  <%= link_to "Read this blog post", blog_post_path(blog_post), class: "btn btn-primary" %>
                 </div>
                 <div class="col-12 py-2">
                   <hr>
