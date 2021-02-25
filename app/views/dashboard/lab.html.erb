@@ -1,29 +1,27 @@
 <% content_for :meta_title, "Lab - Experiment.rocks" %>
 
-<main class="container-fluid dashboard">
-  <div class="vh-100">
-    <div class="row h-100">
-      <%= render 'sidebar_nav' %>
+<main class="container-fluid dashboard stretch-nav">
+  <div class="row h-100">
+    <%= render 'sidebar_nav' %>
 
-      <div class="col-md-9 col-lg-10 ml-sm-auto px-0 bg-light overflow-hidden">
-        <section>
-          <div class="jumbotron rounded-0 bg-brand text-white dashboard-header">
-            <div class="px-2 px-sm-4">
-              <h1 class="jumbotron-heading text-intense"><i class="fas fa-flask"></i>The lab</h1>
-              <p class="lead">Your happiness exploration starts here!</p>
-            </div>
+    <div class="col-md-9 col-lg-10 ml-sm-auto px-0 bg-light overflow-hidden">
+      <section>
+        <div class="jumbotron rounded-0 bg-brand text-white dashboard-header">
+          <div class="px-2 px-sm-4">
+            <h1 class="jumbotron-heading text-intense"><i class="fas fa-flask"></i>The lab</h1>
+            <p class="lead">Your happiness exploration starts here!</p>
           </div>
-        </section>
-        <section>
-          <% if @active_experiment.blank? %>
-          <%= render "dashboard/phases/no_active_experiment" %>
-          <% elsif uncompleted_active_experiment? %>
-          <%= render "dashboard/phases/active_experiment" %>
-          <% elsif completed_active_experiment? %>
-          <%= render "dashboard/phases/completed_experiment" %>
-          <% end %>
-        </section>
-      </div>
+        </div>
+      </section>
+      <section>
+        <% if @active_experiment.blank? %>
+        <%= render "dashboard/phases/no_active_experiment" %>
+        <% elsif uncompleted_active_experiment? %>
+        <%= render "dashboard/phases/active_experiment" %>
+        <% elsif completed_active_experiment? %>
+        <%= render "dashboard/phases/completed_experiment" %>
+        <% end %>
+      </section>
     </div>
   </div>
 </main>
