@@ -9,17 +9,17 @@
       <tr>
         <td class="bodycopy">
           Only 1.5 weeks to go to complete ‘<%= link_to @experiment.name, experiment_url(id: @experiment.slug, category: @experiment.category), class: "inline-link" %>’!<br><br>
-          This is a perfect moment to see what impact this has had on your life so far.<br><br>
+          This is a perfect moment to reflect on the impact this experiment has had on your life so far.<br><br>
         </td>
       </tr>
       <tr>
         <td class="bodycopy">
-          Have you noticed any of these benefits?<br>
-          <% @experiment.benefits.each do |benefit| %>
-            <span class="benefit benefit-<%= @experiment.category.name.downcase %>"><%= benefit.name %></span>
-          <% end %>
-
-          <br>
+          <strong>Have you noticed any of these benefits?</strong><br>
+          <ul>
+            <% @experiment.benefits.each do |benefit| %>
+            <li><%= benefit.name %></li>
+            <% end %>
+          </ul>
 
           And have there perhaps been other changes you’ve noticed in the past 1.5 weeks? <br><br>
         </td>
@@ -30,9 +30,7 @@
           Take a bit of time to think about this, so that you’re better able to decide whether this experiment
           is moving you into the right direction.<br><br>
 
-          Keep up the good work, changing habits is not easy.<br>
-          Celebrating you, wherever you are at!<br>
-
+          Keep up the good work, changing habits is not easy!<br>
         </td>
       </tr>
     </table>
