@@ -50,6 +50,7 @@ gem "sentry-rails"
 gem "sentry-ruby"
 
 group :development do
+  gem "bullet"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "pry-rails", "~> 0.3.9"
   gem "spring"
