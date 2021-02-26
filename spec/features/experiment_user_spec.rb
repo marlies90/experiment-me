@@ -443,4 +443,17 @@ RSpec.describe ExperimentUser, type: :feature do
       end
     end
   end
+
+  context "When editing an experiment_user from an email link" do
+    context "when not logged in" do
+      before do
+        logout
+      end
+
+      it "redirects to the login page" do
+        visit edit_experiment_user_url(id: experiment_user.id, experiment_id: experiment.id)
+        expect(page).to have_content "Log in"
+      end
+    end
+  end
 end

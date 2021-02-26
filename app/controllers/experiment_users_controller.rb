@@ -2,11 +2,11 @@
 
 class ExperimentUsersController < ApplicationController
   before_action :experiment, only: %i[new edit show]
+  before_action :experiment_user_experiment, only: %i[create update]
+  before_action :experiment_user, only: %i[show edit update]
   before_action :set_user
 
-  def show
-    experiment_user
-  end
+  def show; end
 
   def new
     if current_user
@@ -25,7 +25,6 @@ class ExperimentUsersController < ApplicationController
   end
 
   def create
-    @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
     @experiment_user = ExperimentUser.new(experiment_user_params)
     @experiment_user.user_id = current_user.id
     set_starting_experiment_user_attributes
@@ -38,14 +37,9 @@ class ExperimentUsersController < ApplicationController
     end
   end
 
-  def edit
-    experiment_user
-  end
+  def edit; end
 
   def update
-    @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
-    experiment_user
-
     if @experiment_user.uncompleted_active_experiment
       cancel_experiment
     elsif @experiment_user.completed_active_experiment
@@ -118,14 +112,22 @@ class ExperimentUsersController < ApplicationController
   end
 
   def experiment_user
-    @experiment_user ||= ExperimentUser.find_by(
-      experiment_id: @experiment.id, user_id: current_user.id
-    )
-    authorize @experiment_user
+    if current_user
+      @experiment_user ||= ExperimentUser.find_by(
+        experiment_id: @experiment.id, user_id: current_user&.id
+      )
+      authorize @experiment_user
+    else
+      redirect_to(new_user_session_path)
+    end
   end
 
   def experiment
     @experiment ||= Experiment.friendly.find(params[:experiment_id])
+  end
+
+  def experiment_user_experiment
+    @experiment = Experiment.friendly.find(params[:experiment_user][:experiment_id])
   end
 
   def set_user
