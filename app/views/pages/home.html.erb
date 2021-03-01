@@ -1,11 +1,11 @@
 <% content_for :meta_title, "Experiment.rocks - your Happiness Lab" %>
-<% content_for :meta_description, "Discover your happiest life - one experiment at a time! Track how you're feeling and try life experiments to find out what makes YOU happy." %>
+<% content_for :meta_description, "Do life experiments & track how you feel. Discover your power to create a life YOU love." %>
 
 <main role="main" class="bg-white overflow-hidden">
-  <section class="jumbotron-home text-center home-image d-block d-sm-none" style="background: url(<%= url_for(Image.find_by(name: "homepage_mobile")&.image) if Image.find_by(name: "homepage_mobile")&.image&.attached? %>); background-size: cover; height:30rem;">
+  <section class="jumbotron-home text-center home-image d-block d-sm-none pt-4" style="background: url(<%= url_for(Image.find_by(name: "homepage_mobile")&.image) if Image.find_by(name: "homepage_mobile")&.image&.attached? %>); background-size: cover; height:30rem;">
     <div class="container">
-      <h1 class="jumbotron-heading text-intense">Experiment.rocks</h1>
-      <p class="lead text-muted">Discover your happiest life - one experiment at a time</p>
+      <h1 class="jumbotron-heading text-intense h2">Experiment.rocks</h1>
+      <p class="lead text-muted">Do life experiments & track how you feel.<br> Discover your power to create a life YOU love.</p>
       <p>
         <a href="<%= categories_path %>" class="btn btn-primary my-2">View experiments</a>
         <% unless current_user.present? %>
@@ -18,7 +18,7 @@
   <section class="jumbotron-home text-left home-image d-none d-sm-block" style="background: url(<%= url_for(Image.find_by(name: "homepage_desktop")&.image) if Image.find_by(name: "homepage_desktop")&.image&.attached? %>); background-size: cover">
     <div class="container">
       <h1 class="jumbotron-heading text-intense">Experiment.rocks</h1>
-      <p class="lead text-muted">Discover your happiest life - one experiment at a time</p>
+      <p class="lead text-muted">Do life experiments & track how you feel.<br> Discover your power to create a life YOU love.</p>
       <p>
         <a href="<%= categories_path %>" class="btn btn-primary my-2">View experiments</a>
         <% unless current_user.present? %>
@@ -157,7 +157,7 @@
                 <h2 class="text-intense text-brand"><%= Experiment.all.count %></h2>
                 <span>
                   life experiments to choose from<br>
-                  (with new ones added weekly)
+                  (with new ones added regularly)
                 </span>
               </div>
             </div>
@@ -186,7 +186,7 @@
             On this site, you'll find the experiments that made the most impact in my life, plus experiments that I'm excited to try out.
           </p>
           <p>
-            Join in and start discovering your happiest life too!
+            Join in and start creating a life you love!
           </p>
           <p>
             Love, Marlies
