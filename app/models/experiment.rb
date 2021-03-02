@@ -10,6 +10,7 @@ class Experiment < ApplicationRecord
   has_many :users, through: :experiment_users
   has_many :experiment_benefits
   has_many :benefits, through: :experiment_benefits
+  has_many :observations
   has_one_attached :image
 
   accepts_nested_attributes_for :resources,

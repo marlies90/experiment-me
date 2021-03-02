@@ -79,7 +79,11 @@ module DashboardHelper
     format_dates(start_date, end_date)
 
     @selected_observations =
-      Observation.per_user(current_user).where(date: @start_date..@end_date).order(:date).all
+      Observation
+      .includes(experiment: :category)
+      .per_user(current_user)
+      .where(date: @start_date..@end_date)
+      .order(:date)
   end
 
   # rubocop:disable Metrics/AbcSize
@@ -100,10 +104,6 @@ module DashboardHelper
     else
       '<i class="fas fa-minus pr-0"></i>'.html_safe
     end
-  end
-
-  def observation_experiment(observation)
-    Experiment.find_by_id(observation&.experiment_id)
   end
 
   private

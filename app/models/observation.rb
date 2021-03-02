@@ -6,6 +6,7 @@ class Observation < ApplicationRecord
   include DateConcern
 
   belongs_to :user
+  belongs_to :experiment, optional: true
 
   validates_presence_of :date, :user_id, :mood, :sleep, :health, :relax, :connect, :meaning
   validates :experiment_success,

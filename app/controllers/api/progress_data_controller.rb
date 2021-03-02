@@ -16,9 +16,12 @@ class Api::ProgressDataController < Api::BaseController
       {
         name: category.capitalize,
         data: dates.map do |date|
-          observation = selected_observations.find_by(date: date.all_day)
-          if observation && @categories.include?(category)
-            [date.to_s(:journal_date), observation.send(category)]
+          observation_on_date = selected_observations.detect do |observation|
+            observation.date.between?(date.beginning_of_day, date.end_of_day)
+          end
+
+          if observation_on_date && @categories.include?(category)
+            [date.to_s(:journal_date), observation_on_date.send(category)]
           else
             [date.to_s(:journal_date), nil]
           end
