@@ -18,5 +18,5 @@ class Experiment < ApplicationRecord
 
   validates_presence_of :name, :description, :category, :objective, :benefits
 
-  scope :oldest_first, -> { order("id ASC") }
+  scope :oldest_first, -> { order("created_at ASC") }
 end

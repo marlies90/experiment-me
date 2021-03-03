@@ -65,7 +65,7 @@
                   <tr>
                     <td style="color:#ffffff;">
                       <a href="https://www.experiment.rocks">
-                        <img src="<%= url_for(Image.find_by(name: "logo").image) %>" alt="Experiment.rocks" width="150" height="100" style="display: block;" />
+                        <img src="<%= url_for(Image.find_by(name: "logo").image) if Image.find_by(name: "mobile")&.image&.attached? %>" alt="Experiment.rocks" width="150" height="100" style="display: block;" />
                       </a>
                     </td>
                   </tr>
