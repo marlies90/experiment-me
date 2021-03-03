@@ -5,11 +5,14 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <div class="navbar-nav mr-auto">
-      <span class="nav-item ml-2 <%= 'active' if current_page?(root_path) %>">
-        <a class="nav-link" href="<%= root_path %>">Home</a>
-      </span>
       <span class="nav-item ml-2 <%= 'active' if current_page?(categories_path) %>">
         <a class="nav-link" href="<%= categories_path %>">Experiments</a>
+      </span>
+      <span class="nav-item ml-2 <%= 'active' if current_page?(blog_posts_path) %>">
+        <a class="nav-link" href="<%= blog_posts_path %>">Blog</a>
+      </span>
+      <span class="nav-item ml-2 <%= 'active' if current_page?(about_path) %>">
+        <a class="nav-link" href="<%= about_path %>">About</a>
       </span>
     </div>
     <div class="navbar-nav mr-4">
