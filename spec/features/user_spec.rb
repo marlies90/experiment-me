@@ -134,7 +134,7 @@ RSpec.describe User, type: :feature do
       expect(page).to have_field("user_time_zone", with: "Amsterdam")
     end
 
-    it "allows the user to update their account" do
+    it "allows the user to update their timezone" do
       within ".account_settings" do
         select("Sarajevo", from: "user_time_zone")
         fill_in "user_current_password", with: user.password
@@ -142,6 +142,18 @@ RSpec.describe User, type: :feature do
       end
       expect(page).to have_content "Your account has been updated successfully"
       expect(user.reload.time_zone).to eq("Sarajevo")
+    end
+
+    it "allows the user to update their name and email" do
+      within ".account_settings" do
+        fill_in "user_first_name", with: "newnamewhodis"
+        fill_in "user_email", with: "mynewemail@gmail.com"
+        fill_in "user_current_password", with: user.password
+        click_button "Update account"
+      end
+      expect(page).to have_content "Your account has been updated successfully"
+      expect(user.reload.first_name).to eq("newnamewhodis")
+      expect(user.reload.email).to eq("mynewemail@gmail.com")
     end
 
     it "allows the user to update their password" do
