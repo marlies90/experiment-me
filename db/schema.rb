@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_155616) do
+ActiveRecord::Schema.define(version: 2021_03_08_152125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_155616) do
     t.string "slug"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "publish_date"
     t.index ["slug"], name: "index_blog_posts_on_slug", unique: true
   end
 
@@ -140,6 +141,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_155616) do
     t.text "title"
     t.text "practical_details"
     t.text "implementation_intention"
+    t.date "publish_date"
     t.index ["category_id"], name: "index_experiments_on_category_id"
     t.index ["slug"], name: "index_experiments_on_slug", unique: true
   end
@@ -160,6 +162,15 @@ ActiveRecord::Schema.define(version: 2021_02_12_155616) do
     t.string "alt"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "mail_preferences", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "mail_type", null: false
+    t.integer "status", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_mail_preferences_on_user_id"
   end
 
   create_table "observations", force: :cascade do |t|

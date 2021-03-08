@@ -75,4 +75,9 @@ RSpec.describe Experiment, type: :model do
     subject.implementation_intention = nil
     expect(subject).to be_valid
   end
+
+  it "is valid without a publish_date" do
+    subject.publish_date = nil
+    expect(subject).to be_valid
+  end
 end

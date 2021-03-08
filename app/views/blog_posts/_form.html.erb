@@ -38,6 +38,13 @@
       </div>
     </div>
 
+    <div class="col-12">
+      <div class="form-group">
+        <%= form.label :publish_date %>
+        <%= form.date_field :publish_date, class:"form-control" %>
+      </div>
+    </div>
+
     <div class="col-md-12">
       <div>
         <%= form.submit "Save blog post", class: "btn btn-primary" %>
