@@ -18,9 +18,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    @mail_preferences = MailPreference.per_user(current_user)
+    super
+  end
 
   # PUT /resource
   # def update

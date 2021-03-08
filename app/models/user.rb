@@ -17,4 +17,5 @@ class User < ApplicationRecord
   has_many :observations, dependent: :destroy
   has_many :experiment_users, dependent: :destroy
   has_many :experiments, through: :experiment_users, dependent: :destroy
+  has_many :mail_preferences
 end
