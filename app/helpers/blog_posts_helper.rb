@@ -11,4 +11,8 @@ module BlogPostsHelper
 
     number_of_blog_comments + number_of_replies
   end
+
+  def visible_date(blog_post)
+    blog_post.publish_date&.strftime("%e %b %Y") || blog_post.created_at.strftime("%e %b %Y")
+  end
 end

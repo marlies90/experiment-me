@@ -6,6 +6,7 @@ FactoryBot.define do
     summary { Faker::Lorem.paragraph }
     description { Faker::Lorem.paragraph }
     slug { Faker::Internet.slug }
+    publish_date { Date.current - 1 }
   end
 
   trait :with_comments do

@@ -4,7 +4,7 @@ class SitemapsController < ApplicationController
   def index
     @host = "#{request.protocol}#{request.host}"
     @categories = Category.all
-    @experiments = Experiment.all
-    @blog_posts = BlogPost.all
+    @experiments = Experiment.published
+    @blog_posts = BlogPost.published
   end
 end

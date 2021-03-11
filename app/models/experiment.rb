@@ -19,4 +19,7 @@ class Experiment < ApplicationRecord
   validates_presence_of :name, :description, :category, :objective, :benefits
 
   scope :oldest_first, -> { order("created_at ASC") }
+  scope :no_publish_date, -> { where(publish_date: nil) }
+  scope :publish_date_has_passed, -> { where("publish_date < ?", Date.current) }
+  scope :published, -> { no_publish_date.or(publish_date_has_passed) }
 end

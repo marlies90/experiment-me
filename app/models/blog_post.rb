@@ -10,4 +10,7 @@ class BlogPost < ApplicationRecord
   has_one_attached :image
 
   scope :newest_first, -> { order("created_at DESC") }
+  scope :no_publish_date, -> { where(publish_date: nil) }
+  scope :publish_date_has_passed, -> { where("publish_date <= ?", Date.current) }
+  scope :published, -> { no_publish_date.or(publish_date_has_passed) }
 end

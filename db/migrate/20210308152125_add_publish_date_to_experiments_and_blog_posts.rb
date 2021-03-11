@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPublishDateToExperimentsAndBlogPosts < ActiveRecord::Migration[6.1]
   def up
     add_column :experiments, :publish_date, :date

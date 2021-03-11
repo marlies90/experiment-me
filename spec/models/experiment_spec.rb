@@ -80,4 +80,30 @@ RSpec.describe Experiment, type: :model do
     subject.publish_date = nil
     expect(subject).to be_valid
   end
+
+  describe ".published" do
+    context "with a publish_date in the past" do
+      let(:experiment) { FactoryBot.create(:experiment) }
+
+      it "includes the blog post in the scope" do
+        expect(Experiment.published).to include experiment
+      end
+    end
+
+    context "with a publish_date in the future" do
+      let(:experiment) { FactoryBot.create(:experiment, publish_date: DateTime.current + 3) }
+
+      it "excludes the blog post from the scope" do
+        expect(Experiment.published).not_to include experiment
+      end
+    end
+
+    context "without a publish_date " do
+      let(:experiment) { FactoryBot.create(:experiment, publish_date: nil) }
+
+      it "includes the blog post in the scope" do
+        expect(Experiment.published).to include experiment
+      end
+    end
+  end
 end

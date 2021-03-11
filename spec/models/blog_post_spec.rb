@@ -33,4 +33,30 @@ RSpec.describe BlogPost, type: :model do
   #   subject.image = nil
   #   expect(subject).to_not be_valid
   # end
+
+  describe ".published" do
+    context "with a publish_date in the past" do
+      let(:blog_post) { FactoryBot.create(:blog_post) }
+
+      it "includes the blog post in the scope" do
+        expect(BlogPost.published).to include blog_post
+      end
+    end
+
+    context "with a publish_date in the future" do
+      let(:blog_post) { FactoryBot.create(:blog_post, publish_date: DateTime.current + 3) }
+
+      it "excludes the blog post from the scope" do
+        expect(BlogPost.published).not_to include blog_post
+      end
+    end
+
+    context "without a publish_date " do
+      let(:blog_post) { FactoryBot.create(:blog_post, publish_date: nil) }
+
+      it "includes the blog post in the scope" do
+        expect(BlogPost.published).to include blog_post
+      end
+    end
+  end
 end
