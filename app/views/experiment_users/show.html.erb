@@ -21,8 +21,8 @@
                 <span class="h5">Experiment details</span>
                 <p>
                   <span class="text-intense">Time frame:</span><br>
-                  From <%= (experiment_user(@experiment).starting_date).to_s(:journal_date_with_year) %>
-                  to <%= (experiment_user(@experiment).ending_date).to_s(:journal_date_with_year) %>
+                  From <%= @experiment_user.starting_date.to_s(:journal_date_with_year) %>
+                  to <%= @experiment_user.ending_date.to_s(:journal_date_with_year) %>
                 </p>
                 <p>
                   <span class="text-intense">Objective:</span><br>

@@ -63,31 +63,31 @@
       </div>
       <div class="row card-body">
         <div class="col-xs-12 col-lg-5 mb-2">
-          <img class="card-img" src="<%= url_for(@active_experiment.image) if @active_experiment.image.attached? %>">
+          <img class="card-img" src="<%= url_for(@active_experiment_user.experiment.image) if @active_experiment_user.experiment.image.attached? %>">
         </div>
         <div class="col-xs-12 col-lg-7 order-lg-first">
-          <p class="h5 text-intense text-<%= @active_experiment.category.name.downcase %>">
-            <%= @active_experiment.name %>
+          <p class="h5 text-intense text-<%= @active_experiment_user.experiment.category.name.downcase %>">
+            <%= @active_experiment_user.experiment.name %>
           </p>
           <p>
-            <i class="fas fa-trophy"></i> <%= @active_experiment.objective %>
+            <i class="fas fa-trophy"></i> <%= @active_experiment_user.experiment.objective %>
           </p>
         </div>
         <div class="col-xs-12 col-lg-10">
           <p class="mb-1">
             <strong>Practical details</strong>
           </p>
-          <span class="mt-0"><%= simple_format(sanitize(@active_experiment.practical_details, tags: %w(strong em a u), attributes: ["href", "target", "class"]), {}, sanitize: false) %></span>
+          <span class="mt-0"><%= simple_format(sanitize(@active_experiment_user.experiment.practical_details, tags: %w(strong em a u), attributes: ["href", "target", "class"]), {}, sanitize: false) %></span>
           <p class="mb-1">
             <strong>Potential benefits</strong>
           </p>
           <ul class="mt-0">
-            <% @active_experiment.benefits.each do |benefit| %>
-            <li class="btn btn-<%= @active_experiment.category.name.downcase %>"><%= benefit.name %></li>
+            <% @active_experiment_user.experiment.benefits.each do |benefit| %>
+            <li class="btn btn-<%= @active_experiment_user.experiment.category.name.downcase %>"><%= benefit.name %></li>
             <% end %>
           </ul>
           <p class="mb-0">
-            <u><a href="<%= experiment_path(id: @active_experiment.slug, category: @active_experiment.category) %>">See full experiment description ></a></u>
+            <u><a href="<%= experiment_path(id: @active_experiment_user.experiment.slug, category: @active_experiment_user.experiment.category) %>">See full experiment description ></a></u>
           </p>
         </div>
       </div>

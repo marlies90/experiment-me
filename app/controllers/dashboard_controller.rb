@@ -3,7 +3,6 @@
 class DashboardController < ApplicationController
   before_action :set_user
   before_action :active_experiment_user, only: %i[lab experiments]
-  before_action :active_experiment, only: %i[lab experiments]
 
   def lab; end
 
@@ -12,20 +11,16 @@ class DashboardController < ApplicationController
   def charts; end
 
   def experiments
-    @cancelled_experiments = Experiment.find(
-      @user.experiment_users&.cancelled&.map(&:experiment_id)
-    )
-    @completed_experiments = Experiment.find(
-      @user.experiment_users&.completed&.map(&:experiment_id)
-    )
+    completed_experiments
+    cancelled_experiments
   end
 
   def admin
     @categories = Category.all.oldest_first
-    @experiments = Experiment.all
+    @experiments = Experiment.includes(:category).all
     @benefits = Benefit.all
-    @blog_posts = BlogPost.all
-    @blog_comments = BlogComment.all
+    @blog_posts = BlogPost.includes(:blog_comments).all
+    @blog_comments = BlogComment.includes(:commentable).all
     @images = Image.all
   end
 
@@ -37,10 +32,24 @@ class DashboardController < ApplicationController
   end
 
   def active_experiment_user
-    @active_experiment_user ||= ExperimentUser.find_by_id(@user.experiment_users&.active&.first)
+    @active_experiment_user ||=
+      ExperimentUser
+      .includes(:user, experiment: %i[category benefits])
+      .where(user_id: @user.id, status: :active)
+      .first
   end
 
-  def active_experiment
-    @active_experiment = Experiment.find_by_id(@active_experiment_user&.experiment_id)
+  def completed_experiments
+    @completed_experiments =
+      ExperimentUser
+      .includes(:user, experiment: :category)
+      .where(user_id: @user.id, status: :completed)
+  end
+
+  def cancelled_experiments
+    @cancelled_experiments =
+      ExperimentUser
+      .includes(:user, experiment: :category)
+      .where(user_id: @user.id, status: :cancelled)
   end
 end

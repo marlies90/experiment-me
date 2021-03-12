@@ -55,8 +55,4 @@ module ExperimentHelper
   def completed_experiments_ids
     @current_user&.experiment_users&.completed&.map(&:experiment_id)
   end
-
-  def experiment_user(experiment)
-    ExperimentUser.find_by(user: current_user, experiment: experiment)
-  end
 end

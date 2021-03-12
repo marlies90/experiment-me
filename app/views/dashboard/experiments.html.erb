@@ -32,38 +32,38 @@
               <div class="row card-body">
                 <% if uncompleted_active_experiment? %>
                   <div class="col-xs-12 col-lg-4 mb-2">
-                    <img class="card-img" src="<%= url_for(@active_experiment.image) if @active_experiment.image.attached? %>">
+                    <img class="card-img" src="<%= url_for(@active_experiment_user.experiment.image) if @active_experiment_user.experiment.image.attached? %>">
                   </div>
                   <div class="col-xs-12 col-lg-8 order-lg-first">
-                    <p class="h5 text-intense text-<%= @active_experiment.category.name.downcase %>">
-                      <%= @active_experiment.name %>
+                    <p class="h5 text-intense text-<%= @active_experiment_user.experiment.category.name.downcase %>">
+                      <%= @active_experiment_user.experiment.name %>
                     </p>
                     <p>
-                      <i class="fas fa-trophy"></i> <%= @active_experiment.objective %>
+                      <i class="fas fa-trophy"></i> <%= @active_experiment_user.experiment.objective %>
                     </p>
                     <p class="mb-1">
                       <strong>Practical details</strong>
                     </p>
-                    <span class="mt-0"><%= simple_format(sanitize(@active_experiment.practical_details, tags: %w(strong em a u), attributes: ["href", "target", "class"]), {}, sanitize: false) %></span>
+                    <span class="mt-0"><%= simple_format(sanitize(@active_experiment_user.experiment.practical_details, tags: %w(strong em a u), attributes: ["href", "target", "class"]), {}, sanitize: false) %></span>
                     <p class="mb-1">
                       <strong>Potential benefits</strong>
                     </p>
                     <ul class="mt-0">
-                      <% @active_experiment.benefits.each do |benefit| %>
-                      <li class="btn btn-<%= @active_experiment.category.name.downcase %>"><%= benefit.name %></li>
+                      <% @active_experiment_user.experiment.benefits.each do |benefit| %>
+                      <li class="btn btn-<%= @active_experiment_user.experiment.category.name.downcase %>"><%= benefit.name %></li>
                       <% end %>
                     </ul>
                     <div class="mb-2">
                       <span>
                         <%= link_to "Details",
-                        experiment_path(id: @active_experiment.slug, category: @active_experiment.category),
+                        experiment_path(id: @active_experiment_user.experiment.slug, category: @active_experiment_user.experiment.category),
                         class: "btn btn-primary mr-1" %>
                       </span>
                       <span>
                         <%= link_to "Cancel experiment",
                         edit_experiment_user_path(
-                        id: experiment_user(@active_experiment).id,
-                        experiment_id: @active_experiment.id),
+                        id: @active_experiment_user.id,
+                        experiment_id: @active_experiment_user.experiment.id),
                         class: "btn btn-secondary" %>
                       </span>
                     </div>
@@ -73,8 +73,8 @@
                     🎊🎊🎊 Congratulations! You completed your experiment 🎊🎊🎊<br>
                     To finalize it, analyze your results and share your findings!<br>
                     <%= link_to "Finalize experiment", edit_experiment_user_path(
-                    id: ExperimentUser.find_by(experiment_id: @active_experiment.id, user_id: current_user.id).id,
-                    experiment_id: @active_experiment.id), class: "btn btn-primary mt-2" %>
+                    id: ExperimentUser.find_by(experiment_id: @active_experiment_user.experiment.id, user_id: current_user.id).id,
+                    experiment_id: @active_experiment_user.experiment.id), class: "btn btn-primary mt-2" %>
                   </div>
 
                 <% else %>
@@ -106,16 +106,16 @@
                           </tr>
                         </thead>
                         <tbody>
-                            <% @completed_experiments.each do |experiment| %>
+                            <% @completed_experiments.each do |experiment_user| %>
                             <tr class="d-flex">
-                              <th scope="row" class="col-4 col-sm-3 text-intense text-<%= experiment.category.name.downcase %>"><%= experiment.name %></th>
-                              <td class="col-3 starting_date"><%= (experiment_user(experiment).starting_date).to_s(:journal_date_with_year) %></td>
-                              <td class="col-3 ending_date"><%= (experiment_user(experiment).ending_date).to_s(:journal_date_with_year) %></td>
+                              <th scope="row" class="col-4 col-sm-3 text-intense text-<%= experiment_user.experiment.category.name.downcase %>"><%= experiment_user.experiment.name %></th>
+                              <td class="col-3 starting_date"><%= (experiment_user.starting_date).to_s(:journal_date_with_year) %></td>
+                              <td class="col-3 ending_date"><%= (experiment_user.ending_date).to_s(:journal_date_with_year) %></td>
                               <td class="col-5 col-sm-4">
                                 <%= link_to "View report",
                                 experiment_user_path(
-                                id: experiment_user(experiment)&.id,
-                                experiment_id: experiment.id),
+                                id: experiment_user&.id,
+                                experiment_id: experiment_user.experiment.id),
                                 class: "btn btn-secondary view_measurements" %>
                               </td>
                             </tr>
@@ -152,24 +152,24 @@
                           </tr>
                         </thead>
                         <tbody>
-                            <% @cancelled_experiments.each do |experiment| %>
+                            <% @cancelled_experiments.each do |experiment_user| %>
                             <tr class="d-flex">
-                              <th scope="row" class="col-4 col-sm-3 text-intense text-<%= experiment.category.name.downcase %>"><%= experiment.name %></th>
-                              <td class="col-3 starting_date"><%= (experiment_user(experiment).starting_date).to_s(:journal_date_with_year) %></td>
-                              <td class="col-3 ending_date"><%= (experiment_user(experiment).ending_date).to_s(:journal_date_with_year) %></td>
+                              <th scope="row" class="col-4 col-sm-3 text-intense text-<%= experiment_user.experiment.category.name.downcase %>"><%= experiment_user.experiment.name %></th>
+                              <td class="col-3 starting_date"><%= (experiment_user.starting_date).to_s(:journal_date_with_year) %></td>
+                              <td class="col-3 ending_date"><%= (experiment_user.ending_date).to_s(:journal_date_with_year) %></td>
                               <td class="col-5 col-sm-4">
                                 <%= link_to "Retry this experiment",
                                   edit_experiment_user_path(
-                                  id: experiment_user(experiment)&.id,
-                                  experiment_id: experiment.id),
-                                  class: already_doing_an_experiment ? "btn btn-primary disabled" : "btn btn-primary" %>
+                                  id: experiment_user&.id,
+                                  experiment_id: experiment_user.experiment.id),
+                                  class: @active_experiment_user.present? ? "btn btn-primary disabled" : "btn btn-primary" %>
                               </td>
                             </tr>
                           <% end %>
                         </tbody>
                       </table>
                     </div>
-                    <% if @cancelled_experiments.present? && already_doing_an_experiment %>
+                    <% if @cancelled_experiments.present? && @active_experiment_user.present? %>
                       <div class="mb-2"><em>* You can run only one experiment at a time. If you want to retry a cancelled experiment, first complete/cancel your current experiment.</em></div>
                     <% end %>
                   <% else %>

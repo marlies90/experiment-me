@@ -14,7 +14,7 @@
         </div>
       </section>
       <section>
-        <% if @active_experiment.blank? %>
+        <% if @active_experiment_user.nil? %>
         <%= render "dashboard/phases/no_active_experiment" %>
         <% elsif uncompleted_active_experiment? %>
         <%= render "dashboard/phases/active_experiment" %>

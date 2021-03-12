@@ -11,8 +11,8 @@
         </div>
         <div class="col-lg-6 mb-2 mb-md-2">
           <a href="<%= edit_experiment_user_path(
-          id: ExperimentUser.find_by(experiment_id: @active_experiment.id, user_id: current_user.id).id,
-          experiment_id: @active_experiment.id) %>">
+          id: @active_experiment_user.id,
+          experiment_id: @active_experiment_user.experiment.id) %>">
             <div class="card text-center mb-3">
               <div class="card-body card-action">
                 <p class="icon">
