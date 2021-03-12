@@ -83,7 +83,7 @@ module DashboardHelper
       .includes(experiment: :category)
       .per_user(current_user)
       .where(date: @start_date..@end_date)
-      .order(:date)
+      .order("date DESC")
   end
 
   # rubocop:disable Metrics/AbcSize
