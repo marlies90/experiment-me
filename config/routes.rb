@@ -53,6 +53,8 @@ Rails.application.routes.draw do
   get "/privacy-statement", to: "pages#privacy_statement"
   get "/terms-conditions", to: "pages#terms_conditions"
   get "/contact", to: "pages#contact"
+  get "/newest-blog-post", to: "pages#newest_blog_post"
+  get "/newest-experiment", to: "pages#newest_experiment"
 
   get "/sitemap", to: "sitemaps#index"
 
