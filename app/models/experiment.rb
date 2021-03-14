@@ -17,10 +17,8 @@ class Experiment < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: ->(attrs) { attrs["name"].blank? }
 
-  validates_presence_of :name, :description, :category, :objective, :benefits
+  validates_presence_of :name, :description, :category, :objective, :benefits, :publish_date
 
   scope :oldest_first, -> { order("created_at ASC") }
-  scope :no_publish_date, -> { where(publish_date: nil) }
-  scope :publish_date_has_passed, -> { where("publish_date < ?", Date.current) }
-  scope :published, -> { no_publish_date.or(publish_date_has_passed) }
+  scope :published, -> { where("publish_date < ?", Date.current + 1) }
 end

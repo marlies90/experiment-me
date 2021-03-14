@@ -21,6 +21,7 @@ RSpec.describe Experiment, type: :feature do
       fill_in "experiment_description", with: Faker::Lorem.paragraph
       # fill_in "Image", with: Faker::Avatar.image
       fill_in "Objective", with: Faker::Lorem.sentence
+      fill_in "experiment_publish_date", with: Date.today.strftime("%Y-%m-%d")
       page.check("experiment[benefit_ids][]")
 
       click_button "Save experiment"

@@ -24,9 +24,9 @@ RSpec.describe BlogPost, type: :model do
     expect(subject).to_not be_valid
   end
 
-  it "is valid without a publish_date" do
+  it "is not valid without a publish_date" do
     subject.publish_date = nil
-    expect(subject).to be_valid
+    expect(subject).to_not be_valid
   end
 
   # it "is not valid without an image" do
@@ -48,14 +48,6 @@ RSpec.describe BlogPost, type: :model do
 
       it "excludes the blog post from the scope" do
         expect(BlogPost.published).not_to include blog_post
-      end
-    end
-
-    context "without a publish_date " do
-      let(:blog_post) { FactoryBot.create(:blog_post, publish_date: nil) }
-
-      it "includes the blog post in the scope" do
-        expect(BlogPost.published).to include blog_post
       end
     end
   end

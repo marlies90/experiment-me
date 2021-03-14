@@ -33,7 +33,7 @@
                 <table class="buttonwrapper" bgcolor="#866ec7" border="0" cellspacing="0" cellpadding="0" style="border-radius: 8px;">
                   <tr>
                     <td class="button-primary" height="36">
-                      <%= link_to "Choose experiment", categories_url %>
+                      <%= link_to "Choose experiment", categories_url(utm_source: "welcome_mail", utm_medium: "email") %>
                     </td>
                   </tr>
                 </table>
@@ -61,7 +61,7 @@
                 <table class="buttonwrapper" bgcolor="#e9ecef" border="0" cellspacing="0" cellpadding="0" style="border-radius: 8px;">
                   <tr>
                     <td class="button-secondary" height="36">
-                      <%= link_to "Make an observation", observations_url %>
+                      <%= link_to "Make an observation", observations_url(utm_source: "welcome_mail", utm_medium: "email") %>
                     </td>
                   </tr>
                 </table>

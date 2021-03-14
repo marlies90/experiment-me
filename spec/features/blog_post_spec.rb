@@ -19,6 +19,7 @@ RSpec.describe BlogPost, type: :feature do
         fill_in "blog_post_name", with: Faker::Superhero.name
         fill_in "blog_post_summary", with: Faker::Lorem.paragraph
         fill_in "blog_post_description", with: Faker::Lorem.paragraph
+        fill_in "blog_post_publish_date", with: Date.today.strftime("%Y-%m-%d")
         # fill_in "Image", with: Faker::Avatar.image
 
         click_button "Save blog post"

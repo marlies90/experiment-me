@@ -12,6 +12,14 @@
   <% end %>
 
   <div class="row">
+    <% if @blog_post.persisted? %>
+      <div class="col-md-12">
+        <div class="form-group">
+          <u><%= link_to("View on site", blog_post_url(@blog_post), target: "_blank") %></u>
+        </div>
+      </div>
+    <% end %>
+
     <div class="col-md-6">
       <div class="form-group">
         <%= form.label :name %>
@@ -34,6 +42,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <%= form.label :image %>
+        (900 x something, <100kb)
         <%= form.file_field :image, class:"form-control" %>
       </div>
     </div>
