@@ -10,5 +10,5 @@ class BlogPost < ApplicationRecord
   has_one_attached :image
 
   scope :newest_first, -> { order("created_at DESC") }
-  scope :published, -> { where("publish_date <= ?", Date.current) }
+  scope :published, -> { where("publish_date < ?", Date.current + 1) }
 end
