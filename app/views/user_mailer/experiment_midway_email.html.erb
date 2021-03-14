@@ -8,7 +8,7 @@
       </tr>
       <tr>
         <td class="bodycopy">
-          Only 1.5 weeks to go to complete ‘<%= link_to @experiment.name, experiment_url(id: @experiment.slug, category: @experiment.category), class: "inline-link" %>’!<br><br>
+          Only 1.5 weeks to go to complete ‘<%= link_to @experiment.name, experiment_url(id: @experiment.slug, category: @experiment.category, utm_source: "experiment_midway", utm_medium: "email"), class: "inline-link" %>’!<br><br>
           This is a perfect moment to reflect on the impact this experiment has had on your life so far.<br><br>
         </td>
       </tr>
@@ -37,7 +37,7 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td class="bodycopy" style="padding: 20px 0 10px 0;">
-          <em>P.S. If you’ve decided not to continue this experiment right now, make sure to <%= link_to 'cancel it', dashboard_experiments_url, class: "inline-link" %> so that you can retry it later.</em><br><br>
+          <em>P.S. If you’ve decided not to continue this experiment right now, make sure to <%= link_to 'cancel it', dashboard_experiments_url(utm_source: "experiment_midway", utm_medium: "email"), class: "inline-link" %> so that you can retry it later.</em><br><br>
 
           Love,<br>
           Marlies

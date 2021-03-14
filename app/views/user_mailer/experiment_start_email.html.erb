@@ -15,7 +15,7 @@
         <td class="bodycopy">
           For the next 21 days, you’re trying out the experiment ‘<%= @experiment.name %>’.<br>
           Objective: <strong><%= @experiment.objective %></strong><br>
-          You’ll find all the details you need in your <%= link_to 'personal lab', dashboard_lab_url, class: "inline-link" %>.<br><br>
+          You’ll find all the details you need in your <%= link_to 'personal lab', dashboard_lab_url(utm_source: "experiment_start", utm_medium: "email"), class: "inline-link" %>.<br><br>
         </td>
       </tr>
       <tr>
@@ -54,7 +54,7 @@
                 <table class="buttonwrapper" bgcolor="#866ec7" border="0" cellspacing="0" cellpadding="0" style="border-radius: 8px;">
                   <tr>
                     <td class="button-primary" height="36">
-                      <%= link_to 'Add observation', observations_url %>
+                      <%= link_to 'Add observation', observations_url(utm_source: "experiment_start", utm_medium: "email") %>
                     </td>
                   </tr>
                 </table>

@@ -29,7 +29,7 @@
                   <tr>
                     <td class="button-primary" height="36">
                       <%= link_to "Complete '#{@experiment.name}'", edit_experiment_user_url(
-                      id: @experiment_user.id, experiment_id: @experiment.id) %>
+                      id: @experiment_user.id, experiment_id: @experiment.id, utm_source: "experiment_complete", utm_medium: "email") %>
                     </td>
                   </tr>
                 </table>
