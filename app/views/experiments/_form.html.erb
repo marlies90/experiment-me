@@ -12,54 +12,69 @@
   <% end %>
 
   <div class="row">
+    <% if @experiment.persisted? %>
+      <div class="col-md-12">
+        <div class="form-group">
+          <u><%= link_to("View on site", experiment_url(@experiment), target: "_blank") %></u>
+        </div>
+      </div>
+    <% end %>
+
     <div class="col-md-6">
       <div class="form-group">
         <%= form.label :name %>
         <%= form.text_field :name, class:"form-control" %>
-      </div>
-    </div>
-
-    <div class="col-md-12">
-      <div class="form-group">
-        <%= form.label :description %>
-        <%= form.text_area :description, class: "form-control", rows: 12 %>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :title %>
-      <%= form.text_area :title, class:"form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :description_meta %>
-      <%= form.text_area :description_meta, class:"form-control", rows: 3 %>
-    </div>
-
-    <div class="col-md-6">
-      <div class="form-group">
-        <%= form.label :category %>
-        <%= collection_select(:experiment, :category_id, Category.all, :id, :name) %>
-      </div>
-      <div class="form-group">
-        <%= form.label :image %>
-        <%= form.file_field :image, class:"form-control" %>
       </div>
 
       <div class="form-group">
         <%= form.label :objective %>
         <%= form.text_area :objective, class:"form-control" %>
       </div>
+
+      <div class="form-group">
+        <%= form.label :category %>
+        <%= collection_select(:experiment, :category_id, Category.all, :id, :name) %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= form.label :title %>
+        e.g. <em>Cut the crap » improve health</em>
+        <%= form.text_area :title, class:"form-control", rows: 1 %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :description_meta %>
+        <%= form.text_area :description_meta, class:"form-control", rows: 3 %>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= form.label :description %><br>
+        <em>"h3 class="h6 text-intense" for headings</em>
+        <%= form.text_area :description, class: "form-control", rows: 12 %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= form.label :image %>
+        (about 1900 x something, <200kb)
+        <%= form.file_field :image, class:"form-control" %>
+      </div>
     </div>
 
     <div class="col-md-12">
       <div class="form-group">
         <%= form.label :practical_details %>
-        <%= form.text_area :practical_details, class:"form-control" %>
+        <%= form.text_area :practical_details, class:"form-control", rows: 5 %>
       </div>
       <div class="form-group">
-        <%= form.label :implementation_intention %>
-        <%= form.text_area :implementation_intention, class:"form-control" %>
+        <%= form.label :implementation_intention %><br>
+        <em>When I feel like .., I will ... instead.</em>
+        <%= form.text_area :implementation_intention, class:"form-control", rows: 1 %>
       </div>
       <div class="form-group">
         <h3>Resources</h3>
