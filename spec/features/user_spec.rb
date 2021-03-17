@@ -12,8 +12,7 @@ RSpec.describe User, type: :feature do
 
     context "new profile" do
       let(:enqueued_jobs) { ActiveJob::Base.queue_adapter.enqueued_jobs }
-
-      it "allows for succesful creation of a new user profile" do
+      let(:valid_form_submit) do
         within ".form" do
           fill_in "user_first_name", with: Faker::Name.first_name
           fill_in "user_email", with: Faker::Internet.email
@@ -23,6 +22,11 @@ RSpec.describe User, type: :feature do
           page.check("user_terms_agreement")
         end
         click_button "Sign up"
+      end
+
+      it "allows for succesful creation of a new user profile" do
+        valid_form_submit
+
         expect(page).to have_content(
           "Welcome! You have signed up successfully"
         )
@@ -46,15 +50,7 @@ RSpec.describe User, type: :feature do
       end
 
       it "sends a welcome email" do
-        within ".form" do
-          fill_in "user_first_name", with: Faker::Name.first_name
-          fill_in "user_email", with: Faker::Internet.email
-          fill_in "user_password", with: "000000"
-          fill_in "user_password_confirmation", with: "000000"
-          select("(GMT+01:00) Amsterdam", from: "user_time_zone")
-          page.check("user_terms_agreement")
-        end
-        click_button "Sign up"
+        valid_form_submit
 
         expect(enqueued_jobs.last["arguments"]).to include("welcome_email")
       end
@@ -65,15 +61,25 @@ RSpec.describe User, type: :feature do
           .with("User", "Registration", "", "")
           .and_return(event)
 
-        within ".form" do
-          fill_in "user_first_name", with: Faker::Name.first_name
-          fill_in "user_email", with: Faker::Internet.email
-          fill_in "user_password", with: "000000"
-          fill_in "user_password_confirmation", with: "000000"
-          select("(GMT+01:00) Amsterdam", from: "user_time_zone")
-          page.check("user_terms_agreement")
-        end
-        click_button "Sign up"
+        valid_form_submit
+      end
+
+      it "sets the mail preferences" do
+        valid_form_submit
+
+        expect(User.first.mail_preferences.size).to eq 3
+
+        expect(User.first.mail_preferences.first.mail_type)
+          .to eq(MailPreference.mail_types.keys.first)
+        expect(User.first.mail_preferences.first.status).to eq("active")
+
+        expect(User.first.mail_preferences.second.mail_type)
+          .to eq(MailPreference.mail_types.keys.second)
+        expect(User.first.mail_preferences.second.status).to eq("active")
+
+        expect(User.first.mail_preferences.last.mail_type)
+          .to eq(MailPreference.mail_types.keys.last)
+        expect(User.first.mail_preferences.last.status).to eq("active")
       end
     end
 

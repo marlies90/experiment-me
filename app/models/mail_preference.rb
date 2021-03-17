@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MailPreference < ApplicationRecord
   belongs_to :user
 

@@ -6,6 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   invisible_captcha only: [:create], honeypot: :age, scope: :user
   after_action :send_welcome_email, only: [:create]
   after_action :send_google_analytics_event, only: [:create]
+  after_action :set_mail_preferences, only: [:create]
 
   # GET /resource/sign_up
   # def new
@@ -79,5 +80,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
       "",
       params[:ga_client_id]
     ).event
+  end
+
+  def set_mail_preferences
+    return unless @user.save
+
+    MailPreference.mail_types.each_key do |mail_type|
+      @user.mail_preferences.create(
+        mail_type: mail_type,
+        status: :active
+      )
+    end
   end
 end

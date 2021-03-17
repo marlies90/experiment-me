@@ -22,7 +22,8 @@ class MailPreferencesController < ApplicationController
   end
 
   def set_mail_preference
-    @mail_preference = MailPreference.includes(:user).per_user(current_user).find_by(id: params[:id])
+    @mail_preference =
+      MailPreference.includes(:user).per_user(current_user).find_by(id: params[:id])
   end
 
   def mail_preference_params
