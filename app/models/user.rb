@@ -17,5 +17,7 @@ class User < ApplicationRecord
   has_many :observations, dependent: :destroy
   has_many :experiment_users, dependent: :destroy
   has_many :experiments, through: :experiment_users, dependent: :destroy
-  has_many :mail_preferences
+  has_many :mail_preferences, dependent: :destroy
+
+  accepts_nested_attributes_for :mail_preferences
 end

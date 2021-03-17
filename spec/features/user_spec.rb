@@ -128,56 +128,124 @@ RSpec.describe User, type: :feature do
   end
 
   context "When editing profile details" do
-    before do
-      login_as(user)
-      visit edit_user_registration_path
-    end
-
     let(:user) { FactoryBot.create(:user, time_zone: "Amsterdam") }
 
-    it "correctly show the user details" do
-      expect(page).to have_field("user_email", with: user.email)
-      expect(page).to have_field("user_time_zone", with: "Amsterdam")
-    end
-
-    it "allows the user to update their timezone" do
-      within ".account_settings" do
-        select("Sarajevo", from: "user_time_zone")
-        fill_in "user_current_password", with: user.password
-        click_button "Update account"
+    context "on the user model itself" do
+      before do
+        login_as(user)
+        visit edit_user_registration_path
       end
-      expect(page).to have_content "Your account has been updated successfully"
-      expect(user.reload.time_zone).to eq("Sarajevo")
-    end
 
-    it "allows the user to update their name and email" do
-      within ".account_settings" do
-        fill_in "user_first_name", with: "newnamewhodis"
-        fill_in "user_email", with: "mynewemail@gmail.com"
-        fill_in "user_current_password", with: user.password
-        click_button "Update account"
+      it "correctly show the user details" do
+        expect(page).to have_field("user_email", with: user.email)
+        expect(page).to have_field("user_time_zone", with: "Amsterdam")
       end
-      expect(page).to have_content "Your account has been updated successfully"
-      expect(user.reload.first_name).to eq("newnamewhodis")
-      expect(user.reload.email).to eq("mynewemail@gmail.com")
-    end
 
-    it "allows the user to update their password" do
-      within ".password_settings" do
-        fill_in "user_current_password", with: user.password
-        fill_in "user_password", with: "1234567"
-        fill_in "user_password_confirmation", with: "1234567"
-        click_button "Update password"
+      it "allows the user to update their timezone" do
+        within ".account_settings" do
+          select("Sarajevo", from: "user_time_zone")
+          click_button "Update account"
+        end
+        expect(page).to have_content "Your account has been updated successfully"
+        expect(user.reload.time_zone).to eq("Sarajevo")
       end
-      expect(page).to have_content "Your account has been updated successfully"
-      expect(user.reload.valid_password?("1234567")).to be(true)
+
+      it "allows the user to update their name and email" do
+        within ".account_settings" do
+          fill_in "user_first_name", with: "newnamewhodis"
+          fill_in "user_email", with: "mynewemail@gmail.com"
+          click_button "Update account"
+        end
+        expect(page).to have_content "Your account has been updated successfully"
+        expect(user.reload.first_name).to eq("newnamewhodis")
+        expect(user.reload.email).to eq("mynewemail@gmail.com")
+      end
+
+      it "allows the user to update their password" do
+        within ".password_settings" do
+          fill_in "user_current_password", with: user.password
+          fill_in "user_password", with: "1234567"
+          fill_in "user_password_confirmation", with: "1234567"
+          click_button "Update password"
+        end
+        expect(page).to have_content "Your account has been updated successfully"
+        expect(user.reload.valid_password?("1234567")).to be(true)
+      end
+
+      it "allows the user to delete their profile" do
+        click_button "Delete my account"
+
+        expect(page).to have_content "Your account has been deleted successfully"
+        expect { user.reload }.to raise_exception(ActiveRecord::RecordNotFound)
+      end
     end
 
-    it "allows the user to delete their profile" do
-      click_button "Delete my account"
+    context "mail_preferences" do
+      context "with all checkboxes selected" do
+        let!(:mail_preference_1) do
+          FactoryBot.create(:mail_preference, :active, :experiment_start, user: user)
+        end
 
-      expect(page).to have_content "Your account has been deleted successfully"
-      expect { user.reload }.to raise_exception(ActiveRecord::RecordNotFound)
+        let!(:mail_preference_2) do
+          FactoryBot.create(:mail_preference, :active, :experiment_midway, user: user)
+        end
+
+        let!(:mail_preference_3) do
+          FactoryBot.create(:mail_preference, :active, :experiment_end, user: user)
+        end
+
+        before do
+          login_as(user)
+          visit edit_user_registration_path
+        end
+
+        it "lets the user unsubscribe from certain emails" do
+          expect(User.first.mail_preferences.active.size).to eq 3
+
+          within ".mail_preferences" do
+            element = find("input[type='checkbox']", match: :first)
+            element.uncheck
+          end
+
+          click_button "Update mail settings"
+          expect(page).to have_content "Your account has been updated successfully"
+
+          expect(User.first.mail_preferences.active.size).to eq 2
+        end
+      end
+
+      context "with some checkboxes selected" do
+        let!(:mail_preference_1) do
+          FactoryBot.create(:mail_preference, :inactive, :experiment_start, user: user)
+        end
+
+        let!(:mail_preference_2) do
+          FactoryBot.create(:mail_preference, :active, :experiment_midway, user: user)
+        end
+
+        let!(:mail_preference_3) do
+          FactoryBot.create(:mail_preference, :active, :experiment_end, user: user)
+        end
+
+        before do
+          login_as(user)
+          visit edit_user_registration_path
+        end
+
+        it "lets the user re-subscribe to a certain email" do
+          expect(User.first.mail_preferences.active.size).to eq 2
+
+          within ".mail_preferences" do
+            element = find("input[type='checkbox']", match: :first)
+            element.check
+          end
+
+          click_button "Update mail settings"
+          expect(page).to have_content "Your account has been updated successfully"
+
+          expect(User.first.mail_preferences.active.size).to eq 3
+        end
+      end
     end
   end
 end

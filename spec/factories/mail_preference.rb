@@ -3,7 +3,18 @@
 FactoryBot.define do
   factory :mail_preference do
     user { FactoryBot.build_stubbed(:user) }
-    mail_type { Faker::Number.between(from: 1, to: 3) }
     status { Faker::Number.between(from: 0, to: 1) }
+
+    trait :experiment_start do
+      mail_type { "experiment_start" }
+    end
+
+    trait :experiment_midway do
+      mail_type { "experiment_midway" }
+    end
+
+    trait :experiment_end do
+      mail_type { "experiment_end" }
+    end
   end
 end

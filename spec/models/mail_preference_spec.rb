@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe MailPreference, type: :model do
-  subject { build(:mail_preference) }
+  subject { build(:mail_preference, :experiment_start) }
 
   describe "associations" do
     it { is_expected.to respond_to(:user) }

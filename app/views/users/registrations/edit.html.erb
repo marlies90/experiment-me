@@ -48,11 +48,6 @@
                   <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
                   <% end %>
 
-                  <div class="form_group pb-2">
-                    <%= f.label :current_password %> <i>(to confirm your changes)</i><br />
-                    <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
-                  </div>
-
                   <div class="form_group mt-2">
                     <%= f.submit "Update account", class: "btn btn-primary" %>
                   </div>
@@ -122,7 +117,10 @@
                   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
 
                   <div class="form_group pb-2">
-                    <%= f.association :mail_preferences, as: :check_boxes %>
+                    <%= f.fields_for :mail_preferences do |mail_preference| %>
+                      <%= mail_preference.check_box :status, {}, 'active', 'inactive' %>
+                      <%= mail_preference.label :status, mail_preference.object.mail_type %><br>
+                    <% end %>
                   </div>
 
                   <div class="form_group mt-2">
