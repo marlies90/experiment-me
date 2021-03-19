@@ -10,15 +10,40 @@ RSpec.describe ExperimentEndMailJob, type: :job do
     let(:enqueued_jobs) { ActiveJob::Base.queue_adapter.enqueued_jobs }
 
     context "when the experiment ended in the last 12 hours" do
-      let!(:experiment_user) do
-        FactoryBot.create(:experiment_user, :active, ending_date: 11.hours.ago + 59.minutes)
+      context "when the mail_preference is active" do
+        let!(:experiment_user) do
+          FactoryBot.create(:experiment_user, :active, ending_date: 11.hours.ago + 59.minutes)
+        end
+
+        it "sends the email" do
+          subject.perform_now
+
+          expect(enqueued_jobs.last["arguments"]).to include("experiment_end_email")
+          expect(enqueued_jobs.size).to be 1
+        end
       end
 
-      it "sends the email" do
-        subject.perform_now
+      context "when the mail_preference is inactive" do
+        let(:user) { FactoryBot.create(:user) }
 
-        expect(enqueued_jobs.last["arguments"]).to include("experiment_end_email")
-        expect(enqueued_jobs.size).to be 1
+        let!(:experiment_user) do
+          FactoryBot.create(
+            :experiment_user,
+            :active,
+            ending_date: 11.hours.ago + 59.minutes,
+            user: user
+          )
+        end
+
+        let!(:mail_preference) do
+          FactoryBot.create(:mail_preference, :inactive, :experiment_end, user: user)
+        end
+
+        it "does not send the email" do
+          subject.perform_now
+
+          expect(enqueued_jobs.size).to be 0
+        end
       end
     end
 

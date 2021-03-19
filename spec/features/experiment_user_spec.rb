@@ -35,15 +35,18 @@ RSpec.describe ExperimentUser, type: :feature do
     context "when logged in" do
       context "without any other active experiment" do
         let!(:experiment_user) { nil }
-
-        before { click_link "Start this experiment" }
-
-        it "allows the user to start a new experiment today" do
+        let(:complete_experiment_start_form) do
           select("Today", from: "experiment_user_starting_date")
           all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
             score.choose(class: "radio_buttons", option: "4")
           end
           click_button "Start this experiment"
+        end
+
+        before { click_link "Start this experiment" }
+
+        it "allows the user to start a new experiment today" do
+          complete_experiment_start_form
           find(".sidebar .experiments").click
 
           within ".current_experiment" do
@@ -85,14 +88,24 @@ RSpec.describe ExperimentUser, type: :feature do
           expect(page).to_not have_content "You're cancelling the experiment"
         end
 
-        it "sends the experiment start mail" do
-          select("Today", from: "experiment_user_starting_date")
-          all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
-            score.choose(class: "radio_buttons", option: "4")
-          end
-          click_button "Start this experiment"
+        context "when the mail_preference is active" do
+          it "sends the experiment start email" do
+            complete_experiment_start_form
 
-          expect(enqueued_jobs.first["arguments"]).to include("experiment_start_email")
+            expect(enqueued_jobs.first["arguments"]).to include("experiment_start_email")
+          end
+        end
+
+        context "when the mail_preference is inactive" do
+          let!(:mail_preference) do
+            FactoryBot.create(:mail_preference, :inactive, :experiment_start, user: current_user)
+          end
+
+          it "does not send the experiment start email" do
+            complete_experiment_start_form
+
+            expect(enqueued_jobs.first["arguments"]).not_to include("experiment_start_email")
+          end
         end
 
         it "sends an event to Google Analytics" do
@@ -101,11 +114,7 @@ RSpec.describe ExperimentUser, type: :feature do
             .with("Experiment user", "Creation", experiment.slug.to_s, "")
             .and_return(event)
 
-          select("Today", from: "experiment_user_starting_date")
-          all(class: "experiment_user_experiment_user_measurements_starting_score").each do |score|
-            score.choose(class: "radio_buttons", option: "4")
-          end
-          click_button "Start this experiment"
+          complete_experiment_start_form
         end
       end
 

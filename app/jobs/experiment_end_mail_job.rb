@@ -8,6 +8,11 @@ class ExperimentEndMailJob < ActiveJob::Base
     )
 
     experiment_users.map do |experiment_user|
+      next if experiment_user.user
+      &.mail_preferences
+      &.find_by(mail_type: "experiment_end")
+      &.inactive?
+
       UserMailer.with(
         user: experiment_user.user,
         experiment: experiment_user.experiment,

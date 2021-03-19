@@ -97,6 +97,8 @@ class ExperimentUsersController < ApplicationController
   end
 
   def send_experiment_user_start_mail
+    return if @user&.mail_preferences&.find_by(mail_type: "experiment_start")&.inactive?
+
     UserMailer.with(user: @user, experiment: @experiment).experiment_start_email.deliver_later
   rescue StandardError
     nil
