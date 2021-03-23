@@ -17,7 +17,7 @@
             <h1 class="text-intense"><%= @blog_post.name %></h1>
             <p><em><%= visible_date(@blog_post) %></em></p>
             <img class="card-img pb-4" src="<%= url_for(@blog_post.image) if @blog_post.image.attached? %>">
-            <%= simple_format(sanitize(@blog_post.description, attributes: ["href", "target", "class"]), {}, sanitize: false) %>
+            <%= simple_format(sanitize(add_header_css_classes_blog(@blog_post.description), attributes: ["href", "target", "class"]), {}, sanitize: false) %>
             <div id="comment_section_anchor"></div>
           </div>
         </div>

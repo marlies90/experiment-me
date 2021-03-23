@@ -28,7 +28,7 @@
           <div class="card-body row">
             <div class="col-md-8 experiment-content order-last order-md-first">
               <h2 class="text-intense h5">Description</h2>
-              <%= simple_format(sanitize(@experiment.description, attributes: ["href", "target", "class"]), {}, sanitize: false) %>
+              <%= simple_format(sanitize(add_header_css_classes_experiment(@experiment.description), attributes: ["href", "target", "class"]), {}, sanitize: false) %>
             </div>
             <div class="col-md-4 order-first order-md-last">
               <div>
