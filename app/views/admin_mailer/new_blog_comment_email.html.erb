@@ -1,0 +1,28 @@
+<tr>
+  <td class="innerpadding">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="bodycopy h3">
+          Hello dear self,
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          One or more new blog comments have been posted on these posts today:<br><br>
+        </td>
+      </tr>
+      <tr>
+        <td class="bodycopy">
+          <% @new_blog_comments.each do |blog_comment| %>
+            <% if blog_comment.commentable_type == "BlogPost" %>
+              <%= link_to "#{blog_comment.commentable.name}", blog_post_url(blog_comment.commentable.slug) %>
+            <% else %>
+              <%= link_to "#{blog_comment.commentable.commentable.name}", blog_post_url(blog_comment.commentable.commentable.slug) %>
+            <% end %>
+            <br>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
