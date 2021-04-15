@@ -14,4 +14,17 @@
   p {
     margin-bottom: 1.4rem;
   }
+
+  .blog-text img {
+    max-width: 17rem;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      max-width: 24rem;
+    }
+
+    @media (min-width: 1024px) {
+      max-width: 30rem;
+    }
+  }
 }

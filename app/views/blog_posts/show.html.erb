@@ -17,7 +17,9 @@
             <h1 class="text-intense"><%= @blog_post.name %></h1>
             <p><em><%= visible_date(@blog_post) %></em></p>
             <img class="card-img pb-4" src="<%= url_for(@blog_post.image) if @blog_post.image.attached? %>">
-            <%= simple_format(sanitize(add_header_css_classes_blog(@blog_post.description), attributes: ["href", "target", "class"]), {}, sanitize: false) %>
+            <div class="blog-text">
+              <%= simple_format(sanitize(transform_blog_input(@blog_post.description), attributes: ["href", "target", "class", "src", "alt"], tags: ["h1", "h2", "h3", "h4", "h5", "h6", "strong", "em", "a", 'img', "figcaption"]), {}, sanitize: false) %>
+            </div>
             <div id="comment_section_anchor"></div>
           </div>
         </div>
@@ -57,4 +59,6 @@
   $('.new_comment_on_comment').click(function() {
     $(".reveal_reply_section", this).removeClass('d-none');
   });
+
+  $('.blog-text img').parent().addClass("text-center")
 </script>

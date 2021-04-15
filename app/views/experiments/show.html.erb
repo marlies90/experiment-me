@@ -27,12 +27,12 @@
           </div>
           <div class="card-body row">
             <div class="col-md-8 experiment-content order-last order-md-first">
-              <h2 class="text-intense h5">Description</h2>
+              <h2 class="text-intense h4">Description</h2>
               <%= simple_format(sanitize(add_header_css_classes_experiment(@experiment.description), attributes: ["href", "target", "class"]), {}, sanitize: false) %>
             </div>
             <div class="col-md-4 order-first order-md-last">
               <div>
-                <h3 class="text-intense h5">Experiment benefits</h3>
+                <h3 class="text-intense h4">Experiment benefits</h3>
                 <ul>
                   <% @experiment.benefits.each do |benefit| %>
                   <li class="btn btn-<%= @experiment.category.name.downcase %>"><%= benefit.name %></li>
@@ -42,7 +42,7 @@
 
               <% if @experiment.resources.present? %>
                 <div class="d-none d-md-block">
-                  <h3 class="text-intense h5">More info</h3>
+                  <h3 class="text-intense h4">More info</h3>
                   <ul>
                     <% @experiment.resources.each do |resource| %>
                     <li class="pl-0"><u><%= link_to "#{resource.name}", "#{resource.source}", target: "_blank" %></u></li>
@@ -85,7 +85,7 @@
           <% if @experiment.resources.present? %>
             <div class="col">
               <div class="d-md-none">
-                <h3 class="text-intense h5">More info</h3>
+                <h3 class="text-intense h4">More info</h3>
                 <ul>
                   <% @experiment.resources.each do |resource| %>
                   <li class="pl-0"><u><%= link_to "#{resource.name}", "#{resource.source}", target: "_blank" %></u></li>
