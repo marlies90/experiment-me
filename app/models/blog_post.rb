@@ -9,6 +9,6 @@ class BlogPost < ApplicationRecord
   has_many :blog_comments, as: :commentable, dependent: :destroy
   has_one_attached :image
 
-  scope :newest_first, -> { order("created_at DESC") }
+  scope :newest_first, -> { order("publish_date DESC") }
   scope :published, -> { where("publish_date < ?", Date.current + 1) }
 end

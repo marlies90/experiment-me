@@ -21,12 +21,14 @@
               <tr>
                 <th>Name</th>
                 <th>Category</th>
+                <th>Publish date</th>
                 <th>Actions</th>
               </tr>
               <% @experiments.each do |experiment| %>
               <tr>
-                <td><%= experiment.name %></td>
-                <td><%= experiment.category.name %></td>
+                <td><%= "🔮 " if experiment.publish_date > Date.today %><%= experiment.name %></td>
+                <td><span class="btn-<%= experiment.category.name.downcase %> px-1 mx-1 rounded"><%= experiment.category.name %></span></td>
+                <td><%= experiment.publish_date.to_s(:date_month_year) %></td>
                 <td>
                   <span><%= link_to "Show", experiment_path(id: experiment.slug, category: experiment.category) %></span>
                   <span><%= link_to "Edit", edit_experiment_path(id: experiment.slug, category: experiment.category) %></span>
@@ -104,11 +106,13 @@
             <table class="table">
               <tr>
                 <th>Name</th>
+                <th>Publish date</th>
                 <th>Actions</th>
               </tr>
               <% @blog_posts.each do |blog_post| %>
               <tr>
-                <td><%= blog_post.name %></td>
+                <td><%= "🔮 " if blog_post.publish_date > Date.today %><%= blog_post.name %></td>
+                <td><%= blog_post.publish_date.to_s(:date_month_year) %></td>
                 <td>
                   <span><%= link_to "Show", blog_post_path(id: blog_post.slug) %></span>
                   <span><%= link_to "Edit", edit_blog_post_path(id: blog_post.slug) %></span>

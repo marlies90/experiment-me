@@ -122,8 +122,8 @@ RSpec.describe BlogPost, type: :feature do
     context "when viewing the show page" do
       it "shows the complete blog post" do
         click_link "Read this blog post", match: :first
-        expect(page).to have_content blog_post_2.name
-        expect(page).to have_content blog_post_2.description
+        expect(page).to have_content blog_post_1.name
+        expect(page).to have_content blog_post_1.description
       end
     end
   end

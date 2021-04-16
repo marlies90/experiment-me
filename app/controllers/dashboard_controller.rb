@@ -17,9 +17,9 @@ class DashboardController < ApplicationController
 
   def admin
     @categories = Category.all.oldest_first
-    @experiments = Experiment.includes(:category).all
+    @experiments = Experiment.includes(:category).all.newest_first
     @benefits = Benefit.all
-    @blog_posts = BlogPost.includes(:blog_comments).all
+    @blog_posts = BlogPost.includes(:blog_comments).all.newest_first
     @blog_comments = BlogComment.includes(:commentable).all
     @images = Image.all
   end

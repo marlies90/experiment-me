@@ -24,7 +24,7 @@ RSpec.describe InputTransformHelper, type: :helper do
 
     it "returns amount of days since start of the experiment and today" do
       expect(helper.add_header_css_classes_experiment(experiment_description)).to eq(
-        "<h3 class='text-intense h6'>the header</h3> and some content"
+        "<h3 class='text-intense h5'>the header</h3> and some content"
       )
     end
   end
