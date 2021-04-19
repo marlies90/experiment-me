@@ -1,5 +1,5 @@
-<% content_for :meta_title, "#{@blog_post.name} #{DEFAULT_META["meta_website"]}" %>
-<% content_for :meta_description, @blog_post.summary %>
+<% content_for :meta_title, @blog_post.meta_title || @blog_post.name %>
+<% content_for :meta_description, @blog_post.meta_description || @blog_post.summary %>
 
 <main role="main" class="bg-meaning">
   <section class="container my-4 px-0 overflow-hidden">

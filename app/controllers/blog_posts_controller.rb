@@ -49,7 +49,7 @@ class BlogPostsController < ApplicationController
 
   def blog_post_params
     params.fetch(:blog_post).permit(
-      :name, :summary, :description, :image, :publish_date
+      :name, :summary, :description, :image, :publish_date, :meta_title, :meta_description
     )
   end
 end
