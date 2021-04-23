@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_135931) do
+ActiveRecord::Schema.define(version: 2021_04_19_141608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,13 @@ ActiveRecord::Schema.define(version: 2021_04_19_135931) do
     t.text "meta_title"
     t.text "meta_description"
     t.index ["slug"], name: "index_blog_posts_on_slug", unique: true
+  end
+
+  create_table "blog_posts_experiments", id: false, force: :cascade do |t|
+    t.bigint "blog_post_id", null: false
+    t.bigint "experiment_id", null: false
+    t.index ["blog_post_id"], name: "index_blog_posts_experiments_on_blog_post_id"
+    t.index ["experiment_id"], name: "index_blog_posts_experiments_on_experiment_id"
   end
 
   create_table "categories", force: :cascade do |t|

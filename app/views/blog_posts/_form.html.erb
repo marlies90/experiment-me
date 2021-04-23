@@ -69,6 +69,13 @@
     </div>
 
     <div class="col-md-12">
+      <h3>Linked Experiments</h3>
+      <div class="form-group">
+        <%= form.association :experiments, as: :check_boxes, class: "form-control", wrapper: :horizontal_collection_inline %>
+      </div>
+    </div>
+
+    <div class="col-md-12">
       <div>
         <%= form.submit "Save blog post", class: "btn btn-primary" %>
       </div>

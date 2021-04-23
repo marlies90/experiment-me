@@ -11,6 +11,7 @@ RSpec.describe BlogPost, type: :feature do
     end
 
     context "When creating a new blog post" do
+      let!(:experiment) { FactoryBot.create(:experiment) }
       before do
         visit new_blog_post_path
       end
@@ -24,6 +25,17 @@ RSpec.describe BlogPost, type: :feature do
 
         click_button "Save blog post"
         expect(page).to have_content "Blog post was successfully created."
+      end
+
+      it "Succesfully links an experiment to this blog post" do
+        fill_in "blog_post_name", with: Faker::Superhero.name
+        fill_in "blog_post_summary", with: Faker::Lorem.paragraph
+        fill_in "blog_post_description", with: Faker::Lorem.paragraph
+        fill_in "blog_post_publish_date", with: Date.today.strftime("%Y-%m-%d")
+        page.check("blog_post[experiment_ids][]")
+
+        click_button "Save blog post"
+        expect(BlogPost.first.experiments.first).to eq(experiment)
       end
     end
 
