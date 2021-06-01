@@ -43,7 +43,7 @@ class BlogPostsController < ApplicationController
   private
 
   def set_blog_post
-    @blog_post = BlogPost.friendly.find(params[:id])
+    @blog_post ||= BlogPost.includes(experiments: :category).friendly.find(params[:id])
     authorize @blog_post
   end
 

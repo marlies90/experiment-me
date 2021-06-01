@@ -45,7 +45,7 @@ class ExperimentsController < ApplicationController
   private
 
   def set_experiment
-    @experiment = Experiment.friendly.find(params[:id])
+    @experiment ||= Experiment.includes(:blog_posts).friendly.find(params[:id])
     authorize @experiment
   end
 
