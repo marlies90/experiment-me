@@ -1,5 +1,5 @@
-<% content_for :meta_title, "#{@blog_post.name} #{DEFAULT_META["meta_website"]}" %>
-<% content_for :meta_description, @blog_post.summary %>
+<% content_for :meta_title, @blog_post.meta_title || @blog_post.name %>
+<% content_for :meta_description, @blog_post.meta_description || @blog_post.summary %>
 
 <main role="main" class="bg-meaning">
   <section class="container my-4 px-0 overflow-hidden">
@@ -22,6 +22,31 @@
             </div>
             <div id="comment_section_anchor"></div>
           </div>
+          <% if @blog_post.experiments.published.present? %>
+          <hr>
+            <div class="card-body row blog-related-experiments">
+              <div class="col-12">
+                <% if @blog_post.experiments.published.size == 1 %>
+                  <h3 class="text-intense h4">Try out this related experiment</h3>
+                <% else %>
+                  <h3 class="text-intense h4">Try out these related experiments</h3>
+                <% end %>
+              </div>
+              <% @blog_post.experiments.published.each do |experiment| %>
+                <div class="col-md-6">
+                  <div class="card mb-4 shadow-sm">
+                    <a href="<%= experiment_path(id: experiment.slug, category: experiment.category) %>">
+                      <%= image_tag experiment.image, class: "card-img-top" if experiment.image.attached? %>
+                      <div class="card-body">
+                        <h4 class="text-intense text-<%= experiment.category.name.downcase %>"><%= experiment.name %></h4>
+                        <p class="card-text"><i class="fas fa-trophy"></i><%= experiment.objective %></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
         </div>
 
         <div class="card mt-4">

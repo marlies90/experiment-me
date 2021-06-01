@@ -25,14 +25,26 @@
         <%= form.label :name %>
         <%= form.text_field :name, class:"form-control" %>
       </div>
+
+      <div class="form-group">
+        <%= form.label :summary %>
+        <%= form.text_area :summary, class:"form-control", rows: 4 %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= form.label :meta_title %>
+        <%= form.text_field :meta_title, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :meta_description %>
+        <%= form.text_area :meta_description, class:"form-control" %>
+      </div>
     </div>
 
     <div class="col-md-12">
-      <div class="form-group">
-        <%= form.label :summary %>
-        <%= form.text_area :summary, class:"form-control" %>
-      </div>
-
       <div class="form-group">
         <%= form.label :description %><br>
         Adding an image: '<em>image:image_name</em>'<br>
@@ -53,6 +65,13 @@
       <div class="form-group">
         <%= form.label :publish_date %>
         <%= form.date_field :publish_date, class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <h3>Linked Experiments</h3>
+      <div class="form-group">
+        <%= form.association :experiments, as: :check_boxes, class: "form-control", wrapper: :horizontal_collection_inline %>
       </div>
     </div>
 

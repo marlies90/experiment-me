@@ -43,13 +43,14 @@ class BlogPostsController < ApplicationController
   private
 
   def set_blog_post
-    @blog_post = BlogPost.friendly.find(params[:id])
+    @blog_post ||= BlogPost.includes(experiments: :category).friendly.find(params[:id])
     authorize @blog_post
   end
 
   def blog_post_params
     params.fetch(:blog_post).permit(
-      :name, :summary, :description, :image, :publish_date
+      :name, :summary, :description, :image, :publish_date, :meta_title, :meta_description,
+      experiment_ids: []
     )
   end
 end

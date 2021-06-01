@@ -29,6 +29,16 @@ RSpec.describe BlogPost, type: :model do
     expect(subject).to_not be_valid
   end
 
+  it "is valid without a meta_title" do
+    subject.meta_title = nil
+    expect(subject).to be_valid
+  end
+
+  it "is valid without a meta_description" do
+    subject.meta_description = nil
+    expect(subject).to be_valid
+  end
+
   # it "is not valid without an image" do
   #   subject.image = nil
   #   expect(subject).to_not be_valid

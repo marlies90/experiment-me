@@ -26,11 +26,11 @@
             </div>
           </div>
           <div class="card-body row">
-            <div class="col-md-8 experiment-content order-last order-md-first">
+            <div class="col-lg-8 experiment-content order-last order-lg-first">
               <h2 class="text-intense h4">Description</h2>
               <%= simple_format(sanitize(add_header_css_classes_experiment(@experiment.description), attributes: ["href", "target", "class"]), {}, sanitize: false) %>
             </div>
-            <div class="col-md-4 order-first order-md-last">
+            <div class="col-lg-4 order-first order-lg-last">
               <div>
                 <h3 class="text-intense h4">Experiment benefits</h3>
                 <ul>
@@ -38,10 +38,29 @@
                   <li class="btn btn-<%= @experiment.category.name.downcase %>"><%= benefit.name %></li>
                   <% end %>
                 </ul>
+                <% if @experiment.blog_posts.published.present? %>
+                  <div class="d-none d-lg-block">
+                    <h3 class="text-intense h4">Related blog posts</h3>
+                    <ul>
+                      <% @experiment.blog_posts.published.each do |blog_post| %>
+                        <a href="<%= blog_post_path(blog_post.slug) %>">
+                          <div class="row border rounded mx-0 mt-2">
+                            <div class="col-4 align-self-center pl-0">
+                              <img class="card-img" src="<%= url_for(blog_post.image) if blog_post.image.attached? %>">
+                            </div>
+                            <div class="col-8 align-self-center pl-0">
+                              <%= blog_post.name %>
+                            </div>
+                          </div>
+                        </a>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
               </div>
 
               <% if @experiment.resources.present? %>
-                <div class="d-none d-md-block">
+                <div class="d-none d-lg-block">
                   <h3 class="text-intense h4">More info</h3>
                   <ul>
                     <% @experiment.resources.each do |resource| %>
@@ -81,10 +100,12 @@
               go to the <u><%= link_to("experiment overview page", dashboard_experiments_path) %></u>.</span>
             <% end %>
           </div>
+        </div>
 
-          <% if @experiment.resources.present? %>
-            <div class="col">
-              <div class="d-md-none">
+        <% if @experiment.resources.present? || @experiment.blog_posts.published.present? %>
+          <div class="card mb-4 d-lg-none">
+            <% if @experiment.resources.present? %>
+              <div class="col pt-4">
                 <h3 class="text-intense h4">More info</h3>
                 <ul>
                   <% @experiment.resources.each do |resource| %>
@@ -92,9 +113,29 @@
                   <% end %>
                 </ul>
               </div>
-            </div>
-          <% end %>
-        </div>
+              <% end %>
+
+              <% if @experiment.blog_posts.published.present? %>
+              <div class="col pt-4">
+                <h3 class="text-intense h4">Related blog posts</h3>
+                <ul>
+                  <% @experiment.blog_posts.published.each do |blog_post| %>
+                    <a href="<%= blog_post_path(blog_post.slug) %>">
+                      <div class="row border rounded mx-0 mt-2">
+                        <div class="col-4 align-self-center pl-0">
+                          <img class="card-img" src="<%= url_for(blog_post.image) if blog_post.image.attached? %>">
+                        </div>
+                        <div class="col-8 align-self-center pl-0">
+                          <%= blog_post.name %>
+                        </div>
+                      </div>
+                    </a>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </section>
