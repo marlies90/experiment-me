@@ -11,7 +11,7 @@ gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 4.3"
 gem "rails", "~> 6.1.3"
 gem "redis"
-gem "sidekiq", "< 6"
+gem "sidekiq", "< 7"
 gem "sidekiq-cron", "~> 1.2"
 
 # layout
